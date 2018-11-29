@@ -5,4 +5,5 @@ using UnityEngine;
 public class Skill
 {
     string name;
+    EventPool eventPool;
 }

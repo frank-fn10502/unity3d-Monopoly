@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Event
+public class Actor
 {
     string name;
-    bool isGood;
+    Skill skill;
+    Dice dice;
 }

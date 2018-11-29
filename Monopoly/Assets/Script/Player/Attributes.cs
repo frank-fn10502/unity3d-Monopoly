@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Event
+public class Attributes
 {
-    string name;
-    bool isGood;
+    int leadership;
+    int diplomatic;
+    int peace;
 }

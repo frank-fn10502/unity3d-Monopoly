@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Event
+public class Dice
 {
-    string name;
-    bool isGood;
+    int[] face;
 }

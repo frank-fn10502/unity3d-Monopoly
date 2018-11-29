@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Event
+public class BaseBuilding
 {
-    string name;
-    bool isGood;
 }

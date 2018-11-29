@@ -4,4 +4,5 @@ using UnityEngine;
 
 public class EventBlock : BaseBlock
 {
+    EventPool eventPool;
 }
