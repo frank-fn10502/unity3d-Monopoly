@@ -8,4 +8,5 @@ public class Resource
     int civilian;
     int mineral;
     int antidote;
+    List<BaseBlock> blockList;
 }
