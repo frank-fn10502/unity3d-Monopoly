@@ -7,8 +7,13 @@ public abstract class BaseBlock
     //image
     protected Vector2  Location;
     protected Walkable identity;
-    protected bool[]   path;
+    protected List<Direction> directionList;
     protected List<Group> influenceList;
+
+    public BaseBlock()
+    {
+        directionList = new List<Direction>();
+    }
 
     public void stopAction(Group group)
     {
