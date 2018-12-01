@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class BaseBlock
 {
-    //image
     protected Vector3  location;
     protected Walkable identity;
     protected List<Direction> directionList;

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BlockEntity
-{    
-    private GameObject blockEntity;
+{   
     private BaseBlock  block;
     private Area       area;
+    private GameObject blockEntity;
 
     public BaseBlock Block
     {
@@ -34,7 +34,7 @@ public class BlockEntity
 
     public void build()
     {
-        if ( block.Identity == Walkable.NoMan || block.Identity == Walkable.Ape )
+        if ( block.Identity == Walkable.NoMan || block.Identity == Walkable.ApeShortcut )
         {
             setBackground(block.Location);
         }

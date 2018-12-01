@@ -73,7 +73,7 @@ public class Map
                 {
                     blockEntityList[index] = new BlockEntity(Area.Forest);
                     blockEntityList[index].Block = new BuildingBlock();
-                    blockEntityList[index].Block.Identity = Walkable.Ape;
+                    blockEntityList[index].Block.Identity = Walkable.ApeShortcut;
 
                     n = ( ( n + 1 ) < rows[i].Length ? ++n : n );
                 }
@@ -140,7 +140,7 @@ public class Map
                 {
                     n = ( ( n + 1 ) < rows[i].Length ? ++n : n );
 
-                    if( blockEntityList[index].Block.Identity  != Walkable.Ape)
+                    if( blockEntityList[index].Block.Identity == Walkable.NoMan)
                     {
                         blockEntityList[index].Block.Identity = Walkable.Human;
                     }                        
