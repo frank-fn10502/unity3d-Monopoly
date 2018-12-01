@@ -14,8 +14,10 @@ public class Map
         blockEntityList = new BlockEntity[30 * 30];
 
         createPassIdentity();
-        createPath();       
-
+        createPath();
+    }
+    public void build()
+    {
         for ( int i = 0 ; i < 30 ; i++ )
         {
             for ( int j = 0 ; j < 30 ; j++ )

@@ -9,6 +9,7 @@ public class World : MonoBehaviour
     void Start ()
     {
         map = new Map();
+        map.build();
     }
 	
 	// Update is called once per frame

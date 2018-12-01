@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EventBlock : BaseBlock
 {
-    EventPool eventPool;
+    private EventPool eventPool;
 
     public EventBlock() : this(Vector3.zero ,Walkable.NoMan)
     {
