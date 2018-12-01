@@ -14,7 +14,7 @@ public class Group
     private Resource   resource;
     private Vector3    location;
 
-    private int blockIndex;
+    private int       blockIndex;
     private Direction enterDirection;
 
     public void move(Vector3 now ,Vector3 next ,int step)
