@@ -14,7 +14,7 @@ public class World
         map = new Map();
         //設定 4 個 group
         //讀檔?
-        //setGroupList();
+        setGroupList();
 
         currentGroup = 0;
     }
@@ -47,7 +47,7 @@ public class World
         for ( int i = 0 ; i < Constants.PLAYERNUMBER ; i++ )
         {
             groupList[i] = new Group(null
-                                    ,createActors(playerLocation[i])
+                                    ,createActors(playerLocation[i] ,"test")
                                     ,new Attributes(20 ,20 ,20)
                                     ,new Resource()
                                     ,playerLocation[i]

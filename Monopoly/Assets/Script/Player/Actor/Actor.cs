@@ -11,10 +11,12 @@ public class Actor
 
     public Actor(string name ,Skill skill ,Dice dice ,Vector3 location)
     {
-        this.name  = name;
+        this.name = name;
         this.skill = skill;
-        this.dice  = dice;
+        this.dice = dice;
         //建造實體
+        GameObject entity = new GameObject();
+        renderer.material = Resources.Load<GameObject>("PreFab/" + name);
         entity.transform.position = location;
     }
 
