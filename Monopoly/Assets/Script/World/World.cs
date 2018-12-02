@@ -14,7 +14,7 @@ public class World
         map = new Map();
         //設定 4 個 group
         //讀檔?
-        setGroupList();
+        //setGroupList();
 
         currentGroup = 0;
     }

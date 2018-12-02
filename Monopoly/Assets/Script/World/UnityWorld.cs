@@ -15,6 +15,8 @@ public class UnityWorld : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        /*
         world.playerAction();
+        */
 	}
 }
