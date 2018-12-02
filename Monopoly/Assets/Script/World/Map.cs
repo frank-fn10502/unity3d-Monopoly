@@ -16,6 +16,15 @@ public class Map
         createPassIdentity();
         createPath();
     }
+
+    public BlockEntity[] BlockEntityList
+    {
+        get
+        {
+            return blockEntityList;
+        }
+    }
+
     public void build()
     {
         for ( int i = 0 ; i < 30 ; i++ )
