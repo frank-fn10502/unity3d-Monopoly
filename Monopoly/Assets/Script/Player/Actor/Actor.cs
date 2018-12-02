@@ -15,8 +15,10 @@ public class Actor
         this.skill = skill;
         this.dice = dice;
         //建造實體
-        GameObject entity = Resources.Load<GameObject>("PreFab/" + name);
-               
+        //GameObject entity = Resources.Load<GameObject>("PreFab/" + name);
+        GameObject entity = new GameObject();
+
+
         entity.transform.position = location;
         GameObject.Instantiate(entity);
     }
