@@ -10,7 +10,7 @@ public class Actor
     private GameObject entity;
     private World world;
 
-    public Actor(World world ,string name ,Skill skill ,Dice dice ,Vector3 location)
+    public Actor(World world ,string name ,Skill skill ,Dice dice ,Vector3 location ,Direction enterDirection)
     {
         this.world = world;
         this.name = name;
@@ -20,7 +20,8 @@ public class Actor
         entity = Resources.Load<GameObject>("PreFab/Actor/" + name);
         entity = GameObject.Instantiate(entity);
         //GameObject entity = new GameObject();
-        entity.transform.position = location;      
+        entity.transform.position = location;
+        setRotation(enterDirection);
     }
 
     public string Name
@@ -50,7 +51,28 @@ public class Actor
     {
         //播放動畫
         entity.GetComponent<AnimationController>().running = true;
+
+        Quaternion quate = Quaternion.identity;
+        if ( location.x > entity.transform.position.x )
+        {
+            quate.eulerAngles = new Vector3(0 ,90 ,0);
+        }
+        else if ( location.x < entity.transform.position.x )
+        {
+            quate.eulerAngles = new Vector3(0 ,270 ,0);
+        }
+
+        if( location.z > entity.transform.position.z )
+        {
+            quate.eulerAngles = new Vector3(0 ,0 ,0);
+        }
+        else if( location.z < entity.transform.position.z )
+        {                       
+            quate.eulerAngles = new Vector3(0 ,180 ,0);
+        }
+        this.entity.transform.rotation = quate;
         entity.transform.position = location + new Vector3(0 ,0.2f ,0);
+        //setRotation(enterDirection);
     }
     public void stop()
     {
@@ -60,8 +82,29 @@ public class Actor
     public int rollDice()
     {
         //動畫
-        world.TotalStep = 0;//直接放數值
+        world.TotalStep = 3;//直接放數值
         world.CurrentGroup.State = PlayerState.findPath;//找道路
         return 0;
+    }
+
+    private void setRotation(Direction enterDirection)
+    {
+        Quaternion quate = Quaternion.identity;
+        switch ( enterDirection )
+        {
+            case Direction.West:
+                quate.eulerAngles = new Vector3(0 ,90 ,0);
+                break;
+            case Direction.North:
+                quate.eulerAngles = new Vector3(0 ,180 ,0);
+                break;
+            case Direction.East:
+                quate.eulerAngles = new Vector3(0 ,270 ,0);
+                break;
+            case Direction.South:
+                quate.eulerAngles = new Vector3(0 ,0 ,0);
+                break;
+        }
+        this.entity.transform.rotation = quate;
     }
 }

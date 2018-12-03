@@ -24,7 +24,6 @@ public class Position
     {
         this.entity = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
         this.entity.transform.localScale = new Vector3(0.4f ,0.1f ,0.4f);
-        //this.entity.transform.localScale = new Vector3(4 ,4 ,4);
 
         Renderer renderer =  this.entity.GetComponent<Renderer>();
         renderer.material = Resources.Load<Material>("Texture/Orange");

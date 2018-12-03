@@ -128,19 +128,21 @@ public class Group
         stepCount = 0;
     }
     public void move()//按照scout的Path移動
-    {
-        if ( scout.totalStep != -1 )//0
+    {       
+        if ( scout.totalStep != 0 )
         {
             move(scout.choicePath[0].location
-                ,scout.choicePath[1].location ,stepCount);
+                ,scout.choicePath[1].location ,++stepCount);
             //move(scout.choicePath[0].location
             //    ,new Vector3(-15 ,0 ,-11) ,++stepCount);
         }
-        else if ( scout.totalStep == -1 )//0
+        else if ( scout.totalStep == 0 )
         {
-            actors[currentActor].stop();
-            state = PlayerState.nextPlayer;
+            actors[currentActor].stop();          
             //block.stopAction();
+            //this.EnterDirection = scout.choicePath[0].enterDirection;
+            scout.deleteDot(scout.choicePath[0]);//刪除走過的點
+            state = PlayerState.nextPlayer;
             Debug.Log("state " + state);
         }
         if ( stepCount == Constants.STEPTIMES )
@@ -149,6 +151,7 @@ public class Group
 
             if ( CurrentBlockIndex != scout.choicePath[1].blockIndex )
             {
+                this.EnterDirection    = scout.choicePath[1].enterDirection;
                 this.CurrentBlockIndex = scout.choicePath[1].blockIndex;
                 --scout.totalStep;
             }
@@ -166,6 +169,8 @@ public class Group
         float z = (next.z - now.z) * step / Constants.STEPTIMES;// * Time.deltaTime;
         location = new Vector3(now.x + x ,Constants.SEALEVEL ,now.z + z);
         Debug.Log(location);
+        Debug.Log("next: " + next + "now: " + now);
+        
 
         actors[currentActor].run(location);
     }

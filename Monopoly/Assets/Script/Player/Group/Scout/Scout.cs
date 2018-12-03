@@ -19,6 +19,7 @@ public class Scout
     }
     public void reconnoiter(Map map ,int totalStep)
     {
+        Debug.Log("totalStep " + totalStep);
         this.totalStep = totalStep;
 
         List<Position> path = new List<Position>();
@@ -52,13 +53,11 @@ public class Scout
     {
         choicePath = new List<Position>(pathList[pathNo]);
 
-        //摧毀cs
-        GameObject.Destroy(choicePath[choicePath.Count - 1].entity.GetComponent<UnityPath>());
         for(int i = 0 ; i < pathList.Count ; i++ )
         {
             if ( i == pathNo ) continue;
 
-            for(int j = 0 ,k = 0; j < pathList[i].Count ; i++ )
+            for(int j = 0 ,k = 0; j < pathList[i].Count ; j++ )
             {
                 if( pathList[i][j].entity == pathList[pathNo][k].entity)
                 {
@@ -71,6 +70,8 @@ public class Scout
             }
         }
 
+        //摧毀cs
+        GameObject.Destroy(choicePath[choicePath.Count - 1].entity.GetComponent<UnityPath>());
         pathList.Clear();
         group.State = PlayerState.Walking;//設定玩家狀態為"walking"
     }
@@ -91,8 +92,12 @@ public class Scout
             entity.AddComponent<UnityPath>();
             entity.GetComponent<UnityPath>().pathNo = i;
             entity.GetComponent<UnityPath>().scout = this;
-            entity.transform.localScale = new Vector3(1f ,0.1f ,1f);
+            entity.transform.localScale = new Vector3(1.5f ,0.1f ,1.5f);
             i++;
+        }
+        if(pathList.Count == 1)
+        {
+            //checkOutPath(0);
         }
     }
     private void dfsSearch(Map map ,List<Position> path ,Position position ,int step)
@@ -106,16 +111,16 @@ public class Scout
                     switch ( position.block.DirectionList[i] )
                     {
                         case Direction.East:
-                            setTempPath(Direction.West ,map ,path ,position ,1 ,step);
+                            setTempPath(Direction.West ,map ,path ,position ,30 ,step);
                             break;
                         case Direction.North:
-                            setTempPath(Direction.South ,map ,path ,position ,-30 ,step);
+                            setTempPath(Direction.South ,map ,path ,position ,1 ,step);
                             break;
                         case Direction.South:
-                            setTempPath(Direction.North ,map ,path ,position ,30 ,step);
+                            setTempPath(Direction.North ,map ,path ,position ,-1 ,step);
                             break;
                         case Direction.West:
-                            setTempPath(Direction.East ,map ,path ,position ,-1 ,step);
+                            setTempPath(Direction.East ,map ,path ,position ,-30 ,step);
                             break;
                     }
                 }

@@ -16,9 +16,9 @@ public class World
 
     public World()
     {
-        string json = File.ReadAllText(@"C:\Users\kevin\Documents\unity3d-Monopoly\Monopoly\Assets\Resources\Texture\map2.xsa");
+        string json = File.ReadAllText(@"C:\Users\Frank\Documents\unity_projects\unity3d-Monopoly\Monopoly\Assets\Resources\Texture\map.xsa");
         map = JsonConvert.DeserializeObject<Map>(json);
-        
+
         /*map = new Map();
         var json = JsonConvert.SerializeObject(map, Formatting.None,
             new JsonSerializerSettings()
@@ -27,6 +27,7 @@ public class World
             });
         File.WriteAllText(@"C:\Users\kevin\Documents\unity3d-Monopoly\Monopoly\Assets\Resources\Texture\map2.xsa", json);
         */
+        //map = new Map();
         map.build();
         
         //設定 4 個 group
@@ -67,6 +68,7 @@ public class World
                 isFinded = false;
                 if (Input.GetButtonDown("Jump") && !isRolled )
                 {
+                    
                     isRolled = true;
                     groupList[currentGroup].rollDice();
                 }
@@ -75,6 +77,7 @@ public class World
                 isRolled = false;
                 if ( !isFinded )
                 {
+                    
                     isFinded = true;
                     groupList[currentGroup].findPathList(map ,totalStep);
                 }
@@ -83,16 +86,16 @@ public class World
                 groupList[currentGroup].move();
                 break;
 
-            case PlayerState.nextPlayer:
-                CurrentGroup.State = PlayerState.rollingDice;
+            case PlayerState.nextPlayer:               
                 currentGroup = ( currentGroup + 1 ) % Constants.PLAYERNUMBER;
+                CurrentGroup.State = PlayerState.rollingDice;
                 break;
         }
     }
     private void setGroupList()
     {
         groupList = new Group[Constants.PLAYERNUMBER];
-        Direction[] playerDirection = new Direction [Constants.PLAYERNUMBER]{Direction.North ,Direction.East ,Direction.South ,Direction.West};
+        Direction[] playerDirection = new Direction [Constants.PLAYERNUMBER]{Direction.West ,Direction.North ,Direction.South ,Direction.East};
         int[] playerIndex = new int[Constants.PLAYERNUMBER]{2 * 30 + 2 ,2 * 30 + 27 ,27 * 30 + 2 ,27 * 30 + 27};
         Vector3[] playerLocation = new Vector3[Constants.PLAYERNUMBER]
                                       {map.BlockEntityList[2 * 30 + 2].Block.Location + new Vector3(0 ,0.2f ,0)
@@ -103,7 +106,7 @@ public class World
         for ( int i = 0 ; i < Constants.PLAYERNUMBER ; i++ )
         {
             groupList[i] = new Group(null
-                                    ,createActors(playerLocation[i] ,"Player1")
+                                    ,createActors(playerLocation[i] ,"Player1" ,playerDirection[i])
                                     ,new Attributes(20 ,20 ,20)
                                     ,new Resource()
                                     ,playerLocation[i]
@@ -111,12 +114,12 @@ public class World
                                     ,playerDirection[i]);
         }
     }
-    private Actor[] createActors(Vector3 location ,string name)
+    private Actor[] createActors(Vector3 location ,string name ,Direction enterDirection)
     {
         Actor[] actors = new Actor[Constants.ACTORTOTALNUM];
         for ( int i = 0 ; i < Constants.ACTORTOTALNUM ; i++ )
         {
-            actors[i] = new Actor(this ,name ,null ,createDice() ,location);
+            actors[i] = new Actor(this ,name ,null ,createDice() ,location ,enterDirection);
         }
 
         return actors;

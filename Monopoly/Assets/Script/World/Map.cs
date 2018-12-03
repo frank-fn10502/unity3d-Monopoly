@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 public class Map
 {
     private Vector3 startRowPos = new Vector3(0 , 0 ,0);
+    //private Vector3 startRowPos = new Vector3(-15 , 0 ,-15);
     private int index;
     private Vector3 tempRowPos;
     private BlockEntity[] blockEntityList;
