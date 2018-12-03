@@ -39,7 +39,7 @@ public class Scout
         //         ,map.BlockEntityList[group.CurrentBlockIndex].Block.Location)
         //         ,totalStep);
 
-        createSelect();
+        createSelect();        
     }
     public void selectPath(int pathNo)//變換顏色 ,用以顯示選擇的道路
     {
@@ -72,9 +72,10 @@ public class Scout
         }
 
         pathList.Clear();
+        group.State = PlayerState.Walking;//設定玩家狀態為"walking"
     }
     public void deleteDot(Position dot)//刪除走過的點
-    {
+    {        
         GameObject.Destroy(dot.entity);
         choicePath.Remove(dot);
     }
@@ -90,6 +91,7 @@ public class Scout
             entity.AddComponent<UnityPath>();
             entity.GetComponent<UnityPath>().pathNo = i;
             entity.GetComponent<UnityPath>().scout = this;
+            entity.transform.localScale = new Vector3(1f ,0.1f ,1f);
             i++;
         }
     }
@@ -99,20 +101,23 @@ public class Scout
         {
             for ( int i = 0 ; i < position.block.DirectionList.Count ; i++ )
             {
-                switch ( position.block.DirectionList[i] )
+                if( position.block.DirectionList[i] != position.enterDirection)
                 {
-                    case Direction.East:
-                        setTempPath(Direction.West ,map ,path ,position ,1 ,step);
-                        break;
-                    case Direction.North:
-                        setTempPath(Direction.South ,map ,path ,position ,-30 ,step);
-                        break;
-                    case Direction.South:
-                        setTempPath(Direction.North ,map ,path ,position ,30 ,step);
-                        break;
-                    case Direction.West:
-                        setTempPath(Direction.East ,map ,path ,position ,-1 ,step);
-                        break;
+                    switch ( position.block.DirectionList[i] )
+                    {
+                        case Direction.East:
+                            setTempPath(Direction.West ,map ,path ,position ,1 ,step);
+                            break;
+                        case Direction.North:
+                            setTempPath(Direction.South ,map ,path ,position ,-30 ,step);
+                            break;
+                        case Direction.South:
+                            setTempPath(Direction.North ,map ,path ,position ,30 ,step);
+                            break;
+                        case Direction.West:
+                            setTempPath(Direction.East ,map ,path ,position ,-1 ,step);
+                            break;
+                    }
                 }
             }
         }

@@ -7,7 +7,9 @@ public class World
     public Map map;
     private Group[] groupList;
     private int currentGroup;
-
+    private int totalStep;
+    private bool isRolled;
+    private bool isFinded;
 
     public World()
     {
@@ -17,6 +19,9 @@ public class World
         setGroupList();
 
         currentGroup = 0;
+        isFinded = false;
+        isRolled = false;
+        totalStep = 1;
     }
 
     public Group CurrentGroup
@@ -24,12 +29,48 @@ public class World
         get { return groupList[currentGroup]; }
     }
 
+    public int TotalStep
+    {
+        get
+        {
+            return totalStep;
+        }
+
+        set
+        {
+            totalStep = value;
+        }
+    }
+
+
+
     public void playerAction()
     {
         switch ( groupList[currentGroup].State )
         {
-            case PlayerState.Walking:
+            case PlayerState.rollingDice:
+                isFinded = false;
+                if (Input.GetButtonDown("Jump") && !isRolled )
+                {
+                    isRolled = true;
+                    groupList[currentGroup].rollDice();
+                }
+                break;
+            case PlayerState.findPath:
+                isRolled = false;
+                if ( !isFinded )
+                {
+                    isFinded = true;
+                    groupList[currentGroup].findPathList(map ,totalStep);
+                }
+                break;
+            case PlayerState.Walking:               
                 groupList[currentGroup].move();
+                break;
+
+            case PlayerState.nextPlayer:
+                CurrentGroup.State = PlayerState.rollingDice;
+                currentGroup = ( currentGroup + 1 ) % Constants.PLAYERNUMBER;
                 break;
         }
     }
@@ -60,7 +101,7 @@ public class World
         Actor[] actors = new Actor[Constants.ACTORTOTALNUM];
         for ( int i = 0 ; i < Constants.ACTORTOTALNUM ; i++ )
         {
-            actors[i] = new Actor(name ,null ,createDice() ,location);
+            actors[i] = new Actor(this ,name ,null ,createDice() ,location);
         }
 
         return actors;

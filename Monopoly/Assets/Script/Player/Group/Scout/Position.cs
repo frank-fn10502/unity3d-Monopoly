@@ -9,6 +9,8 @@ public class Position
     public BaseBlock block;
     public Vector3   location;
     public GameObject entity;
+    private static Color defaultColor = new Color(108 ,34 ,34);
+    private static Color changeColor = new Color(207 ,182 ,42);
 
     public Position(Direction enterDirection ,int blockIndex ,BaseBlock block ,Vector3 location)
     {
@@ -22,14 +24,18 @@ public class Position
     {
         this.entity = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
         this.entity.transform.localScale = new Vector3(0.4f ,0.1f ,0.4f);
+        //this.entity.transform.localScale = new Vector3(4 ,4 ,4);
 
         Renderer renderer =  this.entity.GetComponent<Renderer>();
         renderer.material = Resources.Load<Material>("Texture/Orange");
 
-        this.entity.transform.position = location + new Vector3(0 ,0.2f ,0);
+        this.entity.transform.position = (location + new Vector3(0 ,0.2f ,0));
     }
     public void beSelected()
     {
+        //Renderer rend = entity.GetComponent<Renderer>();
+        //rend.material.color = changeColor;
+
         //變色
     }
 }

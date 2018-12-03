@@ -19,10 +19,11 @@ public class Group
 
     private Scout scout;
     private int stepCount;
+    
 
     public Group(Skill skill ,Actor[] actors  ,Attributes attributes ,Resource resource ,Vector3 location ,int currentBlockIndex ,Direction enterDirection)
     {
-        this.state = PlayerState.Normal;
+        this.state = PlayerState.rollingDice;
         this.identity = Walkable.Human;
         this.skill = skill;
         this.actors = actors;
@@ -107,6 +108,8 @@ public class Group
         }
     }
 
+
+
     public void changeActor(int rotate)//1 or -1
     {
         int next  = currentActor - rotate;
@@ -115,47 +118,54 @@ public class Group
 
         this.currentActor = next;
     }
-
     public void rollDice()//扔骰子
     {
         CurrentActor.rollDice();
     }
     public void findPathList(Map map ,int step)//找到所有可以走的路
     {
-        scout.reconnoiter(map ,step);
-        State = PlayerState.Walking;//設定玩家狀態為"walking"
+        scout.reconnoiter(map ,step);     
         stepCount = 0;
     }
     public void move()//按照scout的Path移動
     {
-        if ( scout.totalStep != 0 )
+        if ( scout.totalStep != -1 )//0
         {
             move(scout.choicePath[0].location
                 ,scout.choicePath[1].location ,stepCount);
+            //move(scout.choicePath[0].location
+            //    ,new Vector3(-15 ,0 ,-11) ,++stepCount);
         }
-        else if ( scout.totalStep == 0 )
+        else if ( scout.totalStep == -1 )//0
         {
             actors[currentActor].stop();
+            state = PlayerState.nextPlayer;
             //block.stopAction();
+            Debug.Log("state " + state);
         }
         if ( stepCount == Constants.STEPTIMES )
         {       
             stepCount = 0;
 
-            scout.deleteDot(scout.choicePath[0]);//刪除走過的點
-            if ( CurrentBlockIndex != scout.choicePath[0].blockIndex )
+            if ( CurrentBlockIndex != scout.choicePath[1].blockIndex )
             {
-                this.CurrentBlockIndex = scout.choicePath[0].blockIndex;
+                this.CurrentBlockIndex = scout.choicePath[1].blockIndex;
                 --scout.totalStep;
-            }           
+            }
+            //this.CurrentBlockIndex = scout.choicePath[0].blockIndex;
+            //--scout.totalStep;
+
+            scout.deleteDot(scout.choicePath[0]);//刪除走過的點
+            Debug.Log("scout.totalStep: " + scout.totalStep);
         }
     }
 
     private void move(Vector3 now ,Vector3 next ,int step)
     {
-        float x = (next.x - now.x) * step / Constants.STEPTIMES * Time.deltaTime;
-        float z = (next.z - now.z) * step / Constants.STEPTIMES * Time.deltaTime;
+        float x = (next.x - now.x) * step / Constants.STEPTIMES;// * Time.deltaTime;
+        float z = (next.z - now.z) * step / Constants.STEPTIMES;// * Time.deltaTime;
         location = new Vector3(now.x + x ,Constants.SEALEVEL ,now.z + z);
+        Debug.Log(location);
 
         actors[currentActor].run(location);
     }
