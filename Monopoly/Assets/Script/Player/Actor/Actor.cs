@@ -15,12 +15,10 @@ public class Actor
         this.skill = skill;
         this.dice = dice;
         //建造實體
-        //GameObject entity = Resources.Load<GameObject>("PreFab/" + name);
-        GameObject entity = new GameObject();
-
-
-        entity.transform.position = location;
+        entity = Resources.Load<GameObject>("PreFab/Actor/" + name);
         GameObject.Instantiate(entity);
+        //GameObject entity = new GameObject();
+        entity.transform.position = location;      
     }
 
     public string Name
@@ -48,10 +46,12 @@ public class Actor
     public void run(Vector3 location)
     {
         //播放動畫
+        entity.GetComponent<AnimationController>().running = true;
     }
     public void stop()
     {
         //靜止動畫
+        entity.GetComponent<AnimationController>().running = false;
     }
     public int rollDice()
     {

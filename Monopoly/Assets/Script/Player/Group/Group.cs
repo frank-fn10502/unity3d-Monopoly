@@ -116,12 +116,10 @@ public class Group
         this.currentActor = next;
     }
 
-    /*
     public void rollDice()//扔骰子
     {
         CurrentActor.rollDice();
     }
-    */
     public void findPathList(Map map ,int step)//找到所有可以走的路
     {
         scout.reconnoiter(map ,step);

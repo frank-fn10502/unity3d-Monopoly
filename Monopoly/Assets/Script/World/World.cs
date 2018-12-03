@@ -39,15 +39,15 @@ public class World
         Direction[] playerDirection = new Direction [Constants.PLAYERNUMBER]{Direction.North ,Direction.East ,Direction.South ,Direction.West};
         int[] playerIndex = new int[Constants.PLAYERNUMBER]{2 * 30 + 2 ,2 * 30 + 27 ,27 * 30 + 2 ,27 * 30 + 27};
         Vector3[] playerLocation = new Vector3[Constants.PLAYERNUMBER]
-                                      {map.BlockEntityList[2 * 30 + 2].Block.Location + new Vector3(0 ,1 ,0)
-                                      ,map.BlockEntityList[2 * 30 + 27].Block.Location + new Vector3(0 ,1 ,0)
-                                      ,map.BlockEntityList[27 * 30 + 2].Block.Location + new Vector3(0 ,1 ,0)
-                                      ,map.BlockEntityList[27 * 30 + 27].Block.Location + new Vector3(0 ,1 ,0)};
+                                      {map.BlockEntityList[2 * 30 + 2].Block.Location + new Vector3(0 ,0.2f ,0)
+                                      ,map.BlockEntityList[2 * 30 + 27].Block.Location + new Vector3(0 ,0.2f ,0)
+                                      ,map.BlockEntityList[27 * 30 + 2].Block.Location + new Vector3(0 ,0.2f ,0)
+                                      ,map.BlockEntityList[27 * 30 + 27].Block.Location + new Vector3(0 ,0.2f ,0)};
 
         for ( int i = 0 ; i < Constants.PLAYERNUMBER ; i++ )
         {
             groupList[i] = new Group(null
-                                    ,createActors(playerLocation[i] ,"test")
+                                    ,createActors(playerLocation[i] ,"Player1")
                                     ,new Attributes(20 ,20 ,20)
                                     ,new Resource()
                                     ,playerLocation[i]
@@ -55,7 +55,7 @@ public class World
                                     ,playerDirection[i]);
         }
     }
-    private Actor[] createActors(Vector3 location ,string name = "")
+    private Actor[] createActors(Vector3 location ,string name)
     {
         Actor[] actors = new Actor[Constants.ACTORTOTALNUM];
         for ( int i = 0 ; i < Constants.ACTORTOTALNUM ; i++ )
