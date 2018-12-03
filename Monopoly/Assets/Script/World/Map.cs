@@ -1,17 +1,97 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
 
+[System.Serializable]
 public class Map
 {
-    private Vector3 startRowPos = new Vector3(-15 , 0 ,-15);
+    private Vector3 startRowPos = new Vector3(0 , 0 ,0);
     private int index;
     private Vector3 tempRowPos;
     private BlockEntity[] blockEntityList;
 
+    public BlockEntity[] BlockEntityList
+    {
+        get
+        {
+            return BlockEntityList1;
+        }
+
+        set
+        {
+            BlockEntityList1 = value;
+        }
+    }
+
+    public Vector3 StartRowPos
+    {
+        get
+        {
+            return startRowPos;
+        }
+
+        set
+        {
+            startRowPos = value;
+        }
+    }
+
+    public int Index
+    {
+        get
+        {
+            return index;
+        }
+
+        set
+        {
+            index = value;
+        }
+    }
+
+    public Vector3 TempRowPos
+    {
+        get
+        {
+            return tempRowPos;
+        }
+
+        set
+        {
+            tempRowPos = value;
+        }
+    }
+
+    public BlockEntity[] BlockEntityList1
+    {
+        get
+        {
+            return blockEntityList;
+        }
+
+        set
+        {
+            blockEntityList = value;
+        }
+    }
+
+    public Map(string Filename)
+    {
+        string str;
+        System.IO.StreamReader sr = new System.IO.StreamReader(Filename);
+        str = sr.ReadToEnd();
+        //MessageBox.Show(sr.ReadToEnd());
+        sr.Close();
+        Map m = JsonConvert.DeserializeObject<Map>(str);
+        this.StartRowPos = m.StartRowPos;
+        this.Index = m.Index;
+        this.TempRowPos = m.TempRowPos;
+        this.BlockEntityList = m.BlockEntityList;
+    }
+
     public Map()
     {
-        blockEntityList = new BlockEntity[30 * 30];
+        BlockEntityList = new BlockEntity[30 * 30];
 
         createPassIdentity();
         createPath();
@@ -22,9 +102,9 @@ public class Map
         {
             for ( int j = 0 ; j < 30 ; j++ )
             {
-                index = i * 30 + j;
-
-                blockEntityList[index].build();
+                Index = i * 30 + j;
+                //Debug.Log(i.ToString() + " " + blockEntityList[index].Block.Identity.ToString());
+                BlockEntityList[Index].build();
             }
         }
     }
@@ -69,26 +149,26 @@ public class Map
             n = 0;
             for ( int j = 0 ; j < 30 ; j++ )
             {
-                index = i * 30 + j;
+                Index = i * 30 + j;
 
                 if ( rows[i].Length > 0 && j == rows[i][n] )
                 {
-                    blockEntityList[index] = new BlockEntity(Area.Forest);
-                    blockEntityList[index].Block = new BuildingBlock();
-                    blockEntityList[index].Block.Identity = Walkable.ApeShortcut;
+                    BlockEntityList[Index] = new BlockEntity(Area.Forest);
+                    BlockEntityList[Index].Block = new BuildingBlock();
+                    BlockEntityList[Index].Block.Identity = Walkable.ApeShortcut;
 
                     n = ( ( n + 1 ) < rows[i].Length ? ++n : n );
                 }
                 else if ( ( i >= 10 && i <= 19 ) && ( j >= 10 && j <= 19 ) )
                 {
-                    blockEntityList[index]       = new BlockEntity(Area.Forest);
-                    blockEntityList[index].Block = new EventBlock();
-                    blockEntityList[index].Block.Identity = Walkable.Ape;
+                    BlockEntityList[Index]       = new BlockEntity(Area.Forest);
+                    BlockEntityList[Index].Block = new EventBlock();
+                    BlockEntityList[Index].Block.Identity = Walkable.Ape;
                 }
                 else
                 {
-                    blockEntityList[index] = new BlockEntity(Area.City);
-                    blockEntityList[index].Block = new BuildingBlock();
+                    BlockEntityList[Index] = new BlockEntity(Area.City);
+                    BlockEntityList[Index].Block = new BuildingBlock();
                 }
             }
         }
@@ -133,18 +213,18 @@ public class Map
             n = 0;
             for ( int j = 0 ; j < 30 ; j++ )
             {
-                index = i * 30 + j;
-                tempRowPos = startRowPos + new Vector3(i * 2 ,0 ,j * 2);
+                Index = i * 30 + j;
+                TempRowPos = StartRowPos + new Vector3(i * 2 ,0 ,j * 2);
 
-                blockEntityList[index].Block.Location = tempRowPos;
+                BlockEntityList[Index].Block.Location = TempRowPos;
 
                 if ( j == rows[i][n] )
                 {
                     n = ( ( n + 1 ) < rows[i].Length ? ++n : n );
 
-                    if( blockEntityList[index].Block.Identity == Walkable.NoMan)
+                    if( BlockEntityList[Index].Block.Identity == Walkable.NoMan)
                     {
-                        blockEntityList[index].Block.Identity = Walkable.Human;
+                        BlockEntityList[Index].Block.Identity = Walkable.Human;
                     }                        
                 }
             }
