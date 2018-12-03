@@ -1,15 +1,21 @@
-﻿using System.Collections;
+﻿using JsonSubTypes;
+using Newtonsoft.Json;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//abstract
+[JsonConverter(typeof(JsonSubtypes), "block_type")]
+[JsonSubtypes.KnownSubType(typeof(BuildingBlock), "build")]
+[JsonSubtypes.KnownSubType(typeof(EventBlock), "event")]
 public abstract class BaseBlock
 {
-    protected Vector3  location;
+    protected Vector3 location;
     protected Walkable identity;
     protected List<Direction> directionList;
-    protected List<Group>     influenceList;
-
-    public Vector3  Location
+    protected List<Group> influenceList;
+    public virtual string block_type { get; }
+    public Vector3 Location
     {
         get
         {
@@ -45,7 +51,7 @@ public abstract class BaseBlock
             directionList = value;
         }
     }
-    public List<Group>     InfluenceList
+    public List<Group> InfluenceList
     {
         get
         {
@@ -58,10 +64,10 @@ public abstract class BaseBlock
         }
     }
 
-    public BaseBlock() : this(Vector3.zero ,Walkable.NoMan)
+    public BaseBlock() : this(Vector3.zero, Walkable.NoMan)
     {
     }
-    public BaseBlock(Vector2 location ,Walkable identity)
+    public BaseBlock(Vector2 location, Walkable identity)
     {
         this.location = location;
         this.identity = identity;

@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class BuildingBlock : BaseBlock
 {
-    private Group          Landlord;
+    private Group Landlord;
     private BuildingEntity buildingEntity;
-
+    public override string block_type { get; } = "build";
     public Group Landlord1
     {
         get
@@ -32,13 +33,13 @@ public class BuildingBlock : BaseBlock
         }
     }
 
-    public BuildingBlock() : this(Vector3.zero ,Walkable.NoMan)
+    public BuildingBlock() : this(Vector3.zero, Walkable.NoMan)
     {
 
     }
-    public BuildingBlock(Vector2 location ,Walkable identity) : base(location ,identity)
+    public BuildingBlock(Vector2 location, Walkable identity) : base(location, identity)
     {
-        Landlord       = null;
+        Landlord = null;
         buildingEntity = null;
     }
 }
