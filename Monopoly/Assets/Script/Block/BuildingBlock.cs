@@ -7,7 +7,7 @@ public class BuildingBlock : BaseBlock
 {
     private Group Landlord;
     private BuildingEntity buildingEntity;
-
+    public override string block_type { get; } = "build";
     public Group Landlord1
     {
         get

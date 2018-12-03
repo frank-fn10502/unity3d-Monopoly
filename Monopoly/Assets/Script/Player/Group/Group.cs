@@ -142,12 +142,13 @@ public class Group
         {       
             stepCount = 0;
 
-            scout.deleteDot(scout.choicePath[0]);//刪除走過的點
-            if ( CurrentBlockIndex != scout.choicePath[0].blockIndex )
+            
+            if ( CurrentBlockIndex != scout.choicePath[1].blockIndex )
             {
-                this.CurrentBlockIndex = scout.choicePath[0].blockIndex;
+                this.CurrentBlockIndex = scout.choicePath[1].blockIndex;
                 --scout.totalStep;
-            }           
+            }
+            scout.deleteDot(scout.choicePath[0]);//刪除走過的點
         }
     }
 

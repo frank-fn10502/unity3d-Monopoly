@@ -6,7 +6,7 @@ using UnityEngine;
 public class EventBlock : BaseBlock
 {
     private EventPool eventPool;
-
+    public override string block_type { get; } = "event";
     public EventBlock() : this(Vector3.zero, Walkable.NoMan)
     {
 

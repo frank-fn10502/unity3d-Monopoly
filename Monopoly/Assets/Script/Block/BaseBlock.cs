@@ -1,16 +1,20 @@
-﻿using System.Collections;
+﻿using JsonSubTypes;
+using Newtonsoft.Json;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 //abstract
-[System.Serializable]
-public class BaseBlock
+[JsonConverter(typeof(JsonSubtypes), "block_type")]
+[JsonSubtypes.KnownSubType(typeof(BuildingBlock), "build")]
+[JsonSubtypes.KnownSubType(typeof(EventBlock), "event")]
+public abstract class BaseBlock
 {
     protected Vector3 location;
     protected Walkable identity;
     protected List<Direction> directionList;
     protected List<Group> influenceList;
-
+    public virtual string block_type { get; }
     public Vector3 Location
     {
         get
