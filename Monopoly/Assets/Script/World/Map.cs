@@ -14,12 +14,12 @@ public class Map
     {
         get
         {
-            return BlockEntityList1;
+            return blockEntityList;
         }
 
         set
         {
-            BlockEntityList1 = value;
+            blockEntityList = value;
         }
     }
 
@@ -62,32 +62,6 @@ public class Map
         }
     }
 
-    public BlockEntity[] BlockEntityList1
-    {
-        get
-        {
-            return blockEntityList;
-        }
-
-        set
-        {
-            blockEntityList = value;
-        }
-    }
-
-    public Map(string Filename)
-    {
-        string str;
-        System.IO.StreamReader sr = new System.IO.StreamReader(Filename);
-        str = sr.ReadToEnd();
-        //MessageBox.Show(sr.ReadToEnd());
-        sr.Close();
-        Map m = JsonConvert.DeserializeObject<Map>(str);
-        this.StartRowPos = m.StartRowPos;
-        this.Index = m.Index;
-        this.TempRowPos = m.TempRowPos;
-        this.BlockEntityList = m.BlockEntityList;
-    }
 
     public Map()
     {
@@ -96,6 +70,7 @@ public class Map
         createPassIdentity();
         createPath();
     }
+
     public void build()
     {
         for ( int i = 0 ; i < 30 ; i++ )

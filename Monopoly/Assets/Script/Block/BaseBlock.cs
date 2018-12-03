@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //abstract
+[System.Serializable]
 public class BaseBlock
 {
     protected Vector3 location;
