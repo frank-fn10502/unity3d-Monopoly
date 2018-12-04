@@ -8,7 +8,6 @@ public class DiceCheckZoneScript : MonoBehaviour
 	Vector3 dice1Velocity;
     Vector3 dice2Velocity;
     Vector3 dice3Velocity;
-    public bool[] done = new bool[3];
     // Update is called once per frame
     void FixedUpdate ()
     {
@@ -19,10 +18,10 @@ public class DiceCheckZoneScript : MonoBehaviour
 
 	void OnTriggerStay(Collider col)
 	{
-        
-        if (dice1Velocity.x == 0f && dice1Velocity.y == 0f && dice1Velocity.z == 0f)
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+if (dice1Velocity.x == 0f && dice1Velocity.y == 0f && dice1Velocity.z == 0f)
 		{
-            done[0] = true;
             switch (col.gameObject.name)
             {
 			    case "Dice1Side1":
@@ -44,11 +43,11 @@ public class DiceCheckZoneScript : MonoBehaviour
 				        DiceNumberTextScript.dice1Number = 6;
 				        break;
 			}
+            
 		}
         
         if (dice2Velocity.x == 0f && dice2Velocity.y == 0f && dice2Velocity.z == 0f)
         {
-            done[1] = true;
             switch (col.gameObject.name)
             {
                 case "Dice2Side1":
@@ -74,7 +73,6 @@ public class DiceCheckZoneScript : MonoBehaviour
 
         if (dice3Velocity.x == 0f && dice3Velocity.y == 0f && dice3Velocity.z == 0f)
         {
-            done[2] = true;
             switch (col.gameObject.name)
             {
                 case "Dice3Side1":
@@ -97,5 +95,7 @@ public class DiceCheckZoneScript : MonoBehaviour
                     break;
             }
         }
+        }
+       
     }
 }

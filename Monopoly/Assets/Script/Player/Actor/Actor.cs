@@ -9,7 +9,6 @@ public class Actor
     private Dice  dice;
     private GameObject entity;
     private World world;
-
     public Actor(World world ,string name ,Skill skill ,Dice dice ,Vector3 location ,Direction enterDirection)
     {
         this.world = world;
