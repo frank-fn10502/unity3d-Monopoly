@@ -16,7 +16,7 @@ public class World
 
     public World()
     {
-        string json = File.ReadAllText(@"C:\Users\Frank\Documents\unity_projects\unity3d-Monopoly\Monopoly\Assets\Resources\Texture\map.xsa");
+        string json = File.ReadAllText(@"C:\Users\USER\Documents\unity3d-Monopoly\Monopoly\Assets\Resources\Texture\map.xsa");
         map = JsonConvert.DeserializeObject<Map>(json);
 
         /*map = new Map();
