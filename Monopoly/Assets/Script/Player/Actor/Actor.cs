@@ -81,7 +81,7 @@ public class Actor
     public int rollDice()
     {
         //動畫
-        world.TotalStep = 3;//直接放數值
+        world.TotalStep = 12;//直接放數值
         world.CurrentGroup.State = PlayerState.findPath;//找道路
         return 0;
     }
