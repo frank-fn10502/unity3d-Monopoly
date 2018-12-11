@@ -18,22 +18,11 @@ public class World
 
     public World()
     {
-        //string json = File.ReadAllText(@"C:\Users\USER\Documents\unity3d-Monopoly\Monopoly\Assets\Resources\Texture\map.xsa");
         string path = Directory.GetCurrentDirectory();
         string target = @"\Assets\Resources\Texture\map.xsa";
         string json = File.ReadAllText(path + target);
 
         map = JsonConvert.DeserializeObject<Map>(json);
-
-        /*map = new Map();
-        var json = JsonConvert.SerializeObject(map, Formatting.None,
-            new JsonSerializerSettings()
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            });
-        File.WriteAllText(@"C:\Users\kevin\Documents\unity3d-Monopoly\Monopoly\Assets\Resources\Texture\map2.xsa", json);
-        */
-        //map = new Map();
         map.build();
         setGroupList();
 

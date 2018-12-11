@@ -31,14 +31,7 @@ public class Scout
                    ,map.BlockEntityList[group.CurrentBlockIndex].Block
                    ,map.BlockEntityList[group.CurrentBlockIndex].Block.Location)
                    ,0
-                   ,totalStep + 1);
-        
-        //dfsSearch(map
-        //         ,path
-        //         ,new Position(group.CurrentBlockIndex
-        //         ,map.BlockEntityList[group.CurrentBlockIndex].Block
-        //         ,map.BlockEntityList[group.CurrentBlockIndex].Block.Location)
-        //         ,totalStep);
+                   ,totalStep + 1);       
 
         createSelect();        
     }
@@ -71,7 +64,7 @@ public class Scout
         }
 
         //摧毀cs
-        GameObject.Destroy(choicePath[choicePath.Count - 1].entity.GetComponent<UnityPath>());
+        GameObject.Destroy(choicePath[choicePath.Count - 1].entity.GetComponent<PositionController>());
         pathList.Clear();
         group.State = PlayerState.Walking;//設定玩家狀態為"walking"
     }
@@ -89,16 +82,17 @@ public class Scout
         {
             GameObject entity = onePath[onePath.Count - 1].entity;
 
-            entity.AddComponent<UnityPath>();
-            entity.GetComponent<UnityPath>().pathNo = i;
-            entity.GetComponent<UnityPath>().scout = this;
+            entity.AddComponent<PositionController>();
+            entity.GetComponent<PositionController>().pathNo = i;
+            entity.GetComponent<PositionController>().CheckOut = this.checkOutPath;
+            entity.GetComponent<PositionController>().Select = this.selectPath;
             entity.transform.localScale = new Vector3(1.5f ,0.1f ,1.5f);
             i++;
         }
-        if(pathList.Count == 1)
-        {
-            //checkOutPath(0);
-        }
+        //if(pathList.Count == 1)
+        //{
+        //    checkOutPath(0);
+        //}
     }
     private void dfsSearch(Map map ,List<Position> path ,Position position ,int step)
     {

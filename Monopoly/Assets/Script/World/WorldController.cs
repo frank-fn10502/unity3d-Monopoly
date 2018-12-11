@@ -12,12 +12,10 @@ public class WorldController : MonoBehaviour
     void Start()
     {
         world = new World();
-        //world.map.build();
-        //characterCamera = GameObject.Find("CharacterCamera").GetComponent<Camera>();
     }
     void Update()
     {
-        world.execute();//.playerAction();
+        world.execute();
         characterCamera.transform.position = world.CurrentGroup.Location + new Vector3(0 ,4 ,-4);
     }
 }
