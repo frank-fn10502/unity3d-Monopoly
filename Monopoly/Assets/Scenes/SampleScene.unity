@@ -469,7 +469,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 296206190}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2dd38e6f2777464b968ce166ac64c5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 71f6da88163a64f4b9d304e307ff7efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   diceNumber: {fileID: 139973356}
@@ -894,7 +894,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 534669902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c0ecb6a29283c54bae854030619fcca, type: 3}
+  m_Script: {fileID: 11500000, guid: a52715a91f3d4f04697aa3903da915b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   characterCamera: {fileID: 1703721606}
