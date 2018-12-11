@@ -14,6 +14,8 @@ public class World
     private bool isRolled;
     private bool isFinded;
 
+    private GameState gameState;///
+
     public World()
     {
         //string json = File.ReadAllText(@"C:\Users\USER\Documents\unity3d-Monopoly\Monopoly\Assets\Resources\Texture\map.xsa");
@@ -33,70 +35,87 @@ public class World
         */
         //map = new Map();
         map.build();
-        
-        //設定 4 個 group
-        //讀檔?
         setGroupList();
 
         currentGroup = 0;
         isFinded = false;
         isRolled = false;
         totalStep = 1;
+        gameState = GameState.GlobalEvent;
     }
 
     public Group CurrentGroup
     {
         get { return groupList[currentGroup]; }
     }
-
     public int TotalStep
+    {
+        get { return totalStep; }
+        set { totalStep = value; }
+    }
+    public GameState GameState
     {
         get
         {
-            return totalStep;
+            return gameState;
         }
-
         set
         {
-            totalStep = value;
+            gameState = value;
         }
     }
 
-
-
-    public void playerAction()
+    public void execute()
     {
-        switch ( groupList[currentGroup].State )
+        switch ( gameState )
         {
-            case PlayerState.rollingDice:
-                isFinded = false;
-                if (Input.GetButtonDown("Jump") && !isRolled )
-                {
-                    
+            case GameState.GlobalEvent:
+                gameState = GameState.PersonalEvent;
+                break;
+            case GameState.PersonalEvent:
+                gameState = GameState.RollingDice;
+                groupList[currentGroup].State = PlayerState.SearchPath;
+                break;
+            case GameState.RollingDice:
+                if ( Input.GetButtonDown("Jump") && !isRolled )
+                {                    
                     isRolled = true;
                     groupList[currentGroup].rollDice();
                 }
                 break;
-            case PlayerState.findPath:
-                isRolled = false;
-                if ( !isFinded )
+            case GameState.PlayerMovement:
                 {
-                    
-                    isFinded = true;
-                    groupList[currentGroup].findPathList(map ,totalStep);
+                    switch ( groupList[currentGroup].State )
+                    {
+                        case PlayerState.SearchPath:
+                            if ( !isFinded )
+                            {                            
+                                isFinded = true;
+                                groupList[currentGroup].findPathList(map ,totalStep);
+                            }
+                            break;
+                        case PlayerState.Walking:
+                            groupList[currentGroup].move();
+                            break;
+                        case PlayerState.Stop:
+                            gameState = GameState.End;
+                            break;
+                    }
                 }
                 break;
-            case PlayerState.Walking:               
-                groupList[currentGroup].move();
-                break;
-
-            case PlayerState.nextPlayer:               
+            case GameState.End:
                 currentGroup = ( currentGroup + 1 ) % Constants.PLAYERNUMBER;
-                CurrentGroup.State = PlayerState.rollingDice;
+                groupList[currentGroup].State = PlayerState.Normal;///
+                gameState = GameState.GlobalEvent;
+
+                isFinded = false;
+                isRolled = false;
                 break;
         }
     }
-    private void setGroupList()
+
+
+    private void setGroupList()//設定 4 個 group//讀檔?
     {
         groupList = new Group[Constants.PLAYERNUMBER];
         Direction[] playerDirection = new Direction [Constants.PLAYERNUMBER]{Direction.West ,Direction.North ,Direction.South ,Direction.East};

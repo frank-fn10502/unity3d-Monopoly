@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class UnityWorld : MonoBehaviour
+//public delegate void PlayerAction();
+
+public class WorldController : MonoBehaviour
 {
     public World world;
-    Camera characterCamera;
-    // Use this for initialization
+    public Camera characterCamera;
     void Start()
     {
         world = new World();
-        world.map.build();
-        characterCamera = GameObject.Find("CharacterCamera").GetComponent<Camera>();
+        //world.map.build();
+        //characterCamera = GameObject.Find("CharacterCamera").GetComponent<Camera>();
     }
-
-    // Update is called once per frame
     void Update()
     {
-        world.playerAction();
+        world.execute();//.playerAction();
         characterCamera.transform.position = world.CurrentGroup.Location + new Vector3(0 ,4 ,-4);
     }
 }

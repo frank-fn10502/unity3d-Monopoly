@@ -82,7 +82,8 @@ public class Actor
     {
         //動畫
         world.TotalStep = 12;//直接放數值
-        world.CurrentGroup.State = PlayerState.findPath;//找道路
+        world.GameState = GameState.PlayerMovement;//玩家移動
+        world.CurrentGroup.State = PlayerState.SearchPath;//找道路
         return 0;
     }
 
