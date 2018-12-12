@@ -23,7 +23,7 @@ public class Group
 
     public Group(Skill skill ,Actor[] actors  ,Attributes attributes ,Resource resource ,Vector3 location ,int currentBlockIndex ,Direction enterDirection)
     {
-        this.state = PlayerState.rollingDice;
+        this.state = PlayerState.Normal;
         this.identity = Walkable.Human;
         this.skill = skill;
         this.actors = actors;
@@ -133,16 +133,13 @@ public class Group
         {
             move(scout.choicePath[0].location
                 ,scout.choicePath[1].location ,++stepCount);
-            //move(scout.choicePath[0].location
-            //    ,new Vector3(-15 ,0 ,-11) ,++stepCount);
         }
         else if ( scout.totalStep == 0 )
         {
-            actors[currentActor].stop();          
-            //block.stopAction();
-            //this.EnterDirection = scout.choicePath[0].enterDirection;
+            actors[currentActor].stop();
             scout.deleteDot(scout.choicePath[0]);//刪除走過的點
-            state = PlayerState.nextPlayer;
+
+            state = PlayerState.Stop;
             Debug.Log("state " + state);
         }
         if ( stepCount == Constants.STEPTIMES )
@@ -155,10 +152,8 @@ public class Group
                 this.CurrentBlockIndex = scout.choicePath[1].blockIndex;
                 --scout.totalStep;
             }
-            //this.CurrentBlockIndex = scout.choicePath[0].blockIndex;
-            //--scout.totalStep;
-
             scout.deleteDot(scout.choicePath[0]);//刪除走過的點
+
             Debug.Log("scout.totalStep: " + scout.totalStep);
         }
     }

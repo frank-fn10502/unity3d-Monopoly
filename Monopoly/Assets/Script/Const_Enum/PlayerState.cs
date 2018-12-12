@@ -4,10 +4,8 @@ using UnityEditor;
 public enum PlayerState
 {
     Normal,
-    rollingDice,
-    findPath,
+    SearchPath,
     Walking,
-    nextPlayer,
-    stop,
+    Stop,
     InJail
 }
