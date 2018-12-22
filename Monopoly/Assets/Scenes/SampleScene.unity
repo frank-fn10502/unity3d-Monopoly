@@ -2373,7 +2373,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 441, y: 52}
+  m_AnchoredPosition: {x: 441, y: 36}
   m_SizeDelta: {x: 40, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1334364403
@@ -2388,14 +2388,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 0.3962264, g: 0.34202564, b: 0.34202564, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -2414,7 +2414,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1334364404}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1703721609}
+        m_MethodName: CameraMoveableButtonOnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1334364404
@@ -3029,6 +3040,7 @@ GameObject:
   - component: {fileID: 1703721606}
   - component: {fileID: 1703721605}
   - component: {fileID: 1703721608}
+  - component: {fileID: 1703721609}
   m_Layer: 0
   m_Name: CharacterCamera
   m_TagString: Untagged
@@ -3107,6 +3119,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a52715a91f3d4f04697aa3903da915b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1703721609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1703721604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cfd13224df2dce48a51bb7885985edd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collapseButton: {fileID: 1986038055}
+  cameraMoveableButton: {fileID: 1334364403}
+  mainPanel: {fileID: 1240578782}
+  blockInformation: {fileID: 1195268906}
+  playerInformation: {fileID: 1051307385}
 --- !u!1 &1719273233
 GameObject:
   m_ObjectHideFlags: 0
@@ -3349,7 +3377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -3375,7 +3403,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1986038056}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1703721609}
+        m_MethodName: CollapseButtonOnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1986038056
@@ -3831,7 +3870,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: taiwain 123
+  m_Text: player1 land
 --- !u!222 &2134800886
 CanvasRenderer:
   m_ObjectHideFlags: 0

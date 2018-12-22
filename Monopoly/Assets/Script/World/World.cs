@@ -87,6 +87,7 @@ public class World
                             groupList[currentGroup].move();
                             break;
                         case PlayerState.Stop:
+                            //bloack.StopAction
                             gameState = GameState.End;//temp
                             break;
                     }
