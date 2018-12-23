@@ -5,10 +5,9 @@ using Newtonsoft.Json;
 [System.Serializable]
 public class Map
 {
-    private Vector3 startRowPos = new Vector3(0 , 0 ,0);
+    //private Vector3 startRowPos = new Vector3(0 , 0 ,0);
     //private Vector3 startRowPos = new Vector3(-15 , 0 ,-15);
     private int index;
-    private Vector3 tempRowPos;
     private Block[] blockList;
 
     public Block[] BlockList
@@ -21,45 +20,6 @@ public class Map
         set
         {
             blockList = value;
-        }
-    }
-
-    public Vector3 StartRowPos
-    {
-        get
-        {
-            return startRowPos;
-        }
-
-        set
-        {
-            startRowPos = value;
-        }
-    }
-
-    public int Index
-    {
-        get
-        {
-            return index;
-        }
-
-        set
-        {
-            index = value;
-        }
-    }
-
-    public Vector3 TempRowPos
-    {
-        get
-        {
-            return tempRowPos;
-        }
-
-        set
-        {
-            tempRowPos = value;
         }
     }
 
@@ -78,9 +38,8 @@ public class Map
         {
             for ( int j = 0 ; j < 30 ; j++ )
             {
-                Index = i * 30 + j;
-                //Debug.Log(i.ToString() + " " + blockEntityList[index].Identity.ToString());
-                BlockList[Index].build();
+                index = i * 30 + j;
+                BlockList[index].build();
             }
         }
     }
