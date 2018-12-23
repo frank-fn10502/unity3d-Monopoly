@@ -5,71 +5,31 @@ using Newtonsoft.Json;
 [System.Serializable]
 public class Map
 {
-    private Vector3 startRowPos = new Vector3(0 , 0 ,0);
+    //private Vector3 startRowPos = new Vector3(0 , 0 ,0);
     //private Vector3 startRowPos = new Vector3(-15 , 0 ,-15);
     private int index;
-    private Vector3 tempRowPos;
-    private BlockEntity[] blockEntityList;
+    private Block[] blockList;
 
-    public BlockEntity[] BlockEntityList
+    public Block[] BlockList
     {
         get
         {
-            return blockEntityList;
+            return blockList;
         }
 
         set
         {
-            blockEntityList = value;
-        }
-    }
-
-    public Vector3 StartRowPos
-    {
-        get
-        {
-            return startRowPos;
-        }
-
-        set
-        {
-            startRowPos = value;
-        }
-    }
-
-    public int Index
-    {
-        get
-        {
-            return index;
-        }
-
-        set
-        {
-            index = value;
-        }
-    }
-
-    public Vector3 TempRowPos
-    {
-        get
-        {
-            return tempRowPos;
-        }
-
-        set
-        {
-            tempRowPos = value;
+            blockList = value;
         }
     }
 
 
     public Map()
     {
-        BlockEntityList = new BlockEntity[30 * 30];
+        BlockList = new Block[30 * 30];
 
-        createPassIdentity();
-        createPath();
+        //createPassIdentity();
+        //createPath();
     }
 
     public void build()
@@ -78,12 +38,12 @@ public class Map
         {
             for ( int j = 0 ; j < 30 ; j++ )
             {
-                Index = i * 30 + j;
-                //Debug.Log(i.ToString() + " " + blockEntityList[index].Block.Identity.ToString());
-                BlockEntityList[Index].build();
+                index = i * 30 + j;
+                BlockList[index].build();
             }
         }
     }
+    /*
     private void createPassIdentity()
     {
         List<int[]> rows = new List<int[]>(30);
@@ -129,22 +89,22 @@ public class Map
 
                 if ( rows[i].Length > 0 && j == rows[i][n] )
                 {
-                    BlockEntityList[Index] = new BlockEntity(Area.Forest);
-                    BlockEntityList[Index].Block = new BuildingBlock();
-                    BlockEntityList[Index].Block.Identity = Walkable.ApeShortcut;
+                    BlockList[Index].Area = new Block(Area.Forest);
+                    BlockList[Index] = new BuildingBlock();
+                    BlockList[Index].Identity = Walkable.ApeShortcut;
 
                     n = ( ( n + 1 ) < rows[i].Length ? ++n : n );
                 }
                 else if ( ( i >= 10 && i <= 19 ) && ( j >= 10 && j <= 19 ) )
                 {
-                    BlockEntityList[Index]       = new BlockEntity(Area.Forest);
-                    BlockEntityList[Index].Block = new EventBlock();
-                    BlockEntityList[Index].Block.Identity = Walkable.Ape;
+                    BlockList[Index].Area = new Block(Area.Forest);
+                    BlockList[Index] = new EventBlock();
+                    BlockList[Index].Identity = Walkable.Ape;
                 }
                 else
                 {
-                    BlockEntityList[Index] = new BlockEntity(Area.City);
-                    BlockEntityList[Index].Block = new BuildingBlock();
+                    BlockList[Index].Area = new Block(Area.City);
+                    BlockList[Index] = new BuildingBlock();
                 }
             }
         }
@@ -192,18 +152,19 @@ public class Map
                 Index = i * 30 + j;
                 TempRowPos = StartRowPos + new Vector3(i * 2 ,0 ,j * 2);
 
-                BlockEntityList[Index].Block.Location = TempRowPos;
+                BlockList[Index].Location = TempRowPos;
 
                 if ( j == rows[i][n] )
                 {
                     n = ( ( n + 1 ) < rows[i].Length ? ++n : n );
 
-                    if( BlockEntityList[Index].Block.Identity == Walkable.NoMan)
+                    if( BlockList[Index].Identity == Walkable.NoMan)
                     {
-                        BlockEntityList[Index].Block.Identity = Walkable.Human;
+                        BlockList[Index].Identity = Walkable.Human;
                     }                        
                 }
             }
         }
     }
+    */
 }

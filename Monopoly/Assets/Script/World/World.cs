@@ -111,10 +111,10 @@ public class World
         Direction[] playerDirection = new Direction [Constants.PLAYERNUMBER]{Direction.West ,Direction.North ,Direction.South ,Direction.East};
         int[] playerIndex = new int[Constants.PLAYERNUMBER]{2 * 30 + 2 ,2 * 30 + 27 ,27 * 30 + 2 ,27 * 30 + 27};
         Vector3[] playerLocation = new Vector3[Constants.PLAYERNUMBER]
-                                      {map.BlockEntityList[2 * 30 + 2].Block.Location + new Vector3(0 ,0.2f ,0)
-                                      ,map.BlockEntityList[2 * 30 + 27].Block.Location + new Vector3(0 ,0.2f ,0)
-                                      ,map.BlockEntityList[27 * 30 + 2].Block.Location + new Vector3(0 ,0.2f ,0)
-                                      ,map.BlockEntityList[27 * 30 + 27].Block.Location + new Vector3(0 ,0.2f ,0)};
+                                      {map.BlockList[2 * 30 + 2].Location + new Vector3(0 ,0.2f ,0)
+                                      ,map.BlockList[2 * 30 + 27].Location + new Vector3(0 ,0.2f ,0)
+                                      ,map.BlockList[27 * 30 + 2].Location + new Vector3(0 ,0.2f ,0)
+                                      ,map.BlockList[27 * 30 + 27].Location + new Vector3(0 ,0.2f ,0)};
 
         for ( int i = 0 ; i < Constants.PLAYERNUMBER ; i++ )
         {

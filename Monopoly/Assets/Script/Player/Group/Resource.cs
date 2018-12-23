@@ -8,7 +8,7 @@ public class Resource
     public int civilian;
     public int mineral;
     public int antidote;
-    public List<BaseBlock> blockList;
+    public List<Block> blockList;
 
     public Resource()
     {
@@ -16,6 +16,6 @@ public class Resource
         civilian = 0;
         mineral = 0;
         antidote = 0;
-        blockList = new List<BaseBlock>();
+        blockList = new List<Block>();
     }
 }

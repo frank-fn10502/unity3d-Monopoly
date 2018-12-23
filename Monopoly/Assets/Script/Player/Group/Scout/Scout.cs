@@ -28,8 +28,8 @@ public class Scout
         setTempPath(group.EnterDirection ,map ,path 
                    ,new Position(group.EnterDirection 
                    ,group.CurrentBlockIndex
-                   ,map.BlockEntityList[group.CurrentBlockIndex].Block
-                   ,map.BlockEntityList[group.CurrentBlockIndex].Block.Location)
+                   ,map.BlockList[group.CurrentBlockIndex]
+                   ,map.BlockList[group.CurrentBlockIndex].Location)
                    ,0
                    ,totalStep + 1);       
 
@@ -129,8 +129,8 @@ public class Scout
     {
         Position tempPos = new Position(enterDirection 
                                        ,position.blockIndex + next
-                                       ,map.BlockEntityList[position.blockIndex + next].Block
-                                       ,map.BlockEntityList[position.blockIndex + next].Block.Location);
+                                       ,map.BlockList[position.blockIndex + next]
+                                       ,map.BlockList[position.blockIndex + next].Location);
         tempPos.buildEntity();
         path.Add(tempPos);
         dfsSearch(map ,path ,path[path.Count - 1] ,--step);

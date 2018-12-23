@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class EventBlock : BaseBlock
+
+public class EventBlock : Block
 {
     private EventPool eventPool;
-    public override string block_type { get; } = "event";
-    public EventBlock() : this(Vector3.zero, Walkable.NoMan)
+
+    public EventBlock() : this(Vector3.zero, Walkable.NoMan ,Area.City)
     {
 
     }
-    public EventBlock(Vector2 location, Walkable identity) : base(location, identity)
+    public EventBlock(Vector2 location, Walkable identity ,Area area) : base(location, identity ,area)
     {
         eventPool = null;
     }
