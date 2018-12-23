@@ -7,17 +7,16 @@ public class Actor
     private string name;
     private Skill skill;
     private Dice  dice;
-    private string modelName;
     private GameObject entity;
     private World world;
-    public Actor(World world ,string name ,string modelName ,Skill skill ,Dice dice ,Vector3 location ,Direction enterDirection)
+    public Actor(World world ,string name ,Skill skill ,Dice dice ,Vector3 location ,Direction enterDirection)
     {
         this.world = world;
         this.name = name;
         this.skill = skill;
         this.dice = dice;
         //建造實體
-        entity = Resources.Load<GameObject>("PreFab/Actor/" + modelName);
+        entity = Resources.Load<GameObject>("PreFab/Actor/" + name);
         entity = GameObject.Instantiate(entity);
         //GameObject entity = new GameObject();
         entity.transform.position = location;

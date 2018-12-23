@@ -87,7 +87,7 @@ public class World
                             groupList[currentGroup].move();
                             break;
                         case PlayerState.Stop:
-                            gameState = GameState.End;//temp
+                            gameState = GameState.End;
                             break;
                     }
                 }
@@ -131,7 +131,7 @@ public class World
         Actor[] actors = new Actor[Constants.ACTORTOTALNUM];
         for ( int i = 0 ; i < Constants.ACTORTOTALNUM ; i++ )
         {
-            actors[i] = new Actor(this ,name ,name ,null ,createDice() ,location ,enterDirection);
+            actors[i] = new Actor(this ,name ,null ,createDice() ,location ,enterDirection);
         }
 
         return actors;
