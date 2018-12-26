@@ -13,15 +13,5 @@ public class AnimationController : MonoBehaviour
     void Update()
     {
         animator.SetBool("running" ,running);
-        /*
-        if ( Input.GetKey("up") )
-        {
-            animator.SetBool("running" ,true);
-        }
-        if ( Input.GetKey("down") )
-        {
-            animator.SetBool("running" ,false);
-        }
-        */
     }
 }

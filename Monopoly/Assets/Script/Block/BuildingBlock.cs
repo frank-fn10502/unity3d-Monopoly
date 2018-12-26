@@ -2,44 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class BuildingBlock : BaseBlock
+
+public class BuildingBlock : Block
 {
-    private Group Landlord;
-    private BuildingEntity buildingEntity;
-    public override string block_type { get; } = "build";
+    private Group landlord;
+    private Building building;
+
     public Group Landlord1
     {
         get
         {
-            return Landlord;
+            return landlord;
         }
 
         set
         {
-            Landlord = value;
+            landlord = value;
         }
     }
-    public BuildingEntity BuildingEntity
+    public Building Building
     {
         get
         {
-            return buildingEntity;
+            return building;
         }
 
         set
         {
-            buildingEntity = value;
+            building = value;
         }
     }
 
-    public BuildingBlock() : this(Vector3.zero, Walkable.NoMan)
+    public BuildingBlock() : this(Vector3.zero, Walkable.NoMan ,Area.City)
     {
 
     }
-    public BuildingBlock(Vector2 location, Walkable identity) : base(location, identity)
+    public BuildingBlock(Vector2 location, Walkable identity ,Area area) : base(location, identity ,area)
     {
-        Landlord = null;
-        buildingEntity = null;
+        this.landlord = null;
+        this.building = null;
     }
 }
