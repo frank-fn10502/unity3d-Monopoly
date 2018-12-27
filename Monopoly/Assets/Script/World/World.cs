@@ -76,6 +76,7 @@ public class World
         {
             case GameState.GlobalEvent:
                 gameState = GameState.PersonalEvent;
+                //
                 break;
             case GameState.PersonalEvent:
                 gameState = GameState.RollingDice;
@@ -99,7 +100,7 @@ public class World
                                 groupList[currentGroup].findPathList(map ,totalStep);
                             }
                             break;
-                        case PlayerState.Walking:
+                        case  
                             groupList[currentGroup].move();
                             break;
                         case PlayerState.Stop:

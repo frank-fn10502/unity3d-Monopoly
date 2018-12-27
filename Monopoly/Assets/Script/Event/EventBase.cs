@@ -34,5 +34,5 @@ using System.Threading.Tasks;
             weight = w;
         }
 
-        public abstract void DoEvent();
+        public abstract void DoEvent(List<Group> droup_list, Group group);
     }
