@@ -38,6 +38,7 @@ public class InformationPanelController : MonoBehaviour
 
     void Update()
     {
+
         mainPainelMaxHight = mainPanel.transform.position.y;
         mainPainelMinHight = characterCamera.pixelRect.y;
         mainPanelMove();
