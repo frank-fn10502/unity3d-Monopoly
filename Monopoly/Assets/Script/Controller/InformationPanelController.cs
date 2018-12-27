@@ -61,7 +61,7 @@ public class InformationPanelController : MonoBehaviour
         viewChangeable = !viewChangeable;
     }
 
-    public void changeCameraView(World world)
+    public void changeCameraView(GlobalManager world)
     {
         originalCameraPos = world.CurrentGroup.Location + new Vector3(5 ,13 ,-6);
         if (!viewChangeable)
