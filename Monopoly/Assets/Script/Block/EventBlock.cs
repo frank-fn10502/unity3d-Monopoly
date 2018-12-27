@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EventBlock : Block
 {
+    public override string block_type { get; } = "event";//jsonconvert
+
     private EventPool eventPool;
 
 

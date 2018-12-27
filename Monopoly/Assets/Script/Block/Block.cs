@@ -4,8 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[JsonConverter(typeof(JsonSubtypes) ,"block_type")]
+[JsonSubtypes.KnownSubType(typeof(BuildingBlock) ,"build")]
+[JsonSubtypes.KnownSubType(typeof(EventBlock) ,"event")]
 public abstract class Block
 {
+    public virtual string block_type { get; }//jsonconvert
+
     protected Vector3 location;
     protected List<Walkable> identity;
     protected List<Direction> directionList;
@@ -130,7 +136,7 @@ public abstract class Block
     private void setPath(Vector3 location)
     {
         this.entity = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        this.entity.transform.localScale = new Vector3(2 ,0.2f ,2);
+        this.entity.transform.localScale = new Vector3(8 ,0.2f ,8);
 
         Renderer renderer =  this.entity.GetComponent<Renderer>();
 
@@ -147,7 +153,7 @@ public abstract class Block
     private void setBackground(Vector3 location)
     {
         this.entity = GameObject.CreatePrimitive(PrimitiveType.Plane);
-        this.entity.transform.localScale = new Vector3(0.2f ,1.0f ,0.2f);
+        this.entity.transform.localScale = new Vector3(0.8f ,1.0f ,0.8f);
 
         Renderer renderer =  this.entity.GetComponent<Renderer>();
         if ( this.area == Area.City )

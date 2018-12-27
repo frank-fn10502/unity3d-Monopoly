@@ -3,8 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class BuildingBlock : Block
 {
+    public override string block_type { get; } = "build";//jsonconvert
+
     private List<Vector3> pathLocations;
     private Vector3 buildingLocation;
     private Group landlord;

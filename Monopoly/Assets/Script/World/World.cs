@@ -38,11 +38,7 @@ public class World
         string target = @"\Assets\Resources\Map\MonopolyMap.json";
         string json = File.ReadAllText(path + target);
 
-        //map = JsonConvert.DeserializeObject<Map>(json);
-        map = JsonConvert.DeserializeObject<Map>(json ,new JsonSerializerSettings()
-                                                      {
-                                                          TypeNameHandling = TypeNameHandling.None
-                                                      });
+        map = JsonConvert.DeserializeObject<Map>(json);
         map.build();
         setGroupList();
 
