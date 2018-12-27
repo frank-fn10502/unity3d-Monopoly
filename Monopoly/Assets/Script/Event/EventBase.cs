@@ -9,6 +9,7 @@ using System.Threading.Tasks;
         private string name;
         private bool isGood;
         private int weight;
+        private string detail;
 
         public string Name
         {
@@ -26,12 +27,17 @@ using System.Threading.Tasks;
             set { weight = value; }
         }
 
-
-        public EventBase(string n = "", bool g= true ,int w = 1)
+        public string Detail
+    {
+            get { return detail; }
+            set { detail = value; }
+        }
+    public EventBase(string n = "", bool g= true ,int w = 1, string d = "")
         {
             name = n;
             isGood = g;
             weight = w;
+            detail = d;
         }
 
         public abstract void DoEvent(List<Group> droup_list, Group group);
