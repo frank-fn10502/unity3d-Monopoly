@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Apes_EventPool
+public class EventPool
 {
     private int total_weight;
     private List<EventBase> event_list;
     private System.Random rand;
 
-    public Apes_EventPool()
+    public EventPool()
     {
         total_weight = 0;
         event_list = new List<EventBase>();
