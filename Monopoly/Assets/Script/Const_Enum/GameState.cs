@@ -7,5 +7,6 @@ public enum GameState
     PersonalEvent,
     RollingDice,
     PlayerMovement,
-    End
+    End,
+    Wait
 }

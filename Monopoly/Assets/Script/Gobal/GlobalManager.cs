@@ -21,7 +21,7 @@ using UnityEngine;
 //    }
 //}
 
-public class World
+public class GlobalManager
 {
     public Map map;
     private Group[] groupList;
@@ -32,7 +32,7 @@ public class World
 
     private GameState gameState;///
 
-    public World()
+    public GlobalManager()
     {
         string path = Directory.GetCurrentDirectory();
         string target = @"\Assets\Resources\Map\MonopolyMap.json";

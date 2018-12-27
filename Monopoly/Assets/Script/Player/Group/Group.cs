@@ -120,7 +120,8 @@ public class Group
     }
     public void rollDice()//扔骰子
     {
-        CurrentActor.rollDice();
+        //CurrentActor.rollDice();
+        //回傳 or 交給
     }
     public void findPathList(Map map ,int step)//找到所有可以走的路
     {
