@@ -7,5 +7,4 @@ public enum Walkable
     ApeShortcut,
     Human,
     NoMan,
-    both
 }

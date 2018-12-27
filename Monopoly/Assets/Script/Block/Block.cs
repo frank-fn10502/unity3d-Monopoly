@@ -4,19 +4,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public abstract class Block
 {
-    private Vector3 location;
-    private Walkable identity;
-    private List<Direction> directionList;
-    private List<Group> influenceList;
+    protected Vector3 location;
+    protected List<Walkable> identity;
+    protected List<Direction> directionList;
+    protected List<Group> influenceList;
 
-    private Area       area;
-    private GameObject entity;
+    protected Area       area;
+    protected GameObject entity;
 
-    public virtual string block_type { get; }
-    public Vector3 Location
+    public virtual Vector3 Location
     {
         get
         {
@@ -28,7 +26,7 @@ public abstract class Block
             location = value;
         }
     }
-    public Walkable Identity
+    public List<Walkable> Identity
     {
         get
         {
@@ -89,27 +87,36 @@ public abstract class Block
         }
     }
 
-    public Block() : this(Vector3.zero, Walkable.NoMan ,Area.City)
+    public Block()// : this(Vector3.zero, Walkable.NoMan ,Area.City)
     {
-    }
-    public Block(Vector2 location, Walkable identity ,Area area)
-    {
-        this.location = location;
-        this.identity = identity;
-
+        this.identity = new List<Walkable>();
         this.directionList = new List<Direction>();
         this.influenceList = new List<Group>();
+    }
+    public Block(Vector2 location ,Walkable identity ,Area area) : this()
+    {
+        this.identity.Add(identity);
 
+        this.location = location;
         this.area = area;
     }
+    public Block(Block anotherBlock)
+    {
+        this.location = anotherBlock.location;
+        this.identity = anotherBlock.identity;
 
+        this.directionList = anotherBlock.directionList;
+        this.influenceList = anotherBlock.influenceList;
+
+        this.area = anotherBlock.area;
+    }
     public void stopAction(Group group)
     {
 
     }
     public void build()
     {
-        if ( this.Identity == Walkable.NoMan || this.Identity == Walkable.ApeShortcut )
+        if ( this.Identity.Contains(Walkable.NoMan) || this.Identity.Contains(Walkable.ApeShortcut) )
         {
             setBackground(this.location);
         }
@@ -127,11 +134,11 @@ public abstract class Block
 
         Renderer renderer =  this.entity.GetComponent<Renderer>();
 
-        if (this.area== Area.City )
+        if ( this.area == Area.City )
         {
             renderer.material = Resources.Load<Material>("Texture/CityLand");
         }
-        else if (this.area== Area.Forest )
+        else if ( this.area == Area.Forest )
         {
             renderer.material = Resources.Load<Material>("Texture/ForestLand");
         }
@@ -143,11 +150,11 @@ public abstract class Block
         this.entity.transform.localScale = new Vector3(0.2f ,1.0f ,0.2f);
 
         Renderer renderer =  this.entity.GetComponent<Renderer>();
-        if (this.area== Area.City )
+        if ( this.area == Area.City )
         {
             renderer.material = Resources.Load<Material>("Texture/CityBackground");
         }
-        else if (this.area== Area.Forest )
+        else if ( this.area == Area.Forest )
         {
             renderer.material = Resources.Load<Material>("Texture/ForestBackground");
         }

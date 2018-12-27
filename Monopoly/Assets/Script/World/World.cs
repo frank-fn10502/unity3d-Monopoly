@@ -1,9 +1,25 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+
+
+//public class MyCustomSerializationBinder : ISerializationBinder
+//{
+//    public Type BindToType(string assemblyName ,string typeName)
+//    {
+//        return Type.GetType(typeName);
+//    }
+
+//    public void BindToName(Type serializedType ,out string assemblyName ,out string typeName)
+//    {
+//        assemblyName = null;
+//        typeName = serializedType.Name;
+//    }
+//}
 
 public class World
 {
@@ -19,10 +35,14 @@ public class World
     public World()
     {
         string path = Directory.GetCurrentDirectory();
-        string target = @"\Assets\Resources\Texture\map.xsa";
+        string target = @"\Assets\Resources\Map\MonopolyMap.json";
         string json = File.ReadAllText(path + target);
 
-        map = JsonConvert.DeserializeObject<Map>(json);
+        //map = JsonConvert.DeserializeObject<Map>(json);
+        map = JsonConvert.DeserializeObject<Map>(json ,new JsonSerializerSettings()
+                                                      {
+                                                          TypeNameHandling = TypeNameHandling.None
+                                                      });
         map.build();
         setGroupList();
 
@@ -132,7 +152,7 @@ public class World
         Actor[] actors = new Actor[Constants.ACTORTOTALNUM];
         for ( int i = 0 ; i < Constants.ACTORTOTALNUM ; i++ )
         {
-            actors[i] = new Actor(this ,name ,name ,null ,createDice() ,location ,enterDirection);
+            actors[i] = new Actor(this ,name ,null ,createDice() ,location ,enterDirection);
         }
 
         return actors;
