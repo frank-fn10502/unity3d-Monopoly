@@ -4,14 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-    class ApesMoveEvent : EventBase
+class ApesMoveEvent : EventBase
+{
+    public ApesMoveEvent(string n,bool g,int w, string d) :base(n,g,w,d)
     {
-        public ApesMoveEvent(string n,bool g,int w):base(n,g,w)
-        {
 
-        }
-        public override void DoEvent(List<Group> droup_list, Group group)
-        {
-            //猩猩隨機移動
-        }
     }
+    public override void DoEvent(List<Group> droup_list, Group group)
+    {
+        //猩猩隨機移動
+        System.Random rand;
+        //group.CurrentActor.run();
+
+    }
+}
