@@ -83,10 +83,11 @@ public class GlobalManager
                 groupList[currentGroup].State = PlayerState.SearchPath;
                 break;
             case GameState.RollingDice:
-                if ( Input.GetButtonDown("Jump") && !isRolled )
-                {                    
+                if ( Input.GetButtonDown("Jump") && !isRolled)
+                {
                     isRolled = true;
                     groupList[currentGroup].rollDice();
+                    //this.gameState = GameState.Wait;//呼叫後等待
                 }
                 break;
             case GameState.PlayerMovement:
@@ -95,7 +96,7 @@ public class GlobalManager
                     {
                         case PlayerState.SearchPath:
                             if ( !isFinded )
-                            {                            
+                            {
                                 isFinded = true;
                                 groupList[currentGroup].findPathList(map ,totalStep);
                             }
@@ -118,6 +119,9 @@ public class GlobalManager
                 isFinded = false;
                 isRolled = false;
                 break;
+            case GameState.Wait:
+                //等待
+                break;
         }
     }
 
@@ -125,7 +129,7 @@ public class GlobalManager
     private void setGroupList()//設定 4 個 group//讀檔?
     {
         groupList = new Group[Constants.PLAYERNUMBER];
-        Direction[] playerDirection = new Direction [Constants.PLAYERNUMBER]{Direction.West ,Direction.North ,Direction.South ,Direction.East};
+        Direction[] playerDirection = new Direction [Constants.PLAYERNUMBER]{Direction.North ,Direction.North ,Direction.South ,Direction.East};
         int[] playerIndex = new int[Constants.PLAYERNUMBER]{2 * 30 + 2 ,2 * 30 + 27 ,27 * 30 + 2 ,27 * 30 + 27};
         Vector3[] playerLocation = new Vector3[Constants.PLAYERNUMBER]
                                       {map.BlockList[2 * 30 + 2].Location + new Vector3(0 ,0.2f ,0)

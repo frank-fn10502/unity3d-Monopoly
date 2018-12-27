@@ -8,10 +8,10 @@ public class Actor
     private Skill skill;
     private Dice  dice;
     private GameObject entity;
-    //private World world;
+    private GlobalManager world;
     public Actor(GlobalManager world ,string name ,Skill skill ,Dice dice ,Vector3 location ,Direction enterDirection)
     {
-        //this.world = world;
+        this.world = world;
         this.name = name;
         this.skill = skill;
         this.dice = dice;
@@ -81,9 +81,9 @@ public class Actor
     public int rollDice()
     {
         //動畫
-        //world.TotalStep = 12;//直接放數值
-        //world.GameState = GameState.PlayerMovement;//玩家移動
-        //world.CurrentGroup.State = PlayerState.SearchPath;//找道路
+        world.TotalStep = 50;//直接放數值
+        world.GameState = GameState.PlayerMovement;//玩家移動
+        world.CurrentGroup.State = PlayerState.SearchPath;//找道路
         return 0;
     }
 
