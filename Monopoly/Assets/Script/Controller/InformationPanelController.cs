@@ -10,10 +10,11 @@ public class InformationPanelController : MonoBehaviour
     public GameObject mainPanel;
     public GameObject blockInformation;
     public GameObject playerInformation;
+ 
     private Camera characterCamera;///
-
-    private static float mainPainelMaxHight = 70;
-    private static float mainPainelMinHight = -68;
+    
+    private static float mainPainelMaxHight;
+    private static float mainPainelMinHight;
     private static float mainPainelVelocity = -210;
     private bool mainPanelMoveable;
 
@@ -37,6 +38,8 @@ public class InformationPanelController : MonoBehaviour
 
     void Update()
     {
+        mainPainelMaxHight = mainPanel.transform.position.y;
+        mainPainelMinHight = characterCamera.pixelRect.y;
         mainPanelMove();
         if(Input.GetKeyDown(KeyCode.Y))
         {
@@ -44,6 +47,7 @@ public class InformationPanelController : MonoBehaviour
             viewChangeable = !viewChangeable;
         }
     }
+
     public void CollapseButtonOnClick()
     {
         if ( mainPanel.transform.position.y == mainPainelMaxHight ||
