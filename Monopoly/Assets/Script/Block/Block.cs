@@ -5,18 +5,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+[JsonConverter(typeof(JsonSubtypes) ,"block_type")]
+[JsonSubtypes.KnownSubType(typeof(BuildingBlock) ,"build")]
+[JsonSubtypes.KnownSubType(typeof(EventBlock) ,"event")]
 public abstract class Block
 {
-    private Vector3 location;
-    private Walkable identity;
-    private List<Direction> directionList;
-    private List<Group> influenceList;
+    public virtual string block_type { get; }//jsonconvert
 
-    private Area       area;
-    private GameObject entity;
+    protected Vector3 location;
+    protected List<Walkable> identity;
+    protected List<Direction> directionList;
+    protected List<Group> influenceList;
 
-    public virtual string block_type { get; }
-    public Vector3 Location
+    protected Area       area;
+    protected GameObject entity;
+
+    public virtual Vector3 Location
     {
         get
         {
@@ -28,7 +32,7 @@ public abstract class Block
             location = value;
         }
     }
-    public Walkable Identity
+    public List<Walkable> Identity
     {
         get
         {
@@ -89,27 +93,36 @@ public abstract class Block
         }
     }
 
-    public Block() : this(Vector3.zero, Walkable.NoMan ,Area.City)
+    public Block()// : this(Vector3.zero, Walkable.NoMan ,Area.City)
     {
-    }
-    public Block(Vector2 location, Walkable identity ,Area area)
-    {
-        this.location = location;
-        this.identity = identity;
-
+        this.identity = new List<Walkable>();
         this.directionList = new List<Direction>();
         this.influenceList = new List<Group>();
+    }
+    public Block(Vector2 location ,Walkable identity ,Area area) : this()
+    {
+        this.identity.Add(identity);
 
+        this.location = location;
         this.area = area;
     }
+    public Block(Block anotherBlock)
+    {
+        this.location = anotherBlock.location;
+        this.identity = anotherBlock.identity;
 
+        this.directionList = anotherBlock.directionList;
+        this.influenceList = anotherBlock.influenceList;
+
+        this.area = anotherBlock.area;
+    }
     public void stopAction(Group group)
     {
 
     }
     public void build()
     {
-        if ( this.Identity == Walkable.NoMan || this.Identity == Walkable.ApeShortcut )
+        if ( this.Identity.Contains(Walkable.NoMan) || this.Identity.Contains(Walkable.ApeShortcut) )
         {
             setBackground(this.location);
         }
@@ -119,19 +132,20 @@ public abstract class Block
         }
     }
 
+
     /*==========private==========*/
     private void setPath(Vector3 location)
     {
         this.entity = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        this.entity.transform.localScale = new Vector3(2 ,0.2f ,2);
+        this.entity.transform.localScale = new Vector3(8 ,0.2f ,8);
 
         Renderer renderer =  this.entity.GetComponent<Renderer>();
 
-        if (this.area== Area.City )
+        if ( this.area == Area.City )
         {
             renderer.material = Resources.Load<Material>("Texture/CityLand");
         }
-        else if (this.area== Area.Forest )
+        else if ( this.area == Area.Forest )
         {
             renderer.material = Resources.Load<Material>("Texture/ForestLand");
         }
@@ -140,14 +154,14 @@ public abstract class Block
     private void setBackground(Vector3 location)
     {
         this.entity = GameObject.CreatePrimitive(PrimitiveType.Plane);
-        this.entity.transform.localScale = new Vector3(0.2f ,1.0f ,0.2f);
+        this.entity.transform.localScale = new Vector3(0.8f ,1.0f ,0.8f);
 
         Renderer renderer =  this.entity.GetComponent<Renderer>();
-        if (this.area== Area.City )
+        if ( this.area == Area.City )
         {
             renderer.material = Resources.Load<Material>("Texture/CityBackground");
         }
-        else if (this.area== Area.Forest )
+        else if ( this.area == Area.Forest )
         {
             renderer.material = Resources.Load<Material>("Texture/ForestBackground");
         }

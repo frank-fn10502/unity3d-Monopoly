@@ -7,10 +7,14 @@ public class WorldController : MonoBehaviour
 {
     public World world;
 
-    void Start()
+    public void Awake()
     {
         world = new World();
     }
+    //void awake()
+    //{
+    //    world = new World();
+    //}
     void Update()
     {
         world.execute();       
