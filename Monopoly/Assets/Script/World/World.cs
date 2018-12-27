@@ -100,7 +100,7 @@ public class World
                                 groupList[currentGroup].findPathList(map ,totalStep);
                             }
                             break;
-                        case  
+                        case PlayerState.Walking:
                             groupList[currentGroup].move();
                             break;
                         case PlayerState.Stop:
