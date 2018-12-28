@@ -27,8 +27,8 @@ public class GlobalManager
     private Group[] groupList;
     private int currentGroup;
     private int totalStep;
-    private bool isRolled;
-    private bool isFinded;
+    //private bool isRolled;
+    //private bool isFinded;
 
     private GameState gameState;///
 
@@ -43,8 +43,8 @@ public class GlobalManager
         setGroupList();
 
         currentGroup = 0;
-        isFinded = false;
-        isRolled = false;
+        //isFinded = false;
+        //isRolled = false;
         totalStep = 1;
         gameState = GameState.GlobalEvent;
     }
@@ -82,14 +82,13 @@ public class GlobalManager
                 gameState = GameState.RollingDice;
                 groupList[currentGroup].State = PlayerState.SearchPath;
                 break;
-            case GameState.RollingDice:
-                if ( Input.GetButtonDown("Jump") && !isRolled)
-                {
-                    isRolled = true;
-                    groupList[currentGroup].rollDice();
-                    //this.gameState = GameState.Wait;//呼叫後等待
-                }
-                break;
+            //case GameState.RollingDice:
+            //    if ( Input.GetButtonDown("Jump"))
+            //    {
+            //        groupList[currentGroup].rollDice();
+            //        //this.gameState = GameState.Wait;//呼叫後等待
+            //    }
+            //    break;
             case GameState.PlayerMovement:
                 {
                     switch ( groupList[currentGroup].State )
@@ -104,7 +103,7 @@ public class GlobalManager
                         case PlayerState.Walking:
                             groupList[currentGroup].move();
                             break;
-                        case PlayerState.Stop:
+                        case PlayerState.End:
                             //bloack.StopAction
                             gameState = GameState.End;//temp
                             break;

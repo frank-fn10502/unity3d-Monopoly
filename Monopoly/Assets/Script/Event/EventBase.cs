@@ -9,6 +9,7 @@ using System.Text;
         private bool isGood;
         private int weight;
         private string detail;
+        PlayerState state;
 
         public string Name
         {
@@ -27,9 +28,14 @@ using System.Text;
         }
 
         public string Detail
-    {
+        {
             get { return detail; }
             set { detail = value; }
+        }
+        public PlayerState State
+        {
+            get { return state; }
+            set { state = value; }
         }
     public EventBase(string n = "", bool g= true ,int w = 1, string d = "")
         {
