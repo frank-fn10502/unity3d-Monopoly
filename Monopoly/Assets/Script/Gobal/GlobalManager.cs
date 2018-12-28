@@ -21,18 +21,18 @@ using UnityEngine;
 //    }
 //}
 
-public class World
+public class GlobalManager
 {
     public Map map;
     private Group[] groupList;
     private int currentGroup;
     private int totalStep;
-    private bool isRolled;
-    private bool isFinded;
+    //private bool isRolled;
+    //private bool isFinded;
 
     private GameState gameState;///
 
-    public World()
+    public GlobalManager()
     {
         string path = Directory.GetCurrentDirectory();
         string target = @"\Assets\Resources\Map\MonopolyMap.json";
@@ -43,8 +43,8 @@ public class World
         setGroupList();
 
         currentGroup = 0;
-        isFinded = false;
-        isRolled = false;
+        //isFinded = false;
+        //isRolled = false;
         totalStep = 1;
         gameState = GameState.GlobalEvent;
     }
@@ -82,20 +82,20 @@ public class World
                 gameState = GameState.RollingDice;
                 groupList[currentGroup].State = PlayerState.SearchPath;
                 break;
-            case GameState.RollingDice:
-                if ( Input.GetButtonDown("Jump") && !isRolled )
-                {                    
-                    isRolled = true;
-                    groupList[currentGroup].rollDice();
-                }
-                break;
+            //case GameState.RollingDice:
+            //    if ( Input.GetButtonDown("Jump"))
+            //    {
+            //        groupList[currentGroup].rollDice();
+            //        //this.gameState = GameState.Wait;//呼叫後等待
+            //    }
+            //    break;
             case GameState.PlayerMovement:
                 {
                     switch ( groupList[currentGroup].State )
                     {
                         case PlayerState.SearchPath:
                             if ( !isFinded )
-                            {                            
+                            {
                                 isFinded = true;
                                 groupList[currentGroup].findPathList(map ,totalStep);
                             }
@@ -103,7 +103,7 @@ public class World
                         case PlayerState.Walking:
                             groupList[currentGroup].move();
                             break;
-                        case PlayerState.Stop:
+                        case PlayerState.End:
                             //bloack.StopAction
                             gameState = GameState.End;//temp
                             break;
@@ -118,6 +118,9 @@ public class World
                 isFinded = false;
                 isRolled = false;
                 break;
+            case GameState.Wait:
+                //等待
+                break;
         }
     }
 
@@ -125,7 +128,7 @@ public class World
     private void setGroupList()//設定 4 個 group//讀檔?
     {
         groupList = new Group[Constants.PLAYERNUMBER];
-        Direction[] playerDirection = new Direction [Constants.PLAYERNUMBER]{Direction.West ,Direction.North ,Direction.South ,Direction.East};
+        Direction[] playerDirection = new Direction [Constants.PLAYERNUMBER]{Direction.North ,Direction.North ,Direction.South ,Direction.East};
         int[] playerIndex = new int[Constants.PLAYERNUMBER]{2 * 30 + 2 ,2 * 30 + 27 ,27 * 30 + 2 ,27 * 30 + 27};
         Vector3[] playerLocation = new Vector3[Constants.PLAYERNUMBER]
                                       {map.BlockList[2 * 30 + 2].Location + new Vector3(0 ,0.2f ,0)

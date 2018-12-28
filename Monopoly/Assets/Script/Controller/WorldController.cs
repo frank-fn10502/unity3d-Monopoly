@@ -5,16 +5,12 @@ using UnityEngine;
 
 public class WorldController : MonoBehaviour
 {
-    public World world;
+    public GlobalManager world;
 
     public void Awake()
     {
-        world = new World();
+        world = new GlobalManager();
     }
-    //void awake()
-    //{
-    //    world = new World();
-    //}
     void Update()
     {
         world.execute();       
