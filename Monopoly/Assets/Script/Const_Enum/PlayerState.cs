@@ -6,7 +6,7 @@ public enum PlayerState
     Normal,
     SearchPath,
     Walking,
-    Stop,
+    End,
     InJail,
     Wait
 }

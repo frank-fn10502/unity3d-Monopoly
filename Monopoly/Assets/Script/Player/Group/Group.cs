@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Group
 {
+    //enum player 
     private PlayerState state;
     private Walkable    identity;
     private Skill skill;
@@ -120,7 +121,7 @@ public class Group
     }
     public void rollDice()//扔骰子
     {
-        CurrentActor.rollDice();
+        //CurrentActor.rollDice();
         //回傳 or 交給
     }
     public void findPathList(Map map ,int step)//找到所有可以走的路
@@ -140,7 +141,7 @@ public class Group
             actors[currentActor].stop();
             scout.deleteDot(scout.choicePath[0]);//刪除走過的點
 
-            state = PlayerState.Stop;
+            state = PlayerState.End;
             Debug.Log("state " + state);
         }
         if ( stepCount == Constants.STEPTIMES )
