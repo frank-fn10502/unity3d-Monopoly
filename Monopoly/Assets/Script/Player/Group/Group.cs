@@ -165,8 +165,6 @@ public class Group
         location = new Vector3(now.x + x ,Constants.SEALEVEL ,now.z + z);
         Debug.Log(location);
         Debug.Log("next: " + next + "now: " + now);
-        
-
         actors[currentActor].run(location);
     }
 }

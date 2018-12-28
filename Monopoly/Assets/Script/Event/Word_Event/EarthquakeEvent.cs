@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
-    class EarthquakeEvent : EventBase
+class EarthquakeEvent : EventBase
     {
         public EarthquakeEvent(string n,bool g,int w, string d) :base(n,g,w,d)
         {
