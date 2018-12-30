@@ -6,33 +6,17 @@ public class GlobalManager
 {
     public Map map;
     private Group[] groupList;
-    private int currentGroup;
+
+    private int currentGroupIndex;
     private int totalStep;
-    //private bool isRolled;
-    //private bool isFinded;
+    private GameState gameState;
 
-    private GameState gameState;///
+    private DisplayManager displayManager;
 
-    public GlobalManager()
+
+    public Group CurrentPlayer
     {
-        string path = Directory.GetCurrentDirectory();
-        string target = @"\Assets\Resources\Map\MonopolyMap.json";
-        string json = File.ReadAllText(path + target);
-
-        map = JsonConvert.DeserializeObject<Map>(json);
-        map.build();
-        setGroupList();
-
-        currentGroup = 0;
-        //isFinded = false;
-        //isRolled = false;
-        totalStep = 1;
-        gameState = GameState.GlobalEvent;
-    }
-
-    public Group CurrentGroup
-    {
-        get { return groupList[currentGroup]; }
+        get { return groupList[currentGroupIndex]; }
     }
     public int TotalStep
     {
@@ -51,6 +35,26 @@ public class GlobalManager
         }
     }
 
+
+
+    public GlobalManager()
+    {
+        string path = Directory.GetCurrentDirectory();
+        string target = @"\Assets\Resources\Map\MonopolyMap.json";
+        string json = File.ReadAllText(path + target);
+
+        map = JsonConvert.DeserializeObject<Map>(json);
+        map.build();
+        setGroupList();
+
+        currentGroupIndex = 0;
+        totalStep = 1;
+        gameState = GameState.GlobalEvent;
+
+        displayManager = new DisplayManager(this);/////
+    }
+
+
     public void execute()
     {
         switch ( gameState )
@@ -58,27 +62,41 @@ public class GlobalManager
             case GameState.GlobalEvent:
                 gameState = GameState.PersonalEvent;
                 //
+
                 break;
             case GameState.PersonalEvent:
-                //gameState = GameState.RollingDice;
-                groupList[currentGroup].State = PlayerState.SearchPath;
+                groupList[currentGroupIndex].State = PlayerState.SearchPath;
+                //
+
                 break;
             case GameState.PlayerMovement:
                 {
-                    switch ( groupList[currentGroup].State )
+                    switch ( groupList[currentGroupIndex].State )
                     {
                         case PlayerState.RollingDice:
-                            groupList[currentGroup].rollDice();
+                            groupList[currentGroupIndex].rollDice();
+                            CurrentPlayer.State = PlayerState.Wait;
+                            //交給displayManager
+                            displayManager.rollingDiceAnimation();
+
+
                             break;
                         case PlayerState.SearchPath:
-                            groupList[currentGroup].findPathList(map ,totalStep);
+                            groupList[currentGroupIndex].findPathList(map ,totalStep);
+                            CurrentPlayer.State = PlayerState.Wait;
+
                             break;
                         case PlayerState.Walking:
-                            groupList[currentGroup].move();
+                            groupList[currentGroupIndex].move();
+                            CurrentPlayer.State = PlayerState.Wait;
+
+
                             break;
                         case PlayerState.End:
                             //block.StopAction
+                            CurrentPlayer.State = PlayerState.Wait;
                             gameState = GameState.End;//temp
+
                             break;
                         case PlayerState.Wait:
                             //等待
@@ -87,8 +105,8 @@ public class GlobalManager
                 }
                 break;
             case GameState.End:
-                currentGroup = ( currentGroup + 1 ) % Constants.PLAYERNUMBER;
-                groupList[currentGroup].State = PlayerState.Normal;///
+                currentGroupIndex = ( currentGroupIndex + 1 ) % Constants.PLAYERNUMBER;
+                groupList[currentGroupIndex].State = PlayerState.Normal;///
                 gameState = GameState.GlobalEvent;
 
                 //isFinded = false;

@@ -25,7 +25,9 @@ public class Scout
         List<Position> path = new List<Position>();
 
         //找到所有路徑
-        setTempPath(group.EnterDirection ,map ,path
+        setTempPath(group.EnterDirection 
+                   ,map 
+                   ,path
                    ,new Position(group.EnterDirection
                    ,group.CurrentBlockIndex
                    ,map.BlockList[group.CurrentBlockIndex]
@@ -73,7 +75,6 @@ public class Scout
         GameObject.Destroy(dot.entity);
         choicePath.Remove(dot);
     }
-
 
     private void createSelect()
     {

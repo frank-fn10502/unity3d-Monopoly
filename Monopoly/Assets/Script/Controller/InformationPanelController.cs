@@ -64,7 +64,7 @@ public class InformationPanelController : MonoBehaviour
 
     public void changeCameraView(GlobalManager world)
     {
-        originalCameraPos = world.CurrentGroup.Location + new Vector3(5 ,13 ,-6);
+        originalCameraPos = world.CurrentPlayer.Location + new Vector3(5 ,13 ,-6);
         if (!viewChangeable)
         {            
             characterCamera.transform.position = originalCameraPos;            

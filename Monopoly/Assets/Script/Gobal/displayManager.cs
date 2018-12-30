@@ -5,8 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-class displayManager
+class DisplayManager
 {
+    private GlobalManager globalManager;
 
+    public DisplayManager(GlobalManager globalManager)
+    {
+        this.globalManager = globalManager;
+    }
+
+    public void rollingDiceAnimation()
+    {
+        //呼叫扔骰子
+
+        globalManager.TotalStep = 12;//temp
+        globalManager.CurrentPlayer.State = PlayerState.SearchPath;//temp
+    }
 }
 

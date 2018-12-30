@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Group
 {
-    //enum player 
     private PlayerState state;
     private Walkable    identity;
     private Skill skill;
@@ -20,24 +17,6 @@ public class Group
 
     private Scout scout;
     private int stepCount;
-    
-
-    public Group(Skill skill ,Actor[] actors  ,Attributes attributes ,Resource resource ,Vector3 location ,int currentBlockIndex ,Direction enterDirection)
-    {
-        this.state = PlayerState.Normal;
-        this.identity = Walkable.Human;
-        this.skill = skill;
-        this.actors = actors;
-        this.currentActor = 0;
-
-        this.attributes = attributes;
-        this.resource   = resource;
-        this.location = location;
-        this.currentBlockIndex = currentBlockIndex;
-        this.enterDirection = enterDirection;
-
-        this.scout = new Scout(this);
-    }
 
     public Actor CurrentActor
     {
@@ -111,6 +90,24 @@ public class Group
 
 
 
+    public Group(Skill skill ,Actor[] actors  ,Attributes attributes ,Resource resource ,Vector3 location ,int currentBlockIndex ,Direction enterDirection)
+    {
+        this.state = PlayerState.Normal;
+        this.identity = Walkable.Human;
+        this.skill = skill;
+        this.actors = actors;
+        this.currentActor = 0;
+
+        this.attributes = attributes;
+        this.resource   = resource;
+        this.location = location;
+        this.currentBlockIndex = currentBlockIndex;
+        this.enterDirection = enterDirection;
+
+        this.scout = new Scout(this);
+    }
+
+
     public void changeActor(int rotate)//1 or -1
     {
         int next  = currentActor - rotate;
@@ -160,6 +157,7 @@ public class Group
         }
     }
 
+    /*==========private==========*/
     private void move(Vector3 now ,Vector3 next ,int step)
     {
         float x = (next.x - now.x) * step / Constants.STEPTIMES;// * Time.deltaTime;
