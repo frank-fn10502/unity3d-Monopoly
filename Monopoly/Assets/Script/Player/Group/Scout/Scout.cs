@@ -25,15 +25,15 @@ public class Scout
         List<Position> path = new List<Position>();
 
         //找到所有路徑
-        setTempPath(group.EnterDirection ,map ,path 
-                   ,new Position(group.EnterDirection 
+        setTempPath(group.EnterDirection ,map ,path
+                   ,new Position(group.EnterDirection
                    ,group.CurrentBlockIndex
-                   ,map.BlockEntityList[group.CurrentBlockIndex].Block
-                   ,map.BlockEntityList[group.CurrentBlockIndex].Block.Location)
+                   ,map.BlockList[group.CurrentBlockIndex]
+                   ,map.BlockList[group.CurrentBlockIndex].Location)
                    ,0
-                   ,totalStep + 1);       
+                   ,totalStep + 1);
 
-        createSelect();        
+        createSelect();
     }
     public void selectPath(int pathNo)//變換顏色 ,用以顯示選擇的道路
     {
@@ -46,13 +46,13 @@ public class Scout
     {
         choicePath = new List<Position>(pathList[pathNo]);
 
-        for(int i = 0 ; i < pathList.Count ; i++ )
+        for ( int i = 0 ; i < pathList.Count ; i++ )
         {
             if ( i == pathNo ) continue;
 
-            for(int j = 0 ,k = 0; j < pathList[i].Count ; j++ )
+            for ( int j = 0, k = 0 ; j < pathList[i].Count ; j++ )
             {
-                if( pathList[i][j].entity == pathList[pathNo][k].entity)
+                if ( pathList[i][j].entity == pathList[pathNo][k].entity )
                 {
                     k++;
                 }
@@ -69,7 +69,7 @@ public class Scout
         group.State = PlayerState.Walking;//設定玩家狀態為"walking"
     }
     public void deleteDot(Position dot)//刪除走過的點
-    {        
+    {
         GameObject.Destroy(dot.entity);
         choicePath.Remove(dot);
     }
@@ -100,21 +100,21 @@ public class Scout
         {
             for ( int i = 0 ; i < position.block.DirectionList.Count ; i++ )
             {
-                if( position.block.DirectionList[i] != position.enterDirection)
+                if ( position.block.DirectionList[i] != position.enterDirection )
                 {
                     switch ( position.block.DirectionList[i] )
                     {
                         case Direction.East:
-                            setTempPath(Direction.West ,map ,path ,position ,30 ,step);
+                            setTempPath(Direction.West ,map ,path ,position ,1 ,step);
                             break;
                         case Direction.North:
-                            setTempPath(Direction.South ,map ,path ,position ,1 ,step);
+                            setTempPath(Direction.South ,map ,path ,position ,-30 ,step);
                             break;
                         case Direction.South:
-                            setTempPath(Direction.North ,map ,path ,position ,-1 ,step);
+                            setTempPath(Direction.North ,map ,path ,position ,30 ,step);
                             break;
                         case Direction.West:
-                            setTempPath(Direction.East ,map ,path ,position ,-30 ,step);
+                            setTempPath(Direction.East ,map ,path ,position ,-1 ,step);
                             break;
                     }
                 }
@@ -125,12 +125,12 @@ public class Scout
             pathList.Add(new List<Position>(path));
         }
     }
-    private void setTempPath(Direction enterDirection , Map map ,List<Position> path ,Position position ,int next ,int step)
+    private void setTempPath(Direction enterDirection ,Map map ,List<Position> path ,Position position ,int next ,int step)
     {
-        Position tempPos = new Position(enterDirection 
+        Position tempPos = new Position(enterDirection
                                        ,position.blockIndex + next
-                                       ,map.BlockEntityList[position.blockIndex + next].Block
-                                       ,map.BlockEntityList[position.blockIndex + next].Block.Location);
+                                       ,map.BlockList[position.blockIndex + next]
+                                       ,map.BlockList[position.blockIndex + next].Location);
         tempPos.buildEntity();
         path.Add(tempPos);
         dfsSearch(map ,path ,path[path.Count - 1] ,--step);

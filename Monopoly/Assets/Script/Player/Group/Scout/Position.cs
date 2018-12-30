@@ -6,13 +6,13 @@ public class Position
 {
     public Direction enterDirection;
     public int blockIndex;
-    public BaseBlock block;
+    public Block block;
     public Vector3   location;
     public GameObject entity;
     private static Color defaultColor = new Color(108 ,34 ,34);
     private static Color changeColor = new Color(207 ,182 ,42);
 
-    public Position(Direction enterDirection ,int blockIndex ,BaseBlock block ,Vector3 location)
+    public Position(Direction enterDirection ,int blockIndex ,Block block ,Vector3 location)
     {
         this.enterDirection = enterDirection;
         this.blockIndex = blockIndex;
