@@ -89,7 +89,7 @@ public class InformationPanelController : MonoBehaviour
             float y = Input.GetAxis("Mouse ScrollWheel") * -1 * mainCameraVelocity * 10;
             float z = Input.GetAxis("Vertical") * mainCameraVelocity;
 
-            Debug.Log(Input.GetAxis("Mouse ScrollWheel") + " " + y);
+            //Debug.Log(Input.GetAxis("Mouse ScrollWheel") + " " + y);
             y = (characterCamera.transform.position.y + y <= originalCameraPos.y ) ? characterCamera.transform.position.y - originalCameraPos.y : y;//不要潛到地底下
 
             characterCamera.transform.position += new Vector3(x ,y ,z);

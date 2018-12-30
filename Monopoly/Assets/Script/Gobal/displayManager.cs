@@ -24,7 +24,7 @@ class DisplayManager
     {
         //呼叫扔骰子
 
-        globalManager.TotalStep = 12;//temp
+        globalManager.TotalStep = 100;//temp
         currentPlayer.State = PlayerState.SearchPath;//temp
     }
     public void displaySearchPath(Map map)
@@ -83,6 +83,7 @@ class DisplayManager
             entity.GetComponent<PositionController>().pathNo = count++;
             entity.GetComponent<PositionController>().CheckOut = currentPlayer.Scout.checkOutPath;
             entity.GetComponent<PositionController>().Select = currentPlayer.Scout.selectPath;
+            entity.GetComponent<PositionController>().Leave = currentPlayer.Scout.leavePath;
             entity.transform.localScale = new Vector3(1.5f ,0.1f ,1.5f);
         }
         //if ( currentPlayer.Scout.pathList.Count == 1 )

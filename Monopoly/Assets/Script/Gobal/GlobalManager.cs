@@ -67,29 +67,31 @@ public class GlobalManager
             case GameState.PersonalEvent:
                 groupList[currentGroupIndex].State = PlayerState.SearchPath;
                 //
-
+                gameState = GameState.PlayerMovement;
+                CurrentPlayer.State = PlayerState.RollingDice;
                 break;
             case GameState.PlayerMovement:
                 {
                     switch ( groupList[currentGroupIndex].State )
                     {
                         case PlayerState.RollingDice:
-                            //groupList[currentGroupIndex].rollDice();
-                            CurrentPlayer.State = PlayerState.Wait;
-                            //交給displayManager
-                            displayManager.displayRollingDice();//轉換到下一個階段
-
-
+                            if ( Input.GetButtonDown("Jump") )
+                            {
+                                //groupList[currentGroupIndex].rollDice();
+                                CurrentPlayer.State = PlayerState.Wait;
+                                //交給displayManager
+                                displayManager.displayRollingDice();//轉換到下一個階段
+                            }
                             break;
                         case PlayerState.SearchPath:
                             groupList[currentGroupIndex].findPathList(map ,totalStep);
-                            displayManager.displaySearchPath(map);
                             CurrentPlayer.State = PlayerState.Wait;
+                            displayManager.displaySearchPath(map);                          
 
                             break;
                         case PlayerState.Walking:
                             groupList[currentGroupIndex].move();
-                            CurrentPlayer.State = PlayerState.Wait;
+                            //CurrentPlayer.State = PlayerState.Wait;
 
 
                             break;

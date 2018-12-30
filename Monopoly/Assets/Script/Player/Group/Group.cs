@@ -168,8 +168,8 @@ public class Group
         float x = (next.x - now.x) * step / Constants.STEPTIMES;// * Time.deltaTime;
         float z = (next.z - now.z) * step / Constants.STEPTIMES;// * Time.deltaTime;
         location = new Vector3(now.x + x ,Constants.SEALEVEL ,now.z + z);
-        Debug.Log(location);
-        Debug.Log("next: " + next + "now: " + now);
+        //Debug.Log(location);
+        //Debug.Log("next: " + next + "now: " + now);
         actors[currentActor].run(location);
     }
 }

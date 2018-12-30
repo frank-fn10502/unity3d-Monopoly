@@ -34,9 +34,10 @@ public class Position
     //}
     public void beSelected()
     {
-        //Renderer rend = entity.GetComponent<Renderer>();
-        //rend.material.color = changeColor;
-
-        //變色
+        entity.GetComponent<Renderer>().material = Resources.Load<Material>("Texture/Yellow");
+    }
+    public void leave()
+    {
+        entity.GetComponent<Renderer>().material = Resources.Load<Material>("Texture/Orange");
     }
 }

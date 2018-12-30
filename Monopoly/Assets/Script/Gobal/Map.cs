@@ -34,12 +34,14 @@ public class Map
 
     public void build()
     {
+        GameObject mapEntity = new GameObject("mapEntity"); //Empty GameObject
         for ( int i = 0 ; i < 30 ; i++ )
         {
             for ( int j = 0 ; j < 30 ; j++ )
             {
                 index = i * 30 + j;
                 BlockList[index].build();
+                BlockList[index].Entity.transform.parent = mapEntity.transform;//統一管理
             }
         }
     }

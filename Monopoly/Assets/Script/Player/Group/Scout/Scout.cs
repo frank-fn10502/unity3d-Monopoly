@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 public class Scout
-{   
+{
     public Group group;
     public int totalStep;
     public List<List<Position>> pathList;
@@ -25,8 +25,8 @@ public class Scout
         List<Position> path = new List<Position>();
 
         //找到所有路徑
-        dfsSearch(group.EnterDirection 
-                   ,map 
+        dfsSearch(group.EnterDirection
+                   ,map
                    ,path
                    ,new Position(group.EnterDirection
                    ,group.CurrentBlockIndex
@@ -79,8 +79,23 @@ public class Scout
             pathList.Add(new List<Position>(path));
         }
     }
+    private bool sameDot(Position currentP ,List<Position> choiceP)
+    {
+        foreach ( Position p in choiceP )
+        {
+            if ( currentP.entity == p.entity ) return true;
+        }
+        return false;
+    }
 
     /*==========互動==========*/
+    public void leavePath(int pathNo)//變換顏色 ,用以顯示選擇的道路
+    {
+        foreach ( Position oneDot in pathList[pathNo] )
+        {
+            oneDot.leave();
+        }
+    }
     public void selectPath(int pathNo)//變換顏色 ,用以顯示選擇的道路
     {
         foreach ( Position oneDot in pathList[pathNo] )
@@ -96,11 +111,17 @@ public class Scout
         {
             if ( i == pathNo ) continue;
 
-            for ( int j = 0, k = 0 ; j < pathList[i].Count ; j++ )
+            for ( int j = 0 ; j < pathList[i].Count ; j++ )
             {
-                if ( pathList[i][j].entity == pathList[pathNo][k].entity )
+                //if ( pathList[i][j].entity == pathList[pathNo][k].entity )
+                if ( sameDot(pathList[i][j] ,choicePath) )
                 {
-                    k++;
+                    if ( j == pathList[i].Count - 1 && 
+                        pathList[i][j].entity != pathList[pathNo][pathList[pathNo].Count-1].entity )
+                    {
+                        GameObject.Destroy(pathList[i][j].entity.GetComponent<PositionController>());
+                        pathList[i][j].entity.transform.localScale = new Vector3(0.4f ,0.1f ,0.4f);
+                    }
                 }
                 else
                 {
@@ -117,7 +138,11 @@ public class Scout
     }
     public void deleteDot(Position dot)//刪除走過的點
     {
-        GameObject.Destroy(dot.entity);
         choicePath.Remove(dot);
+        Position removeDot = dot;
+        if(!sameDot(dot ,choicePath))
+        {
+            GameObject.Destroy(removeDot.entity);
+        }             
     }
 }

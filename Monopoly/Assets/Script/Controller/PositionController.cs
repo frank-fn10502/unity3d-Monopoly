@@ -4,11 +4,13 @@ using UnityEngine;
 
 public delegate void CheckOut(int no);
 public delegate void Select(int no);
+public delegate void Leave(int no);
 public class PositionController : MonoBehaviour
 {
     public int pathNo;
     private CheckOut checkOut;
     private Select select;
+    private Leave leave;
 
     public CheckOut CheckOut
     {
@@ -19,6 +21,14 @@ public class PositionController : MonoBehaviour
         set { select = value; }
     }
 
+    public Leave Leave
+    {
+        set
+        {
+            leave = value;
+        }
+    }
+
     void OnMouseDown()
     {
         checkOut(pathNo);
@@ -26,5 +36,9 @@ public class PositionController : MonoBehaviour
     private void OnMouseEnter()
     {
         select(pathNo);
+    }
+    private void OnMouseExit()
+    {
+        leave(pathNo);
     }
 }
