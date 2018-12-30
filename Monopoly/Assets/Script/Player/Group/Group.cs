@@ -16,7 +16,9 @@ public class Group
     private Direction enterDirection;
 
     private Scout scout;
+    private int  inJailTime;
     private int stepCount;
+
 
     public Actor CurrentActor
     {
@@ -94,8 +96,20 @@ public class Group
             return scout;
         }
     }
+    public int InJailTime
+    {
+        get
+        {
+            return inJailTime;
+        }
 
-    public Group(Skill skill ,Actor[] actors  ,Attributes attributes ,Resource resource ,Vector3 location ,int currentBlockIndex ,Direction enterDirection)
+        set
+        {
+            inJailTime = value;
+        }
+    }
+
+    public Group(Skill skill ,Actor[] actors ,Attributes attributes ,Resource resource ,Vector3 location ,int currentBlockIndex ,Direction enterDirection)
     {
         this.state = PlayerState.Normal;
         this.identity = Walkable.Human;
@@ -104,12 +118,13 @@ public class Group
         this.currentActor = 0;
 
         this.attributes = attributes;
-        this.resource   = resource;
+        this.resource = resource;
         this.location = location;
         this.currentBlockIndex = currentBlockIndex;
         this.enterDirection = enterDirection;
 
         this.scout = new Scout(this);
+        this.inJailTime = 0;
     }
 
 
@@ -128,37 +143,24 @@ public class Group
     }
     public void findPathList(Map map ,int step)//找到所有可以走的路
     {
-        scout.reconnoiter(map ,step);     
+        scout.reconnoiter(map ,step);
         stepCount = 0;
     }
     public void move()//按照scout的Path移動
-    {       
-        if ( scout.totalStep != 0 )
-        {
-            move(scout.choicePath[0].location
-                ,scout.choicePath[1].location ,++stepCount);
-        }
-        else if ( scout.totalStep == 0 )
-        {
-            actors[currentActor].stop();
-            scout.deleteDot(scout.choicePath[0]);//刪除走過的點
-
-            state = PlayerState.End;
-            Debug.Log("state " + state);
-        }
+    {
+        move(scout.choicePath[0].location ,scout.choicePath[1].location ,++stepCount);
         if ( stepCount == Constants.STEPTIMES )
-        {       
-            stepCount = 0;
-
+        {            
             if ( CurrentBlockIndex != scout.choicePath[1].blockIndex )
             {
-                this.EnterDirection    = scout.choicePath[1].enterDirection;
+                this.EnterDirection = scout.choicePath[1].enterDirection;
                 this.CurrentBlockIndex = scout.choicePath[1].blockIndex;
                 --scout.totalStep;
             }
+            stepCount = 0;
             scout.deleteDot(scout.choicePath[0]);//刪除走過的點
 
-            Debug.Log("scout.totalStep: " + scout.totalStep);
+            //Debug.Log("scout.totalStep: " + scout.totalStep);
         }
     }
 
@@ -170,6 +172,5 @@ public class Group
         location = new Vector3(now.x + x ,Constants.SEALEVEL ,now.z + z);
         //Debug.Log(location);
         //Debug.Log("next: " + next + "now: " + now);
-        actors[currentActor].run(location);
     }
 }

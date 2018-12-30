@@ -24,13 +24,25 @@ class DisplayManager
     {
         //呼叫扔骰子
 
-        globalManager.TotalStep = 100;//temp
+        globalManager.TotalStep = 50;//temp
         currentPlayer.State = PlayerState.SearchPath;//temp
     }
     public void displaySearchPath(Map map)
     {
         createScoutPathEntity(map);
         createInteractiveDot();
+    }
+    public void displayPlayerMovement()
+    {
+        currentPlayer.CurrentActor.run(currentPlayer.Location);
+
+        if ( currentPlayer.Scout.totalStep == 0 )
+        {
+            currentPlayer.Scout.deleteDot(currentPlayer.Scout.choicePath[0]);//刪除走過的點
+            currentPlayer.CurrentActor.stop();
+
+            currentPlayer.State = PlayerState.End;
+        }
     }
 
     /*==========private==========*/

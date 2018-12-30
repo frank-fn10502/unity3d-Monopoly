@@ -139,10 +139,10 @@ public class Scout
     public void deleteDot(Position dot)//刪除走過的點
     {
         choicePath.Remove(dot);
-        Position removeDot = dot;
+        //Position removeDot = dot;
         if(!sameDot(dot ,choicePath))
         {
-            GameObject.Destroy(removeDot.entity);
+            GameObject.Destroy(dot.entity);
         }             
     }
 }

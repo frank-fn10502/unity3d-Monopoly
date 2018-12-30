@@ -23,15 +23,6 @@ public class Position
         this.location = location;
     }
 
-    //public void buildEntity()
-    //{
-    //    this.entity = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-    //    this.entity.transform.localScale = new Vector3(0.4f ,0.1f ,0.4f);
-
-    //    this.entity.GetComponent<Renderer>().material = Resources.Load<Material>("Texture/Orange");
-
-    //    this.entity.transform.position = (location + new Vector3(0 ,0.2f ,0));
-    //}
     public void beSelected()
     {
         entity.GetComponent<Renderer>().material = Resources.Load<Material>("Texture/Yellow");

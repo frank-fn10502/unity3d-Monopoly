@@ -44,7 +44,17 @@ public class Actor
             return dice;
         }
     }
-
+    public GameObject Entity
+    {
+        get
+        {
+            return entity;
+        }
+        set
+        {
+            entity = value;
+        }
+    }
 
     public void run(Vector3 location)
     {
@@ -71,21 +81,20 @@ public class Actor
         }
         this.entity.transform.rotation = quate;
         entity.transform.position = location + new Vector3(0 ,0.2f ,0);
-        //setRotation(enterDirection);
     }
     public void stop()
     {
         //靜止動畫
         entity.GetComponent<AnimationController>().running = false;
     }
-    public int rollDice()
-    {
-        //動畫
-        //world.TotalStep = 50;//直接放數值
-        //world.GameState = GameState.PlayerMovement;//玩家移動
-        //world.CurrentGroup.State = PlayerState.SearchPath;//找道路
-        return 0;
-    }
+    //public int rollDice()
+    //{
+    //    //動畫
+    //    //world.TotalStep = 50;//直接放數值
+    //    //world.GameState = GameState.PlayerMovement;//玩家移動
+    //    //world.CurrentGroup.State = PlayerState.SearchPath;//找道路
+    //    return 0;
+    //}
 
     private void setRotation(Direction enterDirection)
     {

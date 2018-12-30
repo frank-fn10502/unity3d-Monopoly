@@ -51,7 +51,7 @@ public class GlobalManager
         totalStep = 1;
         gameState = GameState.GlobalEvent;
 
-        displayManager = new DisplayManager(this);/////
+        displayManager = new DisplayManager(this);
     }
 
 
@@ -60,15 +60,34 @@ public class GlobalManager
         switch ( gameState )
         {
             case GameState.GlobalEvent:
-                gameState = GameState.PersonalEvent;
-                //
+                if(currentGroupIndex % groupList.Length == 0)
+                {
+                    //抽世界事件
+                    gameState = GameState.Wait;
+                    //交給displayManager
+                }
+                else
+                {
+                    gameState = GameState.PersonalEvent;
+                }
+                CurrentPlayer.State = PlayerState.RollingDice;
+                
+                gameState = GameState.PersonalEvent;//temp
 
                 break;
             case GameState.PersonalEvent:
-                groupList[currentGroupIndex].State = PlayerState.SearchPath;
-                //
-                gameState = GameState.PlayerMovement;
-                CurrentPlayer.State = PlayerState.RollingDice;
+                if ( CurrentPlayer.InJailTime == 0 )
+                {
+                    //抽個人事件
+                    gameState = GameState.Wait;
+                    //交給displayManager
+                }
+                else
+                {
+                    gameState = GameState.PlayerMovement;
+                }
+                gameState = GameState.PlayerMovement;//temp
+
                 break;
             case GameState.PlayerMovement:
                 {
@@ -79,6 +98,7 @@ public class GlobalManager
                             {
                                 //groupList[currentGroupIndex].rollDice();
                                 CurrentPlayer.State = PlayerState.Wait;
+
                                 //交給displayManager
                                 displayManager.displayRollingDice();//轉換到下一個階段
                             }
@@ -91,14 +111,23 @@ public class GlobalManager
                             break;
                         case PlayerState.Walking:
                             groupList[currentGroupIndex].move();
-                            //CurrentPlayer.State = PlayerState.Wait;
 
+                            //CurrentPlayer.State = PlayerState.Wait;
+                            //交給displayManager
+                            displayManager.displayPlayerMovement();                           
 
                             break;
                         case PlayerState.End:
                             //block.StopAction
                             CurrentPlayer.State = PlayerState.Wait;
+                            //交給displayManager
+
                             gameState = GameState.End;//temp
+
+                            break;
+                        case PlayerState.InJail:
+                            CurrentPlayer.InJailTime--;
+                            gameState = GameState.End;//直接結束
 
                             break;
                         case PlayerState.Wait:
@@ -108,12 +137,12 @@ public class GlobalManager
                 }
                 break;
             case GameState.End:
-                currentGroupIndex = ( currentGroupIndex + 1 ) % Constants.PLAYERNUMBER;
-                groupList[currentGroupIndex].State = PlayerState.Normal;///
-                gameState = GameState.GlobalEvent;
+                CurrentPlayer.State = PlayerState.Wait;
+                //交給displayManager
 
-                //isFinded = false;
-                //isRolled = false;
+                currentGroupIndex = ( currentGroupIndex + 1 ) % Constants.PLAYERNUMBER;//temp
+                gameState = GameState.GlobalEvent;//temp
+
                 break;
             case GameState.Wait:
                 //等待
@@ -121,7 +150,7 @@ public class GlobalManager
         }
     }
 
-
+    /*暫時*/
     private void setGroupList()//設定 4 個 group//讀檔?
     {
         groupList = new Group[Constants.PLAYERNUMBER];
