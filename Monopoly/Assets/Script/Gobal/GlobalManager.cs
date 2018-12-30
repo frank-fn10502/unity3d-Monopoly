@@ -1,25 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-
-
-//public class MyCustomSerializationBinder : ISerializationBinder
-//{
-//    public Type BindToType(string assemblyName ,string typeName)
-//    {
-//        return Type.GetType(typeName);
-//    }
-
-//    public void BindToName(Type serializedType ,out string assemblyName ,out string typeName)
-//    {
-//        assemblyName = null;
-//        typeName = serializedType.Name;
-//    }
-//}
 
 public class GlobalManager
 {
@@ -27,8 +8,8 @@ public class GlobalManager
     private Group[] groupList;
     private int currentGroup;
     private int totalStep;
-    private bool isRolled;
-    private bool isFinded;
+    //private bool isRolled;
+    //private bool isFinded;
 
     private GameState gameState;///
 
@@ -79,33 +60,28 @@ public class GlobalManager
                 //
                 break;
             case GameState.PersonalEvent:
-                gameState = GameState.RollingDice;
+                //gameState = GameState.RollingDice;
                 groupList[currentGroup].State = PlayerState.SearchPath;
                 break;
-            //case GameState.RollingDice:
-            //    if ( Input.GetButtonDown("Jump"))
-            //    {
-            //        groupList[currentGroup].rollDice();
-            //        //this.gameState = GameState.Wait;//呼叫後等待
-            //    }
-            //    break;
             case GameState.PlayerMovement:
                 {
                     switch ( groupList[currentGroup].State )
                     {
+                        case PlayerState.RollingDice:
+                            groupList[currentGroup].rollDice();
+                            break;
                         case PlayerState.SearchPath:
-                            if ( !isFinded )
-                            {
-                                isFinded = true;
-                                groupList[currentGroup].findPathList(map ,totalStep);
-                            }
+                            groupList[currentGroup].findPathList(map ,totalStep);
                             break;
                         case PlayerState.Walking:
                             groupList[currentGroup].move();
                             break;
                         case PlayerState.End:
-                            //bloack.StopAction
+                            //block.StopAction
                             gameState = GameState.End;//temp
+                            break;
+                        case PlayerState.Wait:
+                            //等待
                             break;
                     }
                 }
@@ -115,8 +91,8 @@ public class GlobalManager
                 groupList[currentGroup].State = PlayerState.Normal;///
                 gameState = GameState.GlobalEvent;
 
-                isFinded = false;
-                isRolled = false;
+                //isFinded = false;
+                //isRolled = false;
                 break;
             case GameState.Wait:
                 //等待
