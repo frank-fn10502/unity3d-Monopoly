@@ -74,15 +74,16 @@ public class GlobalManager
                     switch ( groupList[currentGroupIndex].State )
                     {
                         case PlayerState.RollingDice:
-                            groupList[currentGroupIndex].rollDice();
+                            //groupList[currentGroupIndex].rollDice();
                             CurrentPlayer.State = PlayerState.Wait;
                             //交給displayManager
-                            displayManager.rollingDiceAnimation();
+                            displayManager.displayRollingDice();//轉換到下一個階段
 
 
                             break;
                         case PlayerState.SearchPath:
                             groupList[currentGroupIndex].findPathList(map ,totalStep);
+                            displayManager.displaySearchPath(map);
                             CurrentPlayer.State = PlayerState.Wait;
 
                             break;

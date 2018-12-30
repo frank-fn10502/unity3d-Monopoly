@@ -87,8 +87,13 @@ public class Group
             currentBlockIndex = value;
         }
     }
-
-
+    public Scout Scout
+    {
+        get
+        {
+            return scout;
+        }
+    }
 
     public Group(Skill skill ,Actor[] actors  ,Attributes attributes ,Resource resource ,Vector3 location ,int currentBlockIndex ,Direction enterDirection)
     {

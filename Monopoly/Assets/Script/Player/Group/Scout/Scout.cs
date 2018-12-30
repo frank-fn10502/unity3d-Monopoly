@@ -4,11 +4,10 @@ using UnityEngine;
 
 
 public class Scout
-{
-    private List<List<Position>> pathList;
-
+{   
     public Group group;
     public int totalStep;
+    public List<List<Position>> pathList;
     public List<Position> choicePath;
 
 
@@ -17,6 +16,7 @@ public class Scout
         this.group = group;
         this.pathList = new List<List<Position>>();
     }
+
     public void reconnoiter(Map map ,int totalStep)
     {
         Debug.Log("totalStep " + totalStep);
@@ -25,7 +25,7 @@ public class Scout
         List<Position> path = new List<Position>();
 
         //找到所有路徑
-        setTempPath(group.EnterDirection 
+        dfsSearch(group.EnterDirection 
                    ,map 
                    ,path
                    ,new Position(group.EnterDirection
@@ -34,9 +34,53 @@ public class Scout
                    ,map.BlockList[group.CurrentBlockIndex].Location)
                    ,0
                    ,totalStep + 1);
-
-        createSelect();
     }
+
+    /*==========private==========*/
+    private void dfsSearch(Direction enterDirection ,Map map ,List<Position> path ,Position position ,int next ,int step)
+    {
+        Position onePos = new Position(enterDirection
+                                      ,position.blockIndex + next
+                                      ,map.BlockList[position.blockIndex + next]
+                                      ,map.BlockList[position.blockIndex + next].Location);
+
+        path.Add(onePos);
+        findNextBlock(map ,path ,path[path.Count - 1] ,--step);
+        path.Remove(onePos);
+    }
+    private void findNextBlock(Map map ,List<Position> path ,Position position ,int step)
+    {
+        if ( step > 0 )
+        {
+            for ( int i = 0 ; i < position.block.DirectionList.Count ; i++ )
+            {
+                if ( position.block.DirectionList[i] != position.enterDirection )
+                {
+                    switch ( position.block.DirectionList[i] )
+                    {
+                        case Direction.East:
+                            dfsSearch(Direction.West ,map ,path ,position ,1 ,step);
+                            break;
+                        case Direction.North:
+                            dfsSearch(Direction.South ,map ,path ,position ,-30 ,step);
+                            break;
+                        case Direction.South:
+                            dfsSearch(Direction.North ,map ,path ,position ,30 ,step);
+                            break;
+                        case Direction.West:
+                            dfsSearch(Direction.East ,map ,path ,position ,-1 ,step);
+                            break;
+                    }
+                }
+            }
+        }
+        else
+        {
+            pathList.Add(new List<Position>(path));
+        }
+    }
+
+    /*==========互動==========*/
     public void selectPath(int pathNo)//變換顏色 ,用以顯示選擇的道路
     {
         foreach ( Position oneDot in pathList[pathNo] )
@@ -68,73 +112,12 @@ public class Scout
         //摧毀cs
         GameObject.Destroy(choicePath[choicePath.Count - 1].entity.GetComponent<PositionController>());
         pathList.Clear();
+
         group.State = PlayerState.Walking;//設定玩家狀態為"walking"
     }
     public void deleteDot(Position dot)//刪除走過的點
     {
         GameObject.Destroy(dot.entity);
         choicePath.Remove(dot);
-    }
-
-    private void createSelect()
-    {
-        int i = 0;
-        foreach ( List<Position> onePath in pathList )
-        {
-            GameObject entity = onePath[onePath.Count - 1].entity;
-
-            entity.AddComponent<PositionController>();
-            entity.GetComponent<PositionController>().pathNo = i;
-            entity.GetComponent<PositionController>().CheckOut = this.checkOutPath;
-            entity.GetComponent<PositionController>().Select = this.selectPath;
-            entity.transform.localScale = new Vector3(1.5f ,0.1f ,1.5f);
-            i++;
-        }
-        //if(pathList.Count == 1)
-        //{
-        //    checkOutPath(0);
-        //}
-    }
-    private void dfsSearch(Map map ,List<Position> path ,Position position ,int step)
-    {
-        if ( step > 0 )
-        {
-            for ( int i = 0 ; i < position.block.DirectionList.Count ; i++ )
-            {
-                if ( position.block.DirectionList[i] != position.enterDirection )
-                {
-                    switch ( position.block.DirectionList[i] )
-                    {
-                        case Direction.East:
-                            setTempPath(Direction.West ,map ,path ,position ,1 ,step);
-                            break;
-                        case Direction.North:
-                            setTempPath(Direction.South ,map ,path ,position ,-30 ,step);
-                            break;
-                        case Direction.South:
-                            setTempPath(Direction.North ,map ,path ,position ,30 ,step);
-                            break;
-                        case Direction.West:
-                            setTempPath(Direction.East ,map ,path ,position ,-1 ,step);
-                            break;
-                    }
-                }
-            }
-        }
-        else
-        {
-            pathList.Add(new List<Position>(path));
-        }
-    }
-    private void setTempPath(Direction enterDirection ,Map map ,List<Position> path ,Position position ,int next ,int step)
-    {
-        Position tempPos = new Position(enterDirection
-                                       ,position.blockIndex + next
-                                       ,map.BlockList[position.blockIndex + next]
-                                       ,map.BlockList[position.blockIndex + next].Location);
-        tempPos.buildEntity();
-        path.Add(tempPos);
-        dfsSearch(map ,path ,path[path.Count - 1] ,--step);
-        path.Remove(tempPos);
     }
 }
