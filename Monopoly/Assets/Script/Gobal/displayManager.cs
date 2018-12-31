@@ -4,6 +4,9 @@ using UnityEngine;
 class DisplayManager
 {
     private GlobalManager globalManager;
+    private GameObject nextPlayerText;
+    private GameObject pathListEntity;
+    private int timer;
 
     public Group currentPlayer
     {
@@ -18,13 +21,19 @@ class DisplayManager
     public DisplayManager(GlobalManager globalManager)
     {
         this.globalManager = globalManager;
+
+        nextPlayerText = Resources.Load<GameObject>("PreFab/Ui/NextPlayerText");
+        nextPlayerText = GameObject.Instantiate(nextPlayerText ,new Vector3(33 ,-66.25f ,0) ,Quaternion.identity);
+        nextPlayerText.transform.SetParent(GameObject.Find("Canvas").transform ,false);
+
+        pathListEntity = new GameObject("pathListEntity"); //Empty GameObject
     }
 
     public void displayRollingDice()
     {
         //呼叫扔骰子
 
-        globalManager.TotalStep = 50;//temp
+        globalManager.TotalStep = 6;//temp
         currentPlayer.State = PlayerState.SearchPath;//temp
     }
     public void displaySearchPath(Map map)
@@ -45,6 +54,24 @@ class DisplayManager
         }
     }
 
+    public void displayNextPlayer()
+    {
+        if ( timer % 500 == 0 )
+        {
+            bool now = nextPlayerText.activeSelf;
+            nextPlayerText.SetActive(!now);
+            
+        }
+        timer = ( timer + 10 ) % 500;
+
+        if ( Input.anyKey )
+        {
+            nextPlayerText.SetActive(false);
+            globalManager.setNextPlayer();
+            globalManager.GameState = GameState.GlobalEvent;
+        }
+    }
+
     /*==========private==========*/
     /*==========ScoutPathEntity==========*/
     private void createScoutPathEntity(Map map)
@@ -52,15 +79,13 @@ class DisplayManager
         bool[] markMap = new bool[map.BlockList.Length];
         for ( int i = 0 ; i < markMap.Length ; i++ ) { markMap[i] = false; }//全部標記為 "未走過"
 
-        Position onePos;
-        GameObject pathListEntity = new GameObject("pathListEntity"); //Empty GameObject
-
-        for (int i = 0 ; i < currentPlayer.Scout.pathList.Count ; i++ )
-        {          
-            for (int j = 0 ; j < currentPlayer.Scout.pathList[i].Count ; j++ )
+        Position onePos;       
+        for ( int i = 0 ; i < currentPlayer.Scout.pathList.Count ; i++ )
+        {
+            for ( int j = 0 ; j < currentPlayer.Scout.pathList[i].Count ; j++ )
             {
                 onePos = currentPlayer.Scout.pathList[i][j];
-                if (markMap[onePos.blockIndex] == false)//if沒有建過 "這一個點"
+                if ( markMap[onePos.blockIndex] == false )//if沒有建過 "這一個點"
                 {
                     markMap[onePos.blockIndex] = true;
 
@@ -74,7 +99,7 @@ class DisplayManager
             }
         }
     }
-    private void buildEntity(Position onePos ,int mapIndex )
+    private void buildEntity(Position onePos ,int mapIndex)
     {
         onePos.entity = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
         onePos.entity.transform.name = "dot" + mapIndex;

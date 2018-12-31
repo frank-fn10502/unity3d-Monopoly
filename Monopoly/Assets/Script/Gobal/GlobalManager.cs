@@ -34,7 +34,10 @@ public class GlobalManager
             gameState = value;
         }
     }
-
+    public void setNextPlayer()
+    {
+        currentGroupIndex = ( currentGroupIndex + 1 ) % Constants.PLAYERNUMBER;
+    }
 
 
     public GlobalManager()
@@ -98,8 +101,6 @@ public class GlobalManager
                             {
                                 //groupList[currentGroupIndex].rollDice();
                                 CurrentPlayer.State = PlayerState.Wait;
-
-                                //交給displayManager
                                 displayManager.displayRollingDice();//轉換到下一個階段
                             }
                             break;
@@ -111,9 +112,6 @@ public class GlobalManager
                             break;
                         case PlayerState.Walking:
                             groupList[currentGroupIndex].move();
-
-                            //CurrentPlayer.State = PlayerState.Wait;
-                            //交給displayManager
                             displayManager.displayPlayerMovement();                           
 
                             break;
@@ -139,9 +137,9 @@ public class GlobalManager
             case GameState.End:
                 CurrentPlayer.State = PlayerState.Wait;
                 //交給displayManager
-
-                currentGroupIndex = ( currentGroupIndex + 1 ) % Constants.PLAYERNUMBER;//temp
-                gameState = GameState.GlobalEvent;//temp
+                displayManager.displayNextPlayer();
+                //currentGroupIndex = ( currentGroupIndex + 1 ) % Constants.PLAYERNUMBER;//temp
+                //gameState = GameState.GlobalEvent;//temp
 
                 break;
             case GameState.Wait:
