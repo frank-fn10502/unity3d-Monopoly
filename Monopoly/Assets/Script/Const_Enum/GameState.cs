@@ -5,7 +5,7 @@ public enum GameState
 {
     GlobalEvent,
     PersonalEvent,
-    RollingDice,
+    //RollingDice,
     PlayerMovement,
     End,
     Wait

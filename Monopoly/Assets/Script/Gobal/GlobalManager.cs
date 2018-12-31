@@ -1,57 +1,22 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-
-
-//public class MyCustomSerializationBinder : ISerializationBinder
-//{
-//    public Type BindToType(string assemblyName ,string typeName)
-//    {
-//        return Type.GetType(typeName);
-//    }
-
-//    public void BindToName(Type serializedType ,out string assemblyName ,out string typeName)
-//    {
-//        assemblyName = null;
-//        typeName = serializedType.Name;
-//    }
-//}
 
 public class GlobalManager
 {
     public Map map;
     private Group[] groupList;
-    private int currentGroup;
+
+    private int currentGroupIndex;
     private int totalStep;
-    private bool isRolled;
-    private bool isFinded;
+    private GameState gameState;
 
-    private GameState gameState;///
+    private DisplayManager displayManager;
 
-    public GlobalManager()
+
+    public Group CurrentPlayer
     {
-        string path = Directory.GetCurrentDirectory();
-        string target = @"\Assets\Resources\Map\MonopolyMap.json";
-        string json = File.ReadAllText(path + target);
-
-        map = JsonConvert.DeserializeObject<Map>(json);
-        map.build();
-        setGroupList();
-
-        currentGroup = 0;
-        //isFinded = false;
-        //isRolled = false;
-        totalStep = 1;
-        gameState = GameState.GlobalEvent;
-    }
-
-    public Group CurrentGroup
-    {
-        get { return groupList[currentGroup]; }
+        get { return groupList[currentGroupIndex]; }
     }
     public int TotalStep
     {
@@ -69,54 +34,113 @@ public class GlobalManager
             gameState = value;
         }
     }
+    public void setNextPlayer()
+    {
+        currentGroupIndex = ( currentGroupIndex + 1 ) % Constants.PLAYERNUMBER;
+    }
+
+
+    public GlobalManager()
+    {
+        string path = Directory.GetCurrentDirectory();
+        string target = @"\Assets\Resources\Map\MonopolyMap.json";
+        string json = File.ReadAllText(path + target);
+
+        map = JsonConvert.DeserializeObject<Map>(json);
+        map.build();
+        setGroupList();
+
+        currentGroupIndex = 0;
+        totalStep = 1;
+        gameState = GameState.GlobalEvent;
+
+        displayManager = new DisplayManager(this);
+    }
+
 
     public void execute()
     {
         switch ( gameState )
         {
             case GameState.GlobalEvent:
-                gameState = GameState.PersonalEvent;
-                //
+                if(currentGroupIndex % groupList.Length == 0)
+                {
+                    //抽世界事件
+                    gameState = GameState.Wait;
+                    //交給displayManager
+                }
+                else
+                {
+                    gameState = GameState.PersonalEvent;
+                }
+                CurrentPlayer.State = PlayerState.RollingDice;
+                
+                gameState = GameState.PersonalEvent;//temp
+
                 break;
             case GameState.PersonalEvent:
-                gameState = GameState.RollingDice;
-                groupList[currentGroup].State = PlayerState.SearchPath;
+                if ( CurrentPlayer.InJailTime == 0 )
+                {
+                    //抽個人事件
+                    gameState = GameState.Wait;
+                    //交給displayManager
+                }
+                else
+                {
+                    gameState = GameState.PlayerMovement;
+                }
+                gameState = GameState.PlayerMovement;//temp
+
                 break;
-            //case GameState.RollingDice:
-            //    if ( Input.GetButtonDown("Jump"))
-            //    {
-            //        groupList[currentGroup].rollDice();
-            //        //this.gameState = GameState.Wait;//呼叫後等待
-            //    }
-            //    break;
             case GameState.PlayerMovement:
                 {
-                    switch ( groupList[currentGroup].State )
+                    switch ( groupList[currentGroupIndex].State )
                     {
-                        case PlayerState.SearchPath:
-                            if ( !isFinded )
+                        case PlayerState.RollingDice:
+                            if ( Input.GetButtonDown("Jump") )
                             {
-                                isFinded = true;
-                                groupList[currentGroup].findPathList(map ,totalStep);
+                                //groupList[currentGroupIndex].rollDice();
+                                CurrentPlayer.State = PlayerState.Wait;
+                                displayManager.displayRollingDice();//轉換到下一個階段
                             }
                             break;
+                        case PlayerState.SearchPath:
+                            groupList[currentGroupIndex].findPathList(map ,totalStep);
+                            CurrentPlayer.State = PlayerState.Wait;
+                            displayManager.displaySearchPath(map);                          
+
+                            break;
                         case PlayerState.Walking:
-                            groupList[currentGroup].move();
+                            groupList[currentGroupIndex].move();
+                            displayManager.displayPlayerMovement();                           
+
                             break;
                         case PlayerState.End:
-                            //bloack.StopAction
+                            //block.StopAction
+                            CurrentPlayer.State = PlayerState.Wait;
+                            //交給displayManager
+
                             gameState = GameState.End;//temp
+
+                            break;
+                        case PlayerState.InJail:
+                            CurrentPlayer.InJailTime--;
+                            gameState = GameState.End;//直接結束
+
+                            break;
+                        case PlayerState.Wait:
+                            //等待
                             break;
                     }
                 }
                 break;
             case GameState.End:
-                currentGroup = ( currentGroup + 1 ) % Constants.PLAYERNUMBER;
-                groupList[currentGroup].State = PlayerState.Normal;///
-                gameState = GameState.GlobalEvent;
+                CurrentPlayer.State = PlayerState.Wait;
+                //交給displayManager
+                displayManager.displayNextPlayer();
+                //currentGroupIndex = ( currentGroupIndex + 1 ) % Constants.PLAYERNUMBER;//temp
+                //gameState = GameState.GlobalEvent;//temp
 
-                isFinded = false;
-                isRolled = false;
                 break;
             case GameState.Wait:
                 //等待
@@ -124,7 +148,7 @@ public class GlobalManager
         }
     }
 
-
+    /*暫時*/
     private void setGroupList()//設定 4 個 group//讀檔?
     {
         groupList = new Group[Constants.PLAYERNUMBER];
