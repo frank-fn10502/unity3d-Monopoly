@@ -14,7 +14,7 @@ public class InputManager : MonoBehaviour
     {
         Debug.Log("dice number: " + diceNumber.text);
         main.GetComponent<WorldController>().world.TotalStep = Convert.ToInt32(diceNumber.text);
-        main.GetComponent<WorldController>().world.CurrentGroup.State = PlayerState.SearchPath;
+        main.GetComponent<WorldController>().world.CurrentPlayer.State = PlayerState.SearchPath;
         main.GetComponent<WorldController>().world.GameState = GameState.PlayerMovement;
     }
 }

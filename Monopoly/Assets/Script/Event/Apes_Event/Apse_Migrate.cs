@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 
-    class Apse_Migrate : EventBase
+class Apse_Migrate : EventBase
     {
         public Apse_Migrate(string n,bool g,int w, string d) :base(n,g,w,d)
         {
