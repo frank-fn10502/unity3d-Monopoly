@@ -10,9 +10,9 @@ public class InformationPanelController : MonoBehaviour
     public GameObject mainPanel;
     public GameObject blockInformation;
     public GameObject playerInformation;
- 
+
     private Camera characterCamera;///
-    
+
     private static float mainPainelMaxHight;
     private static float mainPainelMinHight;
     private static float mainPainelVelocity = -210;
@@ -27,12 +27,12 @@ public class InformationPanelController : MonoBehaviour
     private GameObject attributesInfoPanel;
 
     void Start()
-    {     
+    {
         mainPanelMoveable = false;
         characterCamera = this.gameObject.GetComponent<Camera>();
         viewChangeable = false;
 
-        
+
         //resoucesInfoPanel   = GameObject.Instantiate(Resources.Load<GameObject>("PreFab/Ui/main/ResourcesInformation"));
         //attributesInfoPanel = GameObject.Instantiate(Resources.Load<GameObject>("PreFab/Ui/main/AttributesInformation"));
     }
@@ -43,9 +43,8 @@ public class InformationPanelController : MonoBehaviour
         mainPainelMaxHight = mainPanel.transform.position.y;
         mainPainelMinHight = characterCamera.pixelRect.y;
         mainPanelMove();
-        if(Input.GetKeyDown(KeyCode.Y))
+        if ( Input.GetKeyDown(KeyCode.Y) )
         {
-            //Debug.Log("press y");
             viewChangeable = !viewChangeable;
         }
     }
@@ -56,7 +55,7 @@ public class InformationPanelController : MonoBehaviour
              mainPanel.transform.position.y == mainPainelMinHight )
         {
             mainPanelMoveable = true;
-        }      
+        }
     }
     public void CameraMoveableButtonOnClick()
     {
@@ -65,24 +64,21 @@ public class InformationPanelController : MonoBehaviour
 
     public void changeCameraView(GlobalManager world)
     {
-        originalCameraPos = world.CurrentPlayer.Location + new Vector3(5 ,13 ,-6);
+        originalCameraPos = world.CurrentPlayer.Location + new Vector3(-1 ,19 ,-3);
+
 
         float x = originalCameraPos.x;
         float z = originalCameraPos.z;
         float y = Input.GetAxis("Mouse ScrollWheel") * -1 * mainCameraVelocity * 10;
-        y = ( characterCamera.transform.position.y + y <= originalCameraPos.y ) ? characterCamera.transform.position.y - originalCameraPos.y : y;
 
-        if (viewChangeable)
-        {
-            x = Input.GetAxis("Horizontal") * mainCameraVelocity;
-            z = Input.GetAxis("Vertical") * mainCameraVelocity;
 
-            characterCamera.transform.position += new Vector3(x ,y ,z);
-        }
-        else
+        y = ( characterCamera.transform.position.y + y < 16f ) ? 16f : characterCamera.transform.position.y + y;
+        if ( viewChangeable || Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 )
         {
-            characterCamera.transform.position = new Vector3(x ,characterCamera.transform.position.y + y ,z);
+            x = characterCamera.transform.position.x + Input.GetAxis("Horizontal") * mainCameraVelocity;
+            z = characterCamera.transform.position.z + Input.GetAxis("Vertical") * mainCameraVelocity;
         }
+        characterCamera.transform.position = new Vector3(x ,y ,z);
 
         ////y = ( characterCamera.transform.position.y + y <= originalCameraPos.y ) ? characterCamera.transform.position.y - originalCameraPos.y : y;
         ////originalCameraPos = world.CurrentPlayer.Location + new Vector3(5 ,13 ,-6);

@@ -33,8 +33,7 @@ class DisplayManager
     public void displayRollingDice()
     {
         //呼叫扔骰子
-
-        globalManager.TotalStep = 50;//temp
+        globalManager.TotalStep = 36;//temp
         currentPlayer.State = PlayerState.SearchPath;//temp
     }
     public void displaySearchPath(Map map)
@@ -78,27 +77,41 @@ class DisplayManager
     private void createScoutPathEntity(Map map)
     {
         int[] markMap  = new int[map.BlockList.Length];
-        //int[] markType  = new int[map.BlockList.Length];
+        int[] duplicateMap  = new int[map.BlockList.Length];
         for ( int i = 0 ; i < markMap.Length ; i++ ) { markMap[i] = 0; }//全部標記為 "未走過"
-        //for ( int i = 0 ; i < markMap.Length ; i++ ) { markType[i] = -1; }//初始 沒有任何路徑建造過: -1
 
         Position onePos;
         for ( int i = 0 ; i < currentPlayer.Scout.pathList.Count ; i++ )
         {
-            //for ( int k = 0 ; k < map.BlockList.Length ; k++ )
-            //{
-            //    markMap[k] = 0;//全部標記為 "未走過"
-            //}
+            for ( int k = 0 ; k < map.BlockList.Length ; k++ )
+            {
+                duplicateMap[k] = 0;
+            }
 
             for ( int j = 0 ; j < currentPlayer.Scout.pathList[i].Count ; j++ )
             {
                 onePos = currentPlayer.Scout.pathList[i][j];
                 if(onePos.entity == null)
                 {
-                    markMap[onePos.blockIndex]++;
-
-                    buildEntity(onePos ,onePos.blockIndex ,markMap[onePos.blockIndex]);
-                    onePos.entity.transform.parent = pathListEntity.transform;//統一放到一個Empty的GameObject下面
+                    if( markMap[onePos.blockIndex]  < 2)
+                    {
+                        markMap[onePos.blockIndex]++;
+                        buildEntity(onePos ,onePos.blockIndex ,markMap[onePos.blockIndex]);
+                        onePos.entity.transform.parent = pathListEntity.transform;//統一放到一個Empty的GameObject下面
+                    }
+                    else
+                    {
+                        try
+                        {
+                            duplicateMap[onePos.blockIndex]++;
+                            onePos.entity = pathListEntity.transform.Find("dot" + onePos.blockIndex + "-" + duplicateMap[onePos.blockIndex]).gameObject;//如果有了就不要再建造一次 直接指定
+                            duplicateMap[onePos.blockIndex] %= 2;
+                        }
+                        catch
+                        {
+                            Debug.Log("test");
+                        }                       
+                    }                   
                 }
                 //if ( ( markType[onePos.blockIndex] == -1 || markType[onePos.blockIndex] == i ) && markMap[onePos.blockIndex] < 2 )//if沒有建過 "這一個點"
                 //{
@@ -140,12 +153,15 @@ class DisplayManager
         {
             GameObject entity = onePath[onePath.Count - 1].entity;
 
-            entity.AddComponent<PositionController>();
-            entity.GetComponent<PositionController>().pathNo = count++;
-            entity.GetComponent<PositionController>().CheckOut = currentPlayer.Scout.checkOutPath;
-            entity.GetComponent<PositionController>().Select = currentPlayer.Scout.selectPath;
-            entity.GetComponent<PositionController>().Leave = currentPlayer.Scout.leavePath;
-            entity.transform.localScale = new Vector3(1.5f ,0.1f ,1.5f);
+            if( entity.GetComponent<PositionController>() == null)
+            {
+                entity.AddComponent<PositionController>();
+                entity.GetComponent<PositionController>().pathNo = count++;
+                entity.GetComponent<PositionController>().CheckOut = currentPlayer.Scout.checkOutPath;
+                entity.GetComponent<PositionController>().Select = currentPlayer.Scout.selectPath;
+                entity.GetComponent<PositionController>().Leave = currentPlayer.Scout.leavePath;
+                entity.transform.localScale = new Vector3(1.5f ,0.1f ,1.5f);
+            }
         }
         //if ( currentPlayer.Scout.pathList.Count == 1 )
         //{

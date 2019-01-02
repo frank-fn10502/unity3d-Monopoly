@@ -19,6 +19,6 @@ public class WorldController : MonoBehaviour
 
     private void changeView()
     {
-        this.gameObject.GetComponent<InformationPanelController>().changeCameraView(world);
+        gameObject.GetComponent<InformationPanelController>().changeCameraView(world);
     }
 }
