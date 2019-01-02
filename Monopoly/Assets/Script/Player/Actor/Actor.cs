@@ -86,7 +86,6 @@ public class Actor
 
     public void build(Vector3 location ,Direction enterDirection)
     {
-        //entity = Resources.Load<GameObject>("PreFab/Actor/" + fileName);
         fileName = "Player1";//temp
         entity = Resources.Load<GameObject>("PreFab/Actor/" + fileName);
         entity = GameObject.Instantiate(entity);

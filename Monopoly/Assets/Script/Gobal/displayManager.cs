@@ -67,8 +67,7 @@ class DisplayManager
         if ( Input.anyKey )
         {
             nextPlayerText.SetActive(false);
-            globalManager.setNextPlayer();
-            globalManager.GameState = GameState.GlobalEvent;
+            globalManager.nextPlayer();           
         }
     }
 

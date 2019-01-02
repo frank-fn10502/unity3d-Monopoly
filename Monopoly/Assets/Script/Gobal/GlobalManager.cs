@@ -35,10 +35,6 @@ public class GlobalManager
             gameState = value;
         }
     }
-    public void setNextPlayer()
-    {
-        currentGroupIndex = ( currentGroupIndex + 1 ) % Constants.PLAYERNUMBER;
-    }
 
     public GlobalManager(List<Faction> factionList = null)
     {
@@ -149,14 +145,17 @@ public class GlobalManager
                 CurrentPlayer.State = PlayerState.Wait;
                 //交給displayManager
                 displayManager.displayNextPlayer();
-                //currentGroupIndex = ( currentGroupIndex + 1 ) % Constants.PLAYERNUMBER;//temp
-                //gameState = GameState.GlobalEvent;//temp
 
                 break;
             case GameState.Wait:
                 //等待
                 break;
         }
+    }
+    public void nextPlayer()
+    {
+        currentGroupIndex = ( currentGroupIndex + 1 ) % Constants.PLAYERNUMBER;
+        gameState = GameState.GlobalEvent;
     }
 
     private void setGroupList(List<Faction> factions)
@@ -177,7 +176,7 @@ public class GlobalManager
                                     ,playerDirection[i]);//?
             groupList[i].CurrentActor.build(groupList[i].Location ,playerDirection[i]);
             i++;
-            if ( i >= Constants.PLAYERNUMBER ) break;
+            if ( i >= Constants.PLAYERNUMBER ) break;//temp
         }
     }
     /*暫時*/

@@ -116,21 +116,21 @@ public abstract class Block
 
         this.area = anotherBlock.area;
     }
-    public void stopAction(Group group)
-    {
 
-    }
+
+
+    public abstract void stopAction(Group group);
     public void build()
     {
         if ( this.Identity.Contains(Walkable.NoMan) || this.Identity.Contains(Walkable.ApeShortcut) )
         {
-            setBackground(this.location);
+            //setBackground(this.location);
         }
         else
         {
             setPath(this.location);
         }
-    }
+    }   
 
     public virtual Vector3 standPoint()
     {

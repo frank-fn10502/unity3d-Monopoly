@@ -95,6 +95,21 @@ public class BuildingBlock : Block
 
         pathLocations = new List<Vector3>();
     }
+
+
+
+
+    public override void stopAction(Group group)
+    {
+        if(building == null)
+        {
+            //呼叫建立房子
+        }
+        else
+        {
+            //收費
+        }
+    }
     public override Vector3 standPoint()
     {
         return pathLocations[0];
