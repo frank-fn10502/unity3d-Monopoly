@@ -5,63 +5,34 @@ using UnityEngine.UI;
 
 public class InformationPanelController : MonoBehaviour
 {
-    public Button collapseButton;
     public Button cameraMoveableButton;
     public GameObject mainPanel;
     public GameObject blockInformation;
     public GameObject playerInformation;
 
-    private Camera characterCamera;///
-
-    private static float mainPainelMaxHight;
-    private static float mainPainelMinHight;
-    private static float mainPainelVelocity = -210;
-    private bool mainPanelMoveable;
-
     private Vector3 originalCameraPos;
     private bool viewChangeable;
-
     private const int mainCameraVelocity = 2;
 
-    private GameObject resoucesInfoPanel;
-    private GameObject attributesInfoPanel;
+    private Camera characterCamera;
 
     void Start()
     {
-        mainPanelMoveable = false;
         characterCamera = this.gameObject.GetComponent<Camera>();
         viewChangeable = false;
-
-
-        //resoucesInfoPanel   = GameObject.Instantiate(Resources.Load<GameObject>("PreFab/Ui/main/ResourcesInformation"));
-        //attributesInfoPanel = GameObject.Instantiate(Resources.Load<GameObject>("PreFab/Ui/main/AttributesInformation"));
     }
 
     void Update()
     {
-
-        mainPainelMaxHight = mainPanel.transform.position.y;
-        mainPainelMinHight = characterCamera.pixelRect.y;
-        mainPanelMove();
         if ( Input.GetKeyDown(KeyCode.Y) )
         {
             viewChangeable = !viewChangeable;
-        }
-    }
-
-    public void CollapseButtonOnClick()
-    {
-        if ( mainPanel.transform.position.y == mainPainelMaxHight ||
-             mainPanel.transform.position.y == mainPainelMinHight )
-        {
-            mainPanelMoveable = true;
         }
     }
     public void CameraMoveableButtonOnClick()
     {
         viewChangeable = !viewChangeable;
     }
-
     public void changeCameraView(GlobalManager world)
     {
         originalCameraPos = world.CurrentPlayer.Location + new Vector3(-1 ,19 ,-3);
@@ -124,34 +95,5 @@ public class InformationPanelController : MonoBehaviour
     public void displaPlayerInformation(Group player)
     {
         //Player...
-    }
-
-
-    /*====================================private================================================================*/
-    private void mainPanelMove()
-    {
-        if ( mainPanelMoveable )
-        {
-            mainPanel.transform.position += new Vector3(0 ,mainPainelVelocity * Time.deltaTime ,0);
-
-            if ( mainPanel.transform.position.y >= mainPainelMaxHight )
-            {
-                mainPanelMoveable = false;
-                mainPanel.transform.position = new Vector3(mainPanel.transform.position.x
-                                                           ,mainPainelMaxHight
-                                                           ,mainPanel.transform.position.z);
-                mainPainelVelocity *= -1;
-                collapseButton.transform.Find("Text").GetComponent<Text>().text = "▼";
-            }
-            else if ( mainPanel.transform.position.y <= mainPainelMinHight )
-            {
-                mainPanelMoveable = false;
-                mainPanel.transform.position = new Vector3(mainPanel.transform.position.x
-                                                           ,mainPainelMinHight
-                                                           ,mainPanel.transform.position.z);
-                mainPainelVelocity *= -1;
-                collapseButton.transform.Find("Text").GetComponent<Text>().text = "▲";
-            }
-        }
     }
 }

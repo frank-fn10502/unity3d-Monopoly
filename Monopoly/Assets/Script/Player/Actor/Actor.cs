@@ -86,7 +86,6 @@ public class Actor
 
     public void build(Vector3 location ,Direction enterDirection)
     {
-        //entity = Resources.Load<GameObject>("PreFab/Actor/" + fileName);
         fileName = "Player1";//temp
         entity = Resources.Load<GameObject>("PreFab/Actor/" + fileName);
         entity = GameObject.Instantiate(entity);
@@ -98,6 +97,10 @@ public class Actor
         //播放動畫
         entity.GetComponent<AnimationController>().running = true;
 
+        teleport(location);
+    }
+    public void teleport(Vector3 location)
+    {
         Quaternion quate = Quaternion.identity;
         if ( location.x > entity.transform.position.x )
         {
@@ -116,7 +119,7 @@ public class Actor
         {
             quate.eulerAngles = new Vector3(0 ,180 ,0);
         }
-        this.entity.transform.rotation = quate;
+        entity.transform.rotation = quate;
         entity.transform.position = location + new Vector3(0 ,0.2f ,0);
     }
     public void stop()

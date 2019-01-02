@@ -5,20 +5,20 @@ using UnityEngine;
 
 public class WorldController : MonoBehaviour
 {
-    public GlobalManager world;
+    public GlobalManager globalManager;
 
     public void Awake()
     {
-        world = new GlobalManager();
+        globalManager = new GlobalManager();
     }
     void Update()
     {
-        world.execute();       
+        globalManager.execute();       
         changeView();
     }
 
     private void changeView()
     {
-        gameObject.GetComponent<InformationPanelController>().changeCameraView(world);
+        gameObject.GetComponent<InformationPanelController>().changeCameraView(globalManager);
     }
 }
