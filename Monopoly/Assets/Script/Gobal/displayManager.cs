@@ -33,7 +33,7 @@ class DisplayManager
     public void displayRollingDice()
     {
         //呼叫扔骰子
-        globalManager.TotalStep = 36;//temp
+        globalManager.TotalStep = 100;//temp
         currentPlayer.State = PlayerState.SearchPath;//temp
     }
     public void displaySearchPath(Map map)
@@ -93,7 +93,7 @@ class DisplayManager
                 onePos = currentPlayer.Scout.pathList[i][j];
                 if(onePos.entity == null)
                 {
-                    if( markMap[onePos.blockIndex]  < 2)
+                    if( markMap[onePos.blockIndex] == 0 || (markMap[onePos.blockIndex] == 1 && onePos.block is BuildingBlock) )
                     {
                         markMap[onePos.blockIndex]++;
                         buildEntity(onePos ,onePos.blockIndex ,markMap[onePos.blockIndex]);
@@ -105,7 +105,14 @@ class DisplayManager
                         {
                             duplicateMap[onePos.blockIndex]++;
                             onePos.entity = pathListEntity.transform.Find("dot" + onePos.blockIndex + "-" + duplicateMap[onePos.blockIndex]).gameObject;//如果有了就不要再建造一次 直接指定
-                            duplicateMap[onePos.blockIndex] %= 2;
+                            if( onePos.block is BuildingBlock )
+                            {
+                                duplicateMap[onePos.blockIndex] %= 2;
+                            }
+                            else
+                            {
+                                duplicateMap[onePos.blockIndex] = 0;
+                            }
                         }
                         catch
                         {
@@ -140,7 +147,7 @@ class DisplayManager
     {
         onePos.entity = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
         onePos.entity.transform.name = "dot" + mapIndex + "-" + offset;
-        onePos.entity.transform.localScale = new Vector3(0.4f ,0.1f ,0.4f);
+        onePos.entity.transform.localScale = new Vector3(0.8f ,0.1f ,0.8f);
 
         onePos.entity.GetComponent<Renderer>().material = Resources.Load<Material>("Texture/Orange");
 
@@ -156,12 +163,13 @@ class DisplayManager
             if( entity.GetComponent<PositionController>() == null)
             {
                 entity.AddComponent<PositionController>();
-                entity.GetComponent<PositionController>().pathNo = count++;
+                entity.GetComponent<PositionController>().pathNo = count;
                 entity.GetComponent<PositionController>().CheckOut = currentPlayer.Scout.checkOutPath;
                 entity.GetComponent<PositionController>().Select = currentPlayer.Scout.selectPath;
                 entity.GetComponent<PositionController>().Leave = currentPlayer.Scout.leavePath;
-                entity.transform.localScale = new Vector3(1.5f ,0.1f ,1.5f);
+                entity.transform.localScale = new Vector3(2f ,0.1f ,2f);
             }
+            count++;
         }
         //if ( currentPlayer.Scout.pathList.Count == 1 )
         //{

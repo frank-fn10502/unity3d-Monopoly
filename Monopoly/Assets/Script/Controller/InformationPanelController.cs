@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class InformationPanelController : MonoBehaviour
 {
-    public Button collapseButton;
     public Button cameraMoveableButton;
     public GameObject mainPanel;
     public GameObject blockInformation;
@@ -42,7 +41,7 @@ public class InformationPanelController : MonoBehaviour
 
         mainPainelMaxHight = mainPanel.transform.position.y;
         mainPainelMinHight = characterCamera.pixelRect.y;
-        mainPanelMove();
+        //mainPanelMove();
         if ( Input.GetKeyDown(KeyCode.Y) )
         {
             viewChangeable = !viewChangeable;
@@ -128,30 +127,30 @@ public class InformationPanelController : MonoBehaviour
 
 
     /*====================================private================================================================*/
-    private void mainPanelMove()
-    {
-        if ( mainPanelMoveable )
-        {
-            mainPanel.transform.position += new Vector3(0 ,mainPainelVelocity * Time.deltaTime ,0);
+    //private void mainPanelMove()
+    //{
+    //    if ( mainPanelMoveable )
+    //    {
+    //        mainPanel.transform.position += new Vector3(0 ,mainPainelVelocity * Time.deltaTime ,0);
 
-            if ( mainPanel.transform.position.y >= mainPainelMaxHight )
-            {
-                mainPanelMoveable = false;
-                mainPanel.transform.position = new Vector3(mainPanel.transform.position.x
-                                                           ,mainPainelMaxHight
-                                                           ,mainPanel.transform.position.z);
-                mainPainelVelocity *= -1;
-                collapseButton.transform.Find("Text").GetComponent<Text>().text = "▼";
-            }
-            else if ( mainPanel.transform.position.y <= mainPainelMinHight )
-            {
-                mainPanelMoveable = false;
-                mainPanel.transform.position = new Vector3(mainPanel.transform.position.x
-                                                           ,mainPainelMinHight
-                                                           ,mainPanel.transform.position.z);
-                mainPainelVelocity *= -1;
-                collapseButton.transform.Find("Text").GetComponent<Text>().text = "▲";
-            }
-        }
-    }
+    //        if ( mainPanel.transform.position.y >= mainPainelMaxHight )
+    //        {
+    //            mainPanelMoveable = false;
+    //            mainPanel.transform.position = new Vector3(mainPanel.transform.position.x
+    //                                                       ,mainPainelMaxHight
+    //                                                       ,mainPanel.transform.position.z);
+    //            mainPainelVelocity *= -1;
+    //            //collapseButton.transform.Find("Text").GetComponent<Text>().text = "▼";
+    //        }
+    //        else if ( mainPanel.transform.position.y <= mainPainelMinHight )
+    //        {
+    //            mainPanelMoveable = false;
+    //            mainPanel.transform.position = new Vector3(mainPanel.transform.position.x
+    //                                                       ,mainPainelMinHight
+    //                                                       ,mainPanel.transform.position.z);
+    //            mainPainelVelocity *= -1;
+    //            //collapseButton.transform.Find("Text").GetComponent<Text>().text = "▲";
+    //        }
+    //    }
+    //}
 }

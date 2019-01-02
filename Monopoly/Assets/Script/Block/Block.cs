@@ -138,7 +138,7 @@ public abstract class Block
     }
     public virtual Vector3 standPoint(Vector3 preLoc)
     {
-        return Location ;
+        return Location;
     }
 
     /*==========private==========*/

@@ -59,7 +59,7 @@ public class Scout
 
         List<Position> positions = new List<Position>();
         Vector3 loc;
-        for (int i = 0 ; i < 2 ; i ++ )
+        for (int i = 0 ; i < 2 ; i++ )
         {
             loc = (i == 0) ? position.location : positions[0].location;
 
@@ -75,7 +75,10 @@ public class Scout
                     break;
                 }
             }
-            positions.Add(onePos);
+            else
+            {
+                positions.Add(onePos);
+            }           
         }
         path.AddRange(positions);
         findNextBlock(map ,path ,path[path.Count - 1] ,--step);
