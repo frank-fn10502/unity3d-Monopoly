@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Group
 {
-    //enum player 
     private PlayerState state;
     private Walkable    identity;
     private Skill skill;
@@ -19,25 +16,9 @@ public class Group
     private Direction enterDirection;
 
     private Scout scout;
+    private int  inJailTime;
     private int stepCount;
-    
 
-    public Group(Skill skill ,Actor[] actors  ,Attributes attributes ,Resource resource ,Vector3 location ,int currentBlockIndex ,Direction enterDirection)
-    {
-        this.state = PlayerState.Normal;
-        this.identity = Walkable.Human;
-        this.skill = skill;
-        this.actors = actors;
-        this.currentActor = 0;
-
-        this.attributes = attributes;
-        this.resource   = resource;
-        this.location = location;
-        this.currentBlockIndex = currentBlockIndex;
-        this.enterDirection = enterDirection;
-
-        this.scout = new Scout(this);
-    }
 
     public Actor CurrentActor
     {
@@ -108,7 +89,43 @@ public class Group
             currentBlockIndex = value;
         }
     }
+    public Scout Scout
+    {
+        get
+        {
+            return scout;
+        }
+    }
+    public int InJailTime
+    {
+        get
+        {
+            return inJailTime;
+        }
 
+        set
+        {
+            inJailTime = value;
+        }
+    }
+
+    public Group(Skill skill ,Actor[] actors ,Attributes attributes ,Resource resource ,Vector3 location ,int currentBlockIndex ,Direction enterDirection)
+    {
+        this.state = PlayerState.Normal;
+        this.identity = Walkable.Human;
+        this.skill = skill;
+        this.actors = actors;
+        this.currentActor = 0;
+
+        this.attributes = attributes;
+        this.resource = resource;
+        this.location = location;
+        this.currentBlockIndex = currentBlockIndex;
+        this.enterDirection = enterDirection;
+
+        this.scout = new Scout(this);
+        this.inJailTime = 0;
+    }
 
 
     public void changeActor(int rotate)//1 or -1
@@ -126,47 +143,34 @@ public class Group
     }
     public void findPathList(Map map ,int step)//找到所有可以走的路
     {
-        scout.reconnoiter(map ,step);     
+        scout.reconnoiter(map ,step);
         stepCount = 0;
     }
     public void move()//按照scout的Path移動
-    {       
-        if ( scout.totalStep != 0 )
-        {
-            move(scout.choicePath[0].location
-                ,scout.choicePath[1].location ,++stepCount);
-        }
-        else if ( scout.totalStep == 0 )
-        {
-            actors[currentActor].stop();
-            scout.deleteDot(scout.choicePath[0]);//刪除走過的點
-
-            state = PlayerState.End;
-            Debug.Log("state " + state);
-        }
+    {
+        move(scout.choicePath[0].location ,scout.choicePath[1].location ,++stepCount);
         if ( stepCount == Constants.STEPTIMES )
-        {       
-            stepCount = 0;
-
+        {            
             if ( CurrentBlockIndex != scout.choicePath[1].blockIndex )
             {
-                this.EnterDirection    = scout.choicePath[1].enterDirection;
+                this.EnterDirection = scout.choicePath[1].enterDirection;
                 this.CurrentBlockIndex = scout.choicePath[1].blockIndex;
                 --scout.totalStep;
             }
+            stepCount = 0;
             scout.deleteDot(scout.choicePath[0]);//刪除走過的點
 
-            Debug.Log("scout.totalStep: " + scout.totalStep);
+            //Debug.Log("scout.totalStep: " + scout.totalStep);
         }
     }
 
+    /*==========private==========*/
     private void move(Vector3 now ,Vector3 next ,int step)
     {
         float x = (next.x - now.x) * step / Constants.STEPTIMES;// * Time.deltaTime;
         float z = (next.z - now.z) * step / Constants.STEPTIMES;// * Time.deltaTime;
         location = new Vector3(now.x + x ,Constants.SEALEVEL ,now.z + z);
-        Debug.Log(location);
-        Debug.Log("next: " + next + "now: " + now);
-        actors[currentActor].run(location);
+        //Debug.Log(location);
+        //Debug.Log("next: " + next + "now: " + now);
     }
 }

@@ -1,57 +1,23 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-
-
-//public class MyCustomSerializationBinder : ISerializationBinder
-//{
-//    public Type BindToType(string assemblyName ,string typeName)
-//    {
-//        return Type.GetType(typeName);
-//    }
-
-//    public void BindToName(Type serializedType ,out string assemblyName ,out string typeName)
-//    {
-//        assemblyName = null;
-//        typeName = serializedType.Name;
-//    }
-//}
 
 public class GlobalManager
 {
     public Map map;
     private Group[] groupList;
-    private int currentGroup;
+
+    private int currentGroupIndex;
     private int totalStep;
-    private bool isRolled;
-    private bool isFinded;
+    private GameState gameState;
 
-    private GameState gameState;///
+    private DisplayManager displayManager;
 
-    public GlobalManager()
+
+    public Group CurrentPlayer
     {
-        string path = Directory.GetCurrentDirectory();
-        string target = @"\Assets\Resources\Map\MonopolyMap.json";
-        string json = File.ReadAllText(path + target);
-
-        map = JsonConvert.DeserializeObject<Map>(json);
-        map.build();
-        setGroupList();
-
-        currentGroup = 0;
-        //isFinded = false;
-        //isRolled = false;
-        totalStep = 1;
-        gameState = GameState.GlobalEvent;
-    }
-
-    public Group CurrentGroup
-    {
-        get { return groupList[currentGroup]; }
+        get { return groupList[currentGroupIndex]; }
     }
     public int TotalStep
     {
@@ -69,54 +35,123 @@ public class GlobalManager
             gameState = value;
         }
     }
+    public void setNextPlayer()
+    {
+        currentGroupIndex = ( currentGroupIndex + 1 ) % Constants.PLAYERNUMBER;
+    }
+
+    public GlobalManager(List<Faction> factionList = null)
+    {
+        string path = Directory.GetCurrentDirectory();
+        string target = @"\Assets\Resources\Map\MonopolyMap.json";
+        string json = File.ReadAllText(path + target);
+
+        map = JsonConvert.DeserializeObject<Map>(json);
+        map.build();
+
+        List<Faction> factions;
+        if(factionList == null)
+        {
+            target = @"\Assets\Resources\Faction\MonopolyFaction.json";
+            json = File.ReadAllText(path + target);
+            factions = JsonConvert.DeserializeObject<List<Faction>>(json);
+        }
+        else
+        {
+            factions = factionList;
+        }
+        setGroupList(factions);
+
+        currentGroupIndex = 0;
+        totalStep = 1;
+        gameState = GameState.GlobalEvent;
+
+        displayManager = new DisplayManager(this);
+    }
 
     public void execute()
     {
         switch ( gameState )
         {
             case GameState.GlobalEvent:
-                gameState = GameState.PersonalEvent;
-                //
+                if(currentGroupIndex % groupList.Length == 0)
+                {
+                    //抽世界事件
+                    gameState = GameState.Wait;
+                    //交給displayManager
+                }
+                else
+                {
+                    gameState = GameState.PersonalEvent;
+                }
+                CurrentPlayer.State = PlayerState.RollingDice;
+                
+                gameState = GameState.PersonalEvent;//temp
+
                 break;
             case GameState.PersonalEvent:
-                gameState = GameState.RollingDice;
-                groupList[currentGroup].State = PlayerState.SearchPath;
+                if ( CurrentPlayer.InJailTime == 0 )
+                {
+                    //抽個人事件
+                    gameState = GameState.Wait;
+                    //交給displayManager
+                }
+                else
+                {
+                    gameState = GameState.PlayerMovement;
+                }
+                gameState = GameState.PlayerMovement;//temp
+
                 break;
-            //case GameState.RollingDice:
-            //    if ( Input.GetButtonDown("Jump"))
-            //    {
-            //        groupList[currentGroup].rollDice();
-            //        //this.gameState = GameState.Wait;//呼叫後等待
-            //    }
-            //    break;
             case GameState.PlayerMovement:
                 {
-                    switch ( groupList[currentGroup].State )
+                    switch ( groupList[currentGroupIndex].State )
                     {
-                        case PlayerState.SearchPath:
-                            if ( !isFinded )
+                        case PlayerState.RollingDice:
+                            if ( Input.GetButtonDown("Jump") )
                             {
-                                isFinded = true;
-                                groupList[currentGroup].findPathList(map ,totalStep);
+                                //groupList[currentGroupIndex].rollDice();
+                                CurrentPlayer.State = PlayerState.Wait;
+                                displayManager.displayRollingDice();//轉換到下一個階段
                             }
                             break;
+                        case PlayerState.SearchPath:
+                            groupList[currentGroupIndex].findPathList(map ,totalStep);
+                            CurrentPlayer.State = PlayerState.Wait;
+                            displayManager.displaySearchPath(map);                          
+
+                            break;
                         case PlayerState.Walking:
-                            groupList[currentGroup].move();
+                            groupList[currentGroupIndex].move();
+                            displayManager.displayPlayerMovement();                           
+
                             break;
                         case PlayerState.End:
-                            //bloack.StopAction
+                            //block.StopAction
+                            CurrentPlayer.State = PlayerState.Wait;
+                            //交給displayManager
+
                             gameState = GameState.End;//temp
+
+                            break;
+                        case PlayerState.InJail:
+                            CurrentPlayer.InJailTime--;
+                            gameState = GameState.End;//直接結束
+
+                            break;
+                        case PlayerState.Wait:
+                            //等待
                             break;
                     }
                 }
                 break;
             case GameState.End:
-                currentGroup = ( currentGroup + 1 ) % Constants.PLAYERNUMBER;
-                groupList[currentGroup].State = PlayerState.Normal;///
-                gameState = GameState.GlobalEvent;
+                CurrentPlayer.State = PlayerState.Wait;
+                //交給displayManager
+                displayManager.displayNextPlayer();
+                //currentGroupIndex = ( currentGroupIndex + 1 ) % Constants.PLAYERNUMBER;//temp
+                //gameState = GameState.GlobalEvent;//temp
 
-                isFinded = false;
-                isRolled = false;
                 break;
             case GameState.Wait:
                 //等待
@@ -124,41 +159,62 @@ public class GlobalManager
         }
     }
 
-
-    private void setGroupList()//設定 4 個 group//讀檔?
+    private void setGroupList(List<Faction> factions)
     {
         groupList = new Group[Constants.PLAYERNUMBER];
-        Direction[] playerDirection = new Direction [Constants.PLAYERNUMBER]{Direction.North ,Direction.North ,Direction.South ,Direction.East};
-        int[] playerIndex = new int[Constants.PLAYERNUMBER]{2 * 30 + 2 ,2 * 30 + 27 ,27 * 30 + 2 ,27 * 30 + 27};
-        Vector3[] playerLocation = new Vector3[Constants.PLAYERNUMBER]
-                                      {map.BlockList[2 * 30 + 2].Location + new Vector3(0 ,0.2f ,0)
-                                      ,map.BlockList[2 * 30 + 27].Location + new Vector3(0 ,0.2f ,0)
-                                      ,map.BlockList[27 * 30 + 2].Location + new Vector3(0 ,0.2f ,0)
-                                      ,map.BlockList[27 * 30 + 27].Location + new Vector3(0 ,0.2f ,0)};
+        Direction[] playerDirection = new Direction [Constants.PLAYERNUMBER]{Direction.North ,Direction.East ,Direction.South ,Direction.West};
+        int[] playerIndex = new int[Constants.PLAYERNUMBER]{2 * 30 + 2 ,2 * 30 + 27 ,27 * 30 + 27 ,27 * 30 + 2};
 
-        for ( int i = 0 ; i < Constants.PLAYERNUMBER ; i++ )
+        int i = 0;
+        foreach (Faction faction in factions)
         {
             groupList[i] = new Group(null
-                                    ,createActors(playerLocation[i] ,"Player1" ,playerDirection[i])
-                                    ,new Attributes(20 ,20 ,20)
-                                    ,new Resource()
-                                    ,playerLocation[i]
-                                    ,playerIndex[i]
-                                    ,playerDirection[i]);
+                                    ,faction.actorList.ToArray()
+                                    ,new Attributes(faction.attributes)
+                                    ,new Resource(faction.resource)
+                                    ,map.BlockList[playerIndex[i]].standPoint()//?
+                                    ,playerIndex[i]//?
+                                    ,playerDirection[i]);//?
+            groupList[i].CurrentActor.build(groupList[i].Location ,playerDirection[i]);
+            i++;
+            if ( i >= Constants.PLAYERNUMBER ) break;
         }
     }
-    private Actor[] createActors(Vector3 location ,string name ,Direction enterDirection)
-    {
-        Actor[] actors = new Actor[Constants.ACTORTOTALNUM];
-        for ( int i = 0 ; i < Constants.ACTORTOTALNUM ; i++ )
-        {
-            actors[i] = new Actor(this ,name ,null ,createDice() ,location ,enterDirection);
-        }
+    /*暫時*/
+    //private void setGroupList()//設定 4 個 group//讀檔?
+    //{
+    //    groupList = new Group[Constants.PLAYERNUMBER];
+    //    Direction[] playerDirection = new Direction [Constants.PLAYERNUMBER]{Direction.North ,Direction.North ,Direction.South ,Direction.East};
+    //    int[] playerIndex = new int[Constants.PLAYERNUMBER]{2 * 30 + 2 ,2 * 30 + 27 ,27 * 30 + 2 ,27 * 30 + 27};
+    //    Vector3[] playerLocation = new Vector3[Constants.PLAYERNUMBER]
+    //                                  {map.BlockList[2 * 30 + 2].Location + new Vector3(0 ,0.2f ,0)
+    //                                  ,map.BlockList[2 * 30 + 27].Location + new Vector3(0 ,0.2f ,0)
+    //                                  ,map.BlockList[27 * 30 + 2].Location + new Vector3(0 ,0.2f ,0)
+    //                                  ,map.BlockList[27 * 30 + 27].Location + new Vector3(0 ,0.2f ,0)};
 
-        return actors;
-    }
-    private Dice createDice()
-    {
-        return new Dice(new int[6]);
-    }
+    //    for ( int i = 0 ; i < Constants.PLAYERNUMBER ; i++ )
+    //    {
+    //        groupList[i] = new Group(null
+    //                                ,createActors(playerLocation[i] ,"Player1" ,playerDirection[i])
+    //                                ,new Attributes(20 ,20 ,20)
+    //                                ,new Resource()
+    //                                ,playerLocation[i]
+    //                                ,playerIndex[i]
+    //                                ,playerDirection[i]);
+    //    }
+    //}
+    //private Actor[] createActors(Vector3 location ,string name ,Direction enterDirection)
+    //{
+    //    Actor[] actors = new Actor[Constants.ACTORTOTALNUM];
+    //    for ( int i = 0 ; i < Constants.ACTORTOTALNUM ; i++ )
+    //    {
+    //        actors[i] = new Actor(this ,name ,null ,createDice() ,location ,enterDirection);
+    //    }
+
+    //    return actors;
+    //}
+    //private Dice createDice()
+    //{
+    //    return new Dice(new int[6]);
+    //}
 }

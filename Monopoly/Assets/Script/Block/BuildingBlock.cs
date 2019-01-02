@@ -75,8 +75,6 @@ public class BuildingBlock : Block
         }
     }
 
-
-
     public BuildingBlock() : base()// : this(Vector3.zero ,Walkable.NoMan ,Area.City)
     {
         this.landlord = null;
@@ -97,4 +95,53 @@ public class BuildingBlock : Block
 
         pathLocations = new List<Vector3>();
     }
+    public override Vector3 standPoint()
+    {
+        return pathLocations[0];
+    }
+    public override Vector3 standPoint(Vector3 preLoc)
+    {
+        Vector3 v = pathLocations[0];
+        if ( PathLocations.Count > 1 )
+        {
+            Vector3 v1 = pathLocations[0] - preLoc;
+            Vector3 v2 = pathLocations[1] - preLoc;
+            if ( v1.magnitude == 0f )
+            {
+                v = pathLocations[1];
+            }
+            else if ( v2.magnitude == 0f )
+            {
+                v = pathLocations[0];
+            }
+            else if ( v1.magnitude > v2.magnitude )
+            {
+                v = pathLocations[1];
+            }
+        }
+        return v;
+        //return new List<Vector3>(pathLocations);
+    }
+
+    /*==========private==========*/
+    //private List<Vector3> sortPathLocation()
+    //{
+    //    if ( buildingLocation - location == new Vector3(-2 ,0 ,0) )
+    //    {
+    //        return new List<Vector3>() { pathLocations[1] ,pathLocations[0] };
+    //    }
+    //    else if ( buildingLocation - location == new Vector3(0 ,0 ,2) )
+    //    {
+    //        return new List<Vector3>() { pathLocations[1] ,pathLocations[0] };
+    //    }
+    //    else if ( buildingLocation - location == new Vector3(0 ,0 ,-2) )
+    //    {
+    //        return new List<Vector3>() { pathLocations[1] ,pathLocations[0] };
+    //    }
+    //    else if ( buildingLocation - location == new Vector3(2 ,0 ,0) )
+    //    {
+    //        return new List<Vector3>() { pathLocations[0] ,pathLocations[1] };
+    //    }
+    //    return null;
+    //}
 }

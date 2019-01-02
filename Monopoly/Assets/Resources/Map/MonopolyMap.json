@@ -25556,27 +25556,6 @@
           },
           "magnitude": 123.967735,
           "sqrMagnitude": 15368.0
-        },
-        {
-          "x": 118.0,
-          "y": 0.0,
-          "z": 42.0,
-          "normalized": {
-            "x": 0.9421026,
-            "y": 0.0,
-            "z": 0.335324675,
-            "normalized": {
-              "x": 0.9421027,
-              "y": 0.0,
-              "z": 0.3353247,
-              "magnitude": 1.0,
-              "sqrMagnitude": 1.00000012
-            },
-            "magnitude": 0.99999994,
-            "sqrMagnitude": 0.99999994
-          },
-          "magnitude": 125.251747,
-          "sqrMagnitude": 15688.0
         }
       ],
       "BuildingLocation": {
