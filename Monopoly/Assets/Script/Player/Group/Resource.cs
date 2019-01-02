@@ -18,4 +18,18 @@ public class Resource
         antidote = 0;
         blockList = new List<Block>();
     }
+    public Resource(int army ,int civilian ,int mineral)
+    {
+        this.army = army;
+        this.civilian = civilian;
+        this.mineral = mineral;
+    }
+    public Resource(Resource another)
+    {
+        army = another.army;
+        civilian = another.civilian;
+        mineral = another.mineral;
+        antidote = another.antidote;
+        blockList = new List<Block>();
+    }
 }

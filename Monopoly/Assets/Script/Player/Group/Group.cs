@@ -146,6 +146,11 @@ public class Group
         scout.reconnoiter(map ,step);
         stepCount = 0;
     }
+    public void teleport(Vector3 loc)
+    {
+        location = loc;
+        CurrentActor.teleport(location);
+    }
     public void move()//按照scout的Path移動
     {
         move(scout.choicePath[0].location ,scout.choicePath[1].location ,++stepCount);

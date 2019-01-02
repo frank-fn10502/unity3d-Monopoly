@@ -9,9 +9,9 @@ public class Position
 
 
     public Direction enterDirection;
-    public int blockIndex;
+    public int   blockIndex;
     public Block block;
-    public Vector3   location;
+    public Vector3 location;
     public GameObject entity;
 
 

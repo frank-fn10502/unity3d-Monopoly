@@ -22,4 +22,12 @@ public class EventBlock : Block
     {
         eventPool = null;
     }
+
+
+
+
+    public override void stopAction(Group group)
+    {
+        
+    }
 }

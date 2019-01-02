@@ -26,27 +26,66 @@ public class Scout
 
         //找到所有路徑
         dfsSearch(group.EnterDirection
-                   ,map
-                   ,path
-                   ,new Position(group.EnterDirection
-                   ,group.CurrentBlockIndex
-                   ,map.BlockList[group.CurrentBlockIndex]
-                   ,map.BlockList[group.CurrentBlockIndex].Location)
-                   ,0
-                   ,totalStep + 1);
+                 ,map
+                 ,path
+                 ,new Position(group.EnterDirection 
+                              ,group.CurrentBlockIndex 
+                              ,map.BlockList[group.CurrentBlockIndex] 
+                              ,group.Location)
+                 ,0
+                 ,totalStep + 1);
+
+        foreach(List<Position> p in pathList)
+        {
+            p.RemoveAt(p.Count - 1);
+            if ( p[1].location == group.Location )
+            {
+                p.RemoveAt(0);
+                //p[0] = null;
+            }
+        }
     }
 
     /*==========private==========*/
     private void dfsSearch(Direction enterDirection ,Map map ,List<Position> path ,Position position ,int next ,int step)
     {
-        Position onePos = new Position(enterDirection
+        //Position onePos = new Position(enterDirection
+        //                              ,position.blockIndex + next
+        //                              ,map.BlockList[position.blockIndex + next]
+        //                              ,map.BlockList[position.blockIndex + next].standPoint(position.location));
+        //path.Add(onePos);
+        //findNextBlock(map ,path ,path[path.Count - 1] ,--step);
+        //path.Remove(onePos);
+
+        List<Position> positions = new List<Position>();
+        Vector3 loc;
+        for (int i = 0 ; i < 2 ; i++ )
+        {
+            loc = (i == 0) ? position.location : positions[0].location;
+
+            Position onePos = new Position(enterDirection
                                       ,position.blockIndex + next
                                       ,map.BlockList[position.blockIndex + next]
-                                      ,map.BlockList[position.blockIndex + next].Location);
+                                      ,map.BlockList[position.blockIndex + next].standPoint(loc));
 
-        path.Add(onePos);
+            if(positions.Count > 1)
+            {
+                if(positions[0].location == onePos.location)
+                {
+                    break;
+                }
+            }
+            else
+            {
+                positions.Add(onePos);
+            }           
+        }
+        path.AddRange(positions);
         findNextBlock(map ,path ,path[path.Count - 1] ,--step);
-        path.Remove(onePos);
+        foreach(Position p in positions)
+        {
+            path.Remove(p);
+        }        
     }
     private void findNextBlock(Map map ,List<Position> path ,Position position ,int step)
     {
@@ -76,6 +115,7 @@ public class Scout
         }
         else
         {
+            //sortPath(path);//先整理
             pathList.Add(new List<Position>(path));
         }
     }
@@ -83,7 +123,7 @@ public class Scout
     {
         foreach ( Position p in choiceP )
         {
-            if ( currentP.entity == p.entity ) return true;
+            if ( currentP.entity.Equals(p.entity) ) return true;
         }
         return false;
     }
@@ -116,8 +156,8 @@ public class Scout
                 //if ( pathList[i][j].entity == pathList[pathNo][k].entity )
                 if ( sameDot(pathList[i][j] ,choicePath) )
                 {
-                    if ( j == pathList[i].Count - 1 && 
-                        pathList[i][j].entity != pathList[pathNo][pathList[pathNo].Count-1].entity )
+                    if ( j == pathList[i].Count - 1 &&
+                        pathList[i][j].entity != pathList[pathNo][pathList[pathNo].Count - 1].entity )
                     {
                         GameObject.Destroy(pathList[i][j].entity.GetComponent<PositionController>());
                         pathList[i][j].entity.transform.localScale = new Vector3(0.4f ,0.1f ,0.4f);
@@ -134,15 +174,122 @@ public class Scout
         GameObject.Destroy(choicePath[choicePath.Count - 1].entity.GetComponent<PositionController>());
         pathList.Clear();
 
+        //if ( choicePath[1].location == group.Location )
+        //{
+        //    choicePath.RemoveAt(0);
+        //}
+
         group.State = PlayerState.Walking;//設定玩家狀態為"walking"
     }
     public void deleteDot(Position dot)//刪除走過的點
     {
         choicePath.Remove(dot);
         //Position removeDot = dot;
-        if(!sameDot(dot ,choicePath))
+        if ( !sameDot(dot ,choicePath) )
         {
             GameObject.Destroy(dot.entity);
-        }             
+        }
     }
+
+    /*==========private==========*/
+    //private List<Position> addPosition(Direction enterDirection ,Map map ,List<Position> path ,Position position ,Direction outDirection)
+    //{
+    //    List<Position> positions = new List<Position>();
+    //    foreach ( Vector3 loc in map.BlockList[position.blockIndex].standPoint(/*out*/) )
+    //    {
+    //        Position onePos = new Position(enterDirection
+    //                                      ,position.blockIndex
+    //                                      ,map.BlockList[position.blockIndex]
+    //                                      ,loc);
+    //        positions.Add(onePos);
+    //    }
+    //    path.AddRange(positions);
+    //    return positions;
+    //}
+    //private void sortPath(List<Position> path)
+    //{
+    //    bool zSort = false ,xSort = false;
+    //    Position[] selects = new Position[3];
+    //    Vector3 offset1 ,offset2;
+
+    //    for(int i = 2 ; i <= path.Count ; i+=2 )/////?
+    //    {
+    //        if( i < path.Count )
+    //        {
+    //            selects[0] = path[i - 2];
+    //            selects[1] = path[i - 1];
+    //            selects[2] = path[i];
+    //            offset1 = selects[1].location - selects[0].location;
+    //            offset2 = selects[2].location - selects[0].location;
+
+    //            bool[] detect = detectDir(offset1);
+    //            xSort = detect[0];
+    //            zSort = detect[1];
+
+    //            if ( xSort )
+    //            {
+    //                if ( offset2.x * offset1.x <= 0 )
+    //                {
+    //                    Position temp = path[i - 2];
+    //                    path[i - 2] = path[i - 1];
+    //                    path[i - 1] = temp;
+    //                }
+    //            }
+    //            else if ( zSort )
+    //            {
+    //                if ( offset2.z * offset1.z <= 0 )
+    //                {
+    //                    Position temp = path[i - 2];
+    //                    path[i - 2] = path[i - 1];
+    //                    path[i - 1] = temp;
+    //                }
+    //            }
+    //        }
+    //        else
+    //        {
+    //            i = path.Count - 1;
+    //            selects[0] = path[i - 1];
+    //            selects[1] = path[i];
+    //            selects[2] = path[i - 2];
+
+    //            offset1 = selects[1].location - selects[0].location;
+    //            offset2 = selects[1].location - selects[2].location;
+    //            bool[] detect = detectDir(offset1);
+    //            xSort = detect[0];
+    //            zSort = detect[1];
+    //            if ( xSort )
+    //            {
+    //                if ( offset2.x * offset1.x <= 0 )
+    //                {
+    //                    Position temp = path[i - 1];
+    //                    path[i - 1] = path[i];
+    //                    path[i] = temp;
+    //                }
+    //            }
+    //            else if ( zSort )
+    //            {
+    //                if ( offset2.z * offset1.z <= 0 )
+    //                {
+    //                    Position temp = path[i - 1];
+    //                    path[i - 1] = path[i];
+    //                    path[i] = temp;
+    //                }
+    //            }
+    //            break;
+    //        }           
+    //    }
+    //    path.RemoveAt(path.Count - 1);
+    //    //if ( path[1].location == group.Location )
+    //    //{
+    //    //    path.RemoveAt(0);
+    //    //}       
+    //}
+    //private bool[] detectDir(Vector3 offset)
+    //{
+    //    bool[] detect = new bool[2];
+    //    detect[0] = offset.x != 0;
+    //    detect[1] = offset.z != 0;
+
+    //    return detect;
+    //}
 }

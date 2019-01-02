@@ -33,7 +33,10 @@ public class Map
             {
                 index = i * 30 + j;
                 BlockList[index].build();
-                BlockList[index].Entity.transform.parent = mapEntity.transform;//統一管理
+                if ( BlockList[index].Entity != null )
+                {
+                    BlockList[index].Entity.transform.parent = mapEntity.transform;//統一管理
+                }
             }
         }
     }
