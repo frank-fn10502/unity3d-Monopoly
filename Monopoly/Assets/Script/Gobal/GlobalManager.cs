@@ -27,8 +27,8 @@ public class GlobalManager
     private Group[] groupList;
     private int currentGroup;
     private int totalStep;
-    //private bool isRolled;
-    //private bool isFinded;
+    private bool isRolled;
+    private bool isFinded;
 
     private GameState gameState;///
 

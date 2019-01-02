@@ -5,16 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-class EarthquakeEvent : EventBase
+class Inaccessible_Forest : EventBase
     {
-        public EarthquakeEvent(string n,bool g,int w, string d) :base(n,g,w,d)
+        public Inaccessible_Forest(string n,bool g,int w, string d) :base(n,g,w,d)
         {
 
         }
         public override void DoEvent(List<Group> droup_list, Group group)
         {
-            //發生地震，所有玩家損失10%人口
-            for(int i = 0;i< droup_list.Count;i++)
+        //猩猩巡邏途中發現人類，使得人類無法進入森林
+        for (int i = 0;i< droup_list.Count;i++)
             {
                 droup_list[i].Resource.civilian = Convert.ToInt32(droup_list[i].Resource.civilian*0.9);
             }
