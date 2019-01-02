@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 class DisplayManager
@@ -33,7 +34,7 @@ class DisplayManager
     {
         //呼叫扔骰子
 
-        globalManager.TotalStep = 6;//temp
+        globalManager.TotalStep = 50;//temp
         currentPlayer.State = PlayerState.SearchPath;//temp
     }
     public void displaySearchPath(Map map)
@@ -60,7 +61,7 @@ class DisplayManager
         {
             bool now = nextPlayerText.activeSelf;
             nextPlayerText.SetActive(!now);
-            
+
         }
         timer = ( timer + 10 ) % 500;
 
@@ -76,33 +77,56 @@ class DisplayManager
     /*==========ScoutPathEntity==========*/
     private void createScoutPathEntity(Map map)
     {
-        bool[] markMap = new bool[map.BlockList.Length];
-        for ( int i = 0 ; i < markMap.Length ; i++ ) { markMap[i] = false; }//全部標記為 "未走過"
+        int[] markMap  = new int[map.BlockList.Length];
+        //int[] markType  = new int[map.BlockList.Length];
+        for ( int i = 0 ; i < markMap.Length ; i++ ) { markMap[i] = 0; }//全部標記為 "未走過"
+        //for ( int i = 0 ; i < markMap.Length ; i++ ) { markType[i] = -1; }//初始 沒有任何路徑建造過: -1
 
-        Position onePos;       
+        Position onePos;
         for ( int i = 0 ; i < currentPlayer.Scout.pathList.Count ; i++ )
         {
+            //for ( int k = 0 ; k < map.BlockList.Length ; k++ )
+            //{
+            //    markMap[k] = 0;//全部標記為 "未走過"
+            //}
+
             for ( int j = 0 ; j < currentPlayer.Scout.pathList[i].Count ; j++ )
             {
                 onePos = currentPlayer.Scout.pathList[i][j];
-                if ( markMap[onePos.blockIndex] == false )//if沒有建過 "這一個點"
+                if(onePos.entity == null)
                 {
-                    markMap[onePos.blockIndex] = true;
+                    markMap[onePos.blockIndex]++;
 
-                    buildEntity(onePos ,onePos.blockIndex);
+                    buildEntity(onePos ,onePos.blockIndex ,markMap[onePos.blockIndex]);
                     onePos.entity.transform.parent = pathListEntity.transform;//統一放到一個Empty的GameObject下面
                 }
-                else
-                {
-                    onePos.entity = pathListEntity.transform.Find("dot" + onePos.blockIndex).gameObject;//如果有了就不要再建造一次 直接指定
-                }
+                //if ( ( markType[onePos.blockIndex] == -1 || markType[onePos.blockIndex] == i ) && markMap[onePos.blockIndex] < 2 )//if沒有建過 "這一個點"
+                //{
+                //    markMap[onePos.blockIndex]++;
+                //    markType[onePos.blockIndex] = i;
+
+                //    buildEntity(onePos ,onePos.blockIndex ,markMap[onePos.blockIndex]);
+                //    onePos.entity.transform.parent = pathListEntity.transform;//統一放到一個Empty的GameObject下面
+                //}
+                //else
+                //{
+                //    try
+                //    {
+                //        //markMap[onePos.blockIndex]++;
+                //        markMap[onePos.blockIndex] = markMap[onePos.blockIndex] % 2 + 1;
+                //        onePos.entity = pathListEntity.transform.Find("dot" + onePos.blockIndex + "-" + markMap[onePos.blockIndex]).gameObject;//如果有了就不要再建造一次 直接指定
+                //    }
+                //    catch
+                //    {
+                //    }
+                //}
             }
         }
     }
-    private void buildEntity(Position onePos ,int mapIndex)
+    private void buildEntity(Position onePos ,int mapIndex ,int offset)
     {
         onePos.entity = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-        onePos.entity.transform.name = "dot" + mapIndex;
+        onePos.entity.transform.name = "dot" + mapIndex + "-" + offset;
         onePos.entity.transform.localScale = new Vector3(0.4f ,0.1f ,0.4f);
 
         onePos.entity.GetComponent<Renderer>().material = Resources.Load<Material>("Texture/Orange");

@@ -132,6 +132,14 @@ public abstract class Block
         }
     }
 
+    public virtual Vector3 standPoint()
+    {
+        return Location;
+    }
+    public virtual Vector3 standPoint(Vector3 preLoc)
+    {
+        return Location ;
+    }
 
     /*==========private==========*/
     private void setPath(Vector3 location)

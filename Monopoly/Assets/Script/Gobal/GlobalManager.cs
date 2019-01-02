@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -39,8 +40,7 @@ public class GlobalManager
         currentGroupIndex = ( currentGroupIndex + 1 ) % Constants.PLAYERNUMBER;
     }
 
-
-    public GlobalManager()
+    public GlobalManager(List<Faction> factionList = null)
     {
         string path = Directory.GetCurrentDirectory();
         string target = @"\Assets\Resources\Map\MonopolyMap.json";
@@ -48,7 +48,19 @@ public class GlobalManager
 
         map = JsonConvert.DeserializeObject<Map>(json);
         map.build();
-        setGroupList();
+
+        List<Faction> factions;
+        if(factionList == null)
+        {
+            target = @"\Assets\Resources\Faction\MonopolyFaction.json";
+            json = File.ReadAllText(path + target);
+            factions = JsonConvert.DeserializeObject<List<Faction>>(json);
+        }
+        else
+        {
+            factions = factionList;
+        }
+        setGroupList(factions);
 
         currentGroupIndex = 0;
         totalStep = 1;
@@ -56,7 +68,6 @@ public class GlobalManager
 
         displayManager = new DisplayManager(this);
     }
-
 
     public void execute()
     {
@@ -148,41 +159,62 @@ public class GlobalManager
         }
     }
 
-    /*暫時*/
-    private void setGroupList()//設定 4 個 group//讀檔?
+    private void setGroupList(List<Faction> factions)
     {
         groupList = new Group[Constants.PLAYERNUMBER];
-        Direction[] playerDirection = new Direction [Constants.PLAYERNUMBER]{Direction.North ,Direction.North ,Direction.South ,Direction.East};
-        int[] playerIndex = new int[Constants.PLAYERNUMBER]{2 * 30 + 2 ,2 * 30 + 27 ,27 * 30 + 2 ,27 * 30 + 27};
-        Vector3[] playerLocation = new Vector3[Constants.PLAYERNUMBER]
-                                      {map.BlockList[2 * 30 + 2].Location + new Vector3(0 ,0.2f ,0)
-                                      ,map.BlockList[2 * 30 + 27].Location + new Vector3(0 ,0.2f ,0)
-                                      ,map.BlockList[27 * 30 + 2].Location + new Vector3(0 ,0.2f ,0)
-                                      ,map.BlockList[27 * 30 + 27].Location + new Vector3(0 ,0.2f ,0)};
+        Direction[] playerDirection = new Direction [Constants.PLAYERNUMBER]{Direction.North ,Direction.East ,Direction.South ,Direction.West};
+        int[] playerIndex = new int[Constants.PLAYERNUMBER]{2 * 30 + 2 ,2 * 30 + 27 ,27 * 30 + 27 ,27 * 30 + 2};
 
-        for ( int i = 0 ; i < Constants.PLAYERNUMBER ; i++ )
+        int i = 0;
+        foreach (Faction faction in factions)
         {
             groupList[i] = new Group(null
-                                    ,createActors(playerLocation[i] ,"Player1" ,playerDirection[i])
-                                    ,new Attributes(20 ,20 ,20)
-                                    ,new Resource()
-                                    ,playerLocation[i]
-                                    ,playerIndex[i]
-                                    ,playerDirection[i]);
+                                    ,faction.actorList.ToArray()
+                                    ,new Attributes(faction.attributes)
+                                    ,new Resource(faction.resource)
+                                    ,map.BlockList[playerIndex[i]].standPoint()//?
+                                    ,playerIndex[i]//?
+                                    ,playerDirection[i]);//?
+            groupList[i].CurrentActor.build(groupList[i].Location ,playerDirection[i]);
+            i++;
+            if ( i >= Constants.PLAYERNUMBER ) break;
         }
     }
-    private Actor[] createActors(Vector3 location ,string name ,Direction enterDirection)
-    {
-        Actor[] actors = new Actor[Constants.ACTORTOTALNUM];
-        for ( int i = 0 ; i < Constants.ACTORTOTALNUM ; i++ )
-        {
-            actors[i] = new Actor(this ,name ,null ,createDice() ,location ,enterDirection);
-        }
+    /*暫時*/
+    //private void setGroupList()//設定 4 個 group//讀檔?
+    //{
+    //    groupList = new Group[Constants.PLAYERNUMBER];
+    //    Direction[] playerDirection = new Direction [Constants.PLAYERNUMBER]{Direction.North ,Direction.North ,Direction.South ,Direction.East};
+    //    int[] playerIndex = new int[Constants.PLAYERNUMBER]{2 * 30 + 2 ,2 * 30 + 27 ,27 * 30 + 2 ,27 * 30 + 27};
+    //    Vector3[] playerLocation = new Vector3[Constants.PLAYERNUMBER]
+    //                                  {map.BlockList[2 * 30 + 2].Location + new Vector3(0 ,0.2f ,0)
+    //                                  ,map.BlockList[2 * 30 + 27].Location + new Vector3(0 ,0.2f ,0)
+    //                                  ,map.BlockList[27 * 30 + 2].Location + new Vector3(0 ,0.2f ,0)
+    //                                  ,map.BlockList[27 * 30 + 27].Location + new Vector3(0 ,0.2f ,0)};
 
-        return actors;
-    }
-    private Dice createDice()
-    {
-        return new Dice(new int[6]);
-    }
+    //    for ( int i = 0 ; i < Constants.PLAYERNUMBER ; i++ )
+    //    {
+    //        groupList[i] = new Group(null
+    //                                ,createActors(playerLocation[i] ,"Player1" ,playerDirection[i])
+    //                                ,new Attributes(20 ,20 ,20)
+    //                                ,new Resource()
+    //                                ,playerLocation[i]
+    //                                ,playerIndex[i]
+    //                                ,playerDirection[i]);
+    //    }
+    //}
+    //private Actor[] createActors(Vector3 location ,string name ,Direction enterDirection)
+    //{
+    //    Actor[] actors = new Actor[Constants.ACTORTOTALNUM];
+    //    for ( int i = 0 ; i < Constants.ACTORTOTALNUM ; i++ )
+    //    {
+    //        actors[i] = new Actor(this ,name ,null ,createDice() ,location ,enterDirection);
+    //    }
+
+    //    return actors;
+    //}
+    //private Dice createDice()
+    //{
+    //    return new Dice(new int[6]);
+    //}
 }
