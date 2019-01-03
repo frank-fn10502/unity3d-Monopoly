@@ -179,7 +179,7 @@ public class GlobalManager
         foreach (Faction faction in factions)
         {
             groupList[i] = new Group(null
-                                    ,faction.actorList.ToArray()
+                                    ,createActorList(faction.actorList)/*faction.actorList.ToArray()*/
                                     ,new Attributes(faction.attributes)
                                     ,new Resource(faction.resource)
                                     ,map.BlockList[playerIndex[i]].standPoint()//?
@@ -190,6 +190,16 @@ public class GlobalManager
             i++;
             if ( i >= Constants.PLAYERNUMBER ) break;//temp
         }
+    }
+    private Actor[] createActorList(List<Actor> actorList)
+    {
+        Actor[] actors = new Actor[actorList.Count];
+        int i = 0;
+        foreach(Actor a in actorList)
+        {
+            actors[i++] = new Actor(a);
+        }
+        return actors;
     }
     /*暫時*/
     //private void setGroupList()//設定 4 個 group//讀檔?

@@ -76,7 +76,15 @@ public class Actor
         skill = null;
         dice = null;
     }
+    public Actor(Actor another)
+    {
+        this.name = another.name;
+        this.fileName = another.fileName;
+        this.entity = Resources.Load<GameObject>(fileName);
+        skill = null;//temp
+        dice = null;//temp
 
+    }
     public Actor(string name ,Skill skill ,Dice dice /*,Vector3 location = Vector3.zero*/ /*,Direction enterDirection*/)
     {
         this.name = name;
