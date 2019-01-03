@@ -6,9 +6,9 @@ using System.Text;
 public abstract class EventBase
 {
     private string name;
-    private bool isGood;
-    private int weight;
     private string detail;
+    private bool isGood;
+    private int weight;   
     PlayerState state;
 
     public string Name

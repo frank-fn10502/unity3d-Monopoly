@@ -109,6 +109,8 @@ public class Group
         }
     }
 
+
+
     public Group(Skill skill ,Actor[] actors ,Attributes attributes ,Resource resource ,Vector3 location ,int currentBlockIndex ,Direction enterDirection)
     {
         this.state = PlayerState.Normal;
@@ -126,6 +128,7 @@ public class Group
         this.scout = new Scout(this);
         this.inJailTime = 0;
     }
+
 
 
     public void changeActor(int rotate)//1 or -1
@@ -164,8 +167,6 @@ public class Group
             }
             stepCount = 0;
             scout.deleteDot(scout.choicePath[0]);//刪除走過的點
-
-            //Debug.Log("scout.totalStep: " + scout.totalStep);
         }
     }
 
