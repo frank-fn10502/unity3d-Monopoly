@@ -173,7 +173,8 @@ public class GlobalManager
         int i = 0;
         foreach (Faction faction in factions)
         {
-            groupList[i] = new Group(null
+            groupList[i] = new Group(map.BlockList
+                                    ,null
                                     ,faction.actorList.ToArray()
                                     ,new Attributes(faction.attributes)
                                     ,new Resource(faction.resource)

@@ -13,7 +13,7 @@ class Apse_Migrate : EventBase
             //由於人類發現猩猩的所在位置，使得猩猩必須遷移
             Random rand = new Random();
             int rands = rand.Next(group.Resource.blockList.Count);
-            group.teleport(group.Resource.blockList[rands].Location);
+            group.teleport(group.Resource.blockList[rands]/*group.Resource.blockList[rands].Location*/);
             State = group.State;
     }
     }

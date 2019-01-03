@@ -2,6 +2,7 @@
 
 public class Group
 {
+    private Block[] blockList;
     private PlayerState state;
     private Walkable    identity;
     private Skill skill;
@@ -108,11 +109,17 @@ public class Group
             inJailTime = value;
         }
     }
-
-
-
-    public Group(Skill skill ,Actor[] actors ,Attributes attributes ,Resource resource ,Vector3 location ,int currentBlockIndex ,Direction enterDirection)
+    public Block[] BlockList
     {
+        get
+        {
+            return blockList;
+        }
+    }
+
+    public Group(Block[] blockList , Skill skill ,Actor[] actors ,Attributes attributes ,Resource resource ,Vector3 location ,int currentBlockIndex ,Direction enterDirection)
+    {
+        this.blockList = blockList;
         this.state = PlayerState.Normal;
         this.identity = Walkable.Human;
         this.skill = skill;
@@ -149,9 +156,9 @@ public class Group
         scout.reconnoiter(map ,step);
         stepCount = 0;
     }
-    public void teleport(Vector3 loc)
+    public void teleport(Block block)
     {
-        location = loc;
+        location = block.standPoint();
         CurrentActor.teleport(location);
     }
     public void move()//按照scout的Path移動
