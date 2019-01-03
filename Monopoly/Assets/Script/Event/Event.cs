@@ -43,37 +43,41 @@ public class Event
     private void Add_Forest_Event()
     {
         forest.AddEvent(new ApesAtteckPlayerEvent("遭受猩猩偷襲",false,5, "闖入森林，遭受群居猩猩偷襲，軍隊減少一半", "EventImage/AllEvent"));
-        forest.AddEvent(new Commicave_With_Apes("和猩猩談判成功", true, 4, "由於和猩猩談判成功，使外交指數上升", "EventImage/AllEvent"));
+        forest.AddEvent(new Commicave_With_Apes("和猩猩談判成功", true, 4, "由於和猩猩談判成功，使猩猩外交指數上升", "EventImage/AllEvent"));
         forest.AddEvent(new Dice_Again("從俘虜中逃出", true, 6, "從俘虜中逃出，再次擲骰子", "EventImage/AllEvent"));
         forest.AddEvent(new Discover_Secret_Passage_Forest("途中發現祕密通道", false, 5, "由於途中發現祕密通道，可直達森林入口", "EventImage/AllEvent"));
         forest.AddEvent(new Every_People_Time_Out("猩猩被人類俘虜", false, 5, "由於軍營慘遭猩猩入侵，導致損失慘重，所有人類暫停一回合 ", "EventImage/AllEvent"));
         forest.AddEvent(new People_Time_Out("被猩猩抓走成為俘虜", false, 5, "由於被猩猩抓走成為俘虜，暫停一回合", "EventImage/AllEvent"));
-        forest.AddEvent(new People_Time_Out("遭遇猩猩攻擊", false, 5, "遭遇猩猩攻擊，暫停一回合", "EventImage/AllEvent"));
+        forest.AddEvent(new People_Time_Out("遭遇猩猩攻擊", false, 8, "遭遇猩猩攻擊，暫停一回合", "EventImage/AllEvent"));
         forest.AddEvent(new Virus_Increase("野外遭遇帶著猿流感的猩猩", false, 5, "野外遭遇帶著猿流感的猩猩，使得病毒擴散加快，人類死亡3%", "EventImage/AllEvent"));
         forest.AddEvent(new Apse_Migrate("人類發現猩猩的所在位置", true, 1, "由於人類發現猩猩的所在位置，使得猩猩必須遷移", "EventImage/AllEvent"));
         forest.AddEvent(new Orangutan_Reduction("猩猩看不慣凱薩", true, 2, "由於猩猩看不慣凱薩，發生內鬥，使猩猩和平指數下降，猩猩人口減少4%", "EventImage/AllEvent"));
+        forest.AddEvent(new Capacity_Degradation("人類與帶原猩猩接觸，使得語言能力退化", false, 5, "人類與帶原猩猩接觸，使得語言能力退化，外交能力喪失，外交減少90%", "EventImage/AllEvent"));
     }
 
     private void Add_Personal_Event()
     {
         personal.AddEvent(new GetResourceEvent("獲得資源", true, 8, "各種資源增加5%", "EventImage/AllEvent"));
         personal.AddEvent(new EveryoneGetResourceEvent("在礦場中意外發現稀有礦物", true, 8, "在礦場中意外發現稀有礦物，個人所得資源增加8%", "EventImage/AllEvent"));
-        personal.AddEvent(new Fall_Back("不小心迷失前進方向", true, 8, "個人由於不小心迷失前進方向，倒退", "AllEvent"));
-        personal.AddEvent(new Secret_Passage_Time_Out("在路途中發現能直達實驗室的秘密通道", true, 8, "在路途中發現能直達實驗室的秘密通道，但必須暫停2回合", "EventImage/AllEvent"));
-        personal.AddEvent(new Increase_In_Military_Population("研發出新武器", true, 8, "由於個人研發新武器，使軍隊增加10%", "EventImage/AllEvent"));
-        personal.AddEvent(new People_Time_Out("受到戰爭流彈波及", true, 8, "個人受到戰爭流彈波及，暫停一回合養傷", "EventImage/AllEvent"));
-        personal.AddEvent(new Military_Population_Reduction("營地發生雪崩", true, 8, "營地發生雪崩，個人軍隊人口縮減一半 ", "EventImage/AllEvent"));
-        personal.AddEvent(new Half_The_Money_Population("礦場倒塌", true, 8, "由於礦場倒塌，口減少一半", "EventImage/AllEvent"));
-        personal.AddEvent(new People_Time_Out("猩猩發現落單人類", true, 8, "由於猩猩發現落單人類，個人暫停一回合", "EventImage/AllEvent"));
-        personal.AddEvent(new People_Time_Out("在橋上不慎踩空", true, 8, "由於在橋上不慎踩空，暫停一回合", "EventImage/AllEvent"));
-        personal.AddEvent(new Discover_Secret_Passage_Forest("途中發現祕密通道", false, 5, "由於途中發現祕密通道，可直達森林入口", "AllEEventImage/AllEventvent"));
-        personal.AddEvent(new People_Time_Out("被猩猩抓走成為俘虜", true, 8, "由於被猩猩抓走成為俘虜，暫停 一回合", "EventImage/AllEvent"));
-        personal.AddEvent(new Dice_Again("從俘虜中逃出", true, 6, "從俘虜中逃出，再次擲骰子", "EventImage/AllEvent"));
-        personal.AddEvent(new Increased_Number_Of_People_Infected("軍營中發現帶有病毒猩猩的屍體", true, 6, "軍營中發現帶有病毒猩猩的屍體，使軍隊人口感染人數增加，軍隊減少10%", "EventImage/AllEvent"));
-        personal.AddEvent(new Virus_Increase_Antidote("途中發現帶有變種病毒死亡的人類屍體", true, 6, "途中發現帶有變種病毒死亡的人類屍體，使解藥研究程度下降5%", "EventImage/AllEvent"));
-        personal.AddEvent(new Capacity_Degradation("人類遭遇猿流感，使得語言能力退化", true, 6, "人類遭遇猿流感，使得語言能力退化，外交能力喪失，外交減少90%", "EventImage/AllEvent"));
-        personal.AddEvent(new Reduce_The_Number_Of_People("為防止軍隊病毒災情擴散，將處決軍隊受感染人數", true, 6, "為防止軍隊病毒災情擴散，將處決軍隊受感染人數，軍隊人數減少5%", "EventImage/AllEvent"));
-        personal.AddEvent(new People_Increase("敵方陣營人民投靠", true, 6, "敵方陣營人民投靠，使人數增加100", "AllEvent"));
+        //personal.AddEvent(new Fall_Back("不小心迷失前進方向", true, 8, "個人由於不小心迷失前進方向，倒退", "AllEvent"));
+        personal.AddEvent(new Secret_Passage_Time_Out("在路途中發現能直達實驗室的秘密通道", true, 3, "在路途中發現能直達實驗室的秘密通道，但必須暫停2回合", "EventImage/AllEvent"));
+        personal.AddEvent(new Increase_In_Military_Population("研發出新武器", true, 6, "由於個人研發新武器，使軍隊增加10%", "EventImage/AllEvent"));
+        personal.AddEvent(new People_Time_Out("受到戰爭流彈波及", false, 5, "個人受到戰爭流彈波及，暫停一回合養傷", "EventImage/AllEvent"));
+        personal.AddEvent(new Military_Population_Reduction("營地發生雪崩", false, 1, "營地發生雪崩，個人軍隊人口縮減一半 ", "EventImage/AllEvent"));
+        personal.AddEvent(new Half_The_Money_Population("礦場倒塌", false, 1, "由於礦場倒塌，口減少一半", "EventImage/AllEvent"));
+        personal.AddEvent(new People_Time_Out("猩猩發現落單人類", false, 2, "由於猩猩發現落單人類，個人暫停一回合", "EventImage/AllEvent"));
+        personal.AddEvent(new People_Time_Out("在橋上不慎踩空", false, 8, "由於在橋上不慎踩空，暫停一回合", "EventImage/AllEvent"));
+        personal.AddEvent(new Discover_Secret_Passage_Forest("途中發現祕密通道", true, 3, "由於途中發現祕密通道，可直達森林入口", "AllEEventImage/AllEventvent"));
+        personal.AddEvent(new People_Time_Out("被猩猩抓走成為俘虜", false, 1, "由於被猩猩抓走成為俘虜，暫停一回合", "EventImage/AllEvent"));
+        //personal.AddEvent(new Dice_Again("從俘虜中逃出", true, 6, "從俘虜中逃出，再次擲骰子", "EventImage/AllEvent"));
+        personal.AddEvent(new Increased_Number_Of_People_Infected("軍營中發現帶有病毒猩猩的屍體", false, 2, "軍營中發現帶有病毒猩猩的屍體，使軍隊人口感染人數增加，軍隊減少10%", "EventImage/AllEvent"));
+        personal.AddEvent(new Virus_Increase_Antidote("途中發現帶有變種病毒死亡的人類屍體", false, 3, "途中發現帶有變種病毒死亡的人類屍體，使解藥研究程度下降5%", "EventImage/AllEvent"));
+        personal.AddEvent(new Capacity_Degradation("人類遭遇猿流感，使得語言能力退化", false, 1, "人類遭遇猿流感，使得語言能力退化，外交能力喪失，外交減少90%", "EventImage/AllEvent"));
+        personal.AddEvent(new Reduce_The_Number_Of_People("為防止軍隊病毒災情擴散，將處決軍隊受感染人數", false, 2, "為防止軍隊病毒災情擴散，將處決軍隊受感染人數，軍隊人數減少5%", "EventImage/AllEvent"));
+        personal.AddEvent(new People_Increase("敵方陣營人民投靠", true, 8, "敵方陣營人民投靠，使人數增加100", "AllEvent"));
+        personal.AddEvent(new People_Increase("發現病毒對兒童無效", true, 6, "發現病毒對兒童無效，使人數增加100", "AllEvent"));
+        personal.AddEvent(new Go_To_The_Designated_Location("途中意外發現軍用直升機", true, 5, "途中意外發現軍用直升機，可前隨機前往自己的其中一個領地", "AllEvent"));
+        personal.AddEvent(new Increase_In_Military_Population("猩猩叛逃投靠人類", true, 8, "猩猩叛逃投靠人類，使軍隊增加10%", "EventImage/AllEvent"));
     }
 
     private void Add_Word_Event()
@@ -87,6 +91,7 @@ public class Event
         word.AddEvent(new Everyone_People_Decrease("所有人類遭遇野生猩猩發動攻擊，失去人口數量", false, 6, "所有人類遭遇野生猩猩發動攻擊，失去人口數量", "EventImage/AllEvent"));
         word.AddEvent(new Virus_Reduction("人類發現新型解藥", true, 6, "人類發現新型解藥，使得所有人解藥研發程度提升2%", "EventImage/AllEvent"));
         word.AddEvent(new Apse_Defection("猩猩叛逃", true, 6, "猩猩叛逃，所有人類獲得100軍隊，猩猩減少100軍隊", "EventImage/AllEvent"));
+        word.AddEvent(new Change_Plant("地殼移動", true, 10000, "地殼移動，隨機兩位玩家位置交換", "EventImage/AllEvent"));
 
     }
     private void Set_Weight(EventPool Ep, Group group)
@@ -113,6 +118,9 @@ public class Event
                 break;
             case Eventtype.Word:
                 doingevent = word.GetEvent()/*.DoEvent(droup_list,group)*/;
+                break;
+            case Eventtype.Attack_Plant:
+                doingevent = new Battle();
                 break;
             default:
                 doingevent = block.GetEvent();

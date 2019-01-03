@@ -12,9 +12,11 @@ class Go_To_The_Designated_Location: EventBase
         }
         public override void DoEvent(List<Group> droup_list, Group group)
         {
-            //途中意外發現軍用直升機，可前往指定地點(軍營、醫院、城市、實驗室)
+            //途中意外發現軍用直升機，可前隨機前往自己的其中一個領地
 
-            group.Resource.mineral = Convert.ToInt32(group.Resource.mineral * 1.05);
+            Random rand = new Random();
+            int rands = rand.Next(group.Resource.blockList.Count);
+            group.teleport(group.Resource.blockList[rands]/*group.Resource.blockList[rands].Location*/);
             State = group.State;
         }
 }

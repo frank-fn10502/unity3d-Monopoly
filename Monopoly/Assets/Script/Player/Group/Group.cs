@@ -2,11 +2,7 @@
 
 public class Group
 {
-<<<<<<< HEAD
-    private static Block[] blockList;
-=======
     public static Block[] blockList;
->>>>>>> 5110d05af8c213c3c2289c82d3e7bc0278f9313f
     private PlayerState state;
     private Walkable    identity;
     private Skill skill;
