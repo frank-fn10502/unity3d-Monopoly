@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 class EarthquakeEvent : EventBase
     {
-        public EarthquakeEvent(string n,bool g,int w, string d) :base(n,g,w,d)
+        public EarthquakeEvent(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
         {
 
         }

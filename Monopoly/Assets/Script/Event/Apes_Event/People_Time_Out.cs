@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 class People_Time_Out : EventBase
 {
-    public People_Time_Out(string n,bool g,int w, string d) :base(n,g,w,d)
+    public People_Time_Out(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
     {
 
     }
@@ -15,7 +11,7 @@ class People_Time_Out : EventBase
         //由於軍營慘遭猩猩入侵，導致損失慘重，所有人類暫停一回合
         for(int i = 0;i<4;i++)
         {
-            //droup_list[i].Attributes += 1;
+            droup_list[i].InJailTime += 1;
         }
         State = group.State;
     }
