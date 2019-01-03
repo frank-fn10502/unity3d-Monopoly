@@ -171,10 +171,10 @@ public class GlobalManager
         int[] playerIndex = new int[Constants.PLAYERNUMBER]{2 * 30 + 2 ,2 * 30 + 27 ,27 * 30 + 27 ,27 * 30 + 2};
 
         int i = 0;
+        Group.blockList = map.BlockList;
         foreach (Faction faction in factions)
         {
-            groupList[i] = new Group(map.BlockList
-                                    ,null
+            groupList[i] = new Group(null
                                     ,faction.actorList.ToArray()
                                     ,new Attributes(faction.attributes)
                                     ,new Resource(faction.resource)

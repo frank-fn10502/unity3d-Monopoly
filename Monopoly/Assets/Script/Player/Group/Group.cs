@@ -2,7 +2,11 @@
 
 public class Group
 {
+<<<<<<< HEAD
     private static Block[] blockList;
+=======
+    public static Block[] blockList;
+>>>>>>> 5110d05af8c213c3c2289c82d3e7bc0278f9313f
     private PlayerState state;
     private Walkable    identity;
     private Skill skill;
@@ -109,17 +113,9 @@ public class Group
             inJailTime = value;
         }
     }
-    public Block[] BlockList
-    {
-        get
-        {
-            return blockList;
-        }
-    }
 
-    public Group(Block[] blockList , Skill skill ,Actor[] actors ,Attributes attributes ,Resource resource ,Vector3 location ,int currentBlockIndex ,Direction enterDirection)
+    public Group(Skill skill ,Actor[] actors ,Attributes attributes ,Resource resource ,Vector3 location ,int currentBlockIndex ,Direction enterDirection)
     {
-        this.blockList = blockList;
         this.state = PlayerState.Normal;
         this.identity = Walkable.Human;
         this.skill = skill;
@@ -135,7 +131,6 @@ public class Group
         this.scout = new Scout(this);
         this.inJailTime = 0;
     }
-
 
 
     public void changeActor(int rotate)//1 or -1
