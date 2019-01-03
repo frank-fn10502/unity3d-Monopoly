@@ -74,6 +74,7 @@ public class PlayerDataController : MonoBehaviour
             factionList[i].actorList = new List<Actor>();
             factionList[i].actorList.Add(new Actor());
             factionList[i].actorList[0].Entity = Resources.Load<GameObject>("PreFab/Character/char/char" + (i + 1) + "/c" + (i + 1));
+            factionList[i].actorList[0].FileName = "PreFab/Character/char/char" + ( i + 1 ) + "/c" + ( i + 1 );
         }
         factionList[factionList.Count - 1].actorList = new List<Actor>();
         factionList[factionList.Count - 1].actorList.Add(new Actor());
