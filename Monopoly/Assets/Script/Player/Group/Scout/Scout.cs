@@ -160,7 +160,7 @@ public class Scout
                         pathList[i][j].entity != pathList[pathNo][pathList[pathNo].Count - 1].entity )
                     {
                         GameObject.Destroy(pathList[i][j].entity.GetComponent<PositionController>());
-                        pathList[i][j].entity.transform.localScale = new Vector3(0.4f ,0.1f ,0.4f);
+                        pathList[i][j].entity.transform.localScale = new Vector3(0.8f ,0.1f ,0.8f);
                     }
                 }
                 else

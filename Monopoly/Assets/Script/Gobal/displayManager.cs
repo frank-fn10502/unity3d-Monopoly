@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 class DisplayManager
 {
     private GlobalManager globalManager;
     private GameObject nextPlayerText;
     private GameObject pathListEntity;
+    private GameObject eventCard;
     private int timer;
 
     public Group currentPlayer
@@ -28,6 +30,10 @@ class DisplayManager
         nextPlayerText.transform.SetParent(GameObject.Find("Canvas").transform ,false);
 
         pathListEntity = new GameObject("pathListEntity"); //Empty GameObject
+
+        eventCard = GameObject.Find("EventCardDisplay");
+        eventCard.SetActive(false);
+        eventCard.GetComponent<EventCardController>().globalManager = globalManager;
     }
 
     public void displayRollingDice()
@@ -52,6 +58,15 @@ class DisplayManager
 
             currentPlayer.State = PlayerState.End;
         }
+    }
+    public void displayEvent(EventBase eventData ,GameState nextGameState)
+    {
+        //eventCard.transform.Find("EventTitle").GetComponent<Text>().text = eventData.Name;
+        //eventCard.transform.Find("EventImage").GetComponent<Image>().sprite = Resources.Load<Sprite>(eventData.Image);
+        //eventCard.transform.Find("EventDes").GetComponent<Text>().text = eventData.Detail;
+        //顯示事件卡
+        eventCard.GetComponent<EventCardController>().nextGameState = nextGameState;
+        eventCard.SetActive(true);
     }
 
     public void displayNextPlayer()

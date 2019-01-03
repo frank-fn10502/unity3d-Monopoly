@@ -22,7 +22,6 @@ public class Event
         Add_Forest_Event();
         Add_Personal_Event();
         Add_Word_Event();
-
     }
 
     private void Add_Apes_Event()
