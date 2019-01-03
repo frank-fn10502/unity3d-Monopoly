@@ -39,6 +39,7 @@ public class GlobalManager
         }
     }
 
+
     public GlobalManager(List<Faction> factionList = null)
     {
         string path = Directory.GetCurrentDirectory();
@@ -68,6 +69,9 @@ public class GlobalManager
         displayManager = new DisplayManager(this);
         events = new Event();
     }
+
+
+
 
     public void execute()
     {

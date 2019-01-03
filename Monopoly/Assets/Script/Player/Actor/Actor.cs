@@ -95,7 +95,7 @@ public class Actor
     public void run(Vector3 location)
     {
         //播放動畫
-        entity.GetComponent<AnimationController>().running = true;
+        //entity.GetComponent<AnimationController>().running = true;
 
         teleport(location);
     }
