@@ -4927,7 +4927,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 8600000, guid: 58eb66e6d99b42f478172100f6a8a5ae, type: 2}
+  m_Texture: {fileID: 8400000, guid: 2a1918d2b6c0593408408b8f1f1e4850, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -5008,7 +5008,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8600000, guid: 58eb66e6d99b42f478172100f6a8a5ae, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 2a1918d2b6c0593408408b8f1f1e4850, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
