@@ -6,7 +6,7 @@ using System.Text;
 
 class Increase_In_Military_Population : EventBase
 { 
-        public Increase_In_Military_Population(string n,bool g,int w, string d) :base(n,g,w,d)
+        public Increase_In_Military_Population(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
         {
 
         }

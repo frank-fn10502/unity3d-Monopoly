@@ -7,7 +7,7 @@ using UnityEngine;
 
 class Unable_To_Travel_Hostipal : EventBase
     {
-        public Unable_To_Travel_Hostipal(string n,bool g,int w, string d) :base(n,g,w,d)
+        public Unable_To_Travel_Hostipal(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
         {
 
         }

@@ -6,7 +6,7 @@ using System.Text;
 
 class Increased_Mobility_Dice_Again : EventBase
 { 
-        public Increased_Mobility_Dice_Again(string n,bool g,int w, string d) :base(n,g,w,d)
+        public Increased_Mobility_Dice_Again(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
         {
 
         }
@@ -14,7 +14,7 @@ class Increased_Mobility_Dice_Again : EventBase
         {
         //在途中意外發現可用能源，使得移動力增加，並可擲骰子
 
-        group.Resource.mineral = Convert.ToInt32(group.Resource.mineral * 1.05);
+            group.Resource.mineral = Convert.ToInt32(group.Resource.mineral * 1.05);
             State = group.State;
         }
 }

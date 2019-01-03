@@ -6,7 +6,7 @@ using System.Text;
 
 class Capacity_Degradation: EventBase
 { 
-        public Capacity_Degradation(string n,bool g,int w, string d) :base(n,g,w,d)
+        public Capacity_Degradation(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
         {
 
         }

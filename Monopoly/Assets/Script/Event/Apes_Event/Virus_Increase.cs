@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 class Virus_Increase : EventBase
 {
-    public Virus_Increase(string n,bool g,int w, string d) :base(n,g,w,d)
+    public Virus_Increase(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
     {
 
     }

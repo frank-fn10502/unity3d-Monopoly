@@ -2,7 +2,7 @@
 
 class Human_Diplomacy : EventBase
 {
-    public Human_Diplomacy(string n,bool g,int w, string d) :base(n,g,w,d)
+    public Human_Diplomacy(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
     {
 
     }

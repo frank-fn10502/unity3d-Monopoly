@@ -6,8 +6,8 @@ using System.Text;
 
     class Human_Suspension_Bout : EventBase
     {
-        public Human_Suspension_Bout(string n,bool g,int w, string d) :base(n,g,w,d)
-        {
+        public Human_Suspension_Bout(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
+    {
 
         }
         public override void DoEvent(List<Group> droup_list, Group group)

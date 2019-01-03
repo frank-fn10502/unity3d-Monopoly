@@ -6,7 +6,7 @@ using System.Text;
 
 class Movement_Reduction: EventBase
 { 
-        public Movement_Reduction(string n,bool g,int w, string d) :base(n,g,w,d)
+        public Movement_Reduction(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
         {
 
         }

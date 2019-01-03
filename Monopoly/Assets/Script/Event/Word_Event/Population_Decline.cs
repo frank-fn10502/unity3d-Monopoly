@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 class Population_Decline : EventBase
 {
-    public Population_Decline(string n,bool g,int w, string d) :base(n,g,w,d)
+    public Population_Decline(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
     {
 
     }
@@ -16,7 +16,7 @@ class Population_Decline : EventBase
         for (int i = 0;i<4;i++)
         {
             droup_list[i].Resource.civilian -=100;
-            droup_list[i].Resource.antidote -= 5;
+            droup_list[i].Resource.antidote -= 10;
         }
        
         State = group.State;

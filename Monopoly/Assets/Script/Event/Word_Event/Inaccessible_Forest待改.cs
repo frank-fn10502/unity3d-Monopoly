@@ -7,7 +7,7 @@ using UnityEngine;
 
 class Inaccessible_Forest : EventBase
     {
-        public Inaccessible_Forest(string n,bool g,int w, string d) :base(n,g,w,d)
+        public Inaccessible_Forest(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
         {
 
         }

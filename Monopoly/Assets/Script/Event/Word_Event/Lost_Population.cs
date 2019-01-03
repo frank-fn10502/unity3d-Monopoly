@@ -7,7 +7,7 @@ using UnityEngine;
 
 class Lost_Population : EventBase
     {
-        public Lost_Population(string n,bool g,int w, string d) :base(n,g,w,d)
+        public Lost_Population(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
         {
 
         }

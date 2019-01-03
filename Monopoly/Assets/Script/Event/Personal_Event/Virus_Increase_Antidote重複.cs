@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 class Virus_Increase_Antidote : EventBase
 {
-    public Virus_Increase_Antidote(string n,bool g,int w, string d) :base(n,g,w,d)
+    public Virus_Increase_Antidote(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
     {
 
     }

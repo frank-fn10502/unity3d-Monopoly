@@ -2,7 +2,7 @@
 
 class Diplomatic_Iindex_Rises : EventBase
 {
-    public Diplomatic_Iindex_Rises(string n,bool g,int w, string d) :base(n,g,w,d)
+    public Diplomatic_Iindex_Rises(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
     {
 
     }

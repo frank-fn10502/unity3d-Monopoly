@@ -6,8 +6,8 @@ using System.Text;
 
 class Go_To_The_Designated_Location: EventBase
 { 
-        public Go_To_The_Designated_Location(string n,bool g,int w, string d) :base(n,g,w,d)
-        {
+        public Go_To_The_Designated_Location(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
+    {
 
         }
         public override void DoEvent(List<Group> droup_list, Group group)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 class Everyone_People_Decrease : EventBase
 {
-    public Everyone_People_Decrease(string n,bool g,int w, string d) :base(n,g,w,d)
+    public Everyone_People_Decrease(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
     {
 
     }

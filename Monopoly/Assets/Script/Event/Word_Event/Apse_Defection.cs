@@ -7,7 +7,7 @@ using UnityEngine;
 
 class Apse_Defection : EventBase
     {
-        public Apse_Defection(string n,bool g,int w, string d) :base(n,g,w,d)
+        public Apse_Defection(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
         {
 
         }
@@ -19,5 +19,5 @@ class Apse_Defection : EventBase
                 droup_list[i].Resource.army += 100;
             }
         droup_list[4].Resource.army -= 100;
-    }
+        }
     }

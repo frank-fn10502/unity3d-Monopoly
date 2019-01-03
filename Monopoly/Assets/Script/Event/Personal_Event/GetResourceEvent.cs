@@ -6,7 +6,7 @@ using System.Text;
 
 class GetResourceEvent : EventBase
 { 
-        public GetResourceEvent(string n,bool g,int w, string d) :base(n,g,w,d)
+        public GetResourceEvent(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
         {
 
         }

@@ -6,8 +6,8 @@ using System.Text;
 
     class Discover_Secret_Passage_Forest : EventBase
     {
-        public Discover_Secret_Passage_Forest(string n,bool g,int w, string d) :base(n,g,w,d)
-        {
+        public Discover_Secret_Passage_Forest(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
+    {
 
         }
         public override void DoEvent(List<Group> droup_list, Group group)
