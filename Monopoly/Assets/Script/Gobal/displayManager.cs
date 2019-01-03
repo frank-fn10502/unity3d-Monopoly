@@ -61,10 +61,11 @@ class DisplayManager
     }
     public void displayEvent(EventBase eventData ,GameState nextGameState)
     {
-        //eventCard.transform.Find("EventTitle").GetComponent<Text>().text = eventData.Name;
-        //eventCard.transform.Find("EventImage").GetComponent<Image>().sprite = Resources.Load<Sprite>(eventData.Image);
-        //eventCard.transform.Find("EventDes").GetComponent<Text>().text = eventData.Detail;
         //顯示事件卡
+        eventCard.transform.Find("EventTitle").GetComponent<Text>().text = eventData.Name;
+        eventCard.transform.Find("EventImage").GetComponent<Image>().sprite = Resources.Load<Sprite>(eventData.Image);
+        eventCard.transform.Find("EventDes").GetComponent<Text>().text = eventData.Detail;
+        
         eventCard.GetComponent<EventCardController>().nextGameState = nextGameState;
         eventCard.SetActive(true);
     }
