@@ -80,7 +80,6 @@ public class GlobalManager
                     EventBase eventData = events.doEvent(Eventtype.Word ,new List<Group>(groupList) ,CurrentPlayer);                    
                     gameState = GameState.Wait;
                     displayManager.displayEvent(eventData ,GameState.PersonalEvent);
-                    //交給displayManager
                 }
                 else
                 {
@@ -88,7 +87,7 @@ public class GlobalManager
                 }
                 CurrentPlayer.State = PlayerState.RollingDice;
                 
-                gameState = GameState.PersonalEvent;//temp
+                //gameState = GameState.PersonalEvent;//temp
 
                 break;
             case GameState.PersonalEvent:
@@ -98,13 +97,12 @@ public class GlobalManager
                     EventBase eventData = events.doEvent(Eventtype.Personal ,new List<Group>(groupList) ,CurrentPlayer);                   
                     gameState = GameState.Wait;
                     displayManager.displayEvent(eventData ,GameState.PlayerMovement);
-                    //交給displayManager
                 }
                 else
                 {
                     gameState = GameState.PlayerMovement;
                 }
-                gameState = GameState.PlayerMovement;//temp
+                //gameState = GameState.PlayerMovement;//temp
 
                 break;
             case GameState.PlayerMovement:
