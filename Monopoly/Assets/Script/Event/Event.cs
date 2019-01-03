@@ -17,7 +17,6 @@ public class Event
         Add_Forest_Event();
         Add_Personal_Event();
         Add_Word_Event();
-
     }
 
     private void Add_Apes_Event()
@@ -89,7 +88,7 @@ public class Event
     {
 
     }
-    private EventBase doEvent(Eventtype eventtype,List<Group> droup_list, Group group)
+    public EventBase doEvent(Eventtype eventtype,List<Group> droup_list, Group group)
     {
         EventBase doingevent;
         switch (eventtype)

@@ -10,7 +10,7 @@ public class BuildingBlock : Block
 
     private List<Vector3> pathLocations;
     private Vector3 buildingLocation;
-    private Group landlord;
+    private Group landlords;
     private Building building;
 
     public override Vector3 Location
@@ -54,12 +54,12 @@ public class BuildingBlock : Block
     {
         get
         {
-            return landlord;
+            return landlords;
         }
 
         set
         {
-            landlord = value;
+            landlords = value;
         }
     }
     public Building Building
@@ -77,20 +77,20 @@ public class BuildingBlock : Block
 
     public BuildingBlock() : base()// : this(Vector3.zero ,Walkable.NoMan ,Area.City)
     {
-        this.landlord = null;
+        this.landlords = null;
         this.building = null;
         pathLocations = new List<Vector3>();
     }
     public BuildingBlock(Vector2 location ,Walkable identity ,Area area) : base(location ,identity ,area)
     {
-        this.landlord = null;
+        this.landlords = null;
         this.building = null;
 
         pathLocations = new List<Vector3>();
     }
     public BuildingBlock(Block anotherBlock) : base(anotherBlock)
     {
-        this.landlord = null;
+        this.landlords = null;
         this.building = null;
 
         pathLocations = new List<Vector3>();

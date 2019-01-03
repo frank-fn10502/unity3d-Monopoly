@@ -15,6 +15,7 @@ public class GlobalManager
     private GameState gameState;
 
     private DisplayManager displayManager;
+    private Event events;
 
 
     public Group CurrentPlayer
@@ -65,6 +66,7 @@ public class GlobalManager
         gameState = GameState.GlobalEvent;
 
         displayManager = new DisplayManager(this);
+        events = new Event();
     }
 
     public void execute()
@@ -75,7 +77,9 @@ public class GlobalManager
                 if(currentGroupIndex % groupList.Length == 0)
                 {
                     //抽世界事件
+                    EventBase eventData = events.doEvent(Eventtype.Word ,new List<Group>(groupList) ,CurrentPlayer);                    
                     gameState = GameState.Wait;
+                    displayManager.displayEvent(eventData ,GameState.PersonalEvent);
                     //交給displayManager
                 }
                 else
@@ -91,7 +95,9 @@ public class GlobalManager
                 if ( CurrentPlayer.InJailTime == 0 )
                 {
                     //抽個人事件
+                    EventBase eventData = events.doEvent(Eventtype.Personal ,new List<Group>(groupList) ,CurrentPlayer);                   
                     gameState = GameState.Wait;
+                    displayManager.displayEvent(eventData ,GameState.PlayerMovement);
                     //交給displayManager
                 }
                 else
