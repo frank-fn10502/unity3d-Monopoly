@@ -54,7 +54,7 @@ class DisplayManager
         if ( currentPlayer.Scout.totalStep == 0 )
         {
             currentPlayer.Scout.deleteDot(currentPlayer.Scout.choicePath[0]);//刪除走過的點
-            currentPlayer.CurrentActor.stop();
+            //currentPlayer.CurrentActor.stop();
 
             currentPlayer.State = PlayerState.End;
         }

@@ -13,6 +13,9 @@ public class PlayerDataController : MonoBehaviour
 
     private Texture currentTexture;
     private GameObject currentPlayerDisplay;
+    private GameObject startButton;
+
+    private const int playerNum = 4;
 
     private void Awake()
     {
@@ -27,33 +30,46 @@ public class PlayerDataController : MonoBehaviour
             setCurrentCharacter(0);
             setCharacterEntities();
 
-            playerList = new List<Faction>(5);
+            playerList = new List<Faction>(playerNum);
             playerList.Add(null);
             playerList.Add(null);
             playerList.Add(null);
             playerList.Add(null);
             playerList.Add(factionList[factionList.Count - 1]);
+
+            startButton = GameObject.Find("StartButton");
+            startButton.SetActive(false);
         }
     }
 
     public void onSelectCharacter(int no)
-    {
-        currentTexture = GameObject.Find("c" + ( no + 1 ) + "Button").GetComponent<RawImage>().texture;
-        playerList[currentPlayerIndex] = factionList[no];
-        currentPlayerDisplay.GetComponent<RawImage>().texture = currentTexture;
+    {     
+        if(currentPlayerIndex < playerNum )
+        {
+            currentTexture = GameObject.Find("c" + ( no + 1 ) + "Button").GetComponent<RawImage>().texture;
+            playerList[currentPlayerIndex] = factionList[no];
+            currentPlayerDisplay.GetComponent<RawImage>().texture = currentTexture;
+        }
     }
     public void onCheckoutClick()
     {
-        GameObject.Find("player" + (currentPlayerIndex + 1) + "Button").SetActive(false);//temp
-        setCurrentCharacter(currentPlayerIndex + 1);
+        if ( currentPlayerIndex < playerNum )
+        {
+            GameObject.Find("player" + ( currentPlayerIndex + 1 ) + "Button").SetActive(false);//temp
+            setCurrentCharacter(currentPlayerIndex + 1);
+        }
+        if( currentPlayerIndex == playerNum)
+        {
+            startButton.SetActive(true);
+        }
     }
 
 
     /*==========setter=========*/
     private void setCharacterEntities()
     {
-        int count = 6;
-        for ( int i = 0 ; i < count ; i++ )
+        //int count = 6;
+        for ( int i = 0 ; i < factionList.Count - 1 ; i++ )
         {
             factionList[i].actorList = new List<Actor>();
             factionList[i].actorList.Add(new Actor());

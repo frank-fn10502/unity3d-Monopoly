@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 09464f9e2d551474099307be82c42c70
+guid: ec12b3a3744db4740b7a7eb82d5d3258
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -148,17 +148,17 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: maria_diffuse
-    second: {fileID: 2800000, guid: 88fec66a9e1f7a1498c68f0207706098, type: 3}
+    second: {fileID: 2800000, guid: 62f4bc4f75248df43ac808630df81752, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: maria_normal
-    second: {fileID: 2800000, guid: cd1848c53f0c69d4881b6da9fd10243c, type: 3}
+    second: {fileID: 2800000, guid: 2d0ccd9d8c65b394dbded29ee4a7959b, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: maria_specular
-    second: {fileID: 2800000, guid: 44fcc7cee7383044abac2b5fb492ad38, type: 3}
+    second: {fileID: 2800000, guid: 233913bc810423d488717f33377cf9f8, type: 3}
   materials:
     importMaterials: 1
     materialName: 0
@@ -190,7 +190,7 @@ ModelImporter:
       name: mixamo.com
       takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 103
+      lastFrame: 65
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

@@ -10,15 +10,15 @@
       }
     ],
     "attributes": {
-      "leadership": 30,
-      "diplomatic": 30,
+      "leadership": 70,
+      "diplomatic": 20,
       "peace": 70
     },
     "resource": {
-      "army": 2000,
-      "civilian": 4000,
-      "mineral": 6000,
-      "antidote": 10,
+      "army": 7000,
+      "civilian": 7000,
+      "mineral": 7000,
+      "antidote": 30,
       "blockList": []
     }
   },
@@ -33,15 +33,15 @@
       }
     ],
     "attributes": {
-      "leadership": 60,
-      "diplomatic": 60,
-      "peace": 10
+      "leadership": 90,
+      "diplomatic": 80,
+      "peace": 50
     },
     "resource": {
-      "army": 1000,
+      "army": 4000,
       "civilian": 6000,
-      "mineral": 1000,
-      "antidote": 15,
+      "mineral": 4000,
+      "antidote": 10,
       "blockList": []
     }
   },
@@ -63,8 +63,8 @@
     "resource": {
       "army": 500,
       "civilian": 8000,
-      "mineral": 1000,
-      "antidote": 40,
+      "mineral": 3000,
+      "antidote": 60,
       "blockList": []
     }
   },
@@ -73,30 +73,21 @@
       {
         "Name": "軍人",
         "Skill": null,
-        "Dice": {
-          "Face": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
+        "Dice": null,
         "Entity": null,
         "FileName": "Soldier"
       }
     ],
     "attributes": {
-      "leadership": 20,
-      "diplomatic": 20,
+      "leadership": 80,
+      "diplomatic": 50,
       "peace": 5
     },
     "resource": {
       "army": 6000,
-      "civilian": 3000,
-      "mineral": 2000,
-      "antidote": 0,
+      "civilian": 4000,
+      "mineral": 1000,
+      "antidote": 10,
       "blockList": []
     }
   },
@@ -105,16 +96,7 @@
       {
         "Name": "主教",
         "Skill": null,
-        "Dice": {
-          "Face": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
+        "Dice": null,
         "Entity": null,
         "FileName": "Bishop"
       }
@@ -125,9 +107,9 @@
       "peace": 70
     },
     "resource": {
-      "army": 100,
-      "civilian": 10000,
-      "mineral": 1000,
+      "army": 1000,
+      "civilian": 4000,
+      "mineral": 6000,
       "antidote": 10,
       "blockList": []
     }
@@ -137,30 +119,21 @@
       {
         "Name": "平民",
         "Skill": null,
-        "Dice": {
-          "Face": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
+        "Dice": null,
         "Entity": null,
         "FileName": "Civilian"
       }
     ],
     "attributes": {
-      "leadership": 20,
-      "diplomatic": 20,
-      "peace": 20
+      "leadership": 50,
+      "diplomatic": 50,
+      "peace": 50
     },
     "resource": {
-      "army": 1000,
-      "civilian": 1000,
-      "mineral": 1000,
-      "antidote": 10,
+      "army": 5000,
+      "civilian": 5000,
+      "mineral": 5000,
+      "antidote": 50,
       "blockList": []
     }
   },
@@ -169,30 +142,21 @@
       {
         "Name": "乞丐",
         "Skill": null,
-        "Dice": {
-          "Face": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
+        "Dice": null,
         "Entity": null,
         "FileName": "Beggar"
       }
     ],
     "attributes": {
-      "leadership": 10,
+      "leadership": 100,
       "diplomatic": 10,
-      "peace": 10
+      "peace": 100
     },
     "resource": {
       "army": 100,
-      "civilian": 100,
+      "civilian": 10000,
       "mineral": 100,
-      "antidote": 0,
+      "antidote": 20,
       "blockList": []
     }
   },
@@ -201,24 +165,15 @@
       {
         "Name": "人猿",
         "Skill": null,
-        "Dice": {
-          "Face": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-          ]
-        },
+        "Dice": null,
         "Entity": null,
         "FileName": "Ape"
       }
     ],
     "attributes": {
-      "leadership": 90,
+      "leadership": 100,
       "diplomatic": 20,
-      "peace": 50
+      "peace": 100
     },
     "resource": {
       "army": 10000,
