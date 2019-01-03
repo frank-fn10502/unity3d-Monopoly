@@ -2,7 +2,7 @@
 
 public class Group
 {
-    private Block[] blockList;
+    private static Block[] blockList;
     private PlayerState state;
     private Walkable    identity;
     private Skill skill;
