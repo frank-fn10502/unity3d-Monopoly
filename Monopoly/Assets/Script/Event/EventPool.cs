@@ -36,6 +36,12 @@ public class EventPool
         total_weight = 0;
         event_list.Clear();
     }
+
+    public void SetWeight(int i,int w)
+    {
+        event_list[i].Weight = w;
+    }
+
     public EventBase GetEvent()
     {
         int r = rand.Next(total_weight);

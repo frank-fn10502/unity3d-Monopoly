@@ -10,6 +10,8 @@ public class GlobalManager
 
     private int currentGroupIndex;
     private int totalStep;
+    private bool isRolled;
+    private bool isFinded;
     private GameState gameState;
 
     private DisplayManager displayManager;
