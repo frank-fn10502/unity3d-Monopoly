@@ -9,11 +9,11 @@ public class WorldController : MonoBehaviour
 
     public void Awake()
     {
-        globalManager = new GlobalManager();
-
-        //GameObject gameObject = GameObject.Find("PlayerDataManager");
-        //List<Faction> factionList =  gameObject.GetComponent<PlayerDataController>().playerList;
         //globalManager = new GlobalManager();
+
+        GameObject gameObject = GameObject.Find("PlayerDataManager");
+        List<Faction> factionList =  gameObject.GetComponent<PlayerDataController>().playerList;
+        globalManager = new GlobalManager(factionList);
 
         //GameObject.Destroy(gameObject);
     }
@@ -27,4 +27,5 @@ public class WorldController : MonoBehaviour
     {
         gameObject.GetComponent<InformationPanelController>().changeCameraView(globalManager);
     }
+
 }

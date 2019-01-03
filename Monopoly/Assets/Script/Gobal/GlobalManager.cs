@@ -181,6 +181,7 @@ public class GlobalManager
                                     ,map.BlockList[playerIndex[i]].standPoint()//?
                                     ,playerIndex[i]//?
                                     ,playerDirection[i]);//?
+
             groupList[i].CurrentActor.build(groupList[i].Location ,playerDirection[i]);
             i++;
             if ( i >= Constants.PLAYERNUMBER ) break;//temp

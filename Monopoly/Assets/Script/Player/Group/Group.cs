@@ -3,6 +3,7 @@
 public class Group
 {
     public static Block[] blockList;
+    private int startBlockIndex;
     private PlayerState state;
     private Walkable    identity;
     private Skill skill;
@@ -109,6 +110,13 @@ public class Group
             inJailTime = value;
         }
     }
+    public int StartBlockIndex
+    {
+        get
+        {
+            return startBlockIndex;
+        }
+    }
 
     public Group(Skill skill ,Actor[] actors ,Attributes attributes ,Resource resource ,Vector3 location ,int currentBlockIndex ,Direction enterDirection)
     {
@@ -122,6 +130,7 @@ public class Group
         this.resource = resource;
         this.location = location;
         this.currentBlockIndex = currentBlockIndex;
+        this.startBlockIndex   = currentBlockIndex;
         this.enterDirection = enterDirection;
 
         this.scout = new Scout(this);
@@ -150,6 +159,13 @@ public class Group
     public void teleport(Block block)
     {
         location = block.standPoint();
+        for(int i = 0 ; i < blockList.Length ; i++ )
+        {
+            if(block.Equals(blockList[i]))
+            {
+                currentBlockIndex = i;
+            }
+        }
         CurrentActor.teleport(location);
     }
     public void move()//按照scout的Path移動
