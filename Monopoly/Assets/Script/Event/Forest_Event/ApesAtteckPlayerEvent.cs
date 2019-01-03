@@ -15,5 +15,5 @@ using System.Text;
             //闖入森林，遭受猩猩偷襲，軍隊減少一半
             group.Resource.army /= 2;
             State = group.State;
-    }
+        }
     }

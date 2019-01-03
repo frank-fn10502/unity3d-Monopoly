@@ -14,7 +14,6 @@ class Apse_Migrate : EventBase
             Random rand = new Random();
             int rands = rand.Next(group.Resource.blockList.Count);
             group.teleport(group.Resource.blockList[rands].Location);
-            //group.
             State = group.State;
     }
     }
