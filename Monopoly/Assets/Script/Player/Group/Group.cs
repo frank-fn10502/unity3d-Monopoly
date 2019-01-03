@@ -137,7 +137,6 @@ public class Group
     }
 
 
-
     public void changeActor(int rotate)//1 or -1
     {
         int next  = currentActor - rotate;
