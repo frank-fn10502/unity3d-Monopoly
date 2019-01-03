@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-class People_Time_Out : EventBase
+class Every_People_Time_Out : EventBase
 {
-    public People_Time_Out(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
+    public Every_People_Time_Out(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
     {
 
     }

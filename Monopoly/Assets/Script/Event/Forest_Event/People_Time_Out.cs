@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 
 
-    class Human_Time_Out : EventBase
+    class People_Time_Out : EventBase
     {
-        public Human_Time_Out(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
+        public People_Time_Out(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
         {
 
         }
