@@ -83,6 +83,7 @@ class DisplayManager
     }
     public void displayStopAction(Block block ,GameState nextGameState)
     {
+        //wtf
         if(block is EventBlock)
         {
             EventBase eventData = globalManager.Events.doEvent(Eventtype.Forest 
@@ -97,8 +98,8 @@ class DisplayManager
             if ( buildingBlock.Building == null)
             {
                 //建造建築物
-                //displayBuildConstructor(buildingBlock ,nextGameState);
-                globalManager.GameState = nextGameState;//temp
+                displayBuildConstructor(buildingBlock ,nextGameState);
+                //globalManager.GameState = nextGameState;//temp
             }
             else
             {
