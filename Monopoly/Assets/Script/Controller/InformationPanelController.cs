@@ -20,7 +20,6 @@ public class InformationPanelController : MonoBehaviour
     {
         characterCamera = this.gameObject.GetComponent<Camera>();
         viewChangeable = false;
-        buttonYclick = 0;
     }
 
     void Update()
