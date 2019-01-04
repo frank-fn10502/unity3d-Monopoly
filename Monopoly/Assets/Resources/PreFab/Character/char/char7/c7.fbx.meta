@@ -99,17 +99,17 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Guard_03__diffuse
-    second: {fileID: 2800000, guid: d95d88804df602c45813d2cff57e7835, type: 3}
+    second: {fileID: 2800000, guid: f59f720fdb7f84a4080f4f76c298d64f, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Guard_03__normal
-    second: {fileID: 2800000, guid: f00e210de7c7cac49ba978e44f4f6d76, type: 3}
+    second: {fileID: 2800000, guid: 75c765ef1e3a3a54a8d703a49b60822e, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Guard_03__specular
-    second: {fileID: 2800000, guid: f969be1386f10fc479646d47da717284, type: 3}
+    second: {fileID: 2800000, guid: 1c585a22fcc47324e97c34b2e651ac56, type: 3}
   materials:
     importMaterials: 1
     materialName: 0
