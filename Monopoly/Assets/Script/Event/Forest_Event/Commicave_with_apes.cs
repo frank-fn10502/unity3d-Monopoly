@@ -12,8 +12,9 @@ using System.Text;
         }
         public override void DoEvent(List<Group> droup_list, Group group)
         {
-            //由於和猩猩談判成功，使外交指數上升
+            //由於和猩猩談判成功，使猩猩和玩家外交指數上升
             group.Attributes.diplomatic += 8;
+            droup_list[4].Attributes.diplomatic += 4;
             State = group.State;
-    }
+        }
     }

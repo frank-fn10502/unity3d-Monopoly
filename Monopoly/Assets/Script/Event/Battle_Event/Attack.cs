@@ -6,8 +6,6 @@ using System.Text;
 
     class Attack: EventBase
     {
-        public Group winer;
-
         public Attack()
         {
         }
@@ -24,13 +22,13 @@ using System.Text;
             int deal = group_power - defender_power;
             group.Resource.army -= caculater_dead(deal, group.Attributes.leadership, group.Resource.army);
             defender.Resource.army -= caculater_dead(deal, defender.Attributes.leadership, defender.Resource.army);
-            winer = group_power > defender_power ? group : defender;
+            Winer = group_power > defender_power ? group : defender;
             State = group.State;
         }
         private int caculater_power(int leadership, int army)
         {
             return Convert.ToInt32( army * ((leadership / 100.0)+1.0));
-        }
+        } 
         private int caculater_dead(int deal,int leadership, int army)
         {
             return (deal - (Convert.ToInt32(army * (leadership / 100.0))));
