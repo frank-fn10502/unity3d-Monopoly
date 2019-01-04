@@ -22,8 +22,8 @@ using System.Text;
             int group_power = caculater_power(group.Attributes.leadership, group.Resource.army);
             int defender_power = caculater_power(defender.Attributes.leadership, defender.Resource.army);
             int deal = group_power - defender_power;
-            group.Resource.army -= (deal - (Convert.ToInt32(group.Resource.army * (group.Attributes.leadership / 100.0))));
-            defender.Resource.army -= (deal - (Convert.ToInt32(defender.Resource.army * (defender.Attributes.leadership / 100.0))));
+            group.Resource.army -= caculater_dead(deal, group.Attributes.leadership, group.Resource.army);
+            defender.Resource.army -= caculater_dead(deal, defender.Attributes.leadership, defender.Resource.army);
             winer = group_power > defender_power ? group : defender;
             State = group.State;
         }
@@ -31,4 +31,8 @@ using System.Text;
         {
             return Convert.ToInt32( army * ((leadership / 100.0)+1.0));
         }
-    }
+        private int caculater_dead(int deal,int leadership, int army)
+        {
+            return (deal - (Convert.ToInt32(army * (leadership / 100.0))));
+        }
+}
