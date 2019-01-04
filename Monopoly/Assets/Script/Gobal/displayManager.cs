@@ -10,6 +10,8 @@ class DisplayManager
     private GameObject pathListEntity;
     private GameObject eventCard;
     private GameObject strategyCard;
+    private GameObject buildingArea;
+    private GameObject canNotBuyCard;
 
     private int timer;
 
@@ -40,6 +42,16 @@ class DisplayManager
         strategyCard = GameObject.Find("strategyCardDisplay");
         strategyCard.SetActive(false);
         strategyCard.GetComponent<StrategyCardController>().globalManager = globalManager;
+
+
+        buildingArea = GameObject.Find("BuildingDisplayArea");
+        buildingArea.SetActive(false);
+        buildingArea.GetComponent<BuildingDisplayController>().globalManager = globalManager;
+
+        canNotBuyCard = GameObject.Find("canNotBuyCard");
+        canNotBuyCard.SetActive(false);
+        canNotBuyCard.GetComponent<CanNotBuyCardController>().globalManager = globalManager;
+        canNotBuyCard.GetComponent<CanNotBuyCardController>().buildingArea = buildingArea;
     }
 
     public void displayRollingDice()
@@ -77,6 +89,7 @@ class DisplayManager
     }
     public void displayStopAction(Block block ,GameState nextGameState)
     {
+        //wtf
         if(block is EventBlock)
         {
             EventBase eventData = globalManager.Events.doEvent(Eventtype.Forest 
@@ -91,7 +104,8 @@ class DisplayManager
             if ( buildingBlock.Building == null)
             {
                 //建造建築物
-                globalManager.GameState = nextGameState;
+                displayBuildConstructor(buildingBlock ,nextGameState);
+                //globalManager.GameState = nextGameState;//temp
             }
             else
             {
@@ -100,7 +114,6 @@ class DisplayManager
             }
         }
     }
-
     public void displayNextPlayer()
     {
         if ( timer % 500 == 0 )
@@ -116,6 +129,18 @@ class DisplayManager
             nextPlayerText.SetActive(false);
             globalManager.nextPlayer();           
         }
+    }
+
+    public void displayBuildConstructor(BuildingBlock buildingBlock ,GameState nextGameState)
+    {
+        buildingArea.GetComponent<BuildingDisplayController>().currentBuildingBlock = buildingBlock;
+        buildingArea.GetComponent<BuildingDisplayController>().nextGameState = nextGameState;
+        buildingArea.SetActive(true);
+    }
+    public void displayCantNotBuy(GameState nextGameState)
+    {
+        canNotBuyCard.GetComponent<CanNotBuyCardController>().nextGameState = nextGameState;
+        canNotBuyCard.SetActive(true);        
     }
 
     /*==========private==========*/

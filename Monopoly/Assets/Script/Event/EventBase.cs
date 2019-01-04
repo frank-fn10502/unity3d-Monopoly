@@ -60,3 +60,17 @@ public bool IsGood
 
     public abstract void DoEvent(List<Group> droup_list, Group group);
 }
+public class DiplomaticEvent : EventBase
+{
+    public override void DoEvent(List<Group> droup_list ,Group group)
+    {
+        BuildingBlock buildingBlock = (BuildingBlock)Group.blockList[group.CurrentBlockIndex];
+        group.Resource.civilian -= buildingBlock.Building.Resource.civilian;
+        group.Resource.mineral -= buildingBlock.Building.Resource.mineral;
+
+        this.Name = "外交: 給予資源";
+        this.Image = "EventImage/AllEvent";
+        this.Detail = "civilian - " + buildingBlock.Building.Resource.civilian + "\n" +
+                      "mineral - " + buildingBlock.Building.Resource.mineral;
+    }
+}

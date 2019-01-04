@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 [RequireComponent(typeof(AudioSource))]
-public class OpeningMovie : MonoBehaviour {
-
+public class OpeningMovie : MonoBehaviour
+{
     public MovieTexture movTexture;//影片
     private AudioSource AS_mov;//影片音軌
 
