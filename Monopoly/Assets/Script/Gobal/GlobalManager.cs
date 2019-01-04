@@ -209,7 +209,7 @@ public class GlobalManager
         foreach ( Faction faction in factions )
         {
             groupList[i] = new Group(null
-                                    ,createActorList(faction.actorList)/*faction.actorList.ToArray()*/
+                                    ,createActorList(faction.actorList)
                                     ,new Attributes(faction.attributes)
                                     ,new Resource(faction.resource)
                                     ,map.BlockList[playerIndex[i]].standPoint()//?
