@@ -18,14 +18,15 @@ using System.Text;
         }
         public override void DoEvent(List<Group> droup_list, Group group)
         {
-            Group defender = ((BuildingBlock)Group.blockList[group.CurrentBlockIndex]).Landlord;
+            Group defender = group;
+            for(int i = 0;i<4;i++)
+            {
+                defender = droup_list[i];
+                if (defender.CurrentBlockIndex == group.CurrentBlockIndex && defender != group)
+                    break;
+            }
             int group_power = caculater_power(group.Attributes.leadership, group.Resource.army);
             int defender_power = caculater_power(defender.Attributes.leadership, defender.Resource.army);
-            int deal = group_power - defender_power;
-            group.Resource.army -= deal;
-            defender.Resource.army -= deal;
-            winer = group_power > defender_power ? group : defender;
-            State = group.State;
         }
         private int caculater_power(int leadership, int army)
         {

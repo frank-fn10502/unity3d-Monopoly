@@ -17,7 +17,7 @@ public abstract class EventBase
         get { return name; }
         set { name = value; }
     }
-    public bool IsGood
+public bool IsGood
     {
         get { return isGood; }
         set { isGood = value; }
