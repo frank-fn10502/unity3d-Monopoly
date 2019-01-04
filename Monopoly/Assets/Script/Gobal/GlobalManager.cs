@@ -92,7 +92,6 @@ public class GlobalManager
 
 
 
-
     public void execute()
     {
         switch ( gameState )
@@ -136,7 +135,6 @@ public class GlobalManager
                         case PlayerState.RollingDice:
                             if ( Input.GetButtonDown("Jump") )
                             {
-                                //groupList[currentGroupIndex].rollDice();
                                 CurrentPlayer.State = PlayerState.Wait;
                                 displayManager.displayRollingDice();//轉換到下一個階段
                             }
@@ -155,9 +153,7 @@ public class GlobalManager
                         case PlayerState.End:
                             CurrentPlayer.State = PlayerState.Wait;
                             //交給displayManager
-                            displayManager.displayStopAction(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
-
-                            //gameState = GameState.End;//temp
+                            displayManager.displayStopAction(map.BlockList[CurrentPlayer.CurrentBlockIndex] ,GameState.End);
 
                             break;
                         case PlayerState.InJail:

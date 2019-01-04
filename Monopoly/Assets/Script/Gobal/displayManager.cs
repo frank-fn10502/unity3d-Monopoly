@@ -82,8 +82,16 @@ class DisplayManager
         }
         else if(block is BuildingBlock)
         {
-            strategyCard.GetComponent<EventCardController>().nextGameState = nextGameState;
-            strategyCard.SetActive(true);
+            BuildingBlock buildingBlock = (BuildingBlock)block;
+            if ( buildingBlock.Building == null)
+            {
+                //建造建築物
+            }
+            else
+            {
+                strategyCard.GetComponent<StrategyCardController>().nextGameState = nextGameState;
+                strategyCard.SetActive(true);
+            }
         }
     }
 
