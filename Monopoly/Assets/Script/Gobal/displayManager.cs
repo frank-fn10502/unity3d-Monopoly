@@ -43,7 +43,7 @@ class DisplayManager
         strategyCard.GetComponent<StrategyCardController>().globalManager = globalManager;
 
 
-        buildingArea = GameObject.Find("strategyCardDisplay");
+        buildingArea = GameObject.Find("BuildingDisplayArea");
         buildingArea.SetActive(false);
         buildingArea.GetComponent<BuildingDisplayController>().globalManager = globalManager;
     }
