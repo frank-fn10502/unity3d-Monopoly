@@ -9,7 +9,8 @@ class DisplayManager
     private GameObject nextPlayerText;
     private GameObject pathListEntity;
     private GameObject eventCard;
-    private GameObject strategyCard;//
+    private GameObject strategyCard;
+
     private int timer;
 
     public Group currentPlayer
@@ -30,11 +31,15 @@ class DisplayManager
         nextPlayerText = GameObject.Instantiate(nextPlayerText ,new Vector3(33 ,-66.25f ,0) ,Quaternion.identity);
         nextPlayerText.transform.SetParent(GameObject.Find("Canvas").transform ,false);
 
-        pathListEntity = new GameObject("pathListEntity"); //Empty GameObject
+        pathListEntity = new GameObject("pathListEntity");
 
         eventCard = GameObject.Find("EventCardDisplay");
         eventCard.SetActive(false);
         eventCard.GetComponent<EventCardController>().globalManager = globalManager;
+
+        strategyCard = GameObject.Find("strategyCardDisplay");
+        strategyCard.SetActive(false);
+        strategyCard.GetComponent<StrategyCardController>().globalManager = globalManager;
     }
 
     public void displayRollingDice()
@@ -63,15 +68,16 @@ class DisplayManager
     public void displayEvent(EventBase eventData ,GameState nextGameState)
     {
         //顯示事件卡
-       eventCard.transform.Find("EventTitleText").GetComponent<Text>().text = eventData.Name;
-        eventCard.transform.Find("EventImageShow").GetComponent<Image>().sprite = Resources.Load<Sprite>(eventData.Image);
-        eventCard.transform.Find("EventDesText").GetComponent<Text>().text = eventData.Detail;
+        eventCard.transform.Find("EventTitle/EventTitleText").GetComponent<Text>().text = eventData.Name;
+        eventCard.transform.Find("EventImage/EventImageShow").GetComponent<Image>().sprite = Resources.Load<Sprite>(eventData.Image);
+        eventCard.transform.Find("EventDes/EventDesText").GetComponent<Text>().text = eventData.Detail;
         
         eventCard.GetComponent<EventCardController>().nextGameState = nextGameState;
         eventCard.SetActive(true);
     }
     public void displayStopAction(Block block ,GameState nextGameState)
     {
+        //FUCK YOURSELF
         if(block is EventBlock)
         {
             EventBase eventData = globalManager.Events.doEvent(Eventtype.Forest 
