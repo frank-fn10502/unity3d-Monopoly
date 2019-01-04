@@ -62,25 +62,9 @@ public class GlobalManager
 
     public GlobalManager(List<Faction> factionList = null)
     {
-        string path = Directory.GetCurrentDirectory();
-        string target = @"\Assets\Resources\Map\MonopolyMap.json";
-        string json = File.ReadAllText(path + target);
+        createMap();
+        createGroupList(factionList);
 
-        map = JsonConvert.DeserializeObject<Map>(json);
-        map.build();
-
-        List<Faction> factions;
-        if(factionList == null)
-        {
-            target = @"\Assets\Resources\Faction\MonopolyFaction.json";
-            json = File.ReadAllText(path + target);
-            factions = JsonConvert.DeserializeObject<List<Faction>>(json);
-        }
-        else
-        {
-            factions = factionList;
-        }
-        setGroupList(factions);
 
         currentGroupIndex = 0;
         totalStep = 1;
@@ -109,8 +93,6 @@ public class GlobalManager
                     gameState = GameState.PersonalEvent;
                 }
                 CurrentPlayer.State = PlayerState.RollingDice;
-                
-                //gameState = GameState.PersonalEvent;//temp
 
                 break;
             case GameState.PersonalEvent:
@@ -125,7 +107,6 @@ public class GlobalManager
                 {
                     gameState = GameState.PlayerMovement;
                 }
-                //gameState = GameState.PlayerMovement;//temp
 
                 break;
             case GameState.PlayerMovement:
@@ -184,6 +165,39 @@ public class GlobalManager
         gameState = GameState.GlobalEvent;
     }
 
+
+
+    /*==========設定遊戲物件==========*/
+    private void createMap()
+    {
+        string path = Directory.GetCurrentDirectory();
+        string target = @"\Assets\Resources\Map\MonopolyMap.json";
+        string json = File.ReadAllText(path + target);
+
+        map = JsonConvert.DeserializeObject<Map>(json);
+        map.build();
+    }
+    private void createGroupList(List<Faction> factionList)
+    {
+        List<Faction> factions;
+        if ( factionList == null )
+        {
+            string path = Directory.GetCurrentDirectory();
+            string target = @"\Assets\Resources\Faction\MonopolyFaction.json";
+            string json = File.ReadAllText(path + target);
+            factions = JsonConvert.DeserializeObject<List<Faction>>(json);
+            Actor.Path = "PreFab/Actor/";
+            foreach(Faction f in factions)
+            {
+                f.actorList[0].FileName = "Player1";
+            }
+        }
+        else
+        {
+            factions = factionList;
+        }
+        setGroupList(factions);
+    }
     private void setGroupList(List<Faction> factions)
     {
         groupList = new Group[Constants.PLAYERNUMBER];
@@ -192,7 +206,7 @@ public class GlobalManager
 
         int i = 0;
         Group.blockList = map.BlockList;
-        foreach (Faction faction in factions)
+        foreach ( Faction faction in factions )
         {
             groupList[i] = new Group(null
                                     ,createActorList(faction.actorList)/*faction.actorList.ToArray()*/
@@ -210,7 +224,7 @@ public class GlobalManager
     {
         Actor[] actors = new Actor[actorList.Count];
         int i = 0;
-        foreach(Actor a in actorList)
+        foreach ( Actor a in actorList )
         {
             actors[i++] = new Actor(a);
         }
