@@ -94,7 +94,8 @@ public class Actor
 
     public void build(Vector3 location ,Direction enterDirection)
     {
-        entity = Resources.Load<GameObject>("PreFab/Actor/" + fileName);
+        //entity = Resources.Load<GameObject>("PreFab/Actor/" + fileName);
+        entity = Resources.Load<GameObject>(Actor.path + fileName);
         entity = GameObject.Instantiate(entity);
         entity.transform.position = location;
         setRotation(enterDirection);
