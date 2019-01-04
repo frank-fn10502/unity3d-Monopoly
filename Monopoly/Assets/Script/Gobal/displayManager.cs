@@ -10,6 +10,7 @@ class DisplayManager
     private GameObject pathListEntity;
     private GameObject eventCard;
     private GameObject strategyCard;
+    private GameObject buildingArea;
 
     private int timer;
 
@@ -40,6 +41,11 @@ class DisplayManager
         strategyCard = GameObject.Find("strategyCardDisplay");
         strategyCard.SetActive(false);
         strategyCard.GetComponent<StrategyCardController>().globalManager = globalManager;
+
+
+        buildingArea = GameObject.Find("strategyCardDisplay");
+        buildingArea.SetActive(false);
+        buildingArea.GetComponent<BuildingDisplayController>().globalManager = globalManager;
     }
 
     public void displayRollingDice()
@@ -91,7 +97,7 @@ class DisplayManager
             if ( buildingBlock.Building == null)
             {
                 //建造建築物
-                //displayBuildConstructor(buildingBlock);
+                //displayBuildConstructor(buildingBlock ,nextGameState);
                 globalManager.GameState = nextGameState;//temp
             }
             else
@@ -101,7 +107,6 @@ class DisplayManager
             }
         }
     }
-
     public void displayNextPlayer()
     {
         if ( timer % 500 == 0 )
@@ -119,9 +124,11 @@ class DisplayManager
         }
     }
 
-    public void displayBuildConstructor(BuildingBlock buildingBlock)
+    public void displayBuildConstructor(BuildingBlock buildingBlock ,GameState nextGameState)
     {
-
+        buildingArea.GetComponent<BuildingDisplayController>().currentBuildingBlock = buildingBlock;
+        buildingArea.GetComponent<BuildingDisplayController>().nextGameState = nextGameState;
+        buildingArea.SetActive(true);
     }
 
     /*==========private==========*/
