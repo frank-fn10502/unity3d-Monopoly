@@ -9,6 +9,7 @@ class DisplayManager
     private GameObject nextPlayerText;
     private GameObject pathListEntity;
     private GameObject eventCard;
+    private GameObject strategyCard;
     private int timer;
 
     public Group currentPlayer
