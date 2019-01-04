@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+[RequireComponent(typeof(AudioSource))]
 public class OpeningMovie : MonoBehaviour {
 
     public MovieTexture movTexture;//影片
@@ -16,12 +17,14 @@ public class OpeningMovie : MonoBehaviour {
         AS_mov.Play();
     }
 
-
     void Update()
     {
-        if (!movTexture.isPlaying)
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("StartScene");//載入場景
-        }
+        StartCoroutine(LoadScene());
+    }
+
+    IEnumerator LoadScene()
+    {
+        yield return new WaitForSeconds(15f);//括號內填入影片時間
+        UnityEngine.SceneManagement.SceneManager.LoadScene("StartScene");//載入場景
     }
 }
