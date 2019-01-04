@@ -39,17 +39,13 @@ public class BuildingDisplayController : MonoBehaviour
             currentBuildingBlock.Landlord = globalManager.CurrentPlayer;
             globalManager.CurrentPlayer.Resource.blockList.Add(currentBuildingBlock);//加到玩家擁有的blockList裡面
 
-            quitButtonClick();
+            currentBuildingEntity.SetActive(false);
+            globalManager.GameState = nextGameState;
         }
         else
         {
-            globalManager.DisplayManager.displayCantNotBuy();
+            globalManager.DisplayManager.displayCantNotBuy(nextGameState);
         }
-    }
-    public void quitButtonClick()
-    {
-        currentBuildingEntity.SetActive(false);
-        globalManager.GameState = nextGameState;
     }
 
     /*==========create==========*/

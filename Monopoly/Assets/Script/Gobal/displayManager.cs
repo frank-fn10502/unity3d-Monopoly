@@ -50,6 +50,8 @@ class DisplayManager
 
         canNotBuyCard = GameObject.Find("canNotBuyCard");
         canNotBuyCard.SetActive(false);
+        canNotBuyCard.GetComponent<CanNotBuyCardController>().globalManager = globalManager;
+        canNotBuyCard.GetComponent<CanNotBuyCardController>().buildingArea = buildingArea;
     }
 
     public void displayRollingDice()
@@ -135,9 +137,10 @@ class DisplayManager
         buildingArea.GetComponent<BuildingDisplayController>().nextGameState = nextGameState;
         buildingArea.SetActive(true);
     }
-    public void displayCantNotBuy()
+    public void displayCantNotBuy(GameState nextGameState)
     {
-        canNotBuyCard.SetActive(true);
+        canNotBuyCard.GetComponent<CanNotBuyCardController>().nextGameState = nextGameState;
+        canNotBuyCard.SetActive(true);        
     }
 
     /*==========private==========*/
