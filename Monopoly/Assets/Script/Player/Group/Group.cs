@@ -159,6 +159,7 @@ public class Group
     public void teleport(Block block)
     {
         location = block.standPoint();
+        enterDirection = Direction.unKnow;
         for(int i = 0 ; i < blockList.Length ; i++ )
         {
             if(block.Equals(blockList[i]))
