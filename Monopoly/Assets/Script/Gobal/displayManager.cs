@@ -11,6 +11,7 @@ class DisplayManager
     private GameObject eventCard;
     private GameObject strategyCard;
     private GameObject buildingArea;
+    private GameObject canNotBuyCard;
 
     private int timer;
 
@@ -46,6 +47,9 @@ class DisplayManager
         buildingArea = GameObject.Find("BuildingDisplayArea");
         buildingArea.SetActive(false);
         buildingArea.GetComponent<BuildingDisplayController>().globalManager = globalManager;
+
+        canNotBuyCard = GameObject.Find("canNotBuyCard");
+        canNotBuyCard.SetActive(false);
     }
 
     public void displayRollingDice()
@@ -130,6 +134,10 @@ class DisplayManager
         buildingArea.GetComponent<BuildingDisplayController>().currentBuildingBlock = buildingBlock;
         buildingArea.GetComponent<BuildingDisplayController>().nextGameState = nextGameState;
         buildingArea.SetActive(true);
+    }
+    public void displayCantNotBuy()
+    {
+        canNotBuyCard.SetActive(true);
     }
 
     /*==========private==========*/

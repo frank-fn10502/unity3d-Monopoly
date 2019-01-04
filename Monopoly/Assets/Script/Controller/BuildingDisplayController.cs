@@ -32,9 +32,23 @@ public class BuildingDisplayController : MonoBehaviour
     {
         gameObject.SetActive(false);
         currentBuildingBlock.Building = new Building(currentBuilding);
-        currentBuildingBlock.Building.build(globalManager.CurrentPlayer ,currentBuildingBlock.BuildingLocation);
-        globalManager.CurrentPlayer.Resource.blockList.Add(currentBuildingBlock);//加到玩家擁有的blockList裡面
+        bool canBuy = currentBuildingBlock.Building.build(globalManager.CurrentPlayer ,currentBuildingBlock.BuildingLocation);
 
+        if(canBuy)
+        {
+            currentBuildingBlock.Landlord = globalManager.CurrentPlayer;
+            globalManager.CurrentPlayer.Resource.blockList.Add(currentBuildingBlock);//加到玩家擁有的blockList裡面
+
+            quitButtonClick();
+        }
+        else
+        {
+            globalManager.DisplayManager.displayCantNotBuy();
+        }
+    }
+    public void quitButtonClick()
+    {
+        currentBuildingEntity.SetActive(false);
         globalManager.GameState = nextGameState;
     }
 

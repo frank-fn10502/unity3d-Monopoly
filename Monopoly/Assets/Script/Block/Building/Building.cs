@@ -66,14 +66,20 @@ public class Building//TEMP
 
 
 
-    public void build(Group group ,Vector3 loc)
+    public bool build(Group group ,Vector3 loc)
     {
+        if( group.Resource.civilian - resource.civilian < 0 || group.Resource.mineral - resource.mineral < 0)
+        {
+            return false;
+        }
         group.Resource.civilian -= resource.civilian;
         group.Resource.mineral -= resource.mineral;
 
         entity = Resources.Load<GameObject>(path + fileName);
         entity = GameObject.Instantiate(entity);
         entity.transform.position = loc;
+
+        return true;
     }
     public EventBase cost(List<Group> Group_list ,Group group)
     {
