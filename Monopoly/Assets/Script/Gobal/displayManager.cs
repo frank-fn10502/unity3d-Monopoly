@@ -10,6 +10,7 @@ class DisplayManager
     private GameObject pathListEntity;
     private GameObject eventCard;
     private GameObject strategyCard;
+
     private int timer;
 
     public Group currentPlayer
@@ -35,6 +36,10 @@ class DisplayManager
         eventCard = GameObject.Find("EventCardDisplay");
         eventCard.SetActive(false);
         eventCard.GetComponent<EventCardController>().globalManager = globalManager;
+
+        strategyCard = GameObject.Find("strategyCardDisplay");
+        strategyCard.SetActive(false);
+        strategyCard.GetComponent<StrategyCardController>().globalManager = globalManager;
     }
 
     public void displayRollingDice()
