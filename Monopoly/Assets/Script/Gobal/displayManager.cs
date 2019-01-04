@@ -9,6 +9,7 @@ class DisplayManager
     private GameObject nextPlayerText;
     private GameObject pathListEntity;
     private GameObject eventCard;
+    private GameObject strategyCard;//
     private int timer;
 
     public Group currentPlayer
@@ -68,6 +69,30 @@ class DisplayManager
         
         eventCard.GetComponent<EventCardController>().nextGameState = nextGameState;
         eventCard.SetActive(true);
+    }
+    public void displayStopAction(Block block ,GameState nextGameState)
+    {
+        if(block is EventBlock)
+        {
+            EventBase eventData = globalManager.Events.doEvent(Eventtype.Forest 
+                                                              ,new List<Group>( globalManager.GroupList) 
+                                                              ,globalManager.CurrentPlayer);
+
+            displayEvent(eventData ,nextGameState);
+        }
+        else if(block is BuildingBlock)
+        {
+            BuildingBlock buildingBlock = (BuildingBlock)block;
+            if ( buildingBlock.Building == null)
+            {
+                //建造建築物
+            }
+            else
+            {
+                strategyCard.GetComponent<StrategyCardController>().nextGameState = nextGameState;
+                strategyCard.SetActive(true);
+            }
+        }
     }
 
     public void displayNextPlayer()
