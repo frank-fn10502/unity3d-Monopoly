@@ -32,9 +32,23 @@ public class BuildingDisplayController : MonoBehaviour
     {
         gameObject.SetActive(false);
         currentBuildingBlock.Building = new Building(currentBuilding);
-        currentBuildingBlock.Building.build(globalManager.CurrentPlayer ,currentBuildingBlock.BuildingLocation);
-        globalManager.CurrentPlayer.Resource.blockList.Add(currentBuildingBlock);//加到玩家擁有的blockList裡面
+        bool canBuy = currentBuildingBlock.Building.build(globalManager.CurrentPlayer ,currentBuildingBlock.BuildingLocation);
 
+        if(canBuy)
+        {
+            currentBuildingBlock.Landlord = globalManager.CurrentPlayer;
+            globalManager.CurrentPlayer.Resource.blockList.Add(currentBuildingBlock);//加到玩家擁有的blockList裡面
+
+            quitButtonClick();
+        }
+        else
+        {
+            globalManager.DisplayManager.displayCantNotBuy();
+        }
+    }
+    public void quitButtonClick()
+    {
+        currentBuildingEntity.SetActive(false);
         globalManager.GameState = nextGameState;
     }
 
@@ -43,11 +57,14 @@ public class BuildingDisplayController : MonoBehaviour
     {
         buildingList = new List<Building>();
         Building.path = "";
+        string[] bName = {"" ,"" ,"" ,""};
+        string[] bFileName = {"" ,"" ,"" ,""};
+
         for ( int i = 0 ; i < 4 ; i++ )
         {
             Building building = new Building();
-            building.Name = "";
-            building.FileName = "";
+            building.Name = bName[i];
+            building.FileName = bFileName[i];
 
             buildingList.Add(building);
         }
