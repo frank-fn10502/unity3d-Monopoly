@@ -20,6 +20,9 @@ public class StrategyCardController : MonoBehaviour
     public void diplomaticButtonClick()
     {
         gameObject.SetActive(false);
-        
+        BuildingBlock buildingBlock = (BuildingBlock)globalManager.map.BlockList[globalManager.CurrentPlayer.CurrentBlockIndex];
+    
+        EventBase eventData = buildingBlock.Building.cost(new List<Group>(globalManager.GroupList) ,globalManager.CurrentPlayer);
+        globalManager.DisplayManager.displayEvent(eventData ,nextGameState);
     }
 }
