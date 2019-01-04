@@ -20,17 +20,13 @@ public class Building//TEMP
         this.filePath = filePath;       
     }
 
-
-
     public void build(Group group)
     {
         //減少資源
         entity = Resources.Load<GameObject>(filePath);
     }
-    
-
-    private void cost(Resource playerR)
+    public void cost(Resource playerR)
     {
-        //playerR.army -= resource.army;
+        
     }
 }

@@ -91,7 +91,8 @@ class DisplayManager
             if ( buildingBlock.Building == null)
             {
                 //建造建築物
-                globalManager.GameState = nextGameState;
+                //displayBuildConstructor(buildingBlock);
+                globalManager.GameState = nextGameState;//temp
             }
             else
             {
@@ -116,6 +117,11 @@ class DisplayManager
             nextPlayerText.SetActive(false);
             globalManager.nextPlayer();           
         }
+    }
+
+    public void displayBuildConstructor(BuildingBlock buildingBlock)
+    {
+
     }
 
     /*==========private==========*/

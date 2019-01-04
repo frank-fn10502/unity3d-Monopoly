@@ -24,8 +24,6 @@ public class EventBlock : Block
     }
 
 
-
-
     public override void stopAction(Group group)
     {
         

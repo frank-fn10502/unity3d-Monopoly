@@ -16,10 +16,14 @@ public class InformationPanelController : MonoBehaviour
 
     private Camera characterCamera;
 
+    private static Color[] color = {new Color(101,87,87) ,new Color(254,254,254,255)};
+    private int buttonYclick;
+
     void Start()
     {
         characterCamera = this.gameObject.GetComponent<Camera>();
         viewChangeable = false;
+        buttonYclick = 0;
     }
 
     void Update()
@@ -27,6 +31,13 @@ public class InformationPanelController : MonoBehaviour
         if ( Input.GetKeyDown(KeyCode.Y) )
         {
             viewChangeable = !viewChangeable;
+            buttonYclick = ( buttonYclick + 1 ) % 2;
+            Debug.Log(buttonYclick);
+
+            ColorBlock colors = GameObject.Find("CameraMoveableButton").GetComponent<Button>().colors;
+            colors.normalColor = color[buttonYclick];
+
+            GameObject.Find("CameraMoveableButton").GetComponent<Button>().colors = colors;
         }
     }
     public void CameraMoveableButtonOnClick()
