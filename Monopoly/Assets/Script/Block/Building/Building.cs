@@ -31,6 +31,6 @@ public class Building//TEMP
 
     private void cost(Resource playerR)
     {
-        playerR.army -= resource.army;
+        //playerR.army -= resource.army;
     }
 }

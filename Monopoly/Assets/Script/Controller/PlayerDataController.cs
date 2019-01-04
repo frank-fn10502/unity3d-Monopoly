@@ -28,7 +28,7 @@ public class PlayerDataController : MonoBehaviour
             factionList = JsonConvert.DeserializeObject<List<Faction>>(json);
 
             setCurrentCharacter(0);
-            setCharacterEntities();
+            setCharacterFactions();
 
             playerList = new List<Faction>(playerNum);
             playerList.Add(null);
@@ -46,8 +46,8 @@ public class PlayerDataController : MonoBehaviour
     {     
         if(currentPlayerIndex < playerNum )
         {
-            currentTexture = GameObject.Find("c" + ( no + 1 ) + "Button").GetComponent<RawImage>().texture;
             playerList[currentPlayerIndex] = factionList[no];
+            currentTexture = GameObject.Find("c" + ( no + 1 ) + "Button").GetComponent<RawImage>().texture;            
             currentPlayerDisplay.GetComponent<RawImage>().texture = currentTexture;
         }
     }
@@ -66,20 +66,30 @@ public class PlayerDataController : MonoBehaviour
 
 
     /*==========setter=========*/
-    private void setCharacterEntities()
+    private void setCharacterFactions()
     {
-        //int count = 6;
+        string fileName;
         for ( int i = 0 ; i < factionList.Count - 1 ; i++ )
         {
-            factionList[i].actorList = new List<Actor>();
-            factionList[i].actorList.Add(new Actor());
-            factionList[i].actorList[0].Entity = Resources.Load<GameObject>("PreFab/Character/char/char" + (i + 1) + "/c" + (i + 1));
-            factionList[i].actorList[0].FileName = "PreFab/Character/char/char" + ( i + 1 ) + "/c" + ( i + 1 );
+            if(i == factionList.Count - 1 )
+            {
+                fileName = "boss\boss";
+            }
+            else
+            {
+                fileName = "char" + ( i + 1 ) + "/c" + ( i + 1 );
+            }
+            setFaction(i,fileName);
         }
-        factionList[factionList.Count - 1].actorList = new List<Actor>();
-        factionList[factionList.Count - 1].actorList.Add(new Actor());
-        factionList[factionList.Count - 1].actorList[0].Entity = Resources.Load<GameObject>(@"PreFab\Character\char\boss\boss");
+        Actor.Path = "PreFab/Character/char/";
     }
+    private void setFaction(int no ,string fileName)
+    {
+        factionList[no].actorList = new List<Actor>();
+        factionList[no].actorList.Add(new Actor());
+        factionList[no].actorList[0].FileName = fileName;
+    }
+
     private void setCurrentCharacter(int i)
     {
         currentPlayerIndex = i;

@@ -38,7 +38,27 @@ public class GlobalManager
             gameState = value;
         }
     }
-
+    public Group[] GroupList
+    {
+        get
+        {
+            return groupList;
+        }
+    }
+    public Event Events
+    {
+        get
+        {
+            return events;
+        }
+    }
+    internal DisplayManager DisplayManager
+    {
+        get
+        {
+            return displayManager;
+        }
+    }
 
     public GlobalManager(List<Faction> factionList = null)
     {
@@ -69,7 +89,6 @@ public class GlobalManager
         displayManager = new DisplayManager(this);
         events = new Event();
     }
-
 
 
 
@@ -116,7 +135,6 @@ public class GlobalManager
                         case PlayerState.RollingDice:
                             if ( Input.GetButtonDown("Jump") )
                             {
-                                //groupList[currentGroupIndex].rollDice();
                                 CurrentPlayer.State = PlayerState.Wait;
                                 displayManager.displayRollingDice();//轉換到下一個階段
                             }
@@ -133,11 +151,9 @@ public class GlobalManager
 
                             break;
                         case PlayerState.End:
-                            //block.StopAction
                             CurrentPlayer.State = PlayerState.Wait;
                             //交給displayManager
-
-                            gameState = GameState.End;//temp
+                            displayManager.displayStopAction(map.BlockList[CurrentPlayer.CurrentBlockIndex] ,GameState.End);
 
                             break;
                         case PlayerState.InJail:
@@ -187,8 +203,7 @@ public class GlobalManager
                                     ,playerDirection[i]);//?
 
             groupList[i].CurrentActor.build(groupList[i].Location ,playerDirection[i]);
-            i++;
-            if ( i >= Constants.PLAYERNUMBER ) break;//temp
+            if ( ++i >= Constants.PLAYERNUMBER ) break;//temp
         }
     }
     private Actor[] createActorList(List<Actor> actorList)
@@ -201,41 +216,4 @@ public class GlobalManager
         }
         return actors;
     }
-    /*暫時*/
-    //private void setGroupList()//設定 4 個 group//讀檔?
-    //{
-    //    groupList = new Group[Constants.PLAYERNUMBER];
-    //    Direction[] playerDirection = new Direction [Constants.PLAYERNUMBER]{Direction.North ,Direction.North ,Direction.South ,Direction.East};
-    //    int[] playerIndex = new int[Constants.PLAYERNUMBER]{2 * 30 + 2 ,2 * 30 + 27 ,27 * 30 + 2 ,27 * 30 + 27};
-    //    Vector3[] playerLocation = new Vector3[Constants.PLAYERNUMBER]
-    //                                  {map.BlockList[2 * 30 + 2].Location + new Vector3(0 ,0.2f ,0)
-    //                                  ,map.BlockList[2 * 30 + 27].Location + new Vector3(0 ,0.2f ,0)
-    //                                  ,map.BlockList[27 * 30 + 2].Location + new Vector3(0 ,0.2f ,0)
-    //                                  ,map.BlockList[27 * 30 + 27].Location + new Vector3(0 ,0.2f ,0)};
-
-    //    for ( int i = 0 ; i < Constants.PLAYERNUMBER ; i++ )
-    //    {
-    //        groupList[i] = new Group(null
-    //                                ,createActors(playerLocation[i] ,"Player1" ,playerDirection[i])
-    //                                ,new Attributes(20 ,20 ,20)
-    //                                ,new Resource()
-    //                                ,playerLocation[i]
-    //                                ,playerIndex[i]
-    //                                ,playerDirection[i]);
-    //    }
-    //}
-    //private Actor[] createActors(Vector3 location ,string name ,Direction enterDirection)
-    //{
-    //    Actor[] actors = new Actor[Constants.ACTORTOTALNUM];
-    //    for ( int i = 0 ; i < Constants.ACTORTOTALNUM ; i++ )
-    //    {
-    //        actors[i] = new Actor(this ,name ,null ,createDice() ,location ,enterDirection);
-    //    }
-
-    //    return actors;
-    //}
-    //private Dice createDice()
-    //{
-    //    return new Dice(new int[6]);
-    //}
 }
