@@ -6,14 +6,19 @@ using System.Threading.Tasks;
 
 class People_Increase : EventBase
 {
+    int addvar = 100;
     public People_Increase(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
     {
 
     }
+    public People_Increase(string n, bool g, int w, string d, string p,int v) : base(n, g, w, d, p)
+    {
+        addvar = v;
+    }
     public override void DoEvent(List<Group> droup_list, Group group)
     {
-        //敵方陣營人民投靠，使人數增加100
-        group.Resource.civilian +=100;
+        //使人數增加100
+        group.Resource.civilian += addvar;
         State = group.State;
     }
 }

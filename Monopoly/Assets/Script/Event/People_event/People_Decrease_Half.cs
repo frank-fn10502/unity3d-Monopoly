@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 
 
-class Half_The_Money_Population : EventBase
+class People_Decrease_Half: EventBase
 { 
-        public Half_The_Money_Population(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
+        public People_Decrease_Half(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
         {
 
         }

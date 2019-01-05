@@ -26,7 +26,6 @@ public class EventPool
     public void RemoveEvent(int n)
     {
         if (n < event_list.Count)
-
             total_weight -= event_list[n].Weight;
         event_list.RemoveAt(n);
     }

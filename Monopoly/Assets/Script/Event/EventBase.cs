@@ -10,6 +10,7 @@ public abstract class EventBase
     private int weight;
     private string detail;
     private string image;
+    private Group winer;
     PlayerState state;
 
     public string Name
@@ -17,7 +18,7 @@ public abstract class EventBase
         get { return name; }
         set { name = value; }
     }
-    public bool IsGood
+public bool IsGood
     {
         get { return isGood; }
         set { isGood = value; }
@@ -42,6 +43,11 @@ public abstract class EventBase
     {
         get { return state; }
         set { state = value; }
+    }
+    public Group Winer
+    {
+        get { return Winer; }
+        set { Winer = value; }
     }
     public EventBase(string n = "", bool g= true ,int w = 1, string d = "",string p = "")
     {
