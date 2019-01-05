@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerSideMsgController : MonoBehaviour
 {
@@ -22,7 +23,17 @@ public class PlayerSideMsgController : MonoBehaviour
     }
     public void displayPlayerList(Group[] groups)
     {
+        for ( int i = 0 ; i < groups.Length ; i++ )
+        {
+            playerMsg[i].transform.Find("AbilityText/Lead").gameObject.GetComponent<Text>().text = groups[i].Attributes.leadership.ToString();
+            playerMsg[i].transform.Find("AbilityText/Diplomatic").gameObject.GetComponent<Text>().text = groups[i].Attributes.diplomatic.ToString();
+            playerMsg[i].transform.Find("AbilityText/Peace").gameObject.GetComponent<Text>().text = groups[i].Attributes.peace.ToString();
 
+            playerMsg[i].transform.Find("Resource/Army/ArmyText").gameObject.GetComponent<Text>().text = groups[i].Resource.army.ToString();
+            playerMsg[i].transform.Find("Resource/Civilian/CivilianText").gameObject.GetComponent<Text>().text = groups[i].Resource.civilian.ToString();
+            playerMsg[i].transform.Find("Resource/Antidote/AntidoteText").gameObject.GetComponent<Text>().text = groups[i].Resource.antidote.ToString();
+            playerMsg[i].transform.Find("Resource/Mineral/MineralText").gameObject.GetComponent<Text>().text = groups[i].Resource.mineral.ToString();
+        }
     }
 
 
