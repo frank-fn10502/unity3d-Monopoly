@@ -43,11 +43,11 @@ public class PlayerDataController : MonoBehaviour
     }
 
     public void onSelectCharacter(int no)
-    {     
-        if(currentPlayerIndex < playerNum )
+    {
+        if ( currentPlayerIndex < playerNum )
         {
             playerList[currentPlayerIndex] = factionList[no];
-            currentTexture = GameObject.Find("c" + ( no + 1 ) + "Button").GetComponent<RawImage>().texture;            
+            currentTexture = GameObject.Find("c" + ( no + 1 ) + "Button").GetComponent<RawImage>().texture;
             currentPlayerDisplay.GetComponent<RawImage>().texture = currentTexture;
         }
     }
@@ -58,7 +58,7 @@ public class PlayerDataController : MonoBehaviour
             GameObject.Find("player" + ( currentPlayerIndex + 1 ) + "Button").SetActive(false);//temp
             setCurrentCharacter(currentPlayerIndex + 1);
         }
-        if( currentPlayerIndex == playerNum)
+        if ( currentPlayerIndex == playerNum )
         {
             startButton.SetActive(true);
         }
@@ -69,9 +69,14 @@ public class PlayerDataController : MonoBehaviour
     private void setCharacterFactions()
     {
         string fileName;
+        string[] materialBallFilePaths = {"" ,"" ,"" ,"" ,"" ,"" ,"" ,""};
+
         for ( int i = 0 ; i < factionList.Count - 1 ; i++ )
         {
-            if(i == factionList.Count - 1 )
+            factionList[i].materialBallFilePath = materialBallFilePaths[i];
+            //factionList[i].materialBall = Resources.Load<Material>(materialBallFilePaths[i]);
+
+            if ( i == factionList.Count - 1 )
             {
                 fileName = "boss\boss";
             }
@@ -79,7 +84,7 @@ public class PlayerDataController : MonoBehaviour
             {
                 fileName = "char" + ( i + 1 ) + "/c" + ( i + 1 );
             }
-            setFaction(i,fileName);
+            setFaction(i ,fileName);
         }
         Actor.Path = "PreFab/Character/char/";
     }
