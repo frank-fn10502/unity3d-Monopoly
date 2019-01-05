@@ -37,14 +37,14 @@ public class Scout
 
         foreach ( List<Position> p in pathList )
         {
-            if ( p[p.Count - 1].block is BuildingBlock )
-            {
-                BuildingBlock buildingBlock = (BuildingBlock)p[p.Count - 1].block;
-                if ( buildingBlock.PathLocations.Count > 1 )
-                {
-                    p.RemoveAt(p.Count - 1);
-                }                    
-            }            
+            //if ( p[p.Count - 1].block is BuildingBlock )
+            //{
+            //    BuildingBlock buildingBlock = (BuildingBlock)p[p.Count - 1].block;
+            //    if ( buildingBlock.PathLocations.Count > 1 )
+            //    {
+            //        p.RemoveAt(p.Count - 1);
+            //    }                    
+            //}            
             if ( p[0].block is BuildingBlock )
             {
                 BuildingBlock buildingBlock = (BuildingBlock)p[0].block;
@@ -59,11 +59,9 @@ public class Scout
                     }
                 }
             }
-
             if ( p[1].location == group.Location )
             {
                 p.RemoveAt(0);
-                //p[0] = null;
             }
         }
     }
@@ -135,7 +133,6 @@ public class Scout
         }
         else
         {
-            //sortPath(path);//先整理
             pathList.Add(new List<Position>(path));
         }
     }

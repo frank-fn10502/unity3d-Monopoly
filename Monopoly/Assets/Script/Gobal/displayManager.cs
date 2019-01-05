@@ -67,7 +67,7 @@ class DisplayManager
     public void displayRollingDice()
     {
         //呼叫扔骰子
-        globalManager.TotalStep = 12;//temp
+        globalManager.TotalStep = 36;//temp
         currentPlayer.State = PlayerState.SearchPath;//temp
     }
     public void displaySearchPath(Map map)
@@ -82,6 +82,8 @@ class DisplayManager
         if ( currentPlayer.Scout.totalStep == 0 )
         {
             currentPlayer.Scout.deleteDot(currentPlayer.Scout.choicePath[0]);//刪除走過的點
+            if( currentPlayer.Scout.choicePath.Count != 0)
+                currentPlayer.Scout.deleteDot(currentPlayer.Scout.choicePath[0]);//刪除走過的點
             //currentPlayer.CurrentActor.stop();
 
             currentPlayer.State = PlayerState.End;
@@ -221,7 +223,8 @@ class DisplayManager
                 onePos = currentPlayer.Scout.pathList[i][j];
                 if ( onePos.entity == null )
                 {
-                    if ( markMap[onePos.blockIndex] == 0 || ( markMap[onePos.blockIndex] == 1 && onePos.block is BuildingBlock ) )
+                    if ( markMap[onePos.blockIndex] == 0 || ( markMap[onePos.blockIndex] == 1 && onePos.block is BuildingBlock &&
+                        ((BuildingBlock)onePos.block).PathLocations.Count > 1) )
                     {
                         markMap[onePos.blockIndex]++;
                         buildEntity(onePos ,onePos.blockIndex ,markMap[onePos.blockIndex]);
@@ -233,7 +236,7 @@ class DisplayManager
                         {
                             duplicateMap[onePos.blockIndex]++;
                             onePos.entity = pathListEntity.transform.Find("dot" + onePos.blockIndex + "-" + duplicateMap[onePos.blockIndex]).gameObject;//如果有了就不要再建造一次 直接指定
-                            if ( onePos.block is BuildingBlock )
+                            if ( onePos.block is BuildingBlock && ( (BuildingBlock)onePos.block ).PathLocations.Count > 1 )
                             {
                                 duplicateMap[onePos.blockIndex] %= 2;
                             }

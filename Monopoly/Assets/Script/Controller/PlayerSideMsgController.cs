@@ -51,5 +51,14 @@ public class PlayerSideMsgController : MonoBehaviour
         obj.transform.Find("Resource/Civilian/CivilianText").gameObject.GetComponent<Text>().text = group.Resource.civilian.ToString();
         obj.transform.Find("Resource/Antidote/AntidoteText").gameObject.GetComponent<Text>().text = group.Resource.antidote.ToString();
         obj.transform.Find("Resource/Mineral/MineralText").gameObject.GetComponent<Text>().text = group.Resource.mineral.ToString();
+
+        if(globalManager.CurrentPlayer.Equals(group))
+        {
+            obj.transform.Find("Time").gameObject.SetActive(true);
+        }
+        else
+        {
+            obj.transform.Find("Time").gameObject.SetActive(false);
+        }
     }
 }
