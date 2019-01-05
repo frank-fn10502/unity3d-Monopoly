@@ -12,7 +12,7 @@ public class WorldController : MonoBehaviour
         //globalManager = new GlobalManager();
 
         GameObject gameObject = GameObject.Find("PlayerDataManager");
-        List<Faction> factionList = gameObject.GetComponent<PlayerDataController>().playerList;
+        List<Faction> factionList =  gameObject.GetComponent<PlayerDataController>().playerList;
         globalManager = new GlobalManager(factionList);
         GameObject.Destroy(gameObject);
     }
