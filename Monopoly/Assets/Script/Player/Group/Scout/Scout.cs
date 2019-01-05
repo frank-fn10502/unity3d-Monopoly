@@ -61,11 +61,12 @@ public class Scout
                     }
                 }
             }
+            */
             if ( p[1].location == group.Location )
             {
                 p.RemoveAt(0);
             }
-            */
+            
         }
         
     }
@@ -81,38 +82,43 @@ public class Scout
         //findNextBlock(map ,path ,path[path.Count - 1] ,--step);
         //path.Remove(onePos);
 
+
         List<Position> positions = new List<Position>();
         Vector3 loc;
-        for ( int i = 0 ; i < 2 ; i++ )
+        for (int i = 0; i < 2; i++)
         {
-            loc = ( i == 0 ) ? position.location : positions[0].location;
+            loc = (i == 0) ? position.location : positions[0].location;
 
             Position onePos = new Position(enterDirection
-                                          ,position.blockIndex + next
-                                          ,map.BlockList[position.blockIndex + next]
-                                          ,map.BlockList[position.blockIndex + next].standPoint(loc));
+                                          , position.blockIndex + next
+                                          , map.BlockList[position.blockIndex + next]
+                                          , map.BlockList[position.blockIndex + next].standPoint(loc));
 
-            if ( i == 1 )
+            if (map.BlockList[position.blockIndex + next] is EventBlock && i == 1)
             {
-                if ( positions[0].location == onePos.location )
+                break;
+            }
+
+            if(map.BlockList[position.blockIndex + next] is BuildingBlock && position.block is BuildingBlock)
+            {
+                BuildingBlock Buildblock = (BuildingBlock)(map.BlockList[position.blockIndex + next]);
+
+                if(Buildblock.PathLocations.Count == 1 && i == 1)
                 {
                     break;
                 }
-            }
-            else if(position.block is BuildingBlock && !(map.BlockList[position.blockIndex + next] is EventBlock))
-            {
+
                 Vector3 v = onePos.location - loc;
 
                 if (v.z != 0f && v.x != 0f)
                 {
                     path.RemoveAt(path.Count - 1);
                 }
-                else if (path.Count >= 2)
+                else if (path.Count > 2)
                 {
-                    Vector3 v1 = onePos.location - path[path.Count - 2].location;
-                    if (v.magnitude != (4f) && v1.magnitude != (4f))
+                    if (v.magnitude != (4f))
                     {
-                        Debug.Log(v.magnitude);
+                        Debug.Log(onePos.blockIndex + v.magnitude);
                         path.RemoveAt(path.Count - 1);
                     }
                 }

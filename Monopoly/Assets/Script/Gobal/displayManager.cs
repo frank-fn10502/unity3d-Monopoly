@@ -67,7 +67,7 @@ class DisplayManager
     public void displayRollingDice()
     {
         //呼叫扔骰子
-        globalManager.TotalStep = 24;//temp
+        globalManager.TotalStep = 6;//temp
         currentPlayer.State = PlayerState.SearchPath;//temp
     }
     public void displaySearchPath(Map map)
