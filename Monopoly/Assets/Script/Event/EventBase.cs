@@ -78,7 +78,7 @@ public class DiplomaticEvent : EventBase
         else
         {
             group.Resource.civilian += buildingBlock.Building.Resource.civilian;
-            group.Resource.mineral += buildingBlock.Building.Resource.mineral;
+            group.Resource.mineral  += buildingBlock.Building.Resource.mineral;
 
             this.Name   = "回到領地";
             this.Image  = "EventImage/AllEvent";
