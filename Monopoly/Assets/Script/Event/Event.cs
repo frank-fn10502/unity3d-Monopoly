@@ -107,8 +107,7 @@ public class Event
         word.AddEvent(new Everyone_People_Decrease("所有人類遭遇野生猩猩發動攻擊，失去人口數量", false, 6, "所有人類遭遇野生猩猩發動攻擊，失去人口數量", "EventImage/AllEvent"));
         word.AddEvent(new Everyone_Antibody_Increased("人類發現新型解藥", true, 6, "人類發現新型解藥，使得所有人解藥研發程度提升2%", "EventImage/AllEvent",2));
         word.AddEvent(new Apse_Defection("猩猩叛逃", true, 6, "猩猩叛逃，所有人類獲得100軍隊，猩猩減少100軍隊", "EventImage/AllEvent"));
-        word.AddEvent(new Change_Plant("地殼移動", true, 10, "地殼移動，隨機兩位玩家位置交換", "EventImage/AllEvent"));
-        //word.AddEvent(new Eeveryone_Peace_Increase("和平紀念日", true, 10, "和平紀念日，所有玩家和平指數增加10", "EventImage/AllEvent"));
+        word.AddEvent(new Change_Plant("地殼移動", true, 100, "地殼移動，隨機兩位玩家位置交換", "EventImage/AllEvent"));
 
     }
     private void Set_Weight(EventPool Ep, Group group)
