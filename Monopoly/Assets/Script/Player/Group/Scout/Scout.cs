@@ -37,14 +37,14 @@ public class Scout
 
         foreach ( List<Position> p in pathList )
         {
-            if ( p[p.Count - 1].block is BuildingBlock )
-            {
-                BuildingBlock buildingBlock = (BuildingBlock)p[p.Count - 1].block;
-                if ( buildingBlock.PathLocations.Count > 1 )
-                {
-                    p.RemoveAt(p.Count - 1);
-                }                    
-            }            
+            //if ( p[p.Count - 1].block is BuildingBlock )
+            //{
+            //    BuildingBlock buildingBlock = (BuildingBlock)p[p.Count - 1].block;
+            //    if ( buildingBlock.PathLocations.Count > 1 )
+            //    {
+            //        p.RemoveAt(p.Count - 1);
+            //    }                    
+            //}            
             if ( p[0].block is BuildingBlock )
             {
                 BuildingBlock buildingBlock = (BuildingBlock)p[0].block;
