@@ -46,8 +46,8 @@ public bool IsGood
     }
     public Group Winer
     {
-        get { return Winer; }
-        set { Winer = value; }
+        get { return winer; }
+        set { winer = value; }
     }
     public EventBase(string n = "", bool g= true ,int w = 1, string d = "",string p = "")
     {
