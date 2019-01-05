@@ -170,8 +170,8 @@ public class GlobalManager
     public void nextPlayer()
     {
         currentGroupIndex = ( currentGroupIndex + 1 ) % Constants.PLAYERNUMBER;
-        isComputer = ( currentGroupIndex == Constants.PLAYERNUMBER - 1 );//?
-        //isComputer = false;
+        //isComputer = ( currentGroupIndex == Constants.PLAYERNUMBER - 1 );//?
+        isComputer = false;
         gameState = GameState.GlobalEvent;
     }
 

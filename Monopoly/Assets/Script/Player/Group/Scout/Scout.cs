@@ -9,12 +9,14 @@ public class Scout
     public int totalStep;
     public List<List<Position>> pathList;
     public List<Position> choicePath;
+    private bool Isfirst;
 
 
     public Scout(Group group)
     {
         this.group = group;
         this.pathList = new List<List<Position>>();
+        Isfirst = true;
     }
 
     public void reconnoiter(Map map ,int totalStep)
@@ -35,38 +37,41 @@ public class Scout
                  ,0
                  ,totalStep + 1);
 
-        
+
         foreach (List<Position> p in pathList)
         {
-            //if ( p[p.Count - 1].block is BuildingBlock )
-            //{
-            //    BuildingBlock buildingBlock = (BuildingBlock)p[p.Count - 1].block;
-            //    if ( buildingBlock.PathLocations.Count > 1 )
-            //    {
-            //        p.RemoveAt(p.Count - 1);
-            //    }                    
-            //} 
             /*
-            if ( p[0].block is BuildingBlock )
+            if (p[p.Count - 1].block is BuildingBlock)
             {
-                BuildingBlock buildingBlock = (BuildingBlock)p[0].block;
-                if ( buildingBlock.PathLocations.Count > 1 )
+                BuildingBlock buildingBlock = (BuildingBlock)p[p.Count - 1].block;
+                if (buildingBlock.PathLocations.Count > 1)
                 {
-                    Vector3 realSecondP = p[1].block.standPoint(p[2].location);
-                    if ( p[1].location != realSecondP )
-                    {
-                        Vector3 v = p[0].location;
-                        p[0].location = p[1].location;
-                        p[1].location = v;
-                    }
+                    p.RemoveAt(p.Count - 1);
                 }
             }
             */
-            if ( p[1].location == group.Location )
+            if (Isfirst)
             {
-                p.RemoveAt(0);
+                if (p[0].block is BuildingBlock)
+                {
+                    BuildingBlock buildingBlock = (BuildingBlock)p[0].block;
+                    if (buildingBlock.PathLocations.Count > 1)
+                    {
+                        Vector3 realSecondP = p[1].block.standPoint(p[2].location);
+                        if (p[1].location != realSecondP)
+                        {
+                            Vector3 v = p[0].location;
+                            p[0].location = p[1].location;
+                            p[1].location = v;
+                        }
+                    }
+                }
+                if (p[1].location == group.Location)
+                {
+                    p.RemoveAt(0);
+                }
+                Isfirst = false;
             }
-            
         }
         
     }
