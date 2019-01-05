@@ -227,8 +227,9 @@ public class GlobalManager
                                     ,playerDirection[i]);//?
 
             groupList[i].CurrentActor.build(groupList[i].Location ,playerDirection[i]);
-            //groupList[i].materialBall = Resources.Load<Material>(Faction.path + faction.fileName);//?
-            //groupList[i].materialBall = GameObject.Instantiate(groupList[i].materialBall);//?
+            groupList[i].materialBall = Resources.Load<Material>(Faction.path + faction.fileName);//?
+            groupList[i].materialBall = GameObject.Instantiate(groupList[i].materialBall);//?
+            groupList[i].CurrentActor.Entity.transform.Find("FL/Circle.005").gameObject.GetComponent<Renderer>().material = groupList[i].materialBall;//?
 
             if ( ++i >= Constants.PLAYERNUMBER ) break;//temp
         }

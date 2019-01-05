@@ -70,13 +70,13 @@ public class PlayerDataController : MonoBehaviour
     {
         string fileName;
         Faction.path = "PreFab/Building/MaterialBall/";
-        string[] materialBallFileName = {"" ,"" ,"" ,"" ,"" ,"" ,"" ,""};
+        string[] materialBallFileName = {"M1" ,"M2" ,"M3" ,"M4" ,"M5" ,"M6" ,"M7" ,"M8"};
 
         for ( int i = 0 ; i < factionList.Count ; i++ )
         {
             factionList[i].fileName = materialBallFileName[i];
-            //factionList[i].materialBall = Resources.Load<Material>(path + materialBallFileName[i]);
-            //factionList[i].materialBall = GameObject.Instantiate(factionList[i].materialBall);
+            factionList[i].materialBall = Resources.Load<Material>(Faction.path + materialBallFileName[i]);
+            factionList[i].materialBall = GameObject.Instantiate(factionList[i].materialBall);
 
             if ( i == factionList.Count - 1 )
             {
