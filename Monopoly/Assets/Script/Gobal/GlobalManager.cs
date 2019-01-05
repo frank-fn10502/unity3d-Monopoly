@@ -228,6 +228,13 @@ public class GlobalManager
 
             groupList[i].Resource.blockList.Add(map.BlockList[playerIndex[i]]);
             //新增主堡
+            if( map.BlockList[playerIndex[i]]  is BuildingBlock)
+            {
+                Building.path = "PreFab/Building/";
+                BuildingBlock buildingBlock =  (BuildingBlock)( map.BlockList[playerIndex[i]] ) ;
+                buildingBlock.Building = new Building("實驗室" ,"Ahome");
+                buildingBlock.Building.build(groupList[i] ,buildingBlock.BuildingLocation);
+            }
 
             groupList[i].CurrentActor.build(groupList[i].Location ,playerDirection[i]);
             groupList[i].materialBall = Resources.Load<Material>(Faction.path + faction.fileName);//?
