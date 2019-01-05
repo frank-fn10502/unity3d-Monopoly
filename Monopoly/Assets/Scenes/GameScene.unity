@@ -2163,7 +2163,7 @@ GameObject:
   - component: {fileID: 567075800}
   - component: {fileID: 567075801}
   m_Layer: 5
-  m_Name: canNotBuyCard
+  m_Name: CanNotBuyCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7527,7 +7527,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 439.4, y: -262.9}
+  m_AnchoredPosition: {x: 488.86, y: -302}
   m_SizeDelta: {x: 267.72, y: 166.23}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1641045184
