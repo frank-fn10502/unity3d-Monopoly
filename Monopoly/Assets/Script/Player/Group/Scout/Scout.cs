@@ -38,6 +38,21 @@ public class Scout
         foreach(List<Position> p in pathList)
         {
             p.RemoveAt(p.Count - 1);
+            if(p[0].block is BuildingBlock )
+            {
+                BuildingBlock buildingBlock = (BuildingBlock)p[0].block;
+                if(buildingBlock.PathLocations.Count > 1)
+                {
+                    Vector3 realSecondP = p[1].block.standPoint(p[2].location);
+                    if ( p[1].location != realSecondP )
+                    {
+                        Vector3 v = p[0].location;
+                        p[0].location = p[1].location;
+                        p[1].location = v;
+                    }
+                }
+            }
+
             if ( p[1].location == group.Location )
             {
                 p.RemoveAt(0);
