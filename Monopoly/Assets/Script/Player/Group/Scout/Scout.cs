@@ -45,7 +45,8 @@ public class Scout
             //    {
             //        p.RemoveAt(p.Count - 1);
             //    }                    
-            //}            
+            //} 
+            /*
             if ( p[0].block is BuildingBlock )
             {
                 BuildingBlock buildingBlock = (BuildingBlock)p[0].block;
@@ -64,7 +65,7 @@ public class Scout
             {
                 p.RemoveAt(0);
             }
-            
+            */
         }
         
     }
@@ -98,24 +99,23 @@ public class Scout
                     break;
                 }
             }
-            else if(position.block is BuildingBlock)
+            else if(position.block is BuildingBlock && !(map.BlockList[position.blockIndex + next] is EventBlock))
             {
                 Vector3 v = onePos.location - loc;
-                
-                /*
+
                 if (v.z != 0f && v.x != 0f)
                 {
                     path.RemoveAt(path.Count - 1);
                 }
-                */
-                /*
                 else if (path.Count >= 2)
                 {
-                    if (v.magnitude != (path[0].location - path[1].location).magnitude)
+                    Vector3 v1 = onePos.location - path[path.Count - 2].location;
+                    if (v.magnitude != (4f) && v1.magnitude != (4f))
                     {
+                        Debug.Log(v.magnitude);
                         path.RemoveAt(path.Count - 1);
                     }
-                } */
+                }
             }
             positions.Add(onePos);
         }
