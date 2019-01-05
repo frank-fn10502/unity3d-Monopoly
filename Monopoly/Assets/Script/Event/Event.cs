@@ -91,7 +91,7 @@ public class Event
         personal.AddEvent(new Diplomatic_Decrease("人類遭遇猿流感", false, 1, "人類遭遇猿流感，使得語言能力退化，外交能力喪失，外交減少90%", "EventImage/Virus"));
         personal.AddEvent(new Military_Decrease("為防止軍隊病毒災情擴散", false, 2, "為防止軍隊病毒災情擴散，將處決軍隊受感染人數，軍隊人數減少5%", "EventImage/AllEvent",5));
         personal.AddEvent(new People_Increase_percent("發現病毒對兒童無效", true, 6, "發現病毒對兒童無效，使人數增加20%", "EventImage/Virus", 20));
-        personal.AddEvent(new Go_To_The_Designated_Location("途中意外發現軍用直升機", true, 5, "途中意外發現軍用直升機，可前隨機前往自己的其中一個領地", "AllEvent"));
+        personal.AddEvent(new Go_To_The_Designated_Location("途中意外發現軍用直升機", true, 5, "途中意外發現軍用直升機，可前隨機前往自己的其中一個領地", "EventImage/AllEvent"));
         personal.AddEvent(new Antibody_Increased("解藥研發突破", true, 8, "解藥研發突破，使解藥研發提升2%", "EventImage/Virus", 2));
         
     }
