@@ -144,7 +144,6 @@ public class Event
                 break;
             case Eventtype.Attack_Plant:
                 doingevent = new Attack();
-                doingevent.DoEvent(droup_list ,group);//?
                 break;
             case Eventtype.Battle:
                 doingevent = new Battle();

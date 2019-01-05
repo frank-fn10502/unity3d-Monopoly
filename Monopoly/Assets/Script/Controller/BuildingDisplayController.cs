@@ -14,10 +14,14 @@ public class BuildingDisplayController : MonoBehaviour
     private Building currentBuilding;
     private GameObject currentBuildingEntity;
 
+    private GameObject checkoutButton;
+
     private void Awake()
     {
         createBuildingList();
         createBuildingEntityList();
+        checkoutButton = gameObject.transform.Find("checkoutButton").gameObject;
+        checkoutButton.SetActive(false);
     }
     public void selectBuilding(int no)
     {
@@ -27,9 +31,12 @@ public class BuildingDisplayController : MonoBehaviour
         currentBuildingEntity = buildingEntityList[no];
         currentBuildingEntity.transform.position = currentBuildingBlock.BuildingLocation;
         currentBuildingEntity.SetActive(true);
+
+        checkoutButton.SetActive(true);
     }
     public void checkoutButtonClick()
     {
+        checkoutButton.SetActive(false);
         gameObject.SetActive(false);
         currentBuildingBlock.Building = new Building(currentBuilding);
         bool canBuy = currentBuildingBlock.Building.build(globalManager.CurrentPlayer ,currentBuildingBlock.BuildingLocation);
