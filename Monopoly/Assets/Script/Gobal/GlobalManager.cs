@@ -226,6 +226,9 @@ public class GlobalManager
                                     ,playerIndex[i]//?
                                     ,playerDirection[i]);//?
 
+            groupList[i].Resource.blockList.Add(map.BlockList[playerIndex[i]]);
+            //新增主堡
+
             groupList[i].CurrentActor.build(groupList[i].Location ,playerDirection[i]);
             groupList[i].materialBall = Resources.Load<Material>(Faction.path + faction.fileName);//?
             groupList[i].materialBall = GameObject.Instantiate(groupList[i].materialBall);//?
