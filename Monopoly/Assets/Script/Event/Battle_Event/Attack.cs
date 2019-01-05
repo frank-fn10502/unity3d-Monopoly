@@ -24,6 +24,7 @@ using System.Text;
 
             group.Resource.army -= caculater_dead(deal, group.Attributes.leadership, group.Resource.army);
             defender.Resource.army -= caculater_dead(deal, defender.Attributes.leadership, defender.Resource.army);
+            
             Winer = group_power > defender_power ? group : defender;
             State = group.State;
         }
