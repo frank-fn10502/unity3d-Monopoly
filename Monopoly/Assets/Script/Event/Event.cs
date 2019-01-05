@@ -40,7 +40,10 @@ public class Event
         apes.AddEvent(new Everyone_People_Decrease("帶著猿流感的猩猩失控爆走", false, 5, "帶著猿流感的猩猩失控爆走，使得病毒擴散加快，人類死亡100", "EventImage/Virus", 100));
         apes.AddEvent(new Every_People_Time_Out("人類軍營慘遭猩猩入侵", false, 5, "由於人類軍營慘遭猩猩入侵，導致損失慘重，所有人類暫停一回合", "EventImage/Time_Out"));
         apes.AddEvent(new Human_Diplomacy("紅毛猩猩教導猩猩族群學習語言", true, 5, "由於紅毛猩猩教導猩猩族群學習語言，使猩猩可以跟人類外交，且減少病毒擴散，使解藥研發進度提升，外交指數上升", "EventImage/Human_Diplomacy"));
-        
+
+        apes.AddEvent(new People_Increase("猩猩發現落單人類", true, 2, "由於猩猩發現落單人類，並將之規劃為人民，猩猩增加人口200", "EventImage/AllEvent",200));
+        apes.AddEvent(new Military_Increase("俘虜人類士兵", true, 2, "俘虜人類士兵，軍人增加100", "EventImage/AllEvent", 100));
+
     }
 
     private void Add_Forest_Event()
@@ -62,7 +65,7 @@ public class Event
         forest.AddEvent(new People_Time_Out("遭遇猩猩攻擊", false, 8, "遭遇猩猩攻擊，暫停一回合", "EventImage/Apse_attack"));
         forest.AddEvent(new People_Decrease_percent("野外遭遇帶著猿流感的猩猩", false, 5, "野外遭遇帶著猿流感的猩猩，使得病毒擴散加快，人類死亡3%", "EventImage/Virus"));
         forest.AddEvent(new Apse_Migrate("人類發現猩猩的所在位置", true, 1, "由於人類發現猩猩的所在位置，使得猩猩必須遷移", "EventImage/AllEvent"));
-        forest.AddEvent(new Diplomatic_Decrease_percent("人類與帶原猩猩接觸", false, 5, "人類與帶原猩猩接觸，使得語言能力退化，外交能力喪失，外交減少90%", "EventImage/AllEvent",90));
+        forest.AddEvent(new Diplomatic_Decrease("人類與帶原猩猩接觸", false, 5, "人類與帶原猩猩接觸，使得語言能力退化，外交能力喪失，外交減少90%", "EventImage/AllEvent",90));
         
     }
 
@@ -79,7 +82,6 @@ public class Event
         personal.AddEvent(new People_Time_Out("被猩猩抓走成為俘虜", false, 1, "由於被猩猩抓走成為俘虜，暫停一回合", "EventImage/Time_Out"));
         personal.AddEvent(new Discover_Secret_Passage_Forest("途中發現祕密通道", true, 3, "由於途中發現祕密通道，可直達森林入口", "AllEEventImage/AllEventvent"));
 
-        
         personal.AddEvent(new GetResourceEvent("在礦場中意外發現稀有礦物", true, 8, "在礦場中意外發現稀有礦物，個人所得資源增加10%", "EventImage/Resources_Increase", 10));
         personal.AddEvent(new People_Time_Out("受到戰爭流彈波及", false, 5, "個人受到戰爭流彈波及，暫停一回合養傷", "EventImage/Time_Out"));
         personal.AddEvent(new Military_Decrease_half("營地發生雪崩", false, 1, "營地發生雪崩，個人軍隊人口縮減一半 ", "EventImage/Avalanche"));
@@ -137,7 +139,6 @@ public class Event
                 apes.SetWeight(6, leadership_weight);
                 apes.SetWeight(7, leadership_weight);
                 doingevent = apes.GetEvent();
-
                 break;
             case Eventtype.Forest:
                 apes.SetWeight(0, diplomatic_weight);

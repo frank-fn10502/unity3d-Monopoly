@@ -5,7 +5,7 @@ using System.Text;
 
 class Discover_Secret_Passage_Forest : EventBase
     {
-    private List<int> point;
+        private List<int> point;
         public Discover_Secret_Passage_Forest(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
         {
             point = new List<int>();
@@ -18,8 +18,8 @@ class Discover_Secret_Passage_Forest : EventBase
         {
             //由於途中發現祕密通道，可直達森林入口
             Random rand = new Random();
-            int rands = rand.Next(4);
+            int rands = rand.Next(point.Count);
             group.teleport(Group.blockList[rands]);
             State = group.State;
-    }
+        }
     }
