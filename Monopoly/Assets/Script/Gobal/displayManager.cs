@@ -30,17 +30,21 @@ class DisplayManager
     {
         this.globalManager = globalManager;
 
-        nextPlayerText = Resources.Load<GameObject>("PreFab/Ui/NextPlayerText");
-        nextPlayerText = GameObject.Instantiate(nextPlayerText ,new Vector3(33 ,-66.25f ,0) ,Quaternion.identity);
-        nextPlayerText.transform.SetParent(GameObject.Find("Canvas").transform ,false);
-
         pathListEntity = new GameObject("pathListEntity");
 
-        eventCard = GameObject.Find("EventCardDisplay");
+        nextPlayerText = Resources.Load<GameObject>("PreFab/Ui/NextPlayerText");
+        nextPlayerText = GameObject.Instantiate(nextPlayerText ,new Vector3(33 ,-66.25f ,0) ,Quaternion.identity);
+        nextPlayerText.transform.SetParent(GameObject.Find("Canvas").transform ,false);       
+
+        eventCard = Resources.Load<GameObject>("PreFab/Ui/EventCardDisplay"); //GameObject.Find("EventCardDisplay");
+        eventCard = GameObject.Instantiate(eventCard);
+        eventCard.transform.SetParent(GameObject.Find("Canvas").transform ,false);
         eventCard.SetActive(false);
         eventCard.GetComponent<EventCardController>().globalManager = globalManager;
 
-        strategyCard = GameObject.Find("strategyCardDisplay");
+        strategyCard = Resources.Load<GameObject>("PreFab/Ui/strategyCardDisplay"); //GameObject.Find("strategyCardDisplay");
+        strategyCard = GameObject.Instantiate(strategyCard);
+        strategyCard.transform.SetParent(GameObject.Find("Canvas").transform ,false);
         strategyCard.SetActive(false);
         strategyCard.GetComponent<StrategyCardController>().globalManager = globalManager;
 
@@ -49,7 +53,9 @@ class DisplayManager
         buildingArea.SetActive(false);
         buildingArea.GetComponent<BuildingDisplayController>().globalManager = globalManager;
 
-        canNotBuyCard = GameObject.Find("CanNotBuyCard");
+        canNotBuyCard = Resources.Load<GameObject>("PreFab/Ui/CanNotBuyCard"); //GameObject.Find("CanNotBuyCard");
+        canNotBuyCard = GameObject.Instantiate(canNotBuyCard);
+        canNotBuyCard.transform.SetParent(GameObject.Find("Canvas").transform ,false);
         canNotBuyCard.SetActive(false);
         canNotBuyCard.GetComponent<CanNotBuyCardController>().globalManager = globalManager;
         canNotBuyCard.GetComponent<CanNotBuyCardController>().buildingArea = buildingArea;
