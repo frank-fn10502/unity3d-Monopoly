@@ -27,6 +27,9 @@ using System.Text;
             
             Winer = group_power > defender_power ? group : defender;
             State = group.State;
+            this.Name = "攻擊玩家領地";
+            this.Image = "EventImage/AllEvent";
+            this.Detail = group.CurrentActor.Name + "攻擊" + defender.CurrentActor.Name + "領地，玩家"+ Winer.CurrentActor.Name+"獲勝";
         }
         private int caculater_power(int leadership, int army)
         {
