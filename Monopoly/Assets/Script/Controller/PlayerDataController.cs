@@ -80,11 +80,11 @@ public class PlayerDataController : MonoBehaviour
 
             if ( i == factionList.Count - 1 )
             {
-                fileName = "boss/boss";
+                fileName = "boss/bossf";
             }
             else
             {
-                fileName = "char" + ( i + 1 ) + "/c" + ( i + 1 );
+                fileName = "char" + ( i + 1 ) + "/cf" + ( i + 1 );
             }
             setFaction(i ,fileName);
         }
