@@ -30,16 +30,16 @@ public class Event
     private void Add_Apes_Event()
     {
         //外交
-        apes.AddEvent(new Apse_Migrate("人類發現猩猩的所在位置", false, 1, "由於人類發現猩猩的所在位置，使得猩猩必須遷移", "EventImage/AllEvent"));//7
-        apes.AddEvent(new Apes_Time_Out("猩猩被人類俘虜", false, 5, "由於猩猩被人類抓走成為俘虜，猩猩暫停一回合", "EventImage/AllEvent"));//4
+        apes.AddEvent(new Apse_Migrate("人類發現猩猩的所在位置", false, 1, "由於人類發現猩猩的所在位置，使得猩猩必須遷移", "EventImage/AllEvent"));
+        apes.AddEvent(new Apes_Time_Out("猩猩被人類俘虜", false, 5, "由於猩猩被人類抓走成為俘虜，猩猩暫停一回合", "EventImage/AllEvent"));
         //和平
-        apes.AddEvent(new Peace_Increase("猩猩們不自相殘殺", true, 6, "由於猩猩們不自相殘殺，使和平指數上升10", "AllEvent",10));//1
-        apes.AddEvent(new Diplomatic_Increase("猩猩放棄鬥爭", true, 4, "由於猩猩死傷慘重,所以放棄鬥爭，使猩猩外交指數上升2","EventImage/AllEvent",2));//0
-        apes.AddEvent(new Orangutan_Reduction("猩猩看不慣凱薩", false, 2, "由於猩猩看不慣凱薩，發生內鬥，使猩猩和平指數下降20，猩猩人口減少4%", "EventImage/AllEvent"));//2
+        apes.AddEvent(new Peace_Increase("猩猩們不自相殘殺", true, 6, "由於猩猩們不自相殘殺，使和平指數上升10", "AllEvent",10));
+        apes.AddEvent(new Diplomatic_Increase("猩猩放棄鬥爭", true, 4, "由於猩猩死傷慘重,所以放棄鬥爭，使猩猩外交指數上升2","EventImage/AllEvent",2));
+        apes.AddEvent(new Orangutan_Reduction("猩猩看不慣凱薩", false, 2, "由於猩猩看不慣凱薩，發生內鬥，使猩猩和平指數下降20，猩猩人口減少4%", "EventImage/AllEvent"));
         //領導
-        apes.AddEvent(new Everyone_People_Decrease("帶著猿流感的猩猩失控爆走", false, 5, "帶著猿流感的猩猩失控爆走，使得病毒擴散加快，人類死亡100", "EventImage/AllEvent",100));//3
-        apes.AddEvent(new Every_People_Time_Out("人類軍營慘遭猩猩入侵", false, 5, "由於人類軍營慘遭猩猩入侵，導致損失慘重，所有人類暫停一回合", "EventImage/AllEvent"));//4
-        apes.AddEvent(new Human_Diplomacy("紅毛猩猩教導猩猩族群學習語言", true, 5, "由於紅毛猩猩教導猩猩族群學習語言，使猩猩可以跟人類外交，且減少病毒擴散，使解藥研發進度提升，外交指數上升", "EventImage/AllEvent"));//6
+        apes.AddEvent(new Everyone_People_Decrease("帶著猿流感的猩猩失控爆走", false, 5, "帶著猿流感的猩猩失控爆走，使得病毒擴散加快，人類死亡100", "EventImage/AllEvent",100));
+        apes.AddEvent(new Every_People_Time_Out("人類軍營慘遭猩猩入侵", false, 5, "由於人類軍營慘遭猩猩入侵，導致損失慘重，所有人類暫停一回合", "EventImage/AllEvent"));
+        apes.AddEvent(new Human_Diplomacy("紅毛猩猩教導猩猩族群學習語言", true, 5, "由於紅毛猩猩教導猩猩族群學習語言，使猩猩可以跟人類外交，且減少病毒擴散，使解藥研發進度提升，外交指數上升", "EventImage/AllEvent"));
         
     }
 
@@ -64,35 +64,36 @@ public class Event
         forest.AddEvent(new Apse_Migrate("人類發現猩猩的所在位置", true, 1, "由於人類發現猩猩的所在位置，使得猩猩必須遷移", "EventImage/AllEvent"));
         forest.AddEvent(new Diplomatic_Decrease_percent("人類與帶原猩猩接觸", false, 5, "人類與帶原猩猩接觸，使得語言能力退化，外交能力喪失，外交減少90%", "EventImage/AllEvent",90));
         
-
-
     }
 
     private void Add_Personal_Event()
     {
+        //外交
+        personal.AddEvent(new Military_Increase_percent("猩猩叛逃投靠人類", true, 8, "猩猩叛逃投靠人類，使軍隊增加20%", "EventImage/AllEvent", 20));
+        personal.AddEvent(new People_Increase("敵方陣營人民投靠", true, 8, "敵方陣營人民投靠，使人數增加100", "EventImage/AllEvent", 100));
+        //和平
+        personal.AddEvent(new Peace_Decrease("人類內鬥", false, 5, "人類軍對下級和上級處不來，和平減少10", "EventImage/AllEvent", 10));
+        //領導
+        personal.AddEvent(new Military_Increase_percent("研發出新武器", true, 6, "由於個人研發新武器，使軍隊增加10%", "EventImage/AllEvent",10));
+        personal.AddEvent(new Secret_Passage_Time_Out("實驗室密道", true, 3, "在路途中發現能直達實驗室的秘密通道，但必須暫停2回合", "EventImage/AllEvent"));
+        personal.AddEvent(new People_Time_Out("被猩猩抓走成為俘虜", false, 1, "由於被猩猩抓走成為俘虜，暫停一回合", "EventImage/AllEvent"));
+        personal.AddEvent(new Discover_Secret_Passage_Forest("途中發現祕密通道", true, 3, "由於途中發現祕密通道，可直達森林入口", "AllEEventImage/AllEventvent"));
+
         personal.AddEvent(new GetResourceEvent("獲得資源", true, 10, "各種資源增加5%", "EventImage/AllEvent",5));
         personal.AddEvent(new EveryoneGetResourceEvent("在礦場中意外發現稀有礦物", true, 8, "在礦場中意外發現稀有礦物，個人所得資源增加10%", "EventImage/AllEvent",10));
-        //personal.AddEvent(new Fall_Back("不小心迷失前進方向", true, 8, "個人由於不小心迷失前進方向，倒退", "AllEvent"));
-        personal.AddEvent(new Secret_Passage_Time_Out("在路途中發現能直達實驗室的秘密通道", true, 3, "在路途中發現能直達實驗室的秘密通道，但必須暫停2回合", "EventImage/AllEvent"));
-        personal.AddEvent(new Military_Increase_percent("研發出新武器", true, 6, "由於個人研發新武器，使軍隊增加10%", "EventImage/AllEvent",10));
         personal.AddEvent(new People_Time_Out("受到戰爭流彈波及", false, 5, "個人受到戰爭流彈波及，暫停一回合養傷", "EventImage/AllEvent"));
         personal.AddEvent(new Military_Decrease_half("營地發生雪崩", false, 1, "營地發生雪崩，個人軍隊人口縮減一半 ", "EventImage/AllEvent"));
         personal.AddEvent(new People_Decrease_Half("礦場倒塌", false, 1, "由於礦場倒塌，人口減少一半", "EventImage/AllEvent"));
         personal.AddEvent(new People_Time_Out("猩猩發現落單人類", false, 2, "由於猩猩發現落單人類，個人暫停一回合", "EventImage/AllEvent"));
         personal.AddEvent(new People_Time_Out("在橋上不慎踩空", false, 8, "由於在橋上不慎踩空，暫停一回合", "EventImage/AllEvent"));
-        personal.AddEvent(new Discover_Secret_Passage_Forest("途中發現祕密通道", true, 3, "由於途中發現祕密通道，可直達森林入口", "AllEEventImage/AllEventvent"));
-        personal.AddEvent(new People_Time_Out("被猩猩抓走成為俘虜", false, 1, "由於被猩猩抓走成為俘虜，暫停一回合", "EventImage/AllEvent"));
-        //personal.AddEvent(new Dice_Again("從俘虜中逃出", true, 6, "從俘虜中逃出，再次擲骰子", "EventImage/AllEvent"));
         personal.AddEvent(new Military_Decrease("軍營中發現帶有病毒猩猩的屍體", false, 2, "軍營中發現帶有病毒猩猩的屍體，使軍隊人口感染人數增加，軍隊減少10%", "EventImage/AllEvent",10));
         personal.AddEvent(new Antidote_Decrease("途中發現帶有變種病毒死亡的人類屍體", false, 3, "途中發現帶有變種病毒死亡的人類屍體，使解藥研究程度下降5%", "EventImage/AllEvent",5));
-        personal.AddEvent(new Diplomatic_Decrease("人類遭遇猿流感，使得語言能力退化", false, 1, "人類遭遇猿流感，使得語言能力退化，外交能力喪失，外交減少90%", "EventImage/AllEvent"));
+        personal.AddEvent(new Diplomatic_Decrease("人類遭遇猿流感", false, 1, "人類遭遇猿流感，使得語言能力退化，外交能力喪失，外交減少90%", "EventImage/AllEvent"));
         personal.AddEvent(new Military_Decrease("為防止軍隊病毒災情擴散，將處決軍隊受感染人數", false, 2, "為防止軍隊病毒災情擴散，將處決軍隊受感染人數，軍隊人數減少5%", "EventImage/AllEvent",5));
-        personal.AddEvent(new People_Increase("敵方陣營人民投靠", true, 8, "敵方陣營人民投靠，使人數增加100", "EventImage/AllEvent",100));
         personal.AddEvent(new People_Increase_percent("發現病毒對兒童無效", true, 6, "發現病毒對兒童無效，使人數增加20%", "EventImage/AllEvent",20));
         personal.AddEvent(new Go_To_The_Designated_Location("途中意外發現軍用直升機", true, 5, "途中意外發現軍用直升機，可前隨機前往自己的其中一個領地", "AllEvent"));
-        personal.AddEvent(new Military_Increase_percent("猩猩叛逃投靠人類", true, 8, "猩猩叛逃投靠人類，使軍隊增加20%", "EventImage/AllEvent",20));
         personal.AddEvent(new Antibody_Increased("解藥研發突破", true, 8, "解藥研發突破，使解藥研發提升2%", "EventImage/AllEvent", 2));
-        personal.AddEvent(new Peace_Decrease("人類內鬥", false, 5, "人類軍對下級和上級處不來，和平減少10", "EventImage/AllEvent", 10));
+        
     }
 
     private void Add_Word_Event()
@@ -127,10 +128,10 @@ public class Event
         {
             case Eventtype.Apes:
                 doingevent = apes.GetEvent();
-                /*apes.SetWeight(0, 4 + diplomatic_weight);
-                apes.SetWeight(1, 4 + peace_weight);
-                apes.SetWeight(2, 10 - peace_weight);
-                apes.SetWeight(3, 10 - leadership_weight);*/
+                apes.SetWeight(0, diplomatic_weight);
+                apes.SetWeight(1, peace_weight);
+                apes.SetWeight(2, -1 * peace_weight);
+                apes.SetWeight(3, -1 * leadership_weight);
                 break;
             case Eventtype.Forest:
                 doingevent = forest.GetEvent();
