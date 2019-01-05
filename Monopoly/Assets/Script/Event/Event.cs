@@ -140,22 +140,22 @@ public class Event
 
                 break;
             case Eventtype.Forest:
-                apes.SetWeight(0, diplomatic_weight);
-                apes.SetWeight(1, -1 * diplomatic_weight);
-                apes.SetWeight(2, -1 * peace_weight);
-                apes.SetWeight(3, leadership_weight);
-                apes.SetWeight(4, -1 * leadership_weight);
-                apes.SetWeight(5, leadership_weight);
+                forest.SetWeight(0, diplomatic_weight);
+                forest.SetWeight(1, -1 * diplomatic_weight);
+                forest.SetWeight(2, -1 * peace_weight);
+                forest.SetWeight(3, leadership_weight);
+                forest.SetWeight(4, -1 * leadership_weight);
+                forest.SetWeight(5, leadership_weight);
                 doingevent = forest.GetEvent();
                 break;
             case Eventtype.Personal:
-                apes.SetWeight(0, diplomatic_weight);
-                apes.SetWeight(1, diplomatic_weight);
-                apes.SetWeight(2, -1 * peace_weight);
-                apes.SetWeight(3, leadership_weight);
-                apes.SetWeight(4, leadership_weight);
-                apes.SetWeight(5, -1 * leadership_weight);
-                apes.SetWeight(6, leadership_weight);
+                personal.SetWeight(0, diplomatic_weight);
+                personal.SetWeight(1, diplomatic_weight);
+                personal.SetWeight(2, -1 * peace_weight);
+                personal.SetWeight(3, leadership_weight);
+                personal.SetWeight(4, leadership_weight);
+                personal.SetWeight(5, -1 * leadership_weight);
+                personal.SetWeight(6, leadership_weight);
                 doingevent = personal.GetEvent();
                 break;
             case Eventtype.Word:
