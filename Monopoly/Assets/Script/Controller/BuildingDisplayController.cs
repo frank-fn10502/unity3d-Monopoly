@@ -38,6 +38,7 @@ public class BuildingDisplayController : MonoBehaviour
     {
         checkoutButton.SetActive(false);
         gameObject.SetActive(false);
+
         currentBuildingBlock.Building = new Building(currentBuilding);
         bool canBuy = currentBuildingBlock.Building.build(globalManager.CurrentPlayer ,currentBuildingBlock.BuildingLocation);
 
@@ -51,6 +52,7 @@ public class BuildingDisplayController : MonoBehaviour
         }
         else
         {
+            currentBuildingEntity.SetActive(false);
             globalManager.DisplayManager.displayCantNotBuy(nextGameState);
         }
     }

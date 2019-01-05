@@ -15,6 +15,8 @@ public class PlayerDataController : MonoBehaviour
     private GameObject currentPlayerDisplay;
     private GameObject startButton;
 
+    private List<GameObject> buttonList;
+
     private const int playerNum = 4;
 
     private void Awake()
@@ -39,6 +41,14 @@ public class PlayerDataController : MonoBehaviour
 
             startButton = GameObject.Find("StartButton");
             startButton.SetActive(false);
+
+            buttonList = new List<GameObject>();
+            for ( int i = 0 ; i < 4 ; i++ )
+            {
+                buttonList.Add(GameObject.Find("player" + ( i + 1 ) + "Button"));
+                buttonList[i].SetActive(false);
+            }
+            buttonList[0].SetActive(true);
         }
     }
 
@@ -58,9 +68,14 @@ public class PlayerDataController : MonoBehaviour
             GameObject.Find("player" + ( currentPlayerIndex + 1 ) + "Button").SetActive(false);//temp
             setCurrentCharacter(currentPlayerIndex + 1);
         }
+       
         if ( currentPlayerIndex == playerNum )
         {
             startButton.SetActive(true);
+        }
+        else
+        {
+            buttonList[currentPlayerIndex].SetActive(true);
         }
     }
 

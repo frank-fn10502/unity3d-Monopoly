@@ -59,11 +59,9 @@ public class Scout
                     }
                 }
             }
-
             if ( p[1].location == group.Location )
             {
                 p.RemoveAt(0);
-                //p[0] = null;
             }
         }
     }
@@ -135,7 +133,6 @@ public class Scout
         }
         else
         {
-            //sortPath(path);//先整理
             pathList.Add(new List<Position>(path));
         }
     }
