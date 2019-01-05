@@ -72,6 +72,8 @@ public class GlobalManager
 
         displayManager = new DisplayManager(this);
         events = new Event();
+
+        displayManager.displayPlayerInfo();
     }
 
 
@@ -133,7 +135,6 @@ public class GlobalManager
                             break;
                         case PlayerState.End:
                             CurrentPlayer.State = PlayerState.Wait;
-                            //交給displayManager
                             displayManager.displayStopAction(map.BlockList[CurrentPlayer.CurrentBlockIndex] ,GameState.End);
 
                             break;
@@ -150,7 +151,6 @@ public class GlobalManager
                 break;
             case GameState.End:
                 CurrentPlayer.State = PlayerState.Wait;
-                //交給displayManager
                 displayManager.displayNextPlayer();
 
                 break;
