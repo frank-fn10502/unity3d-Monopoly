@@ -30,7 +30,10 @@ using System.Text;
             defender.Resource.army -= caculater_dead(deal, defender.Attributes.leadership, defender.Resource.army);
             Winer = group_power > defender_power ? group : defender;
             State = group.State;
-        }
+            this.Name = "發生爭鬥";
+            this.Image = "EventImage/AllEvent";
+            this.Detail = group.CurrentActor.Name + "和" + defender.CurrentActor.Name + "發生爭鬥，玩家" + Winer.CurrentActor.Name + "獲勝";
+    }
         private int caculater_power(int leadership, int army)
         {
             return Convert.ToInt32( army * ((leadership / 100.0)+1.0));
