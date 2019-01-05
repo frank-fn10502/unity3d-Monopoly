@@ -38,7 +38,17 @@ public class EventPool
 
     public void SetWeight(int i,int w)
     {
-        event_list[i].Weight = w;
+        int temp = event_list[i].Weight + w;
+        if(temp >= 0)
+        {
+            event_list[i].Weight += w;
+            total_weight += w;
+        }
+        else
+        {
+            total_weight -= event_list[i].Weight;
+            event_list[i].Weight = 0;
+        }
     }
 
     public EventBase GetEvent()

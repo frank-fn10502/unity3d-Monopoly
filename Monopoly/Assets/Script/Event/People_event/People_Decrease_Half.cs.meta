@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Monopoly/Assets/Script/Event/People_event/People_Decrease_Half.cs.meta
 guid: 343cbd349b370ad4e923b408c47c73ae
+=======
+guid: ec7b684fd393b1e4ea98c11c47607344
+>>>>>>> f1cb263201a9ad677947e3d8b56c1190d1b071d1:Monopoly/Assets/Script/Event/People_event/People_Decrease_Half.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
