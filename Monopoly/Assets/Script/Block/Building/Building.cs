@@ -72,6 +72,7 @@ public class Building//TEMP
         {
             return false;
         }
+
         group.Resource.civilian -= resource.civilian;
         group.Resource.mineral -= resource.mineral;
 

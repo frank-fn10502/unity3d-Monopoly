@@ -25,7 +25,6 @@ class DisplayManager
     }
 
 
-
     public DisplayManager(GlobalManager globalManager)
     {
         this.globalManager = globalManager;
@@ -34,7 +33,7 @@ class DisplayManager
 
         nextPlayerText = Resources.Load<GameObject>("PreFab/Ui/NextPlayerText");
         nextPlayerText = GameObject.Instantiate(nextPlayerText ,new Vector3(33 ,-66.25f ,0) ,Quaternion.identity);
-        nextPlayerText.transform.SetParent(GameObject.Find("Canvas").transform ,false);       
+        nextPlayerText.transform.SetParent(GameObject.Find("Canvas").transform ,false);
 
         eventCard = Resources.Load<GameObject>("PreFab/Ui/EventCardDisplay"); //GameObject.Find("EventCardDisplay");
         eventCard = GameObject.Instantiate(eventCard);
@@ -68,7 +67,7 @@ class DisplayManager
     public void displayRollingDice()
     {
         //呼叫扔骰子
-        globalManager.TotalStep = 12;//temp
+        globalManager.TotalStep = 36;//temp
         currentPlayer.State = PlayerState.SearchPath;//temp
     }
     public void displaySearchPath(Map map)
@@ -90,13 +89,20 @@ class DisplayManager
     }
     public void displayEvent(EventBase eventData ,GameState nextGameState)
     {
-        //顯示事件卡
-        eventCard.transform.Find("EventTitle/EventTitleText").GetComponent<Text>().text = eventData.Name;
-        eventCard.transform.Find("EventImage/EventImageShow").GetComponent<Image>().sprite = Resources.Load<Sprite>(eventData.Image);
-        eventCard.transform.Find("EventDes/EventDesText").GetComponent<Text>().text = eventData.Detail;
+        if ( globalManager.IsComputer )
+        {
+            globalManager.GameState = nextGameState;
 
-        eventCard.GetComponent<EventCardController>().nextGameState = nextGameState;
-        eventCard.SetActive(true);
+        }
+        else
+        {
+            //顯示事件卡
+            eventCard.transform.Find("EventTitle/EventTitleText").GetComponent<Text>().text = eventData.Name;
+            eventCard.transform.Find("EventImage/EventImageShow").GetComponent<Image>().sprite = Resources.Load<Sprite>(eventData.Image);
+            eventCard.transform.Find("EventDes/EventDesText").GetComponent<Text>().text = eventData.Detail;
+            eventCard.GetComponent<EventCardController>().nextGameState = nextGameState;
+            eventCard.SetActive(true);
+        }
 
         displayPlayerInfo();///
     }
@@ -115,15 +121,25 @@ class DisplayManager
             BuildingBlock buildingBlock = (BuildingBlock)block;
             if ( buildingBlock.Building == null )
             {
-                //建造建築物
-                displayBuildConstructor(buildingBlock ,nextGameState);
+                if(globalManager.IsComputer)
+                {
+                    EventBase eventData = globalManager.Events.doEvent(Eventtype.Forest
+                                                              ,new List<Group>( globalManager.GroupList)
+                                                              ,globalManager.CurrentPlayer);
+                    displayEvent(eventData ,nextGameState);
+                }
+                else
+                {
+                    //建造建築物
+                    displayBuildConstructor(buildingBlock ,nextGameState);
+                }
             }
             else
             {
                 if ( buildingBlock.Landlord.Equals(globalManager.CurrentPlayer) )
                 {
                     EventBase eventData = new DiplomaticEvent();
-                    eventData.DoEvent(new List<Group>(globalManager.GroupList),globalManager.CurrentPlayer);
+                    eventData.DoEvent(new List<Group>(globalManager.GroupList) ,globalManager.CurrentPlayer);
 
                     displayEvent(eventData ,nextGameState);
                 }
@@ -131,6 +147,21 @@ class DisplayManager
                 {
                     strategyCard.GetComponent<StrategyCardController>().nextGameState = nextGameState;
                     strategyCard.SetActive(true);
+
+                    if ( globalManager.IsComputer )
+                    {
+                        System.Random random = new System.Random();
+                        int choise = random.Next(100) / 50;//?
+
+                        if(choise == 0)
+                        {
+                            strategyCard.GetComponent<StrategyCardController>().attackButtonClick();
+                        }
+                        else
+                        {
+                            strategyCard.GetComponent<StrategyCardController>().diplomaticButtonClick();
+                        }
+                    }
                 }
             }
         }
@@ -272,6 +303,14 @@ class DisplayManager
         //{
         //    currentPlayer.Scout.checkOutPath(0);
         //}
+
+        if ( globalManager.IsComputer )
+        {
+            System.Random random = new System.Random();
+            int r = random.Next(currentPlayer.Scout.pathList.Count);
+
+            currentPlayer.Scout.checkOutPath(r);
+        }
     }
 }
 

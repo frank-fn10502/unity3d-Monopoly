@@ -15,6 +15,8 @@ public class PlayerDataController : MonoBehaviour
     private GameObject currentPlayerDisplay;
     private GameObject startButton;
 
+    private List<GameObject> buttonList;
+
     private const int playerNum = 4;
 
     private void Awake()
@@ -39,6 +41,14 @@ public class PlayerDataController : MonoBehaviour
 
             startButton = GameObject.Find("StartButton");
             startButton.SetActive(false);
+
+            buttonList = new List<GameObject>();
+            for ( int i = 0 ; i < 4 ; i++ )
+            {
+                buttonList.Add(GameObject.Find("player" + ( i + 1 ) + "Button"));
+                buttonList[i].SetActive(false);
+            }
+            buttonList[0].SetActive(true);
         }
     }
 
@@ -58,9 +68,14 @@ public class PlayerDataController : MonoBehaviour
             GameObject.Find("player" + ( currentPlayerIndex + 1 ) + "Button").SetActive(false);//temp
             setCurrentCharacter(currentPlayerIndex + 1);
         }
+       
         if ( currentPlayerIndex == playerNum )
         {
             startButton.SetActive(true);
+        }
+        else
+        {
+            buttonList[currentPlayerIndex].SetActive(true);
         }
     }
 
@@ -69,20 +84,22 @@ public class PlayerDataController : MonoBehaviour
     private void setCharacterFactions()
     {
         string fileName;
-        string[] materialBallFilePaths = {"" ,"" ,"" ,"" ,"" ,"" ,"" ,""};
+        Faction.path = "PreFab/Building/MaterialBall/";
+        string[] materialBallFileName = {"M1" ,"M2" ,"M3" ,"M4" ,"M5" ,"M6" ,"M7" ,"M8"};
 
-        for ( int i = 0 ; i < factionList.Count - 1 ; i++ )
+        for ( int i = 0 ; i < factionList.Count ; i++ )
         {
-            factionList[i].materialBallFilePath = materialBallFilePaths[i];
-            //factionList[i].materialBall = Resources.Load<Material>(materialBallFilePaths[i]);
+            factionList[i].fileName = materialBallFileName[i];
+            factionList[i].materialBall = Resources.Load<Material>(Faction.path + materialBallFileName[i]);
+            factionList[i].materialBall = GameObject.Instantiate(factionList[i].materialBall);
 
             if ( i == factionList.Count - 1 )
             {
-                fileName = "boss\boss";
+                fileName = "boss/bossf";
             }
             else
             {
-                fileName = "char" + ( i + 1 ) + "/c" + ( i + 1 );
+                fileName = "char" + ( i + 1 ) + "/cf" + ( i + 1 );
             }
             setFaction(i ,fileName);
         }
