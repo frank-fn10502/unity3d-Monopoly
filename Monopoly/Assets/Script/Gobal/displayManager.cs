@@ -89,7 +89,6 @@ class DisplayManager
     }
     public void displayStopAction(Block block ,GameState nextGameState)
     {
-        //wtf
         if(block is EventBlock)
         {
             EventBase eventData = globalManager.Events.doEvent(Eventtype.Forest 

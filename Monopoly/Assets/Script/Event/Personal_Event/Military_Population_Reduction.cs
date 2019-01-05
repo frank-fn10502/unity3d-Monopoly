@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-class Military_Decrease_half : EventBase
+public class Military_Decrease_half : EventBase
 { 
     public Military_Decrease_half(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
     {
