@@ -10,7 +10,9 @@ public class Faction
     public List<Actor> actorList;
     public Attributes attributes;
     public Resource resource;
+
+    public static string path;
     public Material materialBall;
-    public string materialBallFilePath;
+    public string fileName;
 }
 

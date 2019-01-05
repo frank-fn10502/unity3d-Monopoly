@@ -6,6 +6,7 @@ using UnityEngine;
 public class GlobalManager
 {
     public Map map;
+    private bool isComputer;
     private Group[] groupList;
 
     private int currentGroupIndex;
@@ -59,13 +60,20 @@ public class GlobalManager
             return displayManager;
         }
     }
+    public bool IsComputer
+    {
+        get
+        {
+            return isComputer;
+        }
+    }
 
     public GlobalManager(List<Faction> factionList = null)
     {
         createMap();
         createGroupList(factionList);
 
-
+        isComputer = false;
         currentGroupIndex = 0;
         totalStep = 1;
         gameState = GameState.GlobalEvent;
@@ -83,10 +91,10 @@ public class GlobalManager
         switch ( gameState )
         {
             case GameState.GlobalEvent:
-                if(currentGroupIndex % groupList.Length == 0)
+                if ( currentGroupIndex % groupList.Length == 0 )
                 {
                     //抽世界事件
-                    EventBase eventData = events.doEvent(Eventtype.Word ,new List<Group>(groupList) ,CurrentPlayer);                    
+                    EventBase eventData = events.doEvent(Eventtype.Word ,new List<Group>(groupList) ,CurrentPlayer);
                     gameState = GameState.Wait;
                     displayManager.displayEvent(eventData ,GameState.PersonalEvent);
                 }
@@ -101,7 +109,7 @@ public class GlobalManager
                 if ( CurrentPlayer.InJailTime == 0 )
                 {
                     //抽個人事件
-                    EventBase eventData = events.doEvent(Eventtype.Personal ,new List<Group>(groupList) ,CurrentPlayer);                   
+                    EventBase eventData = events.doEvent(Eventtype.Personal ,new List<Group>(groupList) ,CurrentPlayer);
                     gameState = GameState.Wait;
                     displayManager.displayEvent(eventData ,GameState.PlayerMovement);
                 }
@@ -116,7 +124,7 @@ public class GlobalManager
                     switch ( groupList[currentGroupIndex].State )
                     {
                         case PlayerState.RollingDice:
-                            if ( Input.GetButtonDown("Jump") )
+                            if ( Input.GetButtonDown("Jump") || isComputer )
                             {
                                 CurrentPlayer.State = PlayerState.Wait;
                                 displayManager.displayRollingDice();//轉換到下一個階段
@@ -125,12 +133,12 @@ public class GlobalManager
                         case PlayerState.SearchPath:
                             groupList[currentGroupIndex].findPathList(map ,totalStep);
                             CurrentPlayer.State = PlayerState.Wait;
-                            displayManager.displaySearchPath(map);                          
+                            displayManager.displaySearchPath(map);
 
                             break;
                         case PlayerState.Walking:
                             groupList[currentGroupIndex].move();
-                            displayManager.displayPlayerMovement();                           
+                            displayManager.displayPlayerMovement();
 
                             break;
                         case PlayerState.End:
@@ -162,6 +170,8 @@ public class GlobalManager
     public void nextPlayer()
     {
         currentGroupIndex = ( currentGroupIndex + 1 ) % Constants.PLAYERNUMBER;
+        isComputer = ( currentGroupIndex == Constants.PLAYERNUMBER - 1 );//?
+
         gameState = GameState.GlobalEvent;
     }
 
@@ -187,7 +197,7 @@ public class GlobalManager
             string json = File.ReadAllText(path + target);
             factions = JsonConvert.DeserializeObject<List<Faction>>(json);
             Actor.Path = "PreFab/Actor/";
-            foreach(Faction f in factions)
+            foreach ( Faction f in factions )
             {
                 f.actorList[0].FileName = "Player1";
             }
@@ -201,8 +211,8 @@ public class GlobalManager
     private void setGroupList(List<Faction> factions)
     {
         groupList = new Group[Constants.PLAYERNUMBER];
-        Direction[] playerDirection = new Direction [Constants.PLAYERNUMBER]{Direction.North ,Direction.East ,Direction.South ,Direction.West};
-        int[] playerIndex = new int[Constants.PLAYERNUMBER]{2 * 30 + 2 ,2 * 30 + 27 ,27 * 30 + 27 ,27 * 30 + 2};
+        Direction[] playerDirection = new Direction [Constants.PLAYERNUMBER]{Direction.North ,Direction.East ,Direction.South ,Direction.West ,Direction.unKnow};
+        int[] playerIndex = new int[Constants.PLAYERNUMBER]{2 * 30 + 2 ,2 * 30 + 27 ,27 * 30 + 27 ,27 * 30 + 2 ,465};
 
         int i = 0;
         Group.blockList = map.BlockList;
@@ -217,6 +227,9 @@ public class GlobalManager
                                     ,playerDirection[i]);//?
 
             groupList[i].CurrentActor.build(groupList[i].Location ,playerDirection[i]);
+            //groupList[i].materialBall = Resources.Load<Material>(Faction.path + faction.fileName);//?
+            //groupList[i].materialBall = GameObject.Instantiate(groupList[i].materialBall);//?
+
             if ( ++i >= Constants.PLAYERNUMBER ) break;//temp
         }
     }

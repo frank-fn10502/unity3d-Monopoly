@@ -3,7 +3,7 @@
 public class Group
 {
     public static Block[] blockList;
-    private Material materialBall;
+    public Material materialBall;
 
     private int startBlockIndex;
     private PlayerState state;
@@ -193,7 +193,7 @@ public class Group
         float x = (next.x - now.x) * step / Constants.STEPTIMES;// * Time.deltaTime;
         float z = (next.z - now.z) * step / Constants.STEPTIMES;// * Time.deltaTime;
         location = new Vector3(now.x + x ,Constants.SEALEVEL ,now.z + z);
-        Debug.Log(location);
+        //Debug.Log(location);
         //Debug.Log("next: " + next + "now: " + now);
     }
 }

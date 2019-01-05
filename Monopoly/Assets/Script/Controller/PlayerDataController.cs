@@ -69,16 +69,18 @@ public class PlayerDataController : MonoBehaviour
     private void setCharacterFactions()
     {
         string fileName;
-        string[] materialBallFilePaths = {"" ,"" ,"" ,"" ,"" ,"" ,"" ,""};
+        Faction.path = "PreFab/Building/MaterialBall/";
+        string[] materialBallFileName = {"" ,"" ,"" ,"" ,"" ,"" ,"" ,""};
 
-        for ( int i = 0 ; i < factionList.Count - 1 ; i++ )
+        for ( int i = 0 ; i < factionList.Count ; i++ )
         {
-            factionList[i].materialBallFilePath = materialBallFilePaths[i];
-            //factionList[i].materialBall = Resources.Load<Material>(materialBallFilePaths[i]);
+            factionList[i].fileName = materialBallFileName[i];
+            //factionList[i].materialBall = Resources.Load<Material>(path + materialBallFileName[i]);
+            //factionList[i].materialBall = GameObject.Instantiate(factionList[i].materialBall);
 
             if ( i == factionList.Count - 1 )
             {
-                fileName = "boss\boss";
+                fileName = "boss/boss";
             }
             else
             {
