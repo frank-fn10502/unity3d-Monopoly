@@ -64,6 +64,7 @@ class DisplayManager
         playerSideMsgPanel.GetComponent<PlayerSideMsgController>().globalManager = globalManager;
     }
 
+
     public void displayRollingDice()
     {
         //呼叫扔骰子
