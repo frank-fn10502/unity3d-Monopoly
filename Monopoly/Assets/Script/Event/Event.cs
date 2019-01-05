@@ -111,6 +111,7 @@ public class Event
         word.AddEvent(new Apse_Defection("猩猩叛逃", true, 6, "猩猩叛逃，所有人類獲得100軍隊，猩猩減少100軍隊", "EventImage/Military_Increase"));
         word.AddEvent(new Change_Plant("地殼移動", true, 100, "地殼移動，隨機兩位玩家位置交換", "EventImage/AllEvent"));
         word.AddEvent(new EveryoneGetResourceEvent("發現遠古金礦", true, 10, "發現遠古金礦，每人獲得資源增加5%", "EventImage/Resources_Increase", 5));
+        word.AddEvent(new EveryoneGetResourceEvent("發現遠古金礦", true, 10, "發現遠古金礦，每人獲得資源增加5%", "EventImage/Resources_Increase", 5));
 
     }
     private void Set_Weight(EventPool Ep, Group group)
