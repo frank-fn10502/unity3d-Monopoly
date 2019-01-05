@@ -3,6 +3,8 @@
 public class Group
 {
     public static Block[] blockList;
+    private Material materialBall;
+
     private int startBlockIndex;
     private PlayerState state;
     private Walkable    identity;
