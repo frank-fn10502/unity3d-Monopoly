@@ -233,7 +233,8 @@ public class GlobalManager
                 Building.path = "PreFab/Building/";
                 BuildingBlock buildingBlock =  (BuildingBlock)( map.BlockList[playerIndex[i]] ) ;
                 buildingBlock.Building = new Building("實驗室" ,"Ahome");
-                buildingBlock.Building.build(groupList[i] ,buildingBlock.BuildingLocation);
+                buildingBlock.Building.build(groupList[i] ,buildingBlock.BuildingLocation ,false);
+                buildingBlock.Landlord = groupList[i];
             }
 
             groupList[i].CurrentActor.build(groupList[i].Location ,playerDirection[i]);
