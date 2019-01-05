@@ -54,6 +54,14 @@ public class BuildingDisplayController : MonoBehaviour
             globalManager.DisplayManager.displayCantNotBuy(nextGameState);
         }
     }
+    public void cencelButtonClick()
+    {
+        checkoutButton.SetActive(false);
+        gameObject.SetActive(false);
+        currentBuildingEntity.SetActive(false);
+
+        globalManager.GameState = nextGameState;
+    }
 
     /*==========create==========*/
     private void createBuildingList()
