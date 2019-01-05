@@ -17,9 +17,11 @@ using System.Text;
         public override void DoEvent(List<Group> droup_list, Group group)
         {
             Group defender = ((BuildingBlock)Group.blockList[group.CurrentBlockIndex]).Landlord;
+
             int group_power = caculater_power(group.Attributes.leadership, group.Resource.army);
             int defender_power = caculater_power(defender.Attributes.leadership, defender.Resource.army);
             int deal = group_power - defender_power;
+
             group.Resource.army -= caculater_dead(deal, group.Attributes.leadership, group.Resource.army);
             defender.Resource.army -= caculater_dead(deal, defender.Attributes.leadership, defender.Resource.army);
             Winer = group_power > defender_power ? group : defender;
