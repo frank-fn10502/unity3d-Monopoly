@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Monopoly/Assets/Script/Event/People_event/People_Increase.cs.meta
+guid: 652c4b09a7d18694b81890f79719cb6e
+=======
+guid: 31c499af5e7122349b47164ee7c5bd9e
+>>>>>>> f1cb263201a9ad677947e3d8b56c1190d1b071d1:Monopoly/Assets/Script/Event/People_event/People_Increase.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
