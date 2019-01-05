@@ -65,12 +65,25 @@ public class DiplomaticEvent : EventBase
     public override void DoEvent(List<Group> droup_list ,Group group)
     {
         BuildingBlock buildingBlock = (BuildingBlock)Group.blockList[group.CurrentBlockIndex];
-        group.Resource.civilian -= buildingBlock.Building.Resource.civilian;
-        group.Resource.mineral -= buildingBlock.Building.Resource.mineral;
+        if( !buildingBlock.Landlord.Equals(group) )
+        {
+            group.Resource.civilian -= buildingBlock.Building.Resource.civilian;
+            group.Resource.mineral -= buildingBlock.Building.Resource.mineral;
 
-        this.Name = "外交: 給予資源";
-        this.Image = "EventImage/AllEvent";
-        this.Detail = "civilian - " + buildingBlock.Building.Resource.civilian + "\n" +
-                      "mineral - " + buildingBlock.Building.Resource.mineral;
+            this.Name = "外交: 給予資源";
+            this.Image = "EventImage/AllEvent";
+            this.Detail = "civilian - " + buildingBlock.Building.Resource.civilian + "\n" +
+                          "mineral - " + buildingBlock.Building.Resource.mineral;
+        }
+        else
+        {
+            group.Resource.civilian += buildingBlock.Building.Resource.civilian;
+            group.Resource.mineral += buildingBlock.Building.Resource.mineral;
+
+            this.Name   = "回到領地";
+            this.Image  = "EventImage/AllEvent";
+            this.Detail = "civilian + " + buildingBlock.Building.Resource.civilian + "\n" +
+                          "mineral + " + buildingBlock.Building.Resource.mineral;
+        }
     }
 }
