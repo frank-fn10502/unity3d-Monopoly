@@ -52,9 +52,9 @@ public class BuildingDisplayController : MonoBehaviour
     private void createBuildingList()
     {
         buildingList = new List<Building>();
-        Building.path = "";
-        string[] bName = {"" ,"" ,"" ,""};
-        string[] bFileName = {"" ,"" ,"" ,""};
+        Building.path = "PreFab/Building/";
+        string[] bName = {"城市" ,"醫院" ,"軍營" ,"礦場"};
+        string[] bFileName = {"A" ,"A" ,"A" ,"A"};
 
         for ( int i = 0 ; i < 4 ; i++ )
         {

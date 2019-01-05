@@ -48,7 +48,7 @@ class DisplayManager
         buildingArea.SetActive(false);
         buildingArea.GetComponent<BuildingDisplayController>().globalManager = globalManager;
 
-        canNotBuyCard = GameObject.Find("canNotBuyCard");
+        canNotBuyCard = GameObject.Find("CanNotBuyCard");
         canNotBuyCard.SetActive(false);
         canNotBuyCard.GetComponent<CanNotBuyCardController>().globalManager = globalManager;
         canNotBuyCard.GetComponent<CanNotBuyCardController>().buildingArea = buildingArea;
@@ -83,34 +83,42 @@ class DisplayManager
         eventCard.transform.Find("EventTitle/EventTitleText").GetComponent<Text>().text = eventData.Name;
         eventCard.transform.Find("EventImage/EventImageShow").GetComponent<Image>().sprite = Resources.Load<Sprite>(eventData.Image);
         eventCard.transform.Find("EventDes/EventDesText").GetComponent<Text>().text = eventData.Detail;
-        
+
         eventCard.GetComponent<EventCardController>().nextGameState = nextGameState;
         eventCard.SetActive(true);
     }
     public void displayStopAction(Block block ,GameState nextGameState)
     {
-        //wtf
-        if(block is EventBlock)
+        if ( block is EventBlock )
         {
-            EventBase eventData = globalManager.Events.doEvent(Eventtype.Forest 
-                                                              ,new List<Group>( globalManager.GroupList) 
+            EventBase eventData = globalManager.Events.doEvent(Eventtype.Forest
+                                                              ,new List<Group>( globalManager.GroupList)
                                                               ,globalManager.CurrentPlayer);
 
             displayEvent(eventData ,nextGameState);
         }
-        else if(block is BuildingBlock)
+        else if ( block is BuildingBlock )
         {
             BuildingBlock buildingBlock = (BuildingBlock)block;
-            if ( buildingBlock.Building == null)
+            if ( buildingBlock.Building == null )
             {
                 //建造建築物
                 displayBuildConstructor(buildingBlock ,nextGameState);
-                //globalManager.GameState = nextGameState;//temp
             }
             else
             {
-                strategyCard.GetComponent<StrategyCardController>().nextGameState = nextGameState;
-                strategyCard.SetActive(true);
+                if ( buildingBlock.Landlord.Equals(globalManager.CurrentPlayer) )
+                {
+                    EventBase eventData = new DiplomaticEvent();
+                    eventData.DoEvent(new List<Group>(globalManager.GroupList),globalManager.CurrentPlayer);
+
+                    displayEvent(eventData ,nextGameState);
+                }
+                else
+                {
+                    strategyCard.GetComponent<StrategyCardController>().nextGameState = nextGameState;
+                    strategyCard.SetActive(true);
+                }
             }
         }
     }
@@ -127,7 +135,7 @@ class DisplayManager
         if ( Input.anyKey )
         {
             nextPlayerText.SetActive(false);
-            globalManager.nextPlayer();           
+            globalManager.nextPlayer();
         }
     }
 
@@ -140,7 +148,7 @@ class DisplayManager
     public void displayCantNotBuy(GameState nextGameState)
     {
         canNotBuyCard.GetComponent<CanNotBuyCardController>().nextGameState = nextGameState;
-        canNotBuyCard.SetActive(true);        
+        canNotBuyCard.SetActive(true);
     }
 
     /*==========private==========*/
@@ -162,9 +170,9 @@ class DisplayManager
             for ( int j = 0 ; j < currentPlayer.Scout.pathList[i].Count ; j++ )
             {
                 onePos = currentPlayer.Scout.pathList[i][j];
-                if(onePos.entity == null)
+                if ( onePos.entity == null )
                 {
-                    if( markMap[onePos.blockIndex] == 0 || (markMap[onePos.blockIndex] == 1 && onePos.block is BuildingBlock) )
+                    if ( markMap[onePos.blockIndex] == 0 || ( markMap[onePos.blockIndex] == 1 && onePos.block is BuildingBlock ) )
                     {
                         markMap[onePos.blockIndex]++;
                         buildEntity(onePos ,onePos.blockIndex ,markMap[onePos.blockIndex]);
@@ -176,7 +184,7 @@ class DisplayManager
                         {
                             duplicateMap[onePos.blockIndex]++;
                             onePos.entity = pathListEntity.transform.Find("dot" + onePos.blockIndex + "-" + duplicateMap[onePos.blockIndex]).gameObject;//如果有了就不要再建造一次 直接指定
-                            if( onePos.block is BuildingBlock )
+                            if ( onePos.block is BuildingBlock )
                             {
                                 duplicateMap[onePos.blockIndex] %= 2;
                             }
@@ -188,8 +196,8 @@ class DisplayManager
                         catch
                         {
                             Debug.Log("test");
-                        }                       
-                    }                   
+                        }
+                    }
                 }
                 //if ( ( markType[onePos.blockIndex] == -1 || markType[onePos.blockIndex] == i ) && markMap[onePos.blockIndex] < 2 )//if沒有建過 "這一個點"
                 //{
@@ -231,7 +239,7 @@ class DisplayManager
         {
             GameObject entity = onePath[onePath.Count - 1].entity;
 
-            if( entity.GetComponent<PositionController>() == null)
+            if ( entity.GetComponent<PositionController>() == null )
             {
                 entity.AddComponent<PositionController>();
                 entity.GetComponent<PositionController>().pathNo = count;
