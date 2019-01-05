@@ -20,7 +20,7 @@ using System.Text;
             for(int i = 0;i<4;i++)
             {
                 defender = droup_list[i];
-                if (defender.CurrentBlockIndex == group.CurrentBlockIndex && defender != group)
+                if (defender.CurrentBlockIndex == group.CurrentBlockIndex && !defender.Equals(group))
                     break;
             }
             int group_power = caculater_power(group.Attributes.leadership, group.Resource.army);

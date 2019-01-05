@@ -48,7 +48,7 @@ class DisplayManager
         buildingArea.SetActive(false);
         buildingArea.GetComponent<BuildingDisplayController>().globalManager = globalManager;
 
-        canNotBuyCard = GameObject.Find("canNotBuyCard");
+        canNotBuyCard = GameObject.Find("CanNotBuyCard");
         canNotBuyCard.SetActive(false);
         canNotBuyCard.GetComponent<CanNotBuyCardController>().globalManager = globalManager;
         canNotBuyCard.GetComponent<CanNotBuyCardController>().buildingArea = buildingArea;
@@ -89,7 +89,6 @@ class DisplayManager
     }
     public void displayStopAction(Block block ,GameState nextGameState)
     {
-        //wtf
         if(block is EventBlock)
         {
             EventBase eventData = globalManager.Events.doEvent(Eventtype.Forest 
