@@ -89,7 +89,7 @@ public class Event
         personal.AddEvent(new Military_Decrease("軍營中發現帶有病毒猩猩的屍體", false, 2, "軍營中發現帶有病毒猩猩的屍體，使軍隊人口感染人數增加，軍隊減少10%", "EventImage/AllEvent",10));
         personal.AddEvent(new Antidote_Decrease("途中發現帶有變種病毒死亡的人類屍體", false, 3, "途中發現帶有變種病毒死亡的人類屍體，使解藥研究程度下降5%", "EventImage/AllEvent",5));
         personal.AddEvent(new Diplomatic_Decrease("人類遭遇猿流感", false, 1, "人類遭遇猿流感，使得語言能力退化，外交能力喪失，外交減少90%", "EventImage/AllEvent"));
-        personal.AddEvent(new Military_Decrease("為防止軍隊病毒災情擴散，將處決軍隊受感染人數", false, 2, "為防止軍隊病毒災情擴散，將處決軍隊受感染人數，軍隊人數減少5%", "EventImage/AllEvent",5));
+        personal.AddEvent(new Military_Decrease("為防止軍隊病毒災情擴散", false, 2, "為防止軍隊病毒災情擴散，將處決軍隊受感染人數，軍隊人數減少5%", "EventImage/AllEvent",5));
         personal.AddEvent(new People_Increase_percent("發現病毒對兒童無效", true, 6, "發現病毒對兒童無效，使人數增加20%", "EventImage/AllEvent",20));
         personal.AddEvent(new Go_To_The_Designated_Location("途中意外發現軍用直升機", true, 5, "途中意外發現軍用直升機，可前隨機前往自己的其中一個領地", "AllEvent"));
         personal.AddEvent(new Antibody_Increased("解藥研發突破", true, 8, "解藥研發突破，使解藥研發提升2%", "EventImage/AllEvent", 2));
@@ -101,13 +101,14 @@ public class Event
         word.AddEvent(new EarthquakeEvent("發生地震", false, 6, "發生大地震，所有玩家損失10%人口", "EventImage/AllEvent"));
         word.AddEvent(new Everyone_Virus_Increase("受到感染的人類失去控制", false, 6, "受到感染的人類失去控制，到處亂跑，使病毒增加快速 ，人類大量感染，所有人類死亡10%", "EventImage/AllEvent"));
         word.AddEvent(new Everyone_Antibody_Increased("醫院科技技術進步", true, 6, "由於醫院科技技術進步，使得人類對抗病毒抗體增加，人類解藥研發程度上升5%", "EventImage/AllEvent",5));
-        word.AddEvent(new Everyone_People_Increase("途中遭遇沒受感染的人類，使得人口增加", true, 6, "途中遭遇沒受感染的人類", "EventImage/AllEvent"));
+        word.AddEvent(new Everyone_People_Increase("遇到沒受感染的人類", true, 6, "遇到沒受感染的人類，使得人口增加", "EventImage/AllEvent"));
         word.AddEvent(new Population_Decline("醫院由於災情慘重", false, 6, "醫院由於災情慘重，使得解藥研究降低，且所有人口減少", "EventImage/AllEvent"));
         word.AddEvent(new Lack_Of_Energy("城市人口增加", false, 6, "城市人口增加，使得能源不足，資源減半，人口增加200", "EventImage/AllEvent"));
         word.AddEvent(new Everyone_People_Decrease("所有人類遭遇野生猩猩發動攻擊，失去人口數量", false, 6, "所有人類遭遇野生猩猩發動攻擊，失去人口數量", "EventImage/AllEvent"));
         word.AddEvent(new Everyone_Antibody_Increased("人類發現新型解藥", true, 6, "人類發現新型解藥，使得所有人解藥研發程度提升2%", "EventImage/AllEvent",2));
         word.AddEvent(new Apse_Defection("猩猩叛逃", true, 6, "猩猩叛逃，所有人類獲得100軍隊，猩猩減少100軍隊", "EventImage/AllEvent"));
         word.AddEvent(new Change_Plant("地殼移動", true, 10, "地殼移動，隨機兩位玩家位置交換", "EventImage/AllEvent"));
+        word.AddEvent(new Eeveryone_Peace_Increase("和平紀念日", true, 10, "和平紀念日，所有玩家和平指數增加10", "EventImage/AllEvent"));
 
     }
     private void Set_Weight(EventPool Ep, Group group)
@@ -127,16 +128,34 @@ public class Event
         switch (eventtype)
         {
             case Eventtype.Apes:
+                apes.SetWeight(0, -1 * diplomatic_weight);
+                apes.SetWeight(1, -1 * diplomatic_weight);
+                apes.SetWeight(2, peace_weight);
+                apes.SetWeight(3, peace_weight);
+                apes.SetWeight(4, -1 * peace_weight);
+                apes.SetWeight(5, leadership_weight);
+                apes.SetWeight(6, leadership_weight);
+                apes.SetWeight(7, leadership_weight);
                 doingevent = apes.GetEvent();
-                apes.SetWeight(0, diplomatic_weight);
-                apes.SetWeight(1, peace_weight);
-                apes.SetWeight(2, -1 * peace_weight);
-                apes.SetWeight(3, -1 * leadership_weight);
+
                 break;
             case Eventtype.Forest:
+                apes.SetWeight(0, diplomatic_weight);
+                apes.SetWeight(1, -1 * diplomatic_weight);
+                apes.SetWeight(2, -1 * peace_weight);
+                apes.SetWeight(3, leadership_weight);
+                apes.SetWeight(4, -1 * leadership_weight);
+                apes.SetWeight(5, leadership_weight);
                 doingevent = forest.GetEvent();
                 break;
             case Eventtype.Personal:
+                apes.SetWeight(0, diplomatic_weight);
+                apes.SetWeight(1, diplomatic_weight);
+                apes.SetWeight(2, -1 * peace_weight);
+                apes.SetWeight(3, leadership_weight);
+                apes.SetWeight(4, leadership_weight);
+                apes.SetWeight(5, -1 * leadership_weight);
+                apes.SetWeight(6, leadership_weight);
                 doingevent = personal.GetEvent();
                 break;
             case Eventtype.Word:
