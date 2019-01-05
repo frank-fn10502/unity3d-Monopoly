@@ -139,6 +139,11 @@ class DisplayManager
         }
     }
 
+    public void displayPlayerInfo()
+    {
+
+    }
+
     public void displayBuildConstructor(BuildingBlock buildingBlock ,GameState nextGameState)
     {
         buildingArea.GetComponent<BuildingDisplayController>().currentBuildingBlock = buildingBlock;
