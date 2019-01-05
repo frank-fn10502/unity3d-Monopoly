@@ -28,20 +28,19 @@ public class Scout
         dfsSearch(group.EnterDirection
                  ,map
                  ,path
-                 ,new Position(group.EnterDirection 
-                              ,group.CurrentBlockIndex 
-                              ,map.BlockList[group.CurrentBlockIndex] 
+                 ,new Position(group.EnterDirection
+                              ,group.CurrentBlockIndex
+                              ,map.BlockList[group.CurrentBlockIndex]
                               ,group.Location)
                  ,0
                  ,totalStep + 1);
 
-        foreach(List<Position> p in pathList)
-        {
-            
-            if(p[0].block is BuildingBlock )
+        foreach ( List<Position> p in pathList )
+        {    
+            if ( p[0].block is BuildingBlock )
             {
                 BuildingBlock buildingBlock = (BuildingBlock)p[0].block;
-                if(buildingBlock.PathLocations.Count > 1)
+                if ( buildingBlock.PathLocations.Count > 1 )
                 {
                     Vector3 realSecondP = p[1].block.standPoint(p[2].location);
                     if ( p[1].location != realSecondP )
@@ -74,18 +73,18 @@ public class Scout
 
         List<Position> positions = new List<Position>();
         Vector3 loc;
-        for (int i = 0 ; i < 2 ; i++ )
+        for ( int i = 0 ; i < 2 ; i++ )
         {
-            loc = (i == 0) ? position.location : positions[0].location;
+            loc = ( i == 0 ) ? position.location : positions[0].location;
 
             Position onePos = new Position(enterDirection
-                                      ,position.blockIndex + next
-                                      ,map.BlockList[position.blockIndex + next]
-                                      ,map.BlockList[position.blockIndex + next].standPoint(loc));
+                                          ,position.blockIndex + next
+                                          ,map.BlockList[position.blockIndex + next]
+                                          ,map.BlockList[position.blockIndex + next].standPoint(loc));
 
-            if(i == 1)
+            if ( i == 1 )
             {
-                if(positions[0].location == onePos.location)
+                if ( positions[0].location == onePos.location )
                 {
                     break;
                 }
@@ -106,14 +105,14 @@ public class Scout
                 */
             }
             positions.Add(onePos);
-
         }
         path.AddRange(positions);
         findNextBlock(map ,path ,path[path.Count - 1] ,--step);
-        foreach(Position p in positions)
+
+        foreach ( Position p in positions )
         {
             path.Remove(p);
-        }        
+        }
     }
     private void findNextBlock(Map map ,List<Position> path ,Position position ,int step)
     {
