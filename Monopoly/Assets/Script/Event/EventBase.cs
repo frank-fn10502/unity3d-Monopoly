@@ -18,7 +18,7 @@ public abstract class EventBase
         get { return name; }
         set { name = value; }
     }
-public bool IsGood
+    public bool IsGood
     {
         get { return isGood; }
         set { isGood = value; }
@@ -46,8 +46,8 @@ public bool IsGood
     }
     public Group Winer
     {
-        get { return Winer; }
-        set { Winer = value; }
+        get { return winer; }
+        set { winer = value; }
     }
     public EventBase(string n = "", bool g= true ,int w = 1, string d = "",string p = "")
     {
