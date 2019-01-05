@@ -37,7 +37,6 @@ public class Scout
 
         foreach(List<Position> p in pathList)
         {
-            p.RemoveAt(p.Count - 1);
             
             if(p[0].block is BuildingBlock )
             {
@@ -84,7 +83,7 @@ public class Scout
                                       ,map.BlockList[position.blockIndex + next]
                                       ,map.BlockList[position.blockIndex + next].standPoint(loc));
 
-            if(i == 5)
+            if(i == 1)
             {
                 if(positions[0].location == onePos.location)
                 {
@@ -99,11 +98,12 @@ public class Scout
                 {
                     path.RemoveAt(path.Count - 1);
                 }
+                
+                else if(v.magnitude != (path[0].location-path[1].location).magnitude)
+                {
+                    path.RemoveAt(path.Count - 1);
+                }
                 */
-                //else if(v.magnitude != (path[0].location-path[1].location).magnitude)
-                //{
-                //    path.RemoveAt(path.Count - 1);
-                //} 
             }
             positions.Add(onePos);
 
