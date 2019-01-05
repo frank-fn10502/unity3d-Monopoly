@@ -43,11 +43,11 @@ public class PlayerDataController : MonoBehaviour
     }
 
     public void onSelectCharacter(int no)
-    {     
-        if(currentPlayerIndex < playerNum )
+    {
+        if ( currentPlayerIndex < playerNum )
         {
             playerList[currentPlayerIndex] = factionList[no];
-            currentTexture = GameObject.Find("c" + ( no + 1 ) + "Button").GetComponent<RawImage>().texture;            
+            currentTexture = GameObject.Find("c" + ( no + 1 ) + "Button").GetComponent<RawImage>().texture;
             currentPlayerDisplay.GetComponent<RawImage>().texture = currentTexture;
         }
     }
@@ -58,7 +58,7 @@ public class PlayerDataController : MonoBehaviour
             GameObject.Find("player" + ( currentPlayerIndex + 1 ) + "Button").SetActive(false);//temp
             setCurrentCharacter(currentPlayerIndex + 1);
         }
-        if( currentPlayerIndex == playerNum)
+        if ( currentPlayerIndex == playerNum )
         {
             startButton.SetActive(true);
         }
@@ -69,17 +69,24 @@ public class PlayerDataController : MonoBehaviour
     private void setCharacterFactions()
     {
         string fileName;
-        for ( int i = 0 ; i < factionList.Count - 1 ; i++ )
+        Faction.path = "PreFab/Building/MaterialBall/";
+        string[] materialBallFileName = {"M1" ,"M2" ,"M3" ,"M4" ,"M5" ,"M6" ,"M7" ,"M8"};
+
+        for ( int i = 0 ; i < factionList.Count ; i++ )
         {
-            if(i == factionList.Count - 1 )
+            factionList[i].fileName = materialBallFileName[i];
+            factionList[i].materialBall = Resources.Load<Material>(Faction.path + materialBallFileName[i]);
+            factionList[i].materialBall = GameObject.Instantiate(factionList[i].materialBall);
+
+            if ( i == factionList.Count - 1 )
             {
-                fileName = "boss\boss";
+                fileName = "boss/bossf";
             }
             else
             {
-                fileName = "char" + ( i + 1 ) + "/c" + ( i + 1 );
+                fileName = "char" + ( i + 1 ) + "/cf" + ( i + 1 );
             }
-            setFaction(i,fileName);
+            setFaction(i ,fileName);
         }
         Actor.Path = "PreFab/Character/char/";
     }

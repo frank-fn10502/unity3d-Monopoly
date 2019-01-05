@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 
@@ -20,7 +19,7 @@ public class Scout
 
     public void reconnoiter(Map map ,int totalStep)
     {
-        Debug.Log("totalStep " + totalStep);
+        //Debug.Log("totalStep " + totalStep);
         this.totalStep = totalStep;
 
         List<Position> path = new List<Position>();
@@ -36,17 +35,17 @@ public class Scout
                  ,0
                  ,totalStep + 1);
 
+        
         foreach (List<Position> p in pathList)
         {
-
-            if (p.Last().block is BuildingBlock)
+            
+            if (p[p.Count-1].block is BuildingBlock)
             {
-                if(((BuildingBlock)p.Last().block).PathLocations.Count > 1)
+                if(((BuildingBlock)p[p.Count - 1].block).PathLocations.Count > 1)
                 {
-                    p.Remove(p.Last());
-                }
+                    p.RemoveAt(p.Count - 1);
+                }                    
             }
-
             if ( p[0].block is BuildingBlock )
             {
                 BuildingBlock buildingBlock = (BuildingBlock)p[0].block;
@@ -61,14 +60,15 @@ public class Scout
                     }
                 }
             }
-            /*
+            
             if ( p[1].location == group.Location )
             {
                 p.RemoveAt(0);
                 //p[0] = null;
             }
-            */
+            
         }
+        
     }
 
     /*==========private==========*/
@@ -102,19 +102,22 @@ public class Scout
             }
             else if(position.block is BuildingBlock)
             {
-                Vector3 v = onePos.location - position.location;
-
+                Vector3 v = onePos.location - loc;
+                
+                /*
                 if (v.z != 0f && v.x != 0f)
                 {
                     path.RemoveAt(path.Count - 1);
                 }
+                */
+                /*
                 else if (path.Count >= 2)
                 {
                     if (v.magnitude != (path[0].location - path[1].location).magnitude)
                     {
                         path.RemoveAt(path.Count - 1);
                     }
-                }
+                } */
             }
             positions.Add(onePos);
         }

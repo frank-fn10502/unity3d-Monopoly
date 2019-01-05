@@ -32,7 +32,7 @@ public class Map
             for ( int j = 0 ; j < 30 ; j++ )
             {
                 index = i * 30 + j;
-                BlockList[index].build();
+                BlockList[index].build("block "+ index);
                 if ( BlockList[index].Entity != null )
                 {
                     BlockList[index].Entity.transform.parent = mapEntity.transform;//統一管理

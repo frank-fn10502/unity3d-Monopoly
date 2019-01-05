@@ -1,179 +1,25 @@
 fileFormatVersion: 2
-guid: f27df5896038c2c4aa3f77739f0f10af
+guid: ad2b94d8e4c765244a906e11b379797f
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Cube
-    100004: Lamp
-    400000: //RootNode
-    400002: Cube
-    400004: Lamp
-    2100000: Material.020
-    2100002: Material.153
-    2100004: Material.039
-    2100006: Material.040
-    2100008: Material.158
-    2100010: Material.015
-    2100012: Material.159
-    2100014: Material.157
-    2100016: Material.156
-    2100018: Material.155
-    2100020: Material.154
-    2100022: Material.076
-    2100024: Material.075
-    2100026: Material.074
-    2100028: Material.021
-    2100030: Material.038
-    2100032: Material.003
-    2100034: Material.022
-    2100036: Material.012
-    2100038: Material.011
-    2100040: Material.004
-    2100042: Material.005
-    2100044: Material.131
-    2100046: Material.135
-    2100048: Material.102
-    2100050: Material.106
-    2100052: Material.103
-    2100054: Material.105
-    2100056: Material.104
-    2100058: Material.094
-    2100060: Material.095
-    2100062: Material.101
-    2100064: Material.086
-    2100066: Material.087
-    2100068: Material.085
-    2100070: Material.084
-    2100072: Material.083
-    2100074: Material.068
-    2100076: Material.067
-    2100078: Material.072
-    2100080: Material.066
-    2100082: Material.063
-    2100084: Material.065
-    2100086: Material.064
-    2100088: Material.069
-    2100090: Material.071
-    2100092: Material.070
-    2100094: Material.073
-    2100096: Material.062
-    2100098: Material.060
-    2100100: Material.061
-    2100102: Material.059
-    2100104: Material.058
-    2100106: Material.057
-    2100108: Material.056
-    2100110: Material.025
-    2100112: Material.037
-    2100114: Material.036
-    2100116: Material.026
-    2100118: Material.027
-    2100120: Material.024
-    2100122: Material.023
-    2100124: Material.019
-    2100126: Material.017
-    2100128: Material.016
-    2100130: Material.018
-    2100132: Material.132
-    2100134: Material.133
-    2100136: Material.134
-    2100138: Material.130
-    2100140: Material.129
-    2100142: Material.109
-    2100144: Material.107
-    2100146: Material.114
-    2100148: Material.111
-    2100150: Material.113
-    2100152: Material.116
-    2100154: Material.128
-    2100156: Material.127
-    2100158: Material.126
-    2100160: Material.125
-    2100162: Material.117
-    2100164: Material.121
-    2100166: Material.122
-    2100168: Material.123
-    2100170: Material.124
-    2100172: Material.120
-    2100174: Material.088
-    2100176: Material.091
-    2100178: Material.090
-    2100180: Material.089
-    2100182: Material.119
-    2100184: Material.118
-    2100186: Material.108
-    2100188: Material.110
-    2100190: Material.112
-    2100192: Material.115
-    2100194: Material.081
-    2100196: Material.082
-    2100198: Material.079
-    2100200: Material.077
-    2100202: Material.078
-    2100204: Material.080
-    2100206: Material.093
-    2100208: Material.092
-    2100210: Material.100
-    2100212: Material.097
-    2100214: Material.096
-    2100216: Material.099
-    2100218: Material.098
-    2100220: Material.046
-    2100222: Material.043
-    2100224: Material.044
-    2100226: Material.048
-    2100228: Material.045
-    2100230: Material.042
-    2100232: Material.047
-    2100234: Material.041
-    2100236: Material.034
-    2100238: Material.035
-    2100240: Material.014
-    2100242: Material.055
-    2100244: Material.013
-    2100246: Material.031
-    2100248: Material.028
-    2100250: Material.010
-    2100252: Material.054
-    2100254: Material.030
-    2100256: Material.029
-    2100258: Material.053
-    2100260: Material.009
-    2100262: Material.146
-    2100264: Material.147
-    2100266: Material.148
-    2100268: Material.145
-    2100270: Material.149
-    2100272: Material.144
-    2100274: Material.150
-    2100276: Material.151
-    2100278: Material.032
-    2100280: Material.033
-    2100282: Material.008
-    2100284: Material.052
-    2100286: Material
-    2100288: Material.001
-    2100290: Material.051
-    2100292: Material.007
-    2100294: Material.002
-    2100296: Material.049
-    2100298: Material.050
-    2100300: Material.136
-    2100302: Material.141
-    2100304: Material.137
-    2100306: Material.138
-    2100308: Material.140
-    2100310: Material.142
-    2100312: Material.143
-    2100314: Material.139
-    2100316: Material.006
-    2100318: Material.152
-    2300000: Cube
-    3300000: Cube
-    4300000: Cube
+    100000: Cube.029
+    100002: Lamp
+    100004: //RootNode
+    400000: Cube.029
+    400002: Lamp
+    400004: //RootNode
+    2100000: glass.001
+    2300000: Cube.029
+    3300000: Cube.029
+    4300000: Cube.029
     10800000: Lamp
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glass.001
+    second: {fileID: 2100000, guid: 25edefc844212d84ba276656a9bdcf9d, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -204,7 +50,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.3
     meshCompression: 0
     addColliders: 0
     importVisibility: 1

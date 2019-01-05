@@ -12,6 +12,7 @@ class DisplayManager
     private GameObject strategyCard;
     private GameObject buildingArea;
     private GameObject canNotBuyCard;
+    private GameObject playerSideMsgPanel;
 
     private int timer;
 
@@ -24,22 +25,25 @@ class DisplayManager
     }
 
 
-
     public DisplayManager(GlobalManager globalManager)
     {
         this.globalManager = globalManager;
+
+        pathListEntity = new GameObject("pathListEntity");
 
         nextPlayerText = Resources.Load<GameObject>("PreFab/Ui/NextPlayerText");
         nextPlayerText = GameObject.Instantiate(nextPlayerText ,new Vector3(33 ,-66.25f ,0) ,Quaternion.identity);
         nextPlayerText.transform.SetParent(GameObject.Find("Canvas").transform ,false);
 
-        pathListEntity = new GameObject("pathListEntity");
-
-        eventCard = GameObject.Find("EventCardDisplay");
+        eventCard = Resources.Load<GameObject>("PreFab/Ui/EventCardDisplay"); //GameObject.Find("EventCardDisplay");
+        eventCard = GameObject.Instantiate(eventCard);
+        eventCard.transform.SetParent(GameObject.Find("Canvas").transform ,false);
         eventCard.SetActive(false);
         eventCard.GetComponent<EventCardController>().globalManager = globalManager;
 
-        strategyCard = GameObject.Find("strategyCardDisplay");
+        strategyCard = Resources.Load<GameObject>("PreFab/Ui/strategyCardDisplay"); //GameObject.Find("strategyCardDisplay");
+        strategyCard = GameObject.Instantiate(strategyCard);
+        strategyCard.transform.SetParent(GameObject.Find("Canvas").transform ,false);
         strategyCard.SetActive(false);
         strategyCard.GetComponent<StrategyCardController>().globalManager = globalManager;
 
@@ -48,11 +52,17 @@ class DisplayManager
         buildingArea.SetActive(false);
         buildingArea.GetComponent<BuildingDisplayController>().globalManager = globalManager;
 
-        canNotBuyCard = GameObject.Find("CanNotBuyCard");
+        canNotBuyCard = Resources.Load<GameObject>("PreFab/Ui/CanNotBuyCard"); //GameObject.Find("CanNotBuyCard");
+        canNotBuyCard = GameObject.Instantiate(canNotBuyCard);
+        canNotBuyCard.transform.SetParent(GameObject.Find("Canvas").transform ,false);
         canNotBuyCard.SetActive(false);
         canNotBuyCard.GetComponent<CanNotBuyCardController>().globalManager = globalManager;
         canNotBuyCard.GetComponent<CanNotBuyCardController>().buildingArea = buildingArea;
+
+        playerSideMsgPanel = GameObject.Find("PlayerMsg");
+        playerSideMsgPanel.GetComponent<PlayerSideMsgController>().globalManager = globalManager;
     }
+
 
     public void displayRollingDice()
     {
@@ -79,13 +89,22 @@ class DisplayManager
     }
     public void displayEvent(EventBase eventData ,GameState nextGameState)
     {
-        //顯示事件卡
-        eventCard.transform.Find("EventTitle/EventTitleText").GetComponent<Text>().text = eventData.Name;
-        eventCard.transform.Find("EventImage/EventImageShow").GetComponent<Image>().sprite = Resources.Load<Sprite>(eventData.Image);
-        eventCard.transform.Find("EventDes/EventDesText").GetComponent<Text>().text = eventData.Detail;
+        if ( globalManager.IsComputer )
+        {
+            globalManager.GameState = nextGameState;
 
-        eventCard.GetComponent<EventCardController>().nextGameState = nextGameState;
-        eventCard.SetActive(true);
+        }
+        else
+        {
+            //顯示事件卡
+            eventCard.transform.Find("EventTitle/EventTitleText").GetComponent<Text>().text = eventData.Name;
+            eventCard.transform.Find("EventImage/EventImageShow").GetComponent<Image>().sprite = Resources.Load<Sprite>(eventData.Image);
+            eventCard.transform.Find("EventDes/EventDesText").GetComponent<Text>().text = eventData.Detail;
+            eventCard.GetComponent<EventCardController>().nextGameState = nextGameState;
+            eventCard.SetActive(true);
+        }
+
+        displayPlayerInfo();///
     }
     public void displayStopAction(Block block ,GameState nextGameState)
     {
@@ -102,15 +121,25 @@ class DisplayManager
             BuildingBlock buildingBlock = (BuildingBlock)block;
             if ( buildingBlock.Building == null )
             {
-                //建造建築物
-                displayBuildConstructor(buildingBlock ,nextGameState);
+                if(globalManager.IsComputer)
+                {
+                    EventBase eventData = globalManager.Events.doEvent(Eventtype.Forest
+                                                              ,new List<Group>( globalManager.GroupList)
+                                                              ,globalManager.CurrentPlayer);
+                    displayEvent(eventData ,nextGameState);
+                }
+                else
+                {
+                    //建造建築物
+                    displayBuildConstructor(buildingBlock ,nextGameState);
+                }
             }
             else
             {
                 if ( buildingBlock.Landlord.Equals(globalManager.CurrentPlayer) )
                 {
                     EventBase eventData = new DiplomaticEvent();
-                    eventData.DoEvent(new List<Group>(globalManager.GroupList),globalManager.CurrentPlayer);
+                    eventData.DoEvent(new List<Group>(globalManager.GroupList) ,globalManager.CurrentPlayer);
 
                     displayEvent(eventData ,nextGameState);
                 }
@@ -118,6 +147,21 @@ class DisplayManager
                 {
                     strategyCard.GetComponent<StrategyCardController>().nextGameState = nextGameState;
                     strategyCard.SetActive(true);
+
+                    if ( globalManager.IsComputer )
+                    {
+                        System.Random random = new System.Random();
+                        int choise = random.Next(100) / 50;//?
+
+                        if(choise == 0)
+                        {
+                            strategyCard.GetComponent<StrategyCardController>().attackButtonClick();
+                        }
+                        else
+                        {
+                            strategyCard.GetComponent<StrategyCardController>().diplomaticButtonClick();
+                        }
+                    }
                 }
             }
         }
@@ -141,7 +185,7 @@ class DisplayManager
 
     public void displayPlayerInfo()
     {
-
+        playerSideMsgPanel.GetComponent<PlayerSideMsgController>().displayPlayerList(globalManager.GroupList);
     }
 
     public void displayBuildConstructor(BuildingBlock buildingBlock ,GameState nextGameState)
@@ -259,6 +303,14 @@ class DisplayManager
         //{
         //    currentPlayer.Scout.checkOutPath(0);
         //}
+
+        if ( globalManager.IsComputer )
+        {
+            System.Random random = new System.Random();
+            int r = random.Next(currentPlayer.Scout.pathList.Count);
+
+            currentPlayer.Scout.checkOutPath(r);
+        }
     }
 }
 
