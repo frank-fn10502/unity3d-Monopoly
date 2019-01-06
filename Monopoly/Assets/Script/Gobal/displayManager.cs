@@ -239,7 +239,7 @@ class DisplayManager
         }
         if(winner == 1)
         {
-            SceneManager.LoadScene("EndScene");
+            SceneManager.LoadScene("ShowEventScene");
         }
 
         if ( displayEndMsg )
