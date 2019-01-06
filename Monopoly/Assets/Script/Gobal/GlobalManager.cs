@@ -170,12 +170,13 @@ public class GlobalManager
                 //等待
                 break;
         }
+        Debug.Log("GameState: " + gameState);
     }
     public void nextPlayer()
     {
         currentGroupIndex = ( currentGroupIndex + 1 ) % Constants.PLAYERNUMBER;
-        //isComputer = ( currentGroupIndex == Constants.PLAYERNUMBER - 1 );//?
-        isComputer = false;
+        isComputer = ( currentGroupIndex == Constants.PLAYERNUMBER - 1 );
+        //isComputer = false;
         gameState = GameState.GlobalEvent;
     }
 
@@ -230,6 +231,7 @@ public class GlobalManager
                                     ,playerIndex[i]//?
                                     ,playerDirection[i]);//?
 
+            groupList[i].name = "Player" + ( i + 1 );
             groupList[i].Resource.blockList.Add(map.BlockList[playerIndex[i]]);
             //新增主堡
             if( map.BlockList[playerIndex[i]]  is BuildingBlock)
