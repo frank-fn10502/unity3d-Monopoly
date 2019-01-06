@@ -106,9 +106,7 @@ public class GlobalManager
                 if ( CurrentPlayer.InJailTime == 0 )
                 {
                     CurrentPlayer.State = PlayerState.RollingDice;
-                }
-                    
-
+                }                    
                 break;
             case GameState.PersonalEvent:
                 if ( CurrentPlayer.State != PlayerState.InJail )
