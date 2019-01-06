@@ -133,7 +133,7 @@ public class GlobalManager
                 break;
             case GameState.PersonalEvent:
                 displayManager.displayBlockInfo(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
-
+                displayManager.displayEndMsg = true;
                 if (CurrentPlayer.State != PlayerState.InJail)
                 {
                     //抽個人事件
@@ -144,9 +144,9 @@ public class GlobalManager
                 else
                 {
                     gameState = GameState.PlayerMovement;
-                }
-                displayManager.displayEndMsg = true;
+                }              
                 displayManager.setWorldMsg("", true);
+
                 break;
             case GameState.PlayerMovement:
                 {

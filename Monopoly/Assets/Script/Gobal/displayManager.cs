@@ -141,7 +141,6 @@ class DisplayManager
         if ( globalManager.IsComputer )
         {
             //globalManager.GameState = nextGameState;
-
             calWhoDead(nextGameState);
         }
         else
@@ -247,9 +246,7 @@ class DisplayManager
         }
         if(winner == 1)
         {
-            displayWorldMsg();
             SceneManager.LoadScene("ShowEventScene");
-            globalManager.GameState = GameState.Wait;//?
         }
 
         if ( timer % 500 == 0 )
