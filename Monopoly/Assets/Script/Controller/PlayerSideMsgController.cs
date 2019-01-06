@@ -10,9 +10,11 @@ public class PlayerSideMsgController : MonoBehaviour
     private List<GameObject> playerMsg;
     private GameObject nowPlayerInfo;
     private GameObject characters;
+    private bool auto;
 
     private void Awake()
     {
+        auto = true;
         setPlayerGameObj();
 
         characters = GameObject.Find("Character");
@@ -64,7 +66,11 @@ public class PlayerSideMsgController : MonoBehaviour
             setPlayerInfo(kingMsg ,groups[groups.Length - 1]);
         }
     }
-
+    public void onAutoButtonClick()
+    {
+        globalManager.IsAuto = auto;
+        auto = !auto;
+    }
 
     /*==========設定==========*/
     private void setPlayerGameObj()

@@ -256,13 +256,19 @@ class DisplayManager
         }
         timer = ( timer + 10 ) % 500;
 
-        nextPlayerText.SetActive(false);
-        globalManager.nextPlayer();
-        //if ( Input.anyKey )
-        //{
-        //    nextPlayerText.SetActive(false);
-        //    globalManager.nextPlayer();
-        //}
+        if(globalManager.IsAuto)
+        {
+            nextPlayerText.SetActive(false);
+            globalManager.nextPlayer();
+        }
+        else
+        {
+            if ( Input.anyKey )
+            {
+                nextPlayerText.SetActive(false);
+                globalManager.nextPlayer();
+            }
+        }
     }
 
     public void displayPlayerInfo(List<Faction> factionList = null)
