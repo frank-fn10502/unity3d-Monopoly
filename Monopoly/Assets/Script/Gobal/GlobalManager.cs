@@ -68,6 +68,7 @@ public class GlobalManager
         }
     }
 
+
     public GlobalManager(List<Faction> factionList = null)
     {
         createMap();
@@ -170,7 +171,7 @@ public class GlobalManager
                 //等待
                 break;
         }
-        Debug.Log("GameState: " + gameState);
+        Debug.Log("GameState: " + gameState + " PlayerState: " + CurrentPlayer.State);
     }
     public void nextPlayer()
     {
@@ -223,6 +224,7 @@ public class GlobalManager
         Group.blockList = map.BlockList;
         foreach ( Faction faction in factions )
         {
+            
             groupList[i] = new Group(null
                                     ,createActorList(faction.actorList)
                                     ,new Attributes(faction.attributes)
@@ -231,10 +233,13 @@ public class GlobalManager
                                     ,playerIndex[i]//?
                                     ,playerDirection[i]);//?
 
+
             groupList[i].name = "Player" + ( i + 1 );
             groupList[i].Resource.blockList.Add(map.BlockList[playerIndex[i]]);
+            groupList[i].myBuildingList = new GameObject(groupList[i].name + "BuildingList");
+            groupList[i].myBuildingList.transform.parent = Group.playerBuildingList.transform;
             //新增主堡
-            if( map.BlockList[playerIndex[i]]  is BuildingBlock)
+            if ( map.BlockList[playerIndex[i]]  is BuildingBlock)
             {
                 Building.path = "PreFab/Building/";
                 BuildingBlock buildingBlock =  (BuildingBlock)( map.BlockList[playerIndex[i]] ) ;

@@ -13,8 +13,11 @@ class DisplayManager
     private GameObject buildingArea;
     private GameObject canNotBuyCard;
     private GameObject playerSideMsgPanel;
+    private GameObject worldMsgPanel;
 
     private int timer;
+
+    private string worldMsg;
 
     public Group currentPlayer
     {
@@ -61,6 +64,9 @@ class DisplayManager
 
         playerSideMsgPanel = GameObject.Find("PlayerMsg");
         playerSideMsgPanel.GetComponent<PlayerSideMsgController>().globalManager = globalManager;
+
+        worldMsgPanel = GameObject.Find("WorldMsg");
+        //?
     }
 
 
@@ -211,6 +217,10 @@ class DisplayManager
     {
         canNotBuyCard.GetComponent<CanNotBuyCardController>().nextGameState = nextGameState;
         canNotBuyCard.SetActive(true);
+    }
+    public void displayWorldMsg()
+    {
+
     }
 
     /*==========private==========*/

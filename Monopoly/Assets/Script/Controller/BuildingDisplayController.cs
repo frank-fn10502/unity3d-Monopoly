@@ -89,6 +89,7 @@ public class BuildingDisplayController : MonoBehaviour
     private void createBuildingEntityList()
     {
         buildingEntityList = new List<GameObject>();
+        GameObject bEntityList = new GameObject("BuildingList");
         
         for(int i = 0 ; i < buildingList.Count ; i++ )
         {
@@ -96,6 +97,8 @@ public class BuildingDisplayController : MonoBehaviour
             buindingEntity = GameObject.Instantiate(buindingEntity);
             buildingEntityList.Add(buindingEntity);
             buindingEntity.SetActive(false);
+
+            buindingEntity.transform.parent = bEntityList.transform;
         }
         currentBuildingEntity = buildingEntityList[0];
     }

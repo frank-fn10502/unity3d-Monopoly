@@ -2,6 +2,9 @@
 
 public class Group
 {
+    public static GameObject playerBuildingList;
+    public GameObject myBuildingList;
+
     public static Block[] blockList;
     public Material materialBall;
     public string name;
@@ -138,6 +141,12 @@ public class Group
 
         this.scout = new Scout(this);
         this.inJailTime = 0;
+
+        if( playerBuildingList == null)
+        {
+            playerBuildingList = new GameObject("PlayerBuildingList");
+        }
+        
     }
 
 
