@@ -137,6 +137,7 @@ class DisplayManager
     }
     public void displayEvent(EventBase eventData ,GameState nextGameState)
     {
+        setWorldMsg(eventData.Short_detail);
         if ( globalManager.IsComputer )
         {
             //globalManager.GameState = nextGameState;
@@ -150,8 +151,7 @@ class DisplayManager
             eventCard.transform.Find("EventDes/EventDesText").GetComponent<Text>().text = eventData.Detail;
             eventCard.GetComponent<EventCardController>().nextGameState = nextGameState;
             eventCard.SetActive(true);
-        }
-        setWorldMsg(eventData.Short_detail);
+        }      
         displayPlayerInfo();///
     }
     public void displayStopAction(Block block ,GameState nextGameState)
