@@ -15,7 +15,10 @@ class DisplayManager
     private GameObject canNotBuyCard;
     private GameObject playerSideMsgPanel;
     private GameObject worldMsgPanel;
-    
+    private GameObject blockInformation;
+    private Camera     blockCamera;
+
+
 
     private int timer;
 
@@ -74,6 +77,8 @@ class DisplayManager
         day = 0;
 
         timeMsgPanel = GameObject.Find("WorldTime");
+        blockInformation = GameObject.Find("BlockInformation");
+        blockCamera = GameObject.Find("BlockCamera").GetComponent<Camera>();
     }
 
 
@@ -98,11 +103,12 @@ class DisplayManager
     public void displayPlayerMovement()
     {
         currentPlayer.CurrentActor.run(currentPlayer.Location);
+        displayBlockInfo(globalManager.map.BlockList[currentPlayer.CurrentBlockIndex]);
 
         if ( currentPlayer.Scout.totalStep == 0 )
         {
             currentPlayer.Scout.deleteDot(currentPlayer.Scout.choicePath[0]);//刪除走過的點
-            if( currentPlayer.Scout.choicePath.Count != 0)
+            if ( currentPlayer.Scout.choicePath.Count != 0 )
                 currentPlayer.Scout.deleteDot(currentPlayer.Scout.choicePath[0]);//刪除走過的點
             //currentPlayer.CurrentActor.stop();
 
@@ -132,7 +138,7 @@ class DisplayManager
         if ( block is EventBlock )
         {
             EventBase eventData = null;
-            if (globalManager.IsComputer)
+            if ( globalManager.IsComputer )
             {
                 eventData = globalManager.Events.doEvent(Eventtype.Apes
                                                         ,new List<Group>(globalManager.GroupList)
@@ -153,7 +159,7 @@ class DisplayManager
             BuildingBlock buildingBlock = (BuildingBlock)block;
             if ( buildingBlock.Building == null )
             {
-                if(globalManager.IsComputer)
+                if ( globalManager.IsComputer )
                 {
                     EventBase eventData = globalManager.Events.doEvent(Eventtype.Apes
                                                                       ,new List<Group>( globalManager.GroupList)
@@ -186,7 +192,7 @@ class DisplayManager
                         int choise = (random.Next(100) + globalManager.GroupList[globalManager.GroupList.Length - 1].Attributes.diplomatic / 10);
                         choise /= 50;
 
-                        if(choise == 0)
+                        if ( choise == 0 )
                         {
                             strategyCard.GetComponent<StrategyCardController>().attackButtonClick();
                         }
@@ -199,11 +205,11 @@ class DisplayManager
             }
         }
 
-        
+
     }
     public void displayNextPlayer()
     {
-        if(displayEndMsg)
+        if ( displayEndMsg )
         {
             displayWorldMsg();
             displayEndMsg = false;
@@ -243,6 +249,30 @@ class DisplayManager
         worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Text>().text += worldMsg;
     }
 
+    public void displayBlockInfo(Block block)
+    {
+        block.setLyer("CurrentBlock");
+        blockCamera.transform.position = block.Location + new Vector3(-1 ,18 ,-11);//temp
+
+        Text text =  blockInformation.transform.Find("BlockT1/BlockPlayer/BlockPlayerText").GetComponent<Text>();
+        if(block is BuildingBlock)
+        {
+            BuildingBlock buildingBlock = (BuildingBlock)block;
+            if( buildingBlock.Landlord == null)
+            {
+                text.text = "noMan";
+            }
+            else
+            {
+                text.text = buildingBlock.Landlord.name;
+            }      
+        }
+        else
+        {
+            text.text = "noMan";
+        }
+    }
+
     /*==========private==========*/
     /*==========ScoutPathEntity==========*/
     private void createScoutPathEntity(Map map)
@@ -265,7 +295,7 @@ class DisplayManager
                 if ( onePos.entity == null )
                 {
                     if ( markMap[onePos.blockIndex] == 0 || ( markMap[onePos.blockIndex] == 1 && onePos.block is BuildingBlock &&
-                        ((BuildingBlock)onePos.block).PathLocations.Count > 1) )
+                        ( (BuildingBlock)onePos.block ).PathLocations.Count > 1 ) )
                     {
                         markMap[onePos.blockIndex]++;
                         buildEntity(onePos ,onePos.blockIndex ,markMap[onePos.blockIndex]);

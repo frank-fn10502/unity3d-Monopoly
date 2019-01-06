@@ -117,6 +117,8 @@ public class GlobalManager
                 }                    
                 break;
             case GameState.PersonalEvent:
+                displayManager.displayBlockInfo(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
+
                 if ( CurrentPlayer.State != PlayerState.InJail )
                 {
                     //抽個人事件
@@ -140,6 +142,8 @@ public class GlobalManager
                             if ( Input.GetButtonDown("Jump") || isComputer )
                             {
                                 CurrentPlayer.State = PlayerState.Wait;
+                                
+
                                 displayManager.displayRollingDice();//轉換到下一個階段
                             }
                             break;
@@ -163,6 +167,7 @@ public class GlobalManager
                             CurrentPlayer.InJailTime--;
                             gameState = GameState.End;//直接結束
                             displayManager.setWorldMsg(string.Format("無法移動 剩下:{0}回合\n" ,CurrentPlayer.InJailTime));
+
                             break;
                         case PlayerState.Wait:
                             //等待

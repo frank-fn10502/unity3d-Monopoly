@@ -12,6 +12,8 @@ public abstract class Block
 {
     public virtual string block_type { get; }//jsonconvert
 
+    public GameObject frame;
+
     protected Vector3 location;
     protected List<Walkable> identity;
     protected List<Direction> directionList;
@@ -118,7 +120,11 @@ public abstract class Block
     }
 
 
-
+    public virtual void setLyer(string name)
+    {
+        entity.layer = LayerMask.NameToLayer(name);
+        frame.layer  = LayerMask.NameToLayer(name);
+    }
     public abstract void stopAction(Group group);
     public void build(string name)
     {

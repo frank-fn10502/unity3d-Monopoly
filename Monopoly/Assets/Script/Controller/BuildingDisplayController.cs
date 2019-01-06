@@ -44,6 +44,7 @@ public class BuildingDisplayController : MonoBehaviour
 
         if(canBuy)
         {
+            currentBuildingBlock.Building.Entity.layer = currentBuildingBlock.Entity.layer;
             currentBuildingBlock.Landlord = globalManager.CurrentPlayer;
             globalManager.CurrentPlayer.Resource.blockList.Add(currentBuildingBlock);//加到玩家擁有的blockList裡面
 
@@ -54,6 +55,8 @@ public class BuildingDisplayController : MonoBehaviour
             globalManager.GameState = nextGameState;
 
             globalManager.DisplayManager.setWorldMsg(string.Format("\"{0}\"建造了\"{1}\"\n" ,globalManager.CurrentPlayer.name ,currentBuildingBlock.Building.Name));
+
+            globalManager.DisplayManager.displayBlockInfo( globalManager.map.BlockList[globalManager.CurrentPlayer.CurrentBlockIndex]);//?
         }
         else
         {
@@ -102,6 +105,7 @@ public class BuildingDisplayController : MonoBehaviour
             buindingEntity.SetActive(false);
 
             buindingEntity.transform.parent = bEntityList.transform;
+            buindingEntity.layer = LayerMask.NameToLayer("CurrentBlock");
         }
         currentBuildingEntity = buildingEntityList[0];
     }

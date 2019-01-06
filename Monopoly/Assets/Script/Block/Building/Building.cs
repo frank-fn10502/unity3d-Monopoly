@@ -5,6 +5,7 @@ using UnityEngine;
 public class Building//TEMP
 {
     public static string path;
+    
 
     private GameObject entity;
     private string fileName;

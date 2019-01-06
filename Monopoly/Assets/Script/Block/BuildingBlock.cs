@@ -96,8 +96,15 @@ public class BuildingBlock : Block
         pathLocations = new List<Vector3>();
     }
 
-
-
+    public override void setLyer(string name)
+    {
+        base.setLyer(name);
+        if(building != null)
+        {
+            GameObject gameObject = building.Entity.transform.Find("Cube123").gameObject;
+            gameObject.layer = LayerMask.NameToLayer(name);
+        }
+    }
 
     public override void stopAction(Group group)
     {
