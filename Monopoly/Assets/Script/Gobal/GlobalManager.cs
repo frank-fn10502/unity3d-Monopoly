@@ -75,7 +75,7 @@ public class GlobalManager
         createMap();
         createGroupList(factionList);
 
-        isComputer = false;
+        isComputer = true;
         currentGroupIndex = 0;
         totalStep = 1;
         gameState = GameState.GlobalEvent;
@@ -171,7 +171,7 @@ public class GlobalManager
                         case PlayerState.InJail:
                             CurrentPlayer.InJailTime--;
                             gameState = GameState.End;//直接結束
-                            displayManager.setWorldMsg(string.Format("{0}無法移動 剩下:{1}回合\n" , CurrentPlayer.name,CurrentPlayer.InJailTime));
+                            displayManager.setWorldMsg(string.Format("{0}無法移動 剩下:{1}回合" , CurrentPlayer.name,CurrentPlayer.InJailTime));
 
                             break;
                         case PlayerState.Wait:
