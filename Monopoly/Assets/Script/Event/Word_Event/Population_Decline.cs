@@ -18,7 +18,7 @@ class Population_Decline : EventBase
             droup_list[i].Resource.civilian -=100;
             droup_list[i].Resource.antidote -= 10;
         }
-       
+        this.Short_detail = "所有玩家解藥降低10，人口減少100";
         State = group.State;
     }
 }

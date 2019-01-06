@@ -15,6 +15,7 @@ class Leadership_Increase : EventBase
     {
         //領導指數上升2
         group.Attributes.leadership += addvar;
+        this.Short_detail = group.name + "領導增加:" + addvar.ToString();
         State = group.State;
     }
 }

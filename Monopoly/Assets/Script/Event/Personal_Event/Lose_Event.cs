@@ -15,6 +15,7 @@ class Lose_Event : EventBase
         {
             //玩家輸
             group.Resource.civilian = 0;
+            this.Short_detail = group.name + "輸了";
             State = group.State;
         }
 }

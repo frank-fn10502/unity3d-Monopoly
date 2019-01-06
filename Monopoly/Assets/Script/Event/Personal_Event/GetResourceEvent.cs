@@ -19,6 +19,7 @@ class GetResourceEvent : EventBase
         {
             //所有資源增加5%
             group.Resource.mineral += Convert.ToInt32(group.Resource.mineral * (addvar / 100.0));
+            this.Short_detail = group.name+"增加資源" + addvar.ToString() + "%";
             State = group.State;
         }
 }

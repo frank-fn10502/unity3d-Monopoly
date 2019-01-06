@@ -16,6 +16,7 @@ class Secret_Passage_Time_Out : EventBase
             group.teleport(group.Resource.blockList[0]);
             group.InJailTime += 2;
             group.State = PlayerState.InJail;
+            this.Short_detail = group.name + "移動到實驗室";
             State = group.State;
         }
 }

@@ -19,6 +19,7 @@ class People_Increase_percent : EventBase
     {
         //使人數增加
         group.Resource.civilian += Convert.ToInt32(group.Resource.civilian*(addvar/100.0));
+        this.Short_detail = group.name + "人口增加:" + Convert.ToInt32(group.Resource.civilian * (addvar / 100.0)).ToString();
         State = group.State;
     }
 }

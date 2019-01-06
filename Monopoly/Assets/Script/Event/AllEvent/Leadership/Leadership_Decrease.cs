@@ -17,9 +17,10 @@ class Leadership_Decrease : EventBase
         }
         public override void DoEvent(List<Group> droup_list, Group group)
         {
-            //外交減少
+            //領導減少
             group.Attributes.diplomatic -= decrease_var;
             group.Attributes.diplomatic = (group.Attributes.diplomatic > 0 ? group.Attributes.diplomatic : 0);
+            this.Short_detail = group.name + "領導減少:" + decrease_var.ToString();
             State = group.State;
         }
 }

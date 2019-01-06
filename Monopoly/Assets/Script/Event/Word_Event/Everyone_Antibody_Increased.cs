@@ -23,5 +23,6 @@ class Everyone_Antibody_Increased : EventBase
             {
                 droup_list[i].Resource.antidote += addvar;
             }
+            this.Short_detail = "所有玩家增加解藥" + addvar.ToString();
         }
     }

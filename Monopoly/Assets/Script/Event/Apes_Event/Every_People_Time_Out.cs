@@ -14,6 +14,7 @@ class Every_People_Time_Out : EventBase
             droup_list[i].InJailTime += 1;
             droup_list[i].State = PlayerState.InJail;
         }
+        this.Short_detail = "所有人暫停一回合";
         State = group.State;
     }
 }

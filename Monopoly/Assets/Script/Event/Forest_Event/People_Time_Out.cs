@@ -15,6 +15,7 @@ using System.Text;
         //由於被猩猩抓走成為俘虜，暫停一回合
              group.InJailTime += 1;
              group.State = PlayerState.InJail;
-             State = group.State;
+            this.Short_detail = group.name + "暫停一回合";
+            State = group.State;
         }
     }

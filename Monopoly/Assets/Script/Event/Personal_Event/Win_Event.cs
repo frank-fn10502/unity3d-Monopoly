@@ -21,6 +21,7 @@ class Win_Event : EventBase
                     droup_list[i].Resource.civilian = 0;
                 }
             }
+            this.Short_detail = group.name + "獲勝";
             State = group.State;
         }
 }

@@ -19,6 +19,7 @@ class People_Increase : EventBase
     {
         //使人數增加100
         group.Resource.civilian += addvar;
+        this.Short_detail = group.name + "人口增加:" + addvar.ToString();
         State = group.State;
     }
 }

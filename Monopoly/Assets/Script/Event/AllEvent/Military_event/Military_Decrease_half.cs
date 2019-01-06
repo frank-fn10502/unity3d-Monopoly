@@ -14,6 +14,7 @@ class Military_Decrease_half : EventBase
         {
             //個人軍隊人口縮減一半 
             group.Resource.army /=2;
+            this.Short_detail = group.name + "軍隊減少一半";
             State = group.State;
         }
 }
