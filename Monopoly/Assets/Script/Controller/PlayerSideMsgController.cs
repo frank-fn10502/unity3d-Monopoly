@@ -29,11 +29,35 @@ public class PlayerSideMsgController : MonoBehaviour
     {
         if ( factionList != null )
         {
-            for ( int i = 0, j = 0 ; i < factionList.Count ; i++ )
+            string[] fileName = new string[8];
+            for ( int i = 0 ; i < fileName.Length ; i++ )
             {
-                if ( factionList[i].actorList[0].FileName == groups[j].CurrentActor.FileName )
+                fileName[i] = string.Format("char{0}/cf{0}" ,i + 1);
+            }
+            fileName[7] = "boss/bossf";
+
+            for ( int i = 0, j = 0 ; i < groups.Length ; j++ )
+            {
+                if ( groups[i].CurrentActor.FileName == fileName[j] )
                 {
-                    if ( j < groups.Length - 1 )
+                    if ( j < 7 )
+                    {
+                        setIntailPlayerInfo(playerMsg[i] ,groups[i] ,( j + 1 ));
+                    }
+                    else
+                    {
+                        setIntailPlayerInfo(kingMsg ,groups[i] ,8);
+                    }
+
+                    i++;
+                    j = 0;
+                }
+            }
+            for ( int i = 0, j = 0 ; i < fileName.Length ; i++ )
+            {
+                if ( fileName[i] == groups[j].CurrentActor.FileName )
+                {
+                    if ( j < groups.Length )
                     {
                         setIntailPlayerInfo(playerMsg[j] ,groups[j] ,( i + 1 ));
                     }
