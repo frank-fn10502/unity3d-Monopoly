@@ -25,7 +25,7 @@ public class OpeningMovie : MonoBehaviour
 
     IEnumerator LoadScene()
     {
-        yield return new WaitForSeconds(15f);//括號內填入影片時間
+        yield return new WaitForSeconds(10f);//括號內填入影片時間
         UnityEngine.SceneManagement.SceneManager.LoadScene("StartScene");//載入場景
     }
 }

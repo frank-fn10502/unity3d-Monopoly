@@ -5,16 +5,19 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/OpMovie.unity
+  - enabled: 1
+    path: Assets/Scenes/OpScene.unity
     guid: a5a380486c977b747abd6bbb7c992ba4
   - enabled: 1
     path: Assets/Scenes/StartScene.unity
+    guid: 6d484e5a8deb20047a936efc96775011
+  - enabled: 1
+    path: Assets/Scenes/SelectScene.unity
     guid: 55b9f5dfdc29785429d022a54879c042
   - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/EndScene.unity
-    guid: 6d484e5a8deb20047a936efc96775011
+    guid: 4c69b98788dd99449b35a7da7adb04c6
   m_configObjects: {}
