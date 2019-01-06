@@ -132,6 +132,8 @@ public class GlobalManager
                 }
                 break;
             case GameState.PersonalEvent:
+                displayManager.displayEndMsg = true;
+                displayManager.setWorldMsg("", true);
                 displayManager.displayBlockInfo(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
                 displayManager.displayEndMsg = true;
                 if (CurrentPlayer.State != PlayerState.InJail)
@@ -144,8 +146,7 @@ public class GlobalManager
                 else
                 {
                     gameState = GameState.PlayerMovement;
-                }              
-                displayManager.setWorldMsg("", true);
+                }
 
                 break;
             case GameState.PlayerMovement:

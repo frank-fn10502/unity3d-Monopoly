@@ -101,7 +101,7 @@ class DisplayManager
 
     public void setWorldMsg(string str ,bool clear = false)
     {
-        worldMsg = clear ? str : "\n" + worldMsg + str;
+        worldMsg = clear ? str :  worldMsg + str + "\n";
     }
     public void displayRollingDice()
     {
@@ -289,7 +289,7 @@ class DisplayManager
     public void displayWorldMsg()
     {
         //worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Text>().text += worldMsg;
-        worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Control>().WriteText(worldMsg);
+         worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Control>().WriteText(worldMsg);
         //Vector2 v =  worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<RectTransform>().sizeDelta;
         //worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<RectTransform>().sizeDelta = new Vector2(v.x, v.y + 30);
     }
