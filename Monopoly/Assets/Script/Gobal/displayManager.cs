@@ -44,6 +44,7 @@ class DisplayManager
         this.globalManager = globalManager;
 
         pathListEntity = new GameObject("pathListEntity");
+
         
 
         nextPlayerText = Resources.Load<GameObject>("PreFab/Ui/NextPlayerText");
