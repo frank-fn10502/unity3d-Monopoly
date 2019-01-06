@@ -193,6 +193,15 @@ public class Group
                 --scout.totalStep;
             }
             stepCount = 0;
+
+            scout.choicePath[0].block.setLyer("Default");
+            //scout.choicePath[0].block.Entity.layer = LayerMask.NameToLayer("Default");//?
+            //if( scout.choicePath[0].block is BuildingBlock)
+            //{
+            //    BuildingBlock buildingBlock = (BuildingBlock) scout.choicePath[0].block;
+            //    buildingBlock.Building.Entity.layer = LayerMask.NameToLayer("Default");
+            //}
+
             scout.deleteDot(scout.choicePath[0]);//刪除走過的點
         }
     }
