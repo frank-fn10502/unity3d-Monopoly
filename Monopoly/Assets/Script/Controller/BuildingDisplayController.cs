@@ -44,6 +44,7 @@ public class BuildingDisplayController : MonoBehaviour
 
         if(canBuy)
         {
+            currentBuildingBlock.Building.Entity.layer = currentBuildingBlock.Entity.layer;
             currentBuildingBlock.Landlord = globalManager.CurrentPlayer;
             globalManager.CurrentPlayer.Resource.blockList.Add(currentBuildingBlock);//加到玩家擁有的blockList裡面
 
@@ -52,11 +53,16 @@ public class BuildingDisplayController : MonoBehaviour
 
             currentBuildingEntity.SetActive(false);
             globalManager.GameState = nextGameState;
+
+            globalManager.DisplayManager.setWorldMsg(string.Format("\"{0}\"建造了\"{1}\"\n" ,globalManager.CurrentPlayer.name ,currentBuildingBlock.Building.Name));
+
+            globalManager.DisplayManager.displayBlockInfo( globalManager.map.BlockList[globalManager.CurrentPlayer.CurrentBlockIndex]);//?
         }
         else
         {
             currentBuildingEntity.SetActive(false);
             globalManager.DisplayManager.displayCantNotBuy(nextGameState);
+            globalManager.DisplayManager.setWorldMsg(string.Format("\"{0}\"買不起任何建築\n" ,globalManager.CurrentPlayer.name));
         }
     }
     public void cencelButtonClick()
@@ -89,13 +95,18 @@ public class BuildingDisplayController : MonoBehaviour
     private void createBuildingEntityList()
     {
         buildingEntityList = new List<GameObject>();
+        GameObject bEntityList = new GameObject("BuildingList");
         
         for(int i = 0 ; i < buildingList.Count ; i++ )
         {
             GameObject buindingEntity = Resources.Load<GameObject>(Building.path + buildingList[i].FileName);
             buindingEntity = GameObject.Instantiate(buindingEntity);
+            buindingEntity.transform.Find("Cube123").gameObject.layer = LayerMask.NameToLayer("CurrentBlock");
+
             buildingEntityList.Add(buindingEntity);
             buindingEntity.SetActive(false);
+
+            buindingEntity.transform.parent = bEntityList.transform;           
         }
         currentBuildingEntity = buildingEntityList[0];
     }

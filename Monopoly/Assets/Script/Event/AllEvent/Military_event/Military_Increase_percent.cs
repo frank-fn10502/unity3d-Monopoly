@@ -17,8 +17,9 @@ class Military_Increase_percent : EventBase
         }
     public override void DoEvent(List<Group> droup_list, Group group)
         {
-            //由於個人研發新武器，使軍隊增加10% 
-            group.Resource.army += Convert.ToInt32(group.Resource.army * (addvar/100.0));
+        //由於個人研發新武器，使軍隊增加10% 
+            group.Resource.army += Convert.ToInt32(group.Resource.army * (addvar / 100.0));
+            this.Short_detail = group.name + "軍隊增加:" + addvar.ToString() + "%";
             State = group.State;
         }
 }

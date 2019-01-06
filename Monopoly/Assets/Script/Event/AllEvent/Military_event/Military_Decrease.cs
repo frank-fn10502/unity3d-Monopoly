@@ -18,7 +18,8 @@ using System.Text;
     public override void DoEvent(List<Group> droup_list, Group group)
         {
             //軍隊減少
-            group.Resource.army -= Convert.ToInt32(group.Resource.army*(dead/100.0));
+            group.Resource.army -= Convert.ToInt32(group.Resource.army * (dead/100.0));
+            this.Short_detail = group.name + "軍隊減少:" + dead.ToString()+"%";
             State = group.State;
         }
     }

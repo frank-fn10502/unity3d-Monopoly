@@ -18,7 +18,7 @@ class Everyone_eace_Increase : EventBase
         {
             droup_list[i].Attributes.peace += addvar;
         }
-        
+        this.Short_detail = "所有玩家增加和平" + addvar.ToString();
         State = group.State;
     }
 }

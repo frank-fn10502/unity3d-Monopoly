@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 class DisplayManager
 {
+    public GameObject timeMsgPanel;
     private GlobalManager globalManager;
     private GameObject nextPlayerText;
     private GameObject pathListEntity;
@@ -13,8 +14,17 @@ class DisplayManager
     private GameObject buildingArea;
     private GameObject canNotBuyCard;
     private GameObject playerSideMsgPanel;
+    private GameObject worldMsgPanel;
+    private GameObject blockInformation;
+    private Camera     blockCamera;
+
+
 
     private int timer;
+
+    private string worldMsg;
+    public int day;
+    public bool displayEndMsg;
 
     public Group currentPlayer
     {
@@ -61,14 +71,29 @@ class DisplayManager
 
         playerSideMsgPanel = GameObject.Find("PlayerMsg");
         playerSideMsgPanel.GetComponent<PlayerSideMsgController>().globalManager = globalManager;
+
+        worldMsgPanel = GameObject.Find("WorldMsg");
+        worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Text>().text = "";
+        day = 0;
+
+        timeMsgPanel = GameObject.Find("WorldTime");
+        blockInformation = GameObject.Find("BlockInformation");
+        blockCamera = GameObject.Find("BlockCamera").GetComponent<Camera>();
     }
 
 
+
+    public void setWorldMsg(string str ,bool clear = false)
+    {
+        worldMsg = clear ? str : "\n" + worldMsg + str;
+    }
     public void displayRollingDice()
     {
         //呼叫扔骰子
         globalManager.TotalStep = 24;//temp
         currentPlayer.State = PlayerState.SearchPath;//temp
+
+        worldMsg += string.Format("\"{0}\"骰出了\"{1}\"\n" ,globalManager.CurrentPlayer.name ,globalManager.TotalStep);//temp
     }
     public void displaySearchPath(Map map)
     {
@@ -78,11 +103,12 @@ class DisplayManager
     public void displayPlayerMovement()
     {
         currentPlayer.CurrentActor.run(currentPlayer.Location);
+        displayBlockInfo(globalManager.map.BlockList[currentPlayer.CurrentBlockIndex]);
 
         if ( currentPlayer.Scout.totalStep == 0 )
         {
             currentPlayer.Scout.deleteDot(currentPlayer.Scout.choicePath[0]);//刪除走過的點
-            if( currentPlayer.Scout.choicePath.Count != 0)
+            if ( currentPlayer.Scout.choicePath.Count != 0 )
                 currentPlayer.Scout.deleteDot(currentPlayer.Scout.choicePath[0]);//刪除走過的點
             //currentPlayer.CurrentActor.stop();
 
@@ -104,7 +130,7 @@ class DisplayManager
             eventCard.GetComponent<EventCardController>().nextGameState = nextGameState;
             eventCard.SetActive(true);
         }
-
+        setWorldMsg(eventData.Short_detail);
         displayPlayerInfo();///
     }
     public void displayStopAction(Block block ,GameState nextGameState)
@@ -112,7 +138,7 @@ class DisplayManager
         if ( block is EventBlock )
         {
             EventBase eventData = null;
-            if (globalManager.IsComputer)
+            if ( globalManager.IsComputer )
             {
                 eventData = globalManager.Events.doEvent(Eventtype.Apes
                                                         ,new List<Group>(globalManager.GroupList)
@@ -133,7 +159,7 @@ class DisplayManager
             BuildingBlock buildingBlock = (BuildingBlock)block;
             if ( buildingBlock.Building == null )
             {
-                if(globalManager.IsComputer)
+                if ( globalManager.IsComputer )
                 {
                     EventBase eventData = globalManager.Events.doEvent(Eventtype.Apes
                                                                       ,new List<Group>( globalManager.GroupList)
@@ -166,7 +192,7 @@ class DisplayManager
                         int choise = (random.Next(100) + globalManager.GroupList[globalManager.GroupList.Length - 1].Attributes.diplomatic / 10);
                         choise /= 50;
 
-                        if(choise == 0)
+                        if ( choise == 0 )
                         {
                             strategyCard.GetComponent<StrategyCardController>().attackButtonClick();
                         }
@@ -178,14 +204,21 @@ class DisplayManager
                 }
             }
         }
+
+
     }
     public void displayNextPlayer()
     {
+        if ( displayEndMsg )
+        {
+            displayWorldMsg();
+            displayEndMsg = false;
+        }
+
         if ( timer % 500 == 0 )
         {
             bool now = nextPlayerText.activeSelf;
             nextPlayerText.SetActive(!now);
-
         }
         timer = ( timer + 10 ) % 500;
 
@@ -200,7 +233,6 @@ class DisplayManager
     {
         playerSideMsgPanel.GetComponent<PlayerSideMsgController>().displayPlayerList(globalManager.GroupList);
     }
-
     public void displayBuildConstructor(BuildingBlock buildingBlock ,GameState nextGameState)
     {
         buildingArea.GetComponent<BuildingDisplayController>().currentBuildingBlock = buildingBlock;
@@ -211,6 +243,34 @@ class DisplayManager
     {
         canNotBuyCard.GetComponent<CanNotBuyCardController>().nextGameState = nextGameState;
         canNotBuyCard.SetActive(true);
+    }
+    public void displayWorldMsg()
+    {
+        worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Text>().text += worldMsg;
+    }
+
+    public void displayBlockInfo(Block block)
+    {
+        block.setLyer("CurrentBlock");
+        blockCamera.transform.position = block.Location + new Vector3(-1 ,18 ,-11);//temp
+
+        Text text =  blockInformation.transform.Find("BlockT1/BlockPlayer/BlockPlayerText").GetComponent<Text>();
+        if(block is BuildingBlock)
+        {
+            BuildingBlock buildingBlock = (BuildingBlock)block;
+            if( buildingBlock.Landlord == null)
+            {
+                text.text = "noMan";
+            }
+            else
+            {
+                text.text = buildingBlock.Landlord.name;
+            }      
+        }
+        else
+        {
+            text.text = "noMan";
+        }
     }
 
     /*==========private==========*/
@@ -235,7 +295,7 @@ class DisplayManager
                 if ( onePos.entity == null )
                 {
                     if ( markMap[onePos.blockIndex] == 0 || ( markMap[onePos.blockIndex] == 1 && onePos.block is BuildingBlock &&
-                        ((BuildingBlock)onePos.block).PathLocations.Count > 1) )
+                        ( (BuildingBlock)onePos.block ).PathLocations.Count > 1 ) )
                     {
                         markMap[onePos.blockIndex]++;
                         buildEntity(onePos ,onePos.blockIndex ,markMap[onePos.blockIndex]);

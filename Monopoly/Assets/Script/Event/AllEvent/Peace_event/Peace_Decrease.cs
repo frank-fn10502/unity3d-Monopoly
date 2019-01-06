@@ -15,6 +15,7 @@ class Peace_Decrease : EventBase
     {
         //和平指數下降10
         group.Attributes.peace -= addvar;
+        this.Short_detail = group.name + "和平減少:" + addvar.ToString();
         State = group.State;
     }
 }

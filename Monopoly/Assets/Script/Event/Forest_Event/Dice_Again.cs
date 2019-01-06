@@ -12,7 +12,8 @@ using System.Text;
         }
         public override void DoEvent(List<Group> droup_list, Group group)
         {
-            //從俘虜中逃出，再次擲骰子
+        //從俘虜中逃出，再次擲骰子
+        group.State = PlayerState.RollingDice;
             State = PlayerState.RollingDice;
         }
     }

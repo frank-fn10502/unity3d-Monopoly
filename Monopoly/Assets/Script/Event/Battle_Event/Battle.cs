@@ -33,6 +33,7 @@ using System.Text;
             this.Name = "發生爭鬥";
             this.Image = "EventImage/AllEvent";
             this.Detail = group.CurrentActor.Name + "和" + defender.CurrentActor.Name + "發生爭鬥，玩家" + Winer.CurrentActor.Name + "獲勝";
+            this.Short_detail = group.name + "和" + defender.name + "發生爭鬥";
     }
         private int caculater_power(int leadership, int army)
         {

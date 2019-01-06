@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GlobalManager
 {
@@ -68,6 +69,7 @@ public class GlobalManager
         }
     }
 
+
     public GlobalManager(List<Faction> factionList = null)
     {
         createMap();
@@ -96,7 +98,14 @@ public class GlobalManager
                     //抽世界事件
                     EventBase eventData = events.doEvent(Eventtype.Word ,new List<Group>(groupList) ,CurrentPlayer);
                     gameState = GameState.Wait;
+
+                    
+                    displayManager.day++;
+                    displayManager.timeMsgPanel.GetComponent<Text>().text = string.Format("Day:{0:0000}" ,displayManager.day);
+                    displayManager.setWorldMsg(string.Format("Day:{0:0000}\n" ,displayManager.day) ,true);
+
                     displayManager.displayEvent(eventData ,GameState.PersonalEvent);
+                    displayManager.displayWorldMsg();
                 }
                 else
                 {
@@ -105,11 +114,11 @@ public class GlobalManager
                 if ( CurrentPlayer.InJailTime == 0 )
                 {
                     CurrentPlayer.State = PlayerState.RollingDice;
-                }
-                    
-
+                }                    
                 break;
             case GameState.PersonalEvent:
+                displayManager.displayBlockInfo(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
+
                 if ( CurrentPlayer.State != PlayerState.InJail )
                 {
                     //抽個人事件
@@ -121,6 +130,8 @@ public class GlobalManager
                 {
                     gameState = GameState.PlayerMovement;
                 }
+                displayManager.displayEndMsg = true;
+                displayManager.setWorldMsg("" ,true);
 
                 break;
             case GameState.PlayerMovement:
@@ -131,6 +142,8 @@ public class GlobalManager
                             if ( Input.GetButtonDown("Jump") || isComputer )
                             {
                                 CurrentPlayer.State = PlayerState.Wait;
+                                
+
                                 displayManager.displayRollingDice();//轉換到下一個階段
                             }
                             break;
@@ -153,6 +166,7 @@ public class GlobalManager
                         case PlayerState.InJail:
                             CurrentPlayer.InJailTime--;
                             gameState = GameState.End;//直接結束
+                            displayManager.setWorldMsg(string.Format("無法移動 剩下:{0}回合\n" ,CurrentPlayer.InJailTime));
 
                             break;
                         case PlayerState.Wait:
@@ -170,7 +184,7 @@ public class GlobalManager
                 //等待
                 break;
         }
-        Debug.Log("GameState: " + gameState);
+        Debug.Log("GameState: " + gameState + " PlayerState: " + CurrentPlayer.State);
     }
     public void nextPlayer()
     {
@@ -223,6 +237,7 @@ public class GlobalManager
         Group.blockList = map.BlockList;
         foreach ( Faction faction in factions )
         {
+            
             groupList[i] = new Group(null
                                     ,createActorList(faction.actorList)
                                     ,new Attributes(faction.attributes)
@@ -231,10 +246,13 @@ public class GlobalManager
                                     ,playerIndex[i]//?
                                     ,playerDirection[i]);//?
 
+
             groupList[i].name = "Player" + ( i + 1 );
             groupList[i].Resource.blockList.Add(map.BlockList[playerIndex[i]]);
+            groupList[i].myBuildingList = new GameObject(groupList[i].name + "BuildingList");
+            groupList[i].myBuildingList.transform.parent = Group.playerBuildingList.transform;
             //新增主堡
-            if( map.BlockList[playerIndex[i]]  is BuildingBlock)
+            if ( map.BlockList[playerIndex[i]]  is BuildingBlock)
             {
                 Building.path = "PreFab/Building/";
                 BuildingBlock buildingBlock =  (BuildingBlock)( map.BlockList[playerIndex[i]] ) ;

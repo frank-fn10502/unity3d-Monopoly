@@ -17,5 +17,6 @@ class EarthquakeEvent : EventBase
             {
                 droup_list[i].Resource.civilian = Convert.ToInt32(droup_list[i].Resource.civilian*0.9);
             }
+            this.Short_detail = "所有玩家減少人口10%";
         }
     }

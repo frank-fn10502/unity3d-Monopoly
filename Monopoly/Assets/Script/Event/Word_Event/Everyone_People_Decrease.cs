@@ -20,9 +20,9 @@ class Everyone_People_Decrease : EventBase
         //所有人類遭遇野生猩猩發動攻擊，失去人口數量
         for (int i = 0;i<4;i++)
         {
-            droup_list[i].Resource.civilian -=100;
+            droup_list[i].Resource.civilian -= subvar;
         }
-       
-        State = group.State;
+        this.Short_detail = "所有玩家減少人口" + subvar.ToString();
+    State = group.State;
     }
 }

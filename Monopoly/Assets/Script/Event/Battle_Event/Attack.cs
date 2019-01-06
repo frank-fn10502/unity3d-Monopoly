@@ -29,8 +29,9 @@ using System.Text;
             State = group.State;
             this.Name = "攻擊玩家領地";
             this.Image = "EventImage/AllEvent";
-            this.Detail = group.CurrentActor.Name + "攻擊" + defender.CurrentActor.Name + "領地，玩家"+ Winer.CurrentActor.Name+"獲勝";
-        }
+            this.Detail = group.name + "攻擊" + defender.name + "領地，玩家"+ Winer.name+"獲勝";
+            this.Short_detail = group.name + "攻擊" + defender.name + "領地";
+    }
         private int caculater_power(int leadership, int army)
         {
             return Convert.ToInt32( army * ((leadership / 100.0)+1.0));

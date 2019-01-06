@@ -22,6 +22,7 @@ class EveryoneGetResourceEvent : EventBase
             {
                 droup_list[i].Resource.mineral += Convert.ToInt32(group.Resource.mineral * (addvar/100.0));
             }
+            this.Short_detail = "所有玩家增加資源"+ addvar.ToString()+"%";
             State = group.State;
         }
 }

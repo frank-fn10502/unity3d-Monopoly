@@ -20,6 +20,7 @@ class Discover_Secret_Passage_Forest : EventBase
             Random rand = new Random();
             int rands = rand.Next(point.Count);
             group.teleport(Group.blockList[rands]);
+            this.Short_detail = group.name + "直達森林入口";
             State = group.State;
         }
     }
