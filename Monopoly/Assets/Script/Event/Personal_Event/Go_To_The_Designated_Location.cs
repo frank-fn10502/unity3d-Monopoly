@@ -16,7 +16,7 @@ class Go_To_The_Designated_Location: EventBase
 
             Random rand = new Random();
             int rands = rand.Next(group.Resource.blockList.Count);
-            group.teleport(group.Resource.blockList[rands]/*group.Resource.blockList[rands].Location*/);
+            group.teleport(rands/*group.Resource.blockList[rands].Location*/);
             this.Short_detail = group.name + "移動到" + group.Resource.blockList[rands].Location.ToString();
             State = group.State;
         }

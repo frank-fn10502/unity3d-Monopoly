@@ -75,7 +75,7 @@ public class GlobalManager
         createMap();
         createGroupList(factionList);
 
-        isComputer = false;
+        isComputer = true;
         currentGroupIndex = 0;
         totalStep = 1;
         gameState = GameState.GlobalEvent;
@@ -93,46 +93,48 @@ public class GlobalManager
         switch ( gameState )
         {
             case GameState.GlobalEvent:
-                if ( currentGroupIndex % groupList.Length == 0 )
+                if (currentGroupIndex % groupList.Length == 0)
                 {
                     //抽世界事件
-                    EventBase eventData = events.doEvent(Eventtype.Word ,new List<Group>(groupList) ,CurrentPlayer);
+                    EventBase eventData = events.doEvent(Eventtype.Word, new List<Group>(groupList), CurrentPlayer);
                     gameState = GameState.Wait;
 
-                    
-                    displayManager.day++;
-                    displayManager.timeMsgPanel.GetComponent<Text>().text = string.Format("Day:{0:0000}" ,displayManager.day);
-                    displayManager.setWorldMsg(string.Format("Day:{0:0000}\n" ,displayManager.day) ,true);
 
-                    displayManager.displayEvent(eventData ,GameState.PersonalEvent);
+                    displayManager.day++;
+                    displayManager.timeMsgPanel.GetComponent<Text>().text = string.Format("Day:{0:0000}", displayManager.day);
+                    displayManager.setWorldMsg(string.Format("Day:{0:0000}\n", displayManager.day), true);
+
+                    displayManager.displayEvent(eventData, GameState.PersonalEvent);
                     displayManager.displayWorldMsg();
                 }
                 else
                 {
                     gameState = GameState.PersonalEvent;
                 }
-                if ( CurrentPlayer.InJailTime == 0 )
+                if (CurrentPlayer.InJailTime == 0)
                 {
                     CurrentPlayer.State = PlayerState.RollingDice;
-                }                    
+                }
+                //gameState = GameState.PersonalEvent;
+                //CurrentPlayer.State = PlayerState.RollingDice;
                 break;
             case GameState.PersonalEvent:
-                displayManager.displayBlockInfo(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
+                //displayManager.displayBlockInfo(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
 
-                if ( CurrentPlayer.State != PlayerState.InJail )
-                {
-                    //抽個人事件
-                    EventBase eventData = events.doEvent(Eventtype.Personal ,new List<Group>(groupList) ,CurrentPlayer);
-                    gameState = GameState.Wait;
-                    displayManager.displayEvent(eventData ,GameState.PlayerMovement);
-                }
-                else
-                {
-                    gameState = GameState.PlayerMovement;
-                }
-                displayManager.displayEndMsg = true;
-                displayManager.setWorldMsg("" ,true);
-
+                //if ( CurrentPlayer.State != PlayerState.InJail )
+                //{
+                //    //抽個人事件
+                //    EventBase eventData = events.doEvent(Eventtype.Personal ,new List<Group>(groupList) ,CurrentPlayer);
+                //    gameState = GameState.Wait;
+                //    displayManager.displayEvent(eventData ,GameState.PlayerMovement);
+                //}
+                //else
+                //{
+                //    gameState = GameState.PlayerMovement;
+                //}
+                //displayManager.displayEndMsg = true;
+                //displayManager.setWorldMsg("" ,true);
+                gameState = GameState.PlayerMovement;
                 break;
             case GameState.PlayerMovement:
                 {
@@ -189,9 +191,9 @@ public class GlobalManager
     public void nextPlayer()
     {
         currentGroupIndex = ( currentGroupIndex + 1 ) % Constants.PLAYERNUMBER;
-        isComputer = ( currentGroupIndex == Constants.PLAYERNUMBER - 1 );
+        //isComputer = ( currentGroupIndex == Constants.PLAYERNUMBER - 1 );
         //isComputer = true;
-        //isComputer = false;
+        isComputer = false;
         gameState = GameState.GlobalEvent;
     }
 

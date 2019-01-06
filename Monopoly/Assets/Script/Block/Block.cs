@@ -13,6 +13,7 @@ public abstract class Block
     public virtual string block_type { get; }//jsonconvert
 
     public GameObject frame;
+    public int index;
 
     protected Vector3 location;
     protected List<Walkable> identity;
