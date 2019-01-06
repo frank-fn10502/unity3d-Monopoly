@@ -14,6 +14,7 @@ class Human_Diplomacy : EventBase
             droup_list[i].Resource.antidote += 2;
             droup_list[i].Attributes.diplomatic += 5;
         }
+        this.Short_detail = "所玩家解藥提升2%，外交增加5";
         State = group.State;
     }
 }

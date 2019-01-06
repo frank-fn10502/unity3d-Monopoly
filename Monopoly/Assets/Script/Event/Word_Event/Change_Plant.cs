@@ -22,6 +22,7 @@ using System.Text;
             int temp = droup_list[p1].CurrentBlockIndex;
             droup_list[p1].teleport(Group.blockList[droup_list[p2].CurrentBlockIndex]);
             droup_list[p2].teleport(Group.blockList[temp]);
+            this.Short_detail = droup_list[p1].name + "和"+ droup_list[p2].name + "交換位置";
             State = group.State;
         }
     }

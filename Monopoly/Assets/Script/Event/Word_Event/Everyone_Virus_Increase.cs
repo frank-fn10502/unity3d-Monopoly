@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 class Everyone_Virus_Increase : EventBase
 {
+    int subvar = 10;
     public Everyone_Virus_Increase(string n, bool g, int w, string d, string p) : base(n, g, w, d, p)
     {
 
+    }
+    public Everyone_Virus_Increase(string n, bool g, int w, string d, string p,int v) : base(n, g, w, d, p)
+    {
+        subvar = v;
     }
     public override void DoEvent(List<Group> droup_list, Group group)
     {
@@ -17,6 +22,7 @@ class Everyone_Virus_Increase : EventBase
         {
             group.Resource.civilian -= Convert.ToInt32(group.Resource.civilian*0.1);
         }
+        this.Short_detail = "所有玩家人口減少" + subvar.ToString()+"%";
         State = group.State;
     }
 }

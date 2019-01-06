@@ -12,6 +12,7 @@ class Orangutan_Reduction : EventBase
         //發生內鬥，使猩猩和平指數下降20，且猩猩人口減少4%
         group.Resource.civilian -= Convert.ToInt32(group.Resource.civilian*0.04);
         group.Attributes.peace -= 20;
+        this.Short_detail = "猩猩和平減少20，人口減少4%";
         State = group.State;
     }
 }

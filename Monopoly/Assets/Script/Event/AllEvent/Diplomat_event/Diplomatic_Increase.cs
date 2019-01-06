@@ -15,6 +15,7 @@ class Diplomatic_Increase : EventBase
     {
         //外交指數上升2
         group.Attributes.diplomatic += 2;
+        this.Short_detail = group.name + "外交增加:" + addvar.ToString();
         State = group.State;
     }
 }

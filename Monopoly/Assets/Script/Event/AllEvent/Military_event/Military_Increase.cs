@@ -19,6 +19,7 @@ class Military_Increase : EventBase
         {
             //使軍隊增加100 
             group.Resource.army += addvar;
+            this.Short_detail = group.name + "軍隊增加:" + addvar.ToString();
             State = group.State;
         }
 }

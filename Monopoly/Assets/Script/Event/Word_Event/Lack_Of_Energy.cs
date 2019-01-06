@@ -19,6 +19,7 @@ class Lack_Of_Energy : EventBase
                 droup_list[i].Resource.mineral /= 2;
                 droup_list[i].Resource.civilian += 200;
             }
+            this.Short_detail = "資源減半，人口增加200";
             State = group.State;
         }
     }

@@ -38,9 +38,11 @@ public class Map
                     BlockList[index].Entity.transform.parent = mapEntity.transform;//統一管理
 
                     GameObject gameObject = Resources.Load<GameObject>("PreFab/Block/Frame");
-                    gameObject = GameObject.Instantiate(gameObject);
+                    gameObject = GameObject.Instantiate(gameObject);                   
                     gameObject.transform.position = BlockList[index].Entity.transform.position + new Vector3(0 ,0.2f ,0);
                     gameObject.transform.parent = mapEntity.transform;//統一管理
+
+                    BlockList[index].frame = gameObject;
                 }
             }
         }
