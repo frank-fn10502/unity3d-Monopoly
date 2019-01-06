@@ -55,7 +55,7 @@ public class PlayerSideMsgController : MonoBehaviour
         obj.transform.Find("Resource/Mineral/MineralText").gameObject.GetComponent<Text>().text = group.Resource.mineral.ToString();
 
         obj.transform.Find("Block").gameObject.GetComponent<Text>().text = string.Format("{0:000}",group.Resource.blockList.Count);
-        obj.transform.Find("Team").gameObject.GetComponent<Image>().color = group.materialBall.color;
+        obj.transform.Find("Team/TeamShow").gameObject.GetComponent<Image>().color = group.materialBall.color;
 
         if (globalManager.CurrentPlayer.Equals(group))
         {           
