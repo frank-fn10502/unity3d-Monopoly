@@ -102,11 +102,15 @@ public class GlobalManager
                 {
                     gameState = GameState.PersonalEvent;
                 }
-                CurrentPlayer.State = PlayerState.RollingDice;
+                if ( CurrentPlayer.InJailTime == 0 )
+                {
+                    CurrentPlayer.State = PlayerState.RollingDice;
+                }
+                    
 
                 break;
             case GameState.PersonalEvent:
-                if ( CurrentPlayer.InJailTime == 0 )
+                if ( CurrentPlayer.State != PlayerState.InJail )
                 {
                     //抽個人事件
                     EventBase eventData = events.doEvent(Eventtype.Personal ,new List<Group>(groupList) ,CurrentPlayer);

@@ -47,6 +47,9 @@ public class BuildingDisplayController : MonoBehaviour
             currentBuildingBlock.Landlord = globalManager.CurrentPlayer;
             globalManager.CurrentPlayer.Resource.blockList.Add(currentBuildingBlock);//加到玩家擁有的blockList裡面
 
+            //更改顏色
+            currentBuildingBlock.Building.Entity.transform.Find("Cube123").gameObject.GetComponent<Renderer>().material = globalManager.CurrentPlayer.materialBall;
+
             currentBuildingEntity.SetActive(false);
             globalManager.GameState = nextGameState;
         }

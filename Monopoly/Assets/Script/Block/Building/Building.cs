@@ -44,8 +44,13 @@ public class Building//TEMP
             name = value;
         }
     }
-
-
+    public GameObject Entity
+    {
+        get
+        {
+            return entity;
+        }
+    }
 
     public Building()
     {
