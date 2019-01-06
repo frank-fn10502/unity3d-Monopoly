@@ -19,6 +19,7 @@ class Diplomatic_Decrease_percent : EventBase
         {
             //外交減少
             group.Attributes.diplomatic = Convert.ToInt32(group.Attributes.diplomatic * (100- decrease_var)/100.0);
+            group.Attributes.diplomatic = (group.Attributes.diplomatic > 0 ? group.Attributes.diplomatic : 0);
             this.Short_detail = group.name + "外交減少:" + decrease_var.ToString()+"%";
             State = group.State;
         }

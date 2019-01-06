@@ -18,7 +18,7 @@ class Everyone_People_Decrease : EventBase
     public override void DoEvent(List<Group> droup_list, Group group)
     {
         //所有人類遭遇野生猩猩發動攻擊，失去人口數量
-        for (int i = 0;i<4;i++)
+        for (int i = 0;i< droup_list.Count; i++)
         {
             droup_list[i].Resource.civilian -= subvar;
         }

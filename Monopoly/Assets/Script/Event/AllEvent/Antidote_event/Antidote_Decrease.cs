@@ -19,6 +19,7 @@ class Antidote_Decrease : EventBase
     {
         //途中發現帶有變種病毒死亡的人類屍體，使解藥研究程度下降5 %
          group.Resource.antidote -= subvar;
+        group.Resource.antidote = group.Resource.antidote < 0 ? 0 : group.Resource.antidote;
         this.Short_detail = group.name + "解藥減少:" + subvar.ToString() + "%";
         State = group.State;
     }

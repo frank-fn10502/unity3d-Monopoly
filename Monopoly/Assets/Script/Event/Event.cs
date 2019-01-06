@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,7 +45,6 @@ public class Event
         apes.AddEvent(new People_Increase("猩猩發現落單人類", true, 5, "由於猩猩發現落單人類，並將之規劃為人民，猩猩增加人口200", "EventImage/AllEvent",200));
         apes.AddEvent(new Military_Increase("猩猩俘虜人類士兵", true, 5, "俘虜人類士兵，軍人增加100", "EventImage/AllEvent", 100));
         apes.AddEvent(new People_Decrease_percent("森林大火", false, 1, "森林大火，造成猩猩人口死亡50%", "EventImage/file", 50));
-
     }
 
     private void Add_Forest_Event()
@@ -76,27 +76,27 @@ public class Event
         personal.AddEvent(new Military_Increase_percent("猩猩叛逃投靠人類", true, 8, "猩猩叛逃投靠人類，使軍隊增加20%", "EventImage/Person_attacked2", 20));
         personal.AddEvent(new People_Increase("敵方陣營人民投靠", true, 8, "敵方陣營人民投靠，使人數增加100", "EventImage/AllEvent", 100));
         //和平
-        personal.AddEvent(new Peace_Decrease("人類內鬥", false, 5, "人類軍對下級和上級處不來，和平減少10", "EventImage/AllEvent", 10));
-        personal.AddEvent(new Military_Decrease("發生叛亂", false, 5, "發生叛亂，軍官帶兵反抗統帥，使軍人死亡100", "EventImage/AllEvent", 100));
+        personal.AddEvent(new Peace_Decrease("人類內鬥", false, 6, "人類軍對下級和上級處不來，和平減少10", "EventImage/AllEvent", 10));
+        personal.AddEvent(new Military_Decrease("發生叛亂", false, 6, "發生叛亂，軍官帶兵反抗統帥，使軍人死亡100", "EventImage/AllEvent", 100));
         //領導
-        personal.AddEvent(new Military_Increase_percent("研發出新武器", true, 6, "由於個人研發新武器，使軍隊增加10%", "EventImage/Military_Increase", 10));
-        personal.AddEvent(new Secret_Passage_Time_Out("實驗室密道", true, 3, "在路途中發現能直達實驗室的秘密通道，但必須暫停2回合", "EventImage/Secret"));
-        personal.AddEvent(new People_Time_Out("被猩猩抓走成為俘虜", false, 2, "由於被猩猩抓走成為俘虜，暫停一回合", "EventImage/Time_Out"));
-        personal.AddEvent(new Discover_Secret_Passage_Forest("途中發現祕密通道", true, 4, "由於途中發現祕密通道，可直達森林入口", "AllEEventImage/Secret"));
+        personal.AddEvent(new Military_Increase_percent("研發出新武器", true, 7, "由於個人研發新武器，使軍隊增加10%", "EventImage/Military_Increase", 10));
+        personal.AddEvent(new Secret_Passage_Time_Out("實驗室密道", true, 4, "在路途中發現能直達實驗室的秘密通道，但必須暫停2回合", "EventImage/Secret"));
+        personal.AddEvent(new People_Time_Out("被猩猩抓走成為俘虜", false, 4, "由於被猩猩抓走成為俘虜，暫停一回合", "EventImage/Time_Out"));
+        personal.AddEvent(new Discover_Secret_Passage_Forest("途中發現祕密通道", true, 5, "由於途中發現祕密通道，可直達森林入口", "AllEEventImage/Secret"));
 
-        personal.AddEvent(new GetResourceEvent("在礦場中意外發現稀有礦物", true, 10, "在礦場中意外發現稀有礦物，個人所得資源增加10%", "EventImage/Resources_Increase", 10));
-        personal.AddEvent(new People_Time_Out("受到戰爭流彈波及", false, 5, "個人受到戰爭流彈波及，暫停一回合養傷", "EventImage/Time_Out"));
-        personal.AddEvent(new Military_Decrease_half("營地發生雪崩", false, 3, "營地發生雪崩，個人軍隊人口縮減一半 ", "EventImage/Avalanche"));
-        personal.AddEvent(new People_Decrease_Half("礦場倒塌", false, 2, "由於礦場倒塌，人口減少一半", "EventImage/AllEvent"));
-        personal.AddEvent(new People_Time_Out("猩猩發現落單人類", false, 5, "由於猩猩發現落單人類，個人暫停一回合", "EventImage/Time_Out"));
-        personal.AddEvent(new People_Time_Out("在橋上不慎踩空", false, 6, "由於在橋上不慎踩空，暫停一回合", "EventImage/Time_Out"));
-        personal.AddEvent(new Military_Decrease("軍營中發現帶有病毒猩猩的屍體", false, 3, "軍營中發現帶有病毒猩猩的屍體，使軍隊人口感染人數增加，軍隊減少10%", "EventImage/AllEvent",10));
-        personal.AddEvent(new Antidote_Decrease("途中發現帶有變種病毒死亡的人類屍體", false, 4, "途中發現帶有變種病毒死亡的人類屍體，使解藥研究程度下降5%", "EventImage/AllEvent",5));
-        personal.AddEvent(new Diplomatic_Decrease("人類遭遇猿流感", false, 4, "人類遭遇猿流感，使得語言能力退化，外交能力喪失，外交減少90%", "EventImage/Virus"));
-        personal.AddEvent(new Military_Decrease("為防止軍隊病毒災情擴散", false, 6, "為防止軍隊病毒災情擴散，將處決軍隊受感染人數，軍隊人數減少5%", "EventImage/Execution", 5));
-        personal.AddEvent(new People_Increase_percent("發現病毒對兒童無效", true, 9, "發現病毒對兒童無效，使人數增加20%", "EventImage/Virus", 20));
-        personal.AddEvent(new Go_To_The_Designated_Location("途中意外發現軍用直升機", true, 5, "途中意外發現軍用直升機，可前隨機前往自己的其中一個領地", "EventImage/Helicopter"));
-        personal.AddEvent(new Antibody_Increased("解藥研發突破", true, 9, "解藥研發突破，使解藥研發提升2%", "EventImage/Virus", 2));
+        personal.AddEvent(new GetResourceEvent("在礦場中意外發現稀有礦物", true, 11, "在礦場中意外發現稀有礦物，個人所得資源增加10%", "EventImage/Resources_Increase", 10));
+        personal.AddEvent(new People_Time_Out("受到戰爭流彈波及", false, 6, "個人受到戰爭流彈波及，暫停一回合養傷", "EventImage/Time_Out"));
+        personal.AddEvent(new Military_Decrease_half("營地發生雪崩", false, 4, "營地發生雪崩，個人軍隊人口縮減一半 ", "EventImage/Avalanche"));
+        personal.AddEvent(new People_Decrease_Half("礦場倒塌", false, 3, "由於礦場倒塌，人口減少一半", "EventImage/AllEvent"));
+        personal.AddEvent(new People_Time_Out("猩猩發現落單人類", false, 6, "由於猩猩發現落單人類，個人暫停一回合", "EventImage/Time_Out"));
+        personal.AddEvent(new People_Time_Out("在橋上不慎踩空", false, 7, "由於在橋上不慎踩空，暫停一回合", "EventImage/Time_Out"));
+        personal.AddEvent(new Military_Decrease("軍營中發現帶有病毒猩猩的屍體", false, 4, "軍營中發現帶有病毒猩猩的屍體，使軍隊人口感染人數增加，軍隊減少10%", "EventImage/AllEvent",10));
+        personal.AddEvent(new Antidote_Decrease("途中發現帶有變種病毒死亡的人類屍體", false, 5, "途中發現帶有變種病毒死亡的人類屍體，使解藥研究程度下降5%", "EventImage/AllEvent",5));
+        personal.AddEvent(new Diplomatic_Decrease("人類遭遇猿流感", false, 5, "人類遭遇猿流感，使得語言能力退化，外交能力喪失，外交減少90%", "EventImage/Virus"));
+        personal.AddEvent(new Military_Decrease("為防止軍隊病毒災情擴散", false, 7, "為防止軍隊病毒災情擴散，將處決軍隊受感染人數，軍隊人數減少5%", "EventImage/Execution", 5));
+        personal.AddEvent(new People_Increase_percent("發現病毒對兒童無效", true, 10, "發現病毒對兒童無效，使人數增加20%", "EventImage/Virus", 20));
+        personal.AddEvent(new Go_To_The_Designated_Location("途中意外發現軍用直升機", true, 7, "途中意外發現軍用直升機，可前隨機前往自己的其中一個領地", "EventImage/Helicopter"));
+        personal.AddEvent(new Antibody_Increased("解藥研發突破", true, 10, "解藥研發突破，使解藥研發提升2%", "EventImage/Virus", 2));
         personal.AddEvent(new Win_Event("遊戲結束", true, 1, "運氣真好，遊戲結束，", "EventImage/Win"));
         personal.AddEvent(new Lose_Event("你輸了", true, 1, "運氣真背，竟然然抽到此事件，你的遊戲結束了", "EventImage/Lose"));
 
@@ -183,6 +183,10 @@ public class Event
         string str = "";
         for(int i = 0;i<4;i++)
         {
+            if (droup_list[i].Resource.antidote == 0) deal = 50;
+            else if (droup_list[i].Resource.antidote == 100) deal = 0;
+            else deal = Convert.ToInt32(droup_list[i].Resource.civilian * ((droup_list[i].Resource.antidote / 10.0) * (droup_list[i].Resource.antidote / 10.0)));
+
             droup_list[i].Resource.civilian -= deal;
             str += droup_list[i].name + "感染人口死亡" + deal.ToString()+"\n";
         }

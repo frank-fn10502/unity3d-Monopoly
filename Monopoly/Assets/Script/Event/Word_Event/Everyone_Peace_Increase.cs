@@ -14,7 +14,7 @@ class Everyone_eace_Increase : EventBase
     public override void DoEvent(List<Group> droup_list, Group group)
     {
         //和平指數上升
-        for(int i = 0;i<5;i++)
+        for(int i = 0;i< droup_list.Count+1; i++)
         {
             droup_list[i].Attributes.peace += addvar;
         }

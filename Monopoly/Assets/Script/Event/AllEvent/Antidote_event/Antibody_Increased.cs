@@ -20,6 +20,7 @@ class Antibody_Increased : EventBase
     {
         //各人類解藥研發程度上升
         group.Resource.antidote += addvar;
+        group.Resource.antidote = group.Resource.antidote > 100 ? 100 : group.Resource.antidote;
         this.Short_detail = group.name + "解藥增加:" + addvar.ToString() + "%";
     }
 }
