@@ -119,22 +119,22 @@ public class GlobalManager
                 //CurrentPlayer.State = PlayerState.RollingDice;
                 break;
             case GameState.PersonalEvent:
-                //displayManager.displayBlockInfo(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
+                displayManager.displayBlockInfo(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
 
-                //if ( CurrentPlayer.State != PlayerState.InJail )
-                //{
-                //    //抽個人事件
-                //    EventBase eventData = events.doEvent(Eventtype.Personal ,new List<Group>(groupList) ,CurrentPlayer);
-                //    gameState = GameState.Wait;
-                //    displayManager.displayEvent(eventData ,GameState.PlayerMovement);
-                //}
-                //else
-                //{
-                //    gameState = GameState.PlayerMovement;
-                //}
-                //displayManager.displayEndMsg = true;
-                //displayManager.setWorldMsg("" ,true);
-                gameState = GameState.PlayerMovement;
+                if (CurrentPlayer.State != PlayerState.InJail)
+                {
+                    //抽個人事件
+                    EventBase eventData = events.doEvent(Eventtype.Personal, new List<Group>(groupList), CurrentPlayer);
+                    gameState = GameState.Wait;
+                    displayManager.displayEvent(eventData, GameState.PlayerMovement);
+                }
+                else
+                {
+                    gameState = GameState.PlayerMovement;
+                }
+                displayManager.displayEndMsg = true;
+                displayManager.setWorldMsg("", true);
+                //gameState = GameState.PlayerMovement;
                 break;
             case GameState.PlayerMovement:
                 {
@@ -178,7 +178,7 @@ public class GlobalManager
                 }
                 break;
             case GameState.End:
-                CurrentPlayer.State = PlayerState.Wait;
+                //CurrentPlayer.State = PlayerState.Wait;
                 displayManager.displayNextPlayer();
 
                 break;
