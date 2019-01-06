@@ -8,6 +8,7 @@ public class WorldInfoController : MonoBehaviour
     private bool show;
     private void Start()
     {
+
         panel = GameObject.Find("WorldMsg");
         show = false;
     }
