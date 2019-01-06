@@ -52,6 +52,8 @@ public class BuildingDisplayController : MonoBehaviour
 
             currentBuildingEntity.SetActive(false);
             globalManager.GameState = nextGameState;
+
+            globalManager.DisplayManager.worldMsg += string.Format("\"{0}\"建造了\"{1}\"\n",globalManager.CurrentPlayer.name ,currentBuildingBlock.Building.Name);
         }
         else
         {

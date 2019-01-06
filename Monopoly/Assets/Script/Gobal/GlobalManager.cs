@@ -97,6 +97,9 @@ public class GlobalManager
                     //抽世界事件
                     EventBase eventData = events.doEvent(Eventtype.Word ,new List<Group>(groupList) ,CurrentPlayer);
                     gameState = GameState.Wait;
+
+                    displayManager.displayEndMsg = true;
+                    displayManager.day++;
                     displayManager.displayEvent(eventData ,GameState.PersonalEvent);
                 }
                 else
@@ -120,6 +123,7 @@ public class GlobalManager
                 {
                     gameState = GameState.PlayerMovement;
                 }
+                displayManager.worldMsg = "";//?
 
                 break;
             case GameState.PlayerMovement:
