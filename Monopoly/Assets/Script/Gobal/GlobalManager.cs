@@ -170,12 +170,13 @@ public class GlobalManager
                 //等待
                 break;
         }
-        Debug.Log("GameState: " + gameState);
+        //Debug.Log("GameState: " + gameState);
     }
     public void nextPlayer()
     {
         currentGroupIndex = ( currentGroupIndex + 1 ) % Constants.PLAYERNUMBER;
         isComputer = ( currentGroupIndex == Constants.PLAYERNUMBER - 1 );
+        //isComputer = true;
         //isComputer = false;
         gameState = GameState.GlobalEvent;
     }

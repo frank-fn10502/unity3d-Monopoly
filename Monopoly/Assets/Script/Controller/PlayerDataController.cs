@@ -50,6 +50,11 @@ public class PlayerDataController : MonoBehaviour
             }
             buttonList[0].SetActive(true);
         }
+        for(int i = 0; i < 4; i++)
+        {
+            onSelectCharacter(i);
+            onCheckoutClick();
+        }
     }
 
     public void onSelectCharacter(int no)

@@ -36,62 +36,34 @@ public class Scout
                               ,group.Location)
                  ,0
                  ,totalStep + 1);
-
-
-        foreach (List<Position> p in pathList)
-        {
-            /*
-            if (p[p.Count - 1].block is BuildingBlock)
-            {
-                BuildingBlock buildingBlock = (BuildingBlock)p[p.Count - 1].block;
-                if (buildingBlock.PathLocations.Count > 1)
-                {
-                    p.RemoveAt(p.Count - 1);
-                }
-            }
-            */
-            if (Isfirst)
-            {
-                if (p[0].block is BuildingBlock)
-                {
-                    BuildingBlock buildingBlock = (BuildingBlock)p[0].block;
-                    if (buildingBlock.PathLocations.Count > 1)
-                    {
-                        Vector3 realSecondP = p[1].block.standPoint(p[2].location);
-                        if (p[1].location != realSecondP)
-                        {
-                            Vector3 v = p[0].location;
-                            p[0].location = p[1].location;
-                            p[1].location = v;
-                        }
-                    }
-                }
-                if (p[1].location == group.Location)
-                {
-                    p.RemoveAt(0);
-                }
-                Isfirst = false;
-            }
-        }
-        
+        deleteNotComePoint();
     }
 
     /*==========private==========*/
+    private void deleteNotComePoint()
+    {
+        foreach (var p in pathList)
+        {
+
+            if (p[0].blockIndex == p[1].blockIndex)
+            {
+                Vector3 v = p[0].location - p[2].location;
+                if(v.magnitude != 4f && group.Location == p[1].location)
+                {
+                    p.Remove(p[0]);
+                }
+            }
+        }
+    }
     private void dfsSearch(Direction enterDirection ,Map map ,List<Position> path ,Position position ,int next ,int step)
     {
-        //Position onePos = new Position(enterDirection
-        //                              ,position.blockIndex + next
-        //                              ,map.BlockList[position.blockIndex + next]
-        //                              ,map.BlockList[position.blockIndex + next].standPoint(position.location));
-        //path.Add(onePos);
-        //findNextBlock(map ,path ,path[path.Count - 1] ,--step);
-        //path.Remove(onePos);
-
-
+        //BuildingBlock b32 = (BuildingBlock)map.BlockList[32];
+        //Debug.Log(map.BlockList[62].standPoint(b32.PathLocations[0]));
         List<Position> positions = new List<Position>();
         Vector3 loc;
         for (int i = 0; i < 2; i++)
         {
+            if (step == 1 && i == 1) break;
             loc = (i == 0) ? position.location : positions[0].location;
 
             Position onePos = new Position(enterDirection
@@ -131,6 +103,7 @@ public class Scout
             positions.Add(onePos);
         }
         path.AddRange(positions);
+
         findNextBlock(map ,path ,path[path.Count - 1] ,--step);
 
         foreach ( Position p in positions )
@@ -195,7 +168,9 @@ public class Scout
     }
     public void checkOutPath(int pathNo)//確定這一條路
     {
+
         choicePath = new List<Position>(pathList[pathNo]);
+        
 
         for ( int i = 0 ; i < pathList.Count ; i++ )
         {
