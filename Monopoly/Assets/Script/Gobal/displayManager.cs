@@ -139,7 +139,8 @@ class DisplayManager
     {
         if ( globalManager.IsComputer )
         {
-            globalManager.GameState = nextGameState;
+            //globalManager.GameState = nextGameState;
+            calWhoDead();
         }
         else
         {
@@ -256,13 +257,19 @@ class DisplayManager
         }
         timer = ( timer + 10 ) % 500;
 
-        nextPlayerText.SetActive(false);
-        globalManager.nextPlayer();
-        //if ( Input.anyKey )
-        //{
-        //    nextPlayerText.SetActive(false);
-        //    globalManager.nextPlayer();
-        //}
+        if(globalManager.IsAuto)
+        {
+            nextPlayerText.SetActive(false);
+            globalManager.nextPlayer();
+        }
+        else
+        {
+            if ( Input.anyKey )
+            {
+                nextPlayerText.SetActive(false);
+                globalManager.nextPlayer();
+            }
+        }
     }
 
     public void displayPlayerInfo(List<Faction> factionList = null)
@@ -438,6 +445,42 @@ class DisplayManager
 
             currentPlayer.Scout.checkOutPath(r);
         }
+    }
+
+    private void calWhoDead()
+    {
+        GameState gameState = (globalManager.CurrentPlayer.Resource.civilian <= 0)? GameState.End : nextGameState;
+
+        List<Group> removeGroup = new List<Group>();
+        foreach ( Group group in globalManager.GroupList )
+        {
+            if ( group.Resource.civilian <= 0 )
+            {
+                removeGroup.Add(group);
+            }
+        }
+        for ( int i = 0 ; i < removeGroup.Count ; i++ )
+        {
+            for ( int j = 0 ; j < globalManager.GroupList.Length ; j++ )
+            {
+                if ( removeGroup[i].Equals(globalManager.GroupList[j]) )
+                {
+                    globalManager.GroupList[j] = null;
+                    break;
+                }
+            }
+        }
+
+        int winner = 0;
+        for ( int i = 0 ; i < globalManager.GroupList.Length ; i++ )
+        {
+            if ( globalManager.GroupList[i] != null )
+            {
+                winner++;
+            }
+        }
+
+        globalManager.GameState = winner == 1 ? GameState.End : gameState;
     }
 }
 

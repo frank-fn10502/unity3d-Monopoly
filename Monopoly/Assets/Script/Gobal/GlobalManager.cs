@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GlobalManager
 {
     public Map map;
-    public bool isAuto;
+    private bool isAuto;
 
     private bool isComputer;
     private Group[] groupList;
@@ -70,6 +70,19 @@ public class GlobalManager
             return isComputer;
         }
     }
+    public bool IsAuto
+    {
+        get
+        {
+            return isAuto;
+        }
+        set
+        {
+            isAuto     = value;
+            isComputer = value;
+        }
+    }
+
 
 
     public GlobalManager(List<Faction> factionList = null)
@@ -95,10 +108,6 @@ public class GlobalManager
         switch ( gameState )
         {
             case GameState.GlobalEvent:
-                if(isAuto)
-                {
-                    isComputer = true;
-                }
                 if (currentGroupIndex % groupList.Length == 0)
                 {
                     //抽世界事件
@@ -199,11 +208,15 @@ public class GlobalManager
     public void nextPlayer()
     {
         currentGroupIndex = ( currentGroupIndex + 1 ) % groupList.Length;
-        if ( isAuto )
+        if ( IsAuto )
         {
             isComputer = true;
         }
+        else
+        {
             isComputer = ( currentGroupIndex == groupList.Length - 1 );
+        }
+            
         //isComputer = true;
         ///isComputer = false;
         gameState = GameState.GlobalEvent;
