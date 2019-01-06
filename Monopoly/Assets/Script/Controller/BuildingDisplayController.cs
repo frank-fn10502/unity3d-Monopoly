@@ -53,12 +53,13 @@ public class BuildingDisplayController : MonoBehaviour
             currentBuildingEntity.SetActive(false);
             globalManager.GameState = nextGameState;
 
-            globalManager.DisplayManager.worldMsg += string.Format("\"{0}\"建造了\"{1}\"\n",globalManager.CurrentPlayer.name ,currentBuildingBlock.Building.Name);
+            globalManager.DisplayManager.setWorldMsg(string.Format("\"{0}\"建造了\"{1}\"\n" ,globalManager.CurrentPlayer.name ,currentBuildingBlock.Building.Name));
         }
         else
         {
             currentBuildingEntity.SetActive(false);
             globalManager.DisplayManager.displayCantNotBuy(nextGameState);
+            globalManager.DisplayManager.setWorldMsg(string.Format("\"{0}\"買不起任何建築\n" ,globalManager.CurrentPlayer.name));
         }
     }
     public void cencelButtonClick()

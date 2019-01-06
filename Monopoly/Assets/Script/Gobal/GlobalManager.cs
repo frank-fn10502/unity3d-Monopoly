@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GlobalManager
 {
@@ -98,8 +99,9 @@ public class GlobalManager
                     EventBase eventData = events.doEvent(Eventtype.Word ,new List<Group>(groupList) ,CurrentPlayer);
                     gameState = GameState.Wait;
 
-                    displayManager.displayEndMsg = true;
+                    
                     displayManager.day++;
+                    displayManager.timeMsgPanel.GetComponent<Text>().text = string.Format("第{0}天" ,displayManager.day);
                     displayManager.displayEvent(eventData ,GameState.PersonalEvent);
                 }
                 else
@@ -123,7 +125,16 @@ public class GlobalManager
                 {
                     gameState = GameState.PlayerMovement;
                 }
-                displayManager.worldMsg = "";//?
+                displayManager.displayEndMsg = true;
+
+                if ( currentGroupIndex == 0 )
+                {
+                    displayManager.setWorldMsg("第" + displayManager.day + "天\n" ,true);
+                }
+                else
+                {
+                    displayManager.setWorldMsg("" ,true);
+                }
 
                 break;
             case GameState.PlayerMovement:
@@ -156,7 +167,7 @@ public class GlobalManager
                         case PlayerState.InJail:
                             CurrentPlayer.InJailTime--;
                             gameState = GameState.End;//直接結束
-
+                            displayManager.setWorldMsg(string.Format("無法移動 剩下:{0}回合\n" ,CurrentPlayer.InJailTime));
                             break;
                         case PlayerState.Wait:
                             //等待

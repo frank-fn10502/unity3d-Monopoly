@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 class DisplayManager
 {
+    public GameObject timeMsgPanel;
     private GlobalManager globalManager;
     private GameObject nextPlayerText;
     private GameObject pathListEntity;
@@ -14,10 +15,11 @@ class DisplayManager
     private GameObject canNotBuyCard;
     private GameObject playerSideMsgPanel;
     private GameObject worldMsgPanel;
+    
 
     private int timer;
 
-    public string worldMsg;
+    private string worldMsg;
     public int day;
     public bool displayEndMsg;
 
@@ -68,18 +70,25 @@ class DisplayManager
         playerSideMsgPanel.GetComponent<PlayerSideMsgController>().globalManager = globalManager;
 
         worldMsgPanel = GameObject.Find("WorldMsg");
-        //?
+        worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Text>().text = "";
         day = 0;
+
+        timeMsgPanel = GameObject.Find("WorldTime");
     }
 
 
+
+    public void setWorldMsg(string str ,bool clear = false)
+    {
+        worldMsg = clear ? str : worldMsg + str;
+    }
     public void displayRollingDice()
     {
         //呼叫扔骰子
         globalManager.TotalStep = 24;//temp
         currentPlayer.State = PlayerState.SearchPath;//temp
 
-        worldMsg += string.Format("\"{0}\"骰出了\"{1}\"\n" ,globalManager.CurrentPlayer.name ,globalManager.TotalStep);
+        worldMsg += string.Format("\"{0}\"骰出了\"{1}\"\n" ,globalManager.CurrentPlayer.name ,globalManager.TotalStep);//temp
     }
     public void displaySearchPath(Map map)
     {
@@ -116,6 +125,7 @@ class DisplayManager
             eventCard.SetActive(true);
         }
         //worldMsg += eventData.Detail;
+        //setWorldMsg(eventData.Detail);
         displayPlayerInfo();///
     }
     public void displayStopAction(Block block ,GameState nextGameState)
@@ -231,7 +241,7 @@ class DisplayManager
     }
     public void displayWorldMsg()
     {
-
+        worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Text>().text += worldMsg;
     }
 
     /*==========private==========*/
