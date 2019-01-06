@@ -52,11 +52,14 @@ public class BuildingDisplayController : MonoBehaviour
 
             currentBuildingEntity.SetActive(false);
             globalManager.GameState = nextGameState;
+
+            globalManager.DisplayManager.setWorldMsg(string.Format("\"{0}\"建造了\"{1}\"\n" ,globalManager.CurrentPlayer.name ,currentBuildingBlock.Building.Name));
         }
         else
         {
             currentBuildingEntity.SetActive(false);
             globalManager.DisplayManager.displayCantNotBuy(nextGameState);
+            globalManager.DisplayManager.setWorldMsg(string.Format("\"{0}\"買不起任何建築\n" ,globalManager.CurrentPlayer.name));
         }
     }
     public void cencelButtonClick()
@@ -89,6 +92,7 @@ public class BuildingDisplayController : MonoBehaviour
     private void createBuildingEntityList()
     {
         buildingEntityList = new List<GameObject>();
+        GameObject bEntityList = new GameObject("BuildingList");
         
         for(int i = 0 ; i < buildingList.Count ; i++ )
         {
@@ -96,6 +100,8 @@ public class BuildingDisplayController : MonoBehaviour
             buindingEntity = GameObject.Instantiate(buindingEntity);
             buildingEntityList.Add(buindingEntity);
             buindingEntity.SetActive(false);
+
+            buindingEntity.transform.parent = bEntityList.transform;
         }
         currentBuildingEntity = buildingEntityList[0];
     }

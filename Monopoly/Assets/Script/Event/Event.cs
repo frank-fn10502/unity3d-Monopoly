@@ -38,7 +38,7 @@ public class Event
         apes.AddEvent(new Orangutan_Reduction("猩猩看不慣凱薩", false, 8, "由於猩猩看不慣凱薩，發生內鬥，使猩猩和平指數下降20，猩猩人口減少4%", "EventImage/AllEvent"));
         //領導
         apes.AddEvent(new Everyone_People_Decrease("帶著猿流感的猩猩失控爆走", false, 5, "帶著猿流感的猩猩失控爆走，使得病毒擴散加快，人類死亡100", "EventImage/Virus", 100));
-        apes.AddEvent(new Every_People_Time_Out("人類軍營慘遭猩猩入侵", false, 5, "由於人類軍營慘遭猩猩入侵，導致損失慘重，所有人類暫停一回合", "EventImage/Time_Out"));
+        apes.AddEvent(new Every_People_Time_Out("人類軍營慘遭猩猩入侵", false, 100, "由於人類軍營慘遭猩猩入侵，導致損失慘重，所有人類暫停一回合", "EventImage/Time_Out"));
         apes.AddEvent(new Human_Diplomacy("紅毛猩猩教導猩猩族群學習語言", true, 5, "由於紅毛猩猩教導猩猩族群學習語言，使猩猩可以跟人類外交，且減少病毒擴散，使解藥研發進度提升，外交指數上升", "EventImage/Human_Diplomacy"));
 
         apes.AddEvent(new People_Increase("猩猩發現落單人類", true, 5, "由於猩猩發現落單人類，並將之規劃為人民，猩猩增加人口200", "EventImage/AllEvent",200));

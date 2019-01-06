@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GlobalManager
 {
@@ -68,6 +69,7 @@ public class GlobalManager
         }
     }
 
+
     public GlobalManager(List<Faction> factionList = null)
     {
         createMap();
@@ -96,6 +98,10 @@ public class GlobalManager
                     //抽世界事件
                     EventBase eventData = events.doEvent(Eventtype.Word ,new List<Group>(groupList) ,CurrentPlayer);
                     gameState = GameState.Wait;
+
+                    
+                    displayManager.day++;
+                    displayManager.timeMsgPanel.GetComponent<Text>().text = string.Format("第{0}天" ,displayManager.day);
                     displayManager.displayEvent(eventData ,GameState.PersonalEvent);
                 }
                 else
@@ -105,9 +111,7 @@ public class GlobalManager
                 if ( CurrentPlayer.InJailTime == 0 )
                 {
                     CurrentPlayer.State = PlayerState.RollingDice;
-                }
-                    
-
+                }                    
                 break;
             case GameState.PersonalEvent:
                 if ( CurrentPlayer.State != PlayerState.InJail )
@@ -120,6 +124,16 @@ public class GlobalManager
                 else
                 {
                     gameState = GameState.PlayerMovement;
+                }
+                displayManager.displayEndMsg = true;
+
+                if ( currentGroupIndex == 0 )
+                {
+                    displayManager.setWorldMsg(string.Format("Day:{0:0000}",displayManager.day) ,true);
+                }
+                else
+                {
+                    displayManager.setWorldMsg("" ,true);
                 }
 
                 break;
@@ -153,7 +167,7 @@ public class GlobalManager
                         case PlayerState.InJail:
                             CurrentPlayer.InJailTime--;
                             gameState = GameState.End;//直接結束
-
+                            displayManager.setWorldMsg(string.Format("無法移動 剩下:{0}回合\n" ,CurrentPlayer.InJailTime));
                             break;
                         case PlayerState.Wait:
                             //等待
@@ -170,7 +184,7 @@ public class GlobalManager
                 //等待
                 break;
         }
-        Debug.Log("GameState: " + gameState);
+        Debug.Log("GameState: " + gameState + " PlayerState: " + CurrentPlayer.State);
     }
     public void nextPlayer()
     {
@@ -223,6 +237,7 @@ public class GlobalManager
         Group.blockList = map.BlockList;
         foreach ( Faction faction in factions )
         {
+            
             groupList[i] = new Group(null
                                     ,createActorList(faction.actorList)
                                     ,new Attributes(faction.attributes)
@@ -231,10 +246,13 @@ public class GlobalManager
                                     ,playerIndex[i]//?
                                     ,playerDirection[i]);//?
 
+
             groupList[i].name = "Player" + ( i + 1 );
             groupList[i].Resource.blockList.Add(map.BlockList[playerIndex[i]]);
+            groupList[i].myBuildingList = new GameObject(groupList[i].name + "BuildingList");
+            groupList[i].myBuildingList.transform.parent = Group.playerBuildingList.transform;
             //新增主堡
-            if( map.BlockList[playerIndex[i]]  is BuildingBlock)
+            if ( map.BlockList[playerIndex[i]]  is BuildingBlock)
             {
                 Building.path = "PreFab/Building/";
                 BuildingBlock buildingBlock =  (BuildingBlock)( map.BlockList[playerIndex[i]] ) ;

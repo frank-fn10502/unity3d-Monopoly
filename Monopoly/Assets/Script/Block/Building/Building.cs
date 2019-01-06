@@ -88,6 +88,7 @@ public class Building//TEMP
         entity = Resources.Load<GameObject>(path + fileName);
         entity = GameObject.Instantiate(entity);
         entity.transform.position = loc;
+        entity.transform.parent = group.myBuildingList.transform;
 
         return true;
     }

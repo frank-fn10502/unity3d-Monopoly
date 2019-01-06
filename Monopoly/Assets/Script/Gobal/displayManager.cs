@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 class DisplayManager
 {
+    public GameObject timeMsgPanel;
     private GlobalManager globalManager;
     private GameObject nextPlayerText;
     private GameObject pathListEntity;
@@ -13,8 +14,14 @@ class DisplayManager
     private GameObject buildingArea;
     private GameObject canNotBuyCard;
     private GameObject playerSideMsgPanel;
+    private GameObject worldMsgPanel;
+    
 
     private int timer;
+
+    private string worldMsg;
+    public int day;
+    public bool displayEndMsg;
 
     public Group currentPlayer
     {
@@ -61,14 +68,27 @@ class DisplayManager
 
         playerSideMsgPanel = GameObject.Find("PlayerMsg");
         playerSideMsgPanel.GetComponent<PlayerSideMsgController>().globalManager = globalManager;
+
+        worldMsgPanel = GameObject.Find("WorldMsg");
+        worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Text>().text = "";
+        day = 0;
+
+        timeMsgPanel = GameObject.Find("WorldTime");
     }
 
 
+
+    public void setWorldMsg(string str ,bool clear = false)
+    {
+        worldMsg = clear ? str : worldMsg + str;
+    }
     public void displayRollingDice()
     {
         //呼叫扔骰子
         globalManager.TotalStep = 24;//temp
         currentPlayer.State = PlayerState.SearchPath;//temp
+
+        worldMsg += string.Format("\"{0}\"骰出了\"{1}\"\n" ,globalManager.CurrentPlayer.name ,globalManager.TotalStep);//temp
     }
     public void displaySearchPath(Map map)
     {
@@ -104,7 +124,8 @@ class DisplayManager
             eventCard.GetComponent<EventCardController>().nextGameState = nextGameState;
             eventCard.SetActive(true);
         }
-
+        //worldMsg += eventData.Detail;
+        //setWorldMsg(eventData.Detail);
         displayPlayerInfo();///
     }
     public void displayStopAction(Block block ,GameState nextGameState)
@@ -178,14 +199,21 @@ class DisplayManager
                 }
             }
         }
+
+        
     }
     public void displayNextPlayer()
     {
+        if(displayEndMsg)
+        {
+            displayWorldMsg();
+            displayEndMsg = false;
+        }
+
         if ( timer % 500 == 0 )
         {
             bool now = nextPlayerText.activeSelf;
             nextPlayerText.SetActive(!now);
-
         }
         timer = ( timer + 10 ) % 500;
 
@@ -200,7 +228,6 @@ class DisplayManager
     {
         playerSideMsgPanel.GetComponent<PlayerSideMsgController>().displayPlayerList(globalManager.GroupList);
     }
-
     public void displayBuildConstructor(BuildingBlock buildingBlock ,GameState nextGameState)
     {
         buildingArea.GetComponent<BuildingDisplayController>().currentBuildingBlock = buildingBlock;
@@ -211,6 +238,10 @@ class DisplayManager
     {
         canNotBuyCard.GetComponent<CanNotBuyCardController>().nextGameState = nextGameState;
         canNotBuyCard.SetActive(true);
+    }
+    public void displayWorldMsg()
+    {
+        worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Text>().text += worldMsg;
     }
 
     /*==========private==========*/
