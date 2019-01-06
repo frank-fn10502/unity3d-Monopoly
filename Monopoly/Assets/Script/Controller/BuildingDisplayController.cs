@@ -101,11 +101,12 @@ public class BuildingDisplayController : MonoBehaviour
         {
             GameObject buindingEntity = Resources.Load<GameObject>(Building.path + buildingList[i].FileName);
             buindingEntity = GameObject.Instantiate(buindingEntity);
+            buindingEntity.transform.Find("Cube123").gameObject.layer = LayerMask.NameToLayer("CurrentBlock");
+
             buildingEntityList.Add(buindingEntity);
             buindingEntity.SetActive(false);
 
-            buindingEntity.transform.parent = bEntityList.transform;
-            buindingEntity.layer = LayerMask.NameToLayer("CurrentBlock");
+            buindingEntity.transform.parent = bEntityList.transform;           
         }
         currentBuildingEntity = buildingEntityList[0];
     }
