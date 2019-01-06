@@ -18,11 +18,16 @@ public class PlayerDataController : MonoBehaviour
     private const int playerNum = 4;
     public void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.F12))
         {
+            System.Random random = new System.Random();
+            int r;
             for (int i = 0; i < 4; i++)
             {
-                onSelectCharacter(i);
+                r = random.Next(0 ,7);
+
+                onSelectCharacter(r);
                 onCheckoutClick();
             }
         }

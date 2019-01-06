@@ -68,6 +68,7 @@ public class DiceCheckZoneScript : MonoBehaviour
                 text.text = number.ToString();
                 rolling = false;
                 diceDisplayPanel.SetActive(false);
+                globalManager.TotalStep = number;
                 globalManager.CurrentPlayer.State = PlayerState.SearchPath;//?
             }
         }
