@@ -26,8 +26,8 @@ public class ShowEventController : MonoBehaviour {
     {
         if (timer % 20 == 0 && !isEnd)
         {
-            GameObject.Find("EndMsgShow/TheEndMsg").GetComponent<Control>().WriteText(vs[index++]+"\n");
-            if (vs.Length - 1 == index)
+            GameObject.Find("EndMsgShow/TheEndMsg").GetComponent<Control>().WriteText(vs[index++]+ "\n");
+            if (vs.Length -1 == index)
             {
                 isEnd = true;
             }
