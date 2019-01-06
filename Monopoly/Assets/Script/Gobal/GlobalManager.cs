@@ -182,11 +182,6 @@ public class GlobalManager
                 break;
             case GameState.End:
                 displayManager.displayNextPlayer();
-                if(displayManager.day == 50)
-                {
-                    return 
-                    //displayManager.displayEndMsg
-                }
                 break;
             case GameState.Wait:
                 //等待

@@ -232,14 +232,15 @@ class DisplayManager
         int winner = 0;
         for(int i = 0 ; i < globalManager.GroupList.Length ; i++ )
         {
-            if( globalManager.GroupList != null)
+            if( globalManager.GroupList[i] != null)
             {
                 winner++;
             }
         }
         if(winner == 1)
         {
-            SceneManager.LoadScene("EndScene");
+            SceneManager.LoadScene("ShowEventScene");
+            globalManager.GameState = GameState.Wait;//?
         }
 
         if ( displayEndMsg )
