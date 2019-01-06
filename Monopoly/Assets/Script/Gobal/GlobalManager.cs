@@ -142,8 +142,6 @@ public class GlobalManager
                             if ( Input.GetButtonDown("Jump") || isComputer )
                             {
                                 CurrentPlayer.State = PlayerState.Wait;
-
-
                                 displayManager.displayRollingDice();//轉換到下一個階段
                             }
                             break;

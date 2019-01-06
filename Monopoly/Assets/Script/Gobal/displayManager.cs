@@ -17,6 +17,8 @@ class DisplayManager
     private GameObject worldMsgPanel;
     private GameObject blockInformation;
     private Camera     blockCamera;
+    private GameObject diceDisplayPanel;
+    private GameObject diceObj;
 
 
 
@@ -79,6 +81,16 @@ class DisplayManager
         timeMsgPanel = GameObject.Find("WorldTime");
         blockInformation = GameObject.Find("BlockInformation");
         blockCamera = GameObject.Find("BlockCamera").GetComponent<Camera>();
+
+
+        diceDisplayPanel = Resources.Load<GameObject>("PreFab/Ui/DiceDisplay"); //GameObject.Find("CanNotBuyCard");
+        diceDisplayPanel = GameObject.Instantiate(diceDisplayPanel);
+        diceDisplayPanel.transform.SetParent(GameObject.Find("Canvas").transform ,false);
+        diceDisplayPanel.SetActive(false);
+
+        diceObj = GameObject.Find("DiceCheckZone");
+        diceObj.GetComponent<DiceCheckZoneScript>().globalManager = globalManager;
+        diceObj.GetComponent<DiceCheckZoneScript>().diceDisplayPanel = diceDisplayPanel;
     }
 
 
@@ -90,10 +102,14 @@ class DisplayManager
     public void displayRollingDice()
     {
         //呼叫扔骰子
-        globalManager.TotalStep = 24;//temp
-        currentPlayer.State = PlayerState.SearchPath;//temp
+        //globalManager.TotalStep = 24;//temp
+        //currentPlayer.State = PlayerState.SearchPath;//temp
 
-        worldMsg += string.Format("\"{0}\"骰出了\"{1}\"\n" ,globalManager.CurrentPlayer.name ,globalManager.TotalStep);//temp
+        //worldMsg += string.Format("\"{0}\"骰出了\"{1}\"\n" ,globalManager.CurrentPlayer.name ,globalManager.TotalStep);//temp
+        diceObj.GetComponent<DiceCheckZoneScript>().canRolling = true;
+        diceObj.GetComponent<DiceCheckZoneScript>().number = 0;
+        diceObj.GetComponent<DiceCheckZoneScript>().rolling = false;
+        diceDisplayPanel.SetActive(true);
     }
     public void displaySearchPath(Map map)
     {
