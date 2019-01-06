@@ -36,37 +36,22 @@ public class PlayerSideMsgController : MonoBehaviour
             }
             fileName[7] = "boss/bossf";
 
-            for ( int i = 0, j = 0 ; i < groups.Length ;  )
+            for ( int i = 0 ; i < groups.Length ; i++ )
             {
-                if ( groups[i].CurrentActor.FileName == fileName[j++] )
+                for ( int j = 0 ; j < fileName.Length ; j++ )
                 {
-                    if ( j < 7 )
+                    if ( groups[i].CurrentActor.FileName == fileName[j] )
                     {
-                        setIntailPlayerInfo(playerMsg[i] ,groups[i] ,( j + 1 ));
+                        if ( j < 7 )
+                        {
+                            setIntailPlayerInfo(playerMsg[i] ,groups[i] ,( j + 1 ));
+                        }
+                        else
+                        {
+                            setIntailPlayerInfo(kingMsg ,groups[i] ,8);
+                        }
+                        break;
                     }
-                    else
-                    {
-                        setIntailPlayerInfo(kingMsg ,groups[i] ,8);
-                    }
-
-                    i++;
-                    j = 0;
-                }
-            }
-            for ( int i = 0, j = 0 ; i < fileName.Length ; i++ )
-            {
-                if ( fileName[i] == groups[j].CurrentActor.FileName )
-                {
-                    if ( j < groups.Length )
-                    {
-                        setIntailPlayerInfo(playerMsg[j] ,groups[j] ,( i + 1 ));
-                    }
-                    else
-                    {
-                        setIntailPlayerInfo(kingMsg ,groups[j] ,8);
-                    }
-
-                    j++;
                 }
             }
         }

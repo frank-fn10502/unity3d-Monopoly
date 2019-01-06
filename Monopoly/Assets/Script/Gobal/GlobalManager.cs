@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class GlobalManager
 {
     public Map map;
+    public bool isAuto;
+
     private bool isComputer;
     private Group[] groupList;
 
@@ -75,7 +77,7 @@ public class GlobalManager
         createMap();
         createGroupList(factionList);
 
-        isComputer = true;
+        isComputer = false;
         currentGroupIndex = 0;
         totalStep = 1;
         gameState = GameState.GlobalEvent;
@@ -93,6 +95,10 @@ public class GlobalManager
         switch ( gameState )
         {
             case GameState.GlobalEvent:
+                if(isAuto)
+                {
+                    isComputer = true;
+                }
                 if (currentGroupIndex % groupList.Length == 0)
                 {
                     //抽世界事件
@@ -193,7 +199,11 @@ public class GlobalManager
     public void nextPlayer()
     {
         currentGroupIndex = ( currentGroupIndex + 1 ) % groupList.Length;
-        isComputer = ( currentGroupIndex == groupList.Length - 1 );
+        if ( isAuto )
+        {
+            isComputer = true;
+        }
+            isComputer = ( currentGroupIndex == groupList.Length - 1 );
         //isComputer = true;
         ///isComputer = false;
         gameState = GameState.GlobalEvent;
