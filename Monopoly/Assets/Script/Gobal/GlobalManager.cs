@@ -75,7 +75,7 @@ public class GlobalManager
         createMap();
         createGroupList(factionList);
 
-        isComputer = true;
+        isComputer = false;
         currentGroupIndex = 0;
         totalStep = 1;
         gameState = GameState.GlobalEvent;

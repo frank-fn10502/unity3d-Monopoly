@@ -22,15 +22,18 @@ public class EventCardController : MonoBehaviour
                 removeGroup.Add(group);
             }
         }
-        for(int i = 0 ,j = 0 ; i < removeGroup.Count ; i++ )
+        for(int i = 0 ; i < removeGroup.Count ; i++ )
         {
-            if( removeGroup[i].Equals(globalManager.GroupList[j]) )
+            for(int j = 0 ; j < globalManager.GroupList.Length ; j++ )
             {
-                globalManager.GroupList[j] = null;
-                j++;
-                i = 0;
+                if ( removeGroup[i].Equals(globalManager.GroupList[j]) )
+                {
+                    globalManager.GroupList[j] = null;
+                    break;
+                }
             }
         }
+
         int winner = 0;
         for(int i = 0 ; i < globalManager.GroupList.Length ; i++ )
         {
