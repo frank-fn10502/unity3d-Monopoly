@@ -120,7 +120,7 @@ public abstract class Block
 
 
     public abstract void stopAction(Group group);
-    public void build()
+    public void build(string name)
     {
         if ( this.Identity.Contains(Walkable.NoMan) || this.Identity.Contains(Walkable.ApeShortcut) )
         {
@@ -128,7 +128,7 @@ public abstract class Block
         }
         else
         {
-            setPath(this.location);
+            setPath(this.location, name);
         }
     }   
 
@@ -142,9 +142,10 @@ public abstract class Block
     }
 
     /*==========private==========*/
-    private void setPath(Vector3 location)
+    private void setPath(Vector3 location, string name)
     {
         this.entity = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        this.entity.name = name;
         this.entity.transform.localScale = new Vector3(8 ,0.2f ,8);
 
         Renderer renderer =  this.entity.GetComponent<Renderer>();
@@ -159,6 +160,7 @@ public abstract class Block
         }
         this.entity.transform.position = location;
     }
+
     private void setBackground(Vector3 location)
     {
         this.entity = GameObject.CreatePrimitive(PrimitiveType.Plane);

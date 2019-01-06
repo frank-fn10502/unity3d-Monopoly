@@ -9,17 +9,19 @@ public class Scout
     public int totalStep;
     public List<List<Position>> pathList;
     public List<Position> choicePath;
+    private bool Isfirst;
 
 
     public Scout(Group group)
     {
         this.group = group;
         this.pathList = new List<List<Position>>();
+        Isfirst = true;
     }
 
     public void reconnoiter(Map map ,int totalStep)
     {
-        Debug.Log("totalStep " + totalStep);
+        //Debug.Log("totalStep " + totalStep);
         this.totalStep = totalStep;
 
         List<Position> path = new List<Position>();
@@ -35,35 +37,43 @@ public class Scout
                  ,0
                  ,totalStep + 1);
 
-        foreach ( List<Position> p in pathList )
+
+        foreach (List<Position> p in pathList)
         {
-            //if ( p[p.Count - 1].block is BuildingBlock )
-            //{
-            //    BuildingBlock buildingBlock = (BuildingBlock)p[p.Count - 1].block;
-            //    if ( buildingBlock.PathLocations.Count > 1 )
-            //    {
-            //        p.RemoveAt(p.Count - 1);
-            //    }                    
-            //}            
-            if ( p[0].block is BuildingBlock )
+            /*
+            if (p[p.Count - 1].block is BuildingBlock)
             {
-                BuildingBlock buildingBlock = (BuildingBlock)p[0].block;
-                if ( buildingBlock.PathLocations.Count > 1 )
+                BuildingBlock buildingBlock = (BuildingBlock)p[p.Count - 1].block;
+                if (buildingBlock.PathLocations.Count > 1)
                 {
-                    Vector3 realSecondP = p[1].block.standPoint(p[2].location);
-                    if ( p[1].location != realSecondP )
-                    {
-                        Vector3 v = p[0].location;
-                        p[0].location = p[1].location;
-                        p[1].location = v;
-                    }
+                    p.RemoveAt(p.Count - 1);
                 }
             }
-            if ( p[1].location == group.Location )
+            */
+            if (Isfirst)
             {
-                p.RemoveAt(0);
+                if (p[0].block is BuildingBlock)
+                {
+                    BuildingBlock buildingBlock = (BuildingBlock)p[0].block;
+                    if (buildingBlock.PathLocations.Count > 1)
+                    {
+                        Vector3 realSecondP = p[1].block.standPoint(p[2].location);
+                        if (p[1].location != realSecondP)
+                        {
+                            Vector3 v = p[0].location;
+                            p[0].location = p[1].location;
+                            p[1].location = v;
+                        }
+                    }
+                }
+                if (p[1].location == group.Location)
+                {
+                    p.RemoveAt(0);
+                }
+                Isfirst = false;
             }
         }
+        
     }
 
     /*==========private==========*/
@@ -77,22 +87,45 @@ public class Scout
         //findNextBlock(map ,path ,path[path.Count - 1] ,--step);
         //path.Remove(onePos);
 
+
         List<Position> positions = new List<Position>();
         Vector3 loc;
-        for ( int i = 0 ; i < 2 ; i++ )
+        for (int i = 0; i < 2; i++)
         {
-            loc = ( i == 0 ) ? position.location : positions[0].location;
+            loc = (i == 0) ? position.location : positions[0].location;
 
             Position onePos = new Position(enterDirection
-                                          ,position.blockIndex + next
-                                          ,map.BlockList[position.blockIndex + next]
-                                          ,map.BlockList[position.blockIndex + next].standPoint(loc));
+                                          , position.blockIndex + next
+                                          , map.BlockList[position.blockIndex + next]
+                                          , map.BlockList[position.blockIndex + next].standPoint(loc));
 
-            if ( i == 1 )/*( positions.Count > 1 )*/
+            if (map.BlockList[position.blockIndex + next] is EventBlock && i == 1)
             {
-                if ( positions[0].location == onePos.location )
+                break;
+            }
+
+            if(map.BlockList[position.blockIndex + next] is BuildingBlock && position.block is BuildingBlock)
+            {
+                BuildingBlock Buildblock = (BuildingBlock)(map.BlockList[position.blockIndex + next]);
+
+                if(Buildblock.PathLocations.Count == 1 && i == 1)
                 {
                     break;
+                }
+
+                Vector3 v = onePos.location - loc;
+
+                if (v.z != 0f && v.x != 0f)
+                {
+                    path.RemoveAt(path.Count - 1);
+                }
+                else if (path.Count > 2)
+                {
+                    if (v.magnitude != (4f))
+                    {
+                        Debug.Log(onePos.blockIndex + v.magnitude);
+                        path.RemoveAt(path.Count - 1);
+                    }
                 }
             }
             positions.Add(onePos);
