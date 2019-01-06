@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -75,7 +76,7 @@ class DisplayManager
         playerSideMsgPanel.GetComponent<PlayerSideMsgController>().globalManager = globalManager;
 
         worldMsgPanel = GameObject.Find("WorldMsg");
-        worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Text>().text = "";
+        //worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Text>().text = "";
         day = 0;
 
         timeMsgPanel = GameObject.Find("WorldTime");
@@ -238,11 +239,13 @@ class DisplayManager
         }
         timer = ( timer + 10 ) % 500;
 
-        if ( Input.anyKey )
-        {
-            nextPlayerText.SetActive(false);
-            globalManager.nextPlayer();
-        }
+        nextPlayerText.SetActive(false);
+        globalManager.nextPlayer();
+        //if ( Input.anyKey )
+        //{
+        //    nextPlayerText.SetActive(false);
+        //    globalManager.nextPlayer();
+        //}
     }
 
     public void displayPlayerInfo(List<Faction> factionList = null)
@@ -262,7 +265,10 @@ class DisplayManager
     }
     public void displayWorldMsg()
     {
-        worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Text>().text += worldMsg;
+        //worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Text>().text += worldMsg;
+        worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Control>().WriteText(worldMsg);
+        //Vector2 v =  worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<RectTransform>().sizeDelta;
+        //worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<RectTransform>().sizeDelta = new Vector2(v.x, v.y + 30);
     }
 
     public void displayBlockInfo(Block block)
