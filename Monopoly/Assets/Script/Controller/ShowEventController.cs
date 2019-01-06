@@ -7,9 +7,15 @@ public class ShowEventController : MonoBehaviour {
     // Use this for initialization
     GameObject obj;
     string[] vs;
+    int index;
+    int timer;
+    bool isEnd;
 
     void Start ()
     {
+        isEnd = false;
+        index = 0;
+        timer = 0;
         obj = GameObject.Find("WorldMsgShow/TheWorldMsg");
         string str = obj.GetComponent<Control>().GetText();
         vs = str.Split('\n');
@@ -18,9 +24,15 @@ public class ShowEventController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        foreach (string s in vs)
+        if (timer % 20 == 0 && !isEnd)
         {
-            GameObject.Find("EndMsgShow/TheEndMsg").GetComponent<Control>().WriteText(s);
-        }
-	}
+            GameObject.Find("EndMsgShow/TheEndMsg").GetComponent<Control>().WriteText(vs[index++]+"\n");
+            if (vs.Length - 1 == index)
+            {
+                isEnd = true;
+            }
+            timer = 0;
+       }
+       timer++;
+    }
 }

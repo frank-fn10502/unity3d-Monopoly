@@ -410,10 +410,7 @@ class DisplayManager
         onePos.entity.GetComponent<Renderer>().material = Resources.Load<Material>("Texture/Orange");
 
         onePos.entity.transform.position = ( onePos.location + new Vector3(0 ,0.2f ,0) );
-        if (mapIndex == 62)
-        {
-            Debug.Log(onePos.location);
-        }
+
     }
     private void createInteractiveDot()
     {
