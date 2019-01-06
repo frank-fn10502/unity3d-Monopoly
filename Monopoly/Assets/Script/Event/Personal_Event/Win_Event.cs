@@ -14,7 +14,7 @@ class Win_Event : EventBase
         public override void DoEvent(List<Group> droup_list, Group group)
         {
             //玩家直接獲勝
-            for(int i = 0;i<5;i++)
+            for(int i = 0;i< droup_list.Count+1; i++)
             {
                 if(!group.Equals(droup_list[i]))
                 {

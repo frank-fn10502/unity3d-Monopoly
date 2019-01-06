@@ -19,6 +19,7 @@ using System.Text;
         {
             //軍隊減少
             group.Resource.army -= Convert.ToInt32(group.Resource.army * (dead/100.0));
+            group.Resource.army = (group.Resource.army > 0 ? group.Resource.army : 0);
             this.Short_detail = group.name + "軍隊減少:" + dead.ToString()+"%";
             State = group.State;
         }

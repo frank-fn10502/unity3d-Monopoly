@@ -19,7 +19,7 @@ class Everyone_People_Increase : EventBase
     public override void DoEvent(List<Group> droup_list, Group group)
     {
         //敵方陣營人民投靠，使人數增加100
-        for(int i = 0;i<4;i++)
+        for(int i = 0;i< droup_list.Count; i++)
         {
             droup_list[i].Resource.civilian += addvar;
         }
