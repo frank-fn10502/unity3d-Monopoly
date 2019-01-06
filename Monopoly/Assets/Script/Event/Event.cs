@@ -118,10 +118,6 @@ public class Event
         word.AddEvent(new Everyone_eace_Increase("和平紀念日", true, 10, "和平紀念日，增加所有人的和平指數", "EventImage/AllEvent", 5));
 
     }
-    private void Set_Weight(EventPool Ep, Group group)
-    {
-
-    }
     private void caculate_weight(Group group)
     {
         diplomatic_weight =  System.Convert.ToInt32(group.Attributes.diplomatic * 0.1);
