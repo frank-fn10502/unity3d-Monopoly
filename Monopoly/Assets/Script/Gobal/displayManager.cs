@@ -141,6 +141,7 @@ class DisplayManager
         if ( globalManager.IsComputer )
         {
             //globalManager.GameState = nextGameState;
+
             calWhoDead(nextGameState);
         }
         else
@@ -230,6 +231,12 @@ class DisplayManager
     }
     public void displayNextPlayer()
     {
+        if (displayEndMsg)
+        {
+            displayWorldMsg();
+            displayEndMsg = false;
+        }
+
         int winner = 0;
         for(int i = 0 ; i < globalManager.GroupList.Length ; i++ )
         {
@@ -240,14 +247,9 @@ class DisplayManager
         }
         if(winner == 1)
         {
+            displayWorldMsg();
             SceneManager.LoadScene("ShowEventScene");
             globalManager.GameState = GameState.Wait;//?
-        }
-
-        if ( displayEndMsg )
-        {
-            displayWorldMsg();
-            displayEndMsg = false;
         }
 
         if ( timer % 500 == 0 )
@@ -410,10 +412,7 @@ class DisplayManager
         onePos.entity.GetComponent<Renderer>().material = Resources.Load<Material>("Texture/Orange");
 
         onePos.entity.transform.position = ( onePos.location + new Vector3(0 ,0.2f ,0) );
-        if (mapIndex == 62)
-        {
-            Debug.Log(onePos.location);
-        }
+
     }
     private void createInteractiveDot()
     {

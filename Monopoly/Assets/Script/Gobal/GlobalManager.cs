@@ -197,7 +197,6 @@ public class GlobalManager
                 break;
             case GameState.End:
                 displayManager.displayNextPlayer();
-
                 break;
             case GameState.Wait:
                 //等待

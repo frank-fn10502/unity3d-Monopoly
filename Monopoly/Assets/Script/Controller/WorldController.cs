@@ -10,7 +10,8 @@ public class WorldController : MonoBehaviour
     public void Awake()
     {
         //globalManager = new GlobalManager();
-
+        GameObject obj = GameObject.Find("Canvas");
+        DontDestroyOnLoad(obj);
         GameObject gameObject = GameObject.Find("PlayerDataManager");
         List<Faction> factionList =  gameObject.GetComponent<PlayerDataController>().playerList;
         globalManager = new GlobalManager(factionList);
