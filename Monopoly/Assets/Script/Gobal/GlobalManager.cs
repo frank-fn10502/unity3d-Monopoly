@@ -101,8 +101,11 @@ public class GlobalManager
 
                     
                     displayManager.day++;
-                    displayManager.timeMsgPanel.GetComponent<Text>().text = string.Format("第{0}天" ,displayManager.day);
+                    displayManager.timeMsgPanel.GetComponent<Text>().text = string.Format("Day:{0:0000}" ,displayManager.day);
+                    displayManager.setWorldMsg(string.Format("Day:{0:0000}\n" ,displayManager.day) ,true);
+
                     displayManager.displayEvent(eventData ,GameState.PersonalEvent);
+                    displayManager.displayWorldMsg();
                 }
                 else
                 {
@@ -126,15 +129,7 @@ public class GlobalManager
                     gameState = GameState.PlayerMovement;
                 }
                 displayManager.displayEndMsg = true;
-
-                if ( currentGroupIndex == 0 )
-                {
-                    displayManager.setWorldMsg(string.Format("Day:{0:0000}",displayManager.day) ,true);
-                }
-                else
-                {
-                    displayManager.setWorldMsg("" ,true);
-                }
+                displayManager.setWorldMsg("" ,true);
 
                 break;
             case GameState.PlayerMovement:

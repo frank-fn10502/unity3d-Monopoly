@@ -80,7 +80,7 @@ class DisplayManager
 
     public void setWorldMsg(string str ,bool clear = false)
     {
-        worldMsg = clear ? str : worldMsg + str;
+        worldMsg = clear ? str : "\n" + worldMsg + str;
     }
     public void displayRollingDice()
     {
@@ -124,8 +124,7 @@ class DisplayManager
             eventCard.GetComponent<EventCardController>().nextGameState = nextGameState;
             eventCard.SetActive(true);
         }
-        //worldMsg += eventData.Detail;
-        //setWorldMsg(eventData.Detail);
+        setWorldMsg(eventData.Short_detail);
         displayPlayerInfo();///
     }
     public void displayStopAction(Block block ,GameState nextGameState)
