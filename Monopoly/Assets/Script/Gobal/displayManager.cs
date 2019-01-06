@@ -45,7 +45,7 @@ class DisplayManager
         pathListEntity = new GameObject("pathListEntity");
 
         nextPlayerText = Resources.Load<GameObject>("PreFab/Ui/NextPlayerText");
-        nextPlayerText = GameObject.Instantiate(nextPlayerText ,new Vector3(33 ,-66.25f ,0) ,Quaternion.identity);
+        nextPlayerText = GameObject.Instantiate(nextPlayerText);
         nextPlayerText.transform.SetParent(GameObject.Find("Canvas").transform ,false);
 
         eventCard = Resources.Load<GameObject>("PreFab/Ui/EventCardDisplay"); //GameObject.Find("EventCardDisplay");
