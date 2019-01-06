@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 class DisplayManager
@@ -225,6 +226,19 @@ class DisplayManager
     }
     public void displayNextPlayer()
     {
+        int winner = 0;
+        for(int i = 0 ; i < globalManager.GroupList.Length ; i++ )
+        {
+            if( globalManager.GroupList != null)
+            {
+                winner++;
+            }
+        }
+        if(winner == 1)
+        {
+            SceneManager.LoadScene("EndScene");
+        }
+
         if ( displayEndMsg )
         {
             displayWorldMsg();

@@ -185,7 +185,7 @@ public class Event
         {
             if (droup_list[i].Resource.antidote == 0) deal = 50;
             else if (droup_list[i].Resource.antidote == 100) deal = 0;
-            else deal = Convert.ToInt32(droup_list[i].Resource.civilian * ((droup_list[i].Resource.antidote / 10.0) * (droup_list[i].Resource.antidote / 10.0)));
+            else deal = Convert.ToInt32(droup_list[i].Resource.civilian * ((droup_list[i].Resource.antidote / 100.0) * (droup_list[i].Resource.antidote / 100.0)));
 
             droup_list[i].Resource.civilian -= deal;
             str += droup_list[i].name + "感染人口死亡" + deal.ToString()+"\n";

@@ -36,9 +36,9 @@ public class PlayerSideMsgController : MonoBehaviour
             }
             fileName[7] = "boss/bossf";
 
-            for ( int i = 0, j = 0 ; i < groups.Length ; j++ )
+            for ( int i = 0, j = 0 ; i < groups.Length ;  )
             {
-                if ( groups[i].CurrentActor.FileName == fileName[j] )
+                if ( groups[i].CurrentActor.FileName == fileName[j++] )
                 {
                     if ( j < 7 )
                     {
