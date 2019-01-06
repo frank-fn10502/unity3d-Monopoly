@@ -83,7 +83,7 @@ public class GlobalManager
         displayManager = new DisplayManager(this);
         events = new Event();
 
-        displayManager.displayPlayerInfo();
+        displayManager.displayPlayerInfo(factionList);
     }
 
 
@@ -115,8 +115,6 @@ public class GlobalManager
                 {
                     CurrentPlayer.State = PlayerState.RollingDice;
                 }
-                //gameState = GameState.PersonalEvent;
-                //CurrentPlayer.State = PlayerState.RollingDice;
                 break;
             case GameState.PersonalEvent:
                 displayManager.displayBlockInfo(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
@@ -144,7 +142,7 @@ public class GlobalManager
                             if ( Input.GetButtonDown("Jump") || isComputer )
                             {
                                 CurrentPlayer.State = PlayerState.Wait;
-                                
+
 
                                 displayManager.displayRollingDice();//轉換到下一個階段
                             }
@@ -168,7 +166,7 @@ public class GlobalManager
                         case PlayerState.InJail:
                             CurrentPlayer.InJailTime--;
                             gameState = GameState.End;//直接結束
-                            displayManager.setWorldMsg(string.Format("無法移動 剩下:{0}回合\n" ,CurrentPlayer.InJailTime));
+                            displayManager.setWorldMsg(string.Format("{0}無法移動 剩下:{1}回合\n" , CurrentPlayer.name,CurrentPlayer.InJailTime));
 
                             break;
                         case PlayerState.Wait:
@@ -178,7 +176,6 @@ public class GlobalManager
                 }
                 break;
             case GameState.End:
-                //CurrentPlayer.State = PlayerState.Wait;
                 displayManager.displayNextPlayer();
 
                 break;
@@ -240,7 +237,7 @@ public class GlobalManager
         Group.blockList = map.BlockList;
         foreach ( Faction faction in factions )
         {
-            
+
             groupList[i] = new Group(null
                                     ,createActorList(faction.actorList)
                                     ,new Attributes(faction.attributes)
@@ -255,7 +252,7 @@ public class GlobalManager
             groupList[i].myBuildingList = new GameObject(groupList[i].name + "BuildingList");
             groupList[i].myBuildingList.transform.parent = Group.playerBuildingList.transform;
             //新增主堡
-            if ( map.BlockList[playerIndex[i]]  is BuildingBlock)
+            if ( map.BlockList[playerIndex[i]] is BuildingBlock )
             {
                 Building.path = "PreFab/Building/";
                 BuildingBlock buildingBlock =  (BuildingBlock)( map.BlockList[playerIndex[i]] ) ;
