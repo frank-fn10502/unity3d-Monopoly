@@ -35,20 +35,23 @@ public class InformationPanelController : MonoBehaviour
     }
     public void changeCameraView(GlobalManager world)
     {
-        originalCameraPos = world.CurrentPlayer.Location + new Vector3(-1 ,19 ,-3);
-
-        float x = originalCameraPos.x;
-        float z = originalCameraPos.z;
-        float y = Input.GetAxis("Mouse ScrollWheel") * -1 * mainCameraVelocity * 10;
-
-
-        y = ( characterCamera.transform.position.y + y < 16f ) ? 16f : characterCamera.transform.position.y + y;
-        if ( viewChangeable || Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 )
+        if(world.CurrentPlayer != null)
         {
-            x = characterCamera.transform.position.x + Input.GetAxis("Horizontal") * mainCameraVelocity;
-            z = characterCamera.transform.position.z + Input.GetAxis("Vertical") * mainCameraVelocity;
+            originalCameraPos = world.CurrentPlayer.Location + new Vector3(-1 ,19 ,-3);
+
+            float x = originalCameraPos.x;
+            float z = originalCameraPos.z;
+            float y = Input.GetAxis("Mouse ScrollWheel") * -1 * mainCameraVelocity * 10;
+
+
+            y = ( characterCamera.transform.position.y + y < 16f ) ? 16f : characterCamera.transform.position.y + y;
+            if ( viewChangeable || Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 )
+            {
+                x = characterCamera.transform.position.x + Input.GetAxis("Horizontal") * mainCameraVelocity;
+                z = characterCamera.transform.position.z + Input.GetAxis("Vertical") * mainCameraVelocity;
+            }
+            characterCamera.transform.position = new Vector3(x ,y ,z);
         }
-        characterCamera.transform.position = new Vector3(x ,y ,z);
 
         ////y = ( characterCamera.transform.position.y + y <= originalCameraPos.y ) ? characterCamera.transform.position.y - originalCameraPos.y : y;
         ////originalCameraPos = world.CurrentPlayer.Location + new Vector3(5 ,13 ,-6);

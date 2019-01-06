@@ -61,9 +61,15 @@ public class PlayerSideMsgController : MonoBehaviour
         {
             for ( int i = 0 ; i < groups.Length - 1 ; i++ )
             {
-                setPlayerInfo(playerMsg[i] ,groups[i]);
+                if(groups[i] != null)
+                {
+                    setPlayerInfo(playerMsg[i] ,groups[i]);
+                }              
             }
-            setPlayerInfo(kingMsg ,groups[groups.Length - 1]);
+            if( groups[groups.Length - 1] != null)
+            {
+                setPlayerInfo(kingMsg ,groups[groups.Length - 1]);
+            }            
         }
     }
     public void onAutoButtonClick()
