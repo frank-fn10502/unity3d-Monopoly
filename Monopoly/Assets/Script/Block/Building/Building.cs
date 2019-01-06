@@ -44,8 +44,13 @@ public class Building//TEMP
             name = value;
         }
     }
-
-
+    public GameObject Entity
+    {
+        get
+        {
+            return entity;
+        }
+    }
 
     public Building()
     {
@@ -66,15 +71,19 @@ public class Building//TEMP
 
 
 
-    public bool build(Group group ,Vector3 loc)
+    public bool build(Group group ,Vector3 loc ,bool inGame = true)
     {
-        if( group.Resource.civilian - resource.civilian < 0 || group.Resource.mineral - resource.mineral < 0)
+        if ( inGame )
         {
-            return false;
+            if ( group.Resource.civilian - resource.civilian < 0 || group.Resource.mineral - resource.mineral < 0 )
+            {
+                return false;
+            }
+
+            group.Resource.civilian -= resource.civilian;
+            group.Resource.mineral -= resource.mineral;
         }
 
-        group.Resource.civilian -= resource.civilian;
-        group.Resource.mineral -= resource.mineral;
 
         entity = Resources.Load<GameObject>(path + fileName);
         entity = GameObject.Instantiate(entity);

@@ -94,7 +94,6 @@ class DisplayManager
         if ( globalManager.IsComputer )
         {
             globalManager.GameState = nextGameState;
-
         }
         else
         {
@@ -112,9 +111,20 @@ class DisplayManager
     {
         if ( block is EventBlock )
         {
-            EventBase eventData = globalManager.Events.doEvent(Eventtype.Forest
-                                                              ,new List<Group>( globalManager.GroupList)
-                                                              ,globalManager.CurrentPlayer);
+            EventBase eventData = null;
+            if (globalManager.IsComputer)
+            {
+                eventData = globalManager.Events.doEvent(Eventtype.Apes
+                                                        ,new List<Group>(globalManager.GroupList)
+                                                        ,globalManager.CurrentPlayer);
+            }
+            else
+            {
+                eventData = globalManager.Events.doEvent(Eventtype.Forest
+                                                        ,new List<Group>(globalManager.GroupList)
+                                                        ,globalManager.CurrentPlayer);
+            }
+
 
             displayEvent(eventData ,nextGameState);
         }
@@ -125,9 +135,9 @@ class DisplayManager
             {
                 if(globalManager.IsComputer)
                 {
-                    EventBase eventData = globalManager.Events.doEvent(Eventtype.Forest
-                                                              ,new List<Group>( globalManager.GroupList)
-                                                              ,globalManager.CurrentPlayer);
+                    EventBase eventData = globalManager.Events.doEvent(Eventtype.Apes
+                                                                      ,new List<Group>( globalManager.GroupList)
+                                                                      ,globalManager.CurrentPlayer);
                     displayEvent(eventData ,nextGameState);
                 }
                 else
@@ -153,7 +163,8 @@ class DisplayManager
                     if ( globalManager.IsComputer )
                     {
                         System.Random random = new System.Random();
-                        int choise = random.Next(100) / 50;//?
+                        int choise = (random.Next(100) + globalManager.GroupList[globalManager.GroupList.Length - 1].Attributes.diplomatic / 10);
+                        choise /= 50;
 
                         if(choise == 0)
                         {

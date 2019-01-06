@@ -8,6 +8,7 @@ public class PlayerSideMsgController : MonoBehaviour
     public GlobalManager globalManager;
     private GameObject kingMsg;
     private List<GameObject> playerMsg;
+    private GameObject nowPlayerInfo;
 
     private void Awake()
     {
@@ -34,6 +35,7 @@ public class PlayerSideMsgController : MonoBehaviour
     /*==========設定==========*/
     private void setPlayerGameObj()
     {
+        nowPlayerInfo = GameObject.Find("NowPlayerInfo");
         kingMsg = GameObject.Find("KingMsg");
         playerMsg = new List<GameObject>();
         for ( int i = 0 ; i < Constants.PLAYERNUMBER ; i++ )
@@ -52,13 +54,22 @@ public class PlayerSideMsgController : MonoBehaviour
         obj.transform.Find("Resource/Antidote/AntidoteText").gameObject.GetComponent<Text>().text = group.Resource.antidote.ToString();
         obj.transform.Find("Resource/Mineral/MineralText").gameObject.GetComponent<Text>().text = group.Resource.mineral.ToString();
 
-        if(globalManager.CurrentPlayer.Equals(group))
-        {
-            obj.transform.Find("Time").gameObject.SetActive(true);
+        obj.transform.Find("Block").gameObject.GetComponent<Text>().text = string.Format("{0:000}",group.Resource.blockList.Count);
+        obj.transform.Find("Team/TeamShow").gameObject.GetComponent<Image>().color = group.materialBall.color;
+
+        if (globalManager.CurrentPlayer.Equals(group))
+        {           
+            nowPlayerInfo.transform.Find("NowPlayer").gameObject.GetComponent<Text>().text = group.name;
+            nowPlayerInfo.transform.Find("Army").gameObject.GetComponent<Text>().text = group.Resource.army.ToString();
+            nowPlayerInfo.transform.Find("Civilian").gameObject.GetComponent<Text>().text = group.Resource.civilian.ToString();
+            nowPlayerInfo.transform.Find("Antidote").gameObject.GetComponent<Text>().text = group.Resource.antidote.ToString();
+            nowPlayerInfo.transform.Find("Mineral").gameObject.GetComponent<Text>().text = group.Resource.mineral.ToString();
+
+            obj.transform.Find("Round").gameObject.SetActive(true);
         }
         else
         {
-            obj.transform.Find("Time").gameObject.SetActive(false);
+            obj.transform.Find("Round").gameObject.SetActive(false);
         }
     }
 }

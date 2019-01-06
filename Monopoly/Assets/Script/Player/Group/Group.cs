@@ -4,6 +4,7 @@ public class Group
 {
     public static Block[] blockList;
     public Material materialBall;
+    public string name;
 
     private int startBlockIndex;
     private PlayerState state;

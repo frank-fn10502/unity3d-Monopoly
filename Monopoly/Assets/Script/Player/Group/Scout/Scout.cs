@@ -123,7 +123,7 @@ public class Scout
                 {
                     if (v.magnitude != (4f))
                     {
-                        Debug.Log(onePos.blockIndex + v.magnitude);
+                        //Debug.Log(onePos.blockIndex + v.magnitude);
                         path.RemoveAt(path.Count - 1);
                     }
                 }
