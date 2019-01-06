@@ -108,10 +108,6 @@ public class GlobalManager
         switch ( gameState )
         {
             case GameState.GlobalEvent:
-                if(IsAuto)
-                {
-                    isComputer = true;
-                }
                 if (currentGroupIndex % groupList.Length == 0)
                 {
                     //抽世界事件
