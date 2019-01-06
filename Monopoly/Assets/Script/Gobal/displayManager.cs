@@ -152,7 +152,7 @@ class DisplayManager
             eventCard.transform.Find("EventDes/EventDesText").GetComponent<Text>().text = eventData.Detail;
             eventCard.GetComponent<EventCardController>().nextGameState = nextGameState;
             eventCard.SetActive(true);
-        }       
+        }      
         displayPlayerInfo();///
     }
     public void displayStopAction(Block block ,GameState nextGameState)
