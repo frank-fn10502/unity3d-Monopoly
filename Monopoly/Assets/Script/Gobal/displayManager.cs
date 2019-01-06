@@ -229,9 +229,9 @@ class DisplayManager
         }
     }
 
-    public void displayPlayerInfo()
+    public void displayPlayerInfo(List<Faction> factionList = null)
     {
-        playerSideMsgPanel.GetComponent<PlayerSideMsgController>().displayPlayerList(globalManager.GroupList);
+        playerSideMsgPanel.GetComponent<PlayerSideMsgController>().displayPlayerList(globalManager.GroupList ,factionList);
     }
     public void displayBuildConstructor(BuildingBlock buildingBlock ,GameState nextGameState)
     {
