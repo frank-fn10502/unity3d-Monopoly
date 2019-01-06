@@ -129,7 +129,7 @@ public class GlobalManager
 
                 if ( currentGroupIndex == 0 )
                 {
-                    displayManager.setWorldMsg("第" + displayManager.day + "天\n" ,true);
+                    displayManager.setWorldMsg(string.Format("Day:{0:0000}",displayManager.day) ,true);
                 }
                 else
                 {
