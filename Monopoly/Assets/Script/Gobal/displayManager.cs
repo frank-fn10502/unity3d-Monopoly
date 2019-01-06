@@ -229,6 +229,12 @@ class DisplayManager
     }
     public void displayNextPlayer()
     {
+        if (displayEndMsg)
+        {
+            displayWorldMsg();
+            displayEndMsg = false;
+        }
+
         int winner = 0;
         for(int i = 0 ; i < globalManager.GroupList.Length ; i++ )
         {
@@ -243,12 +249,6 @@ class DisplayManager
             globalManager.GameState = GameState.Wait;//?
         }
 
-        if ( displayEndMsg )
-        {
-            displayWorldMsg();
-            displayEndMsg = false;
-        }
-
         if ( timer % 500 == 0 )
         {
             bool now = nextPlayerText.activeSelf;
@@ -256,13 +256,13 @@ class DisplayManager
         }
         timer = ( timer + 10 ) % 500;
 
-        nextPlayerText.SetActive(false);
-        globalManager.nextPlayer();
-        //if ( Input.anyKey )
-        //{
-        //    nextPlayerText.SetActive(false);
-        //    globalManager.nextPlayer();
-        //}
+        //nextPlayerText.SetActive(false);
+        //globalManager.nextPlayer();
+        if (Input.anyKey)
+        {
+            nextPlayerText.SetActive(false);
+            globalManager.nextPlayer();
+        }
     }
 
     public void displayPlayerInfo(List<Faction> factionList = null)

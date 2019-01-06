@@ -192,8 +192,8 @@ public class GlobalManager
     public void nextPlayer()
     {
         currentGroupIndex = ( currentGroupIndex + 1 ) % groupList.Length;
-        isComputer = ( currentGroupIndex == groupList.Length - 1 );
-        //isComputer = true;
+        //isComputer = ( currentGroupIndex == groupList.Length - 1 );
+        isComputer = true;
         ///isComputer = false;
         gameState = GameState.GlobalEvent;
     }
