@@ -47,6 +47,9 @@ public class BuildingDisplayController : MonoBehaviour
             currentBuildingBlock.Landlord = globalManager.CurrentPlayer;
             globalManager.CurrentPlayer.Resource.blockList.Add(currentBuildingBlock);//加到玩家擁有的blockList裡面
 
+            //更改顏色
+            currentBuildingBlock.Building.Entity.transform.Find("Cube123").gameObject.GetComponent<Renderer>().material = globalManager.CurrentPlayer.materialBall;
+
             currentBuildingEntity.SetActive(false);
             globalManager.GameState = nextGameState;
         }
@@ -71,7 +74,7 @@ public class BuildingDisplayController : MonoBehaviour
         buildingList = new List<Building>();
         Building.path = "PreFab/Building/";
         string[] bName = {"城市" ,"醫院" ,"軍營" ,"礦場"};
-        string[] bFileName = {"A" ,"A" ,"A" ,"A"};
+        string[] bFileName = {"B" ,"C" ,"A" ,"D"};
 
         for ( int i = 0 ; i < 4 ; i++ )
         {
