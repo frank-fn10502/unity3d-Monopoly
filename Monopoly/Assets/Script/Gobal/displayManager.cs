@@ -76,7 +76,7 @@ class DisplayManager
         playerSideMsgPanel.GetComponent<PlayerSideMsgController>().globalManager = globalManager;
 
         worldMsgPanel = GameObject.Find("WorldMsg");
-        //worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Text>().text = "";
+        worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Text>().text = "";
         day = 0;
 
         timeMsgPanel = GameObject.Find("WorldTime");
