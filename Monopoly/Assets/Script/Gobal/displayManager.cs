@@ -140,7 +140,7 @@ class DisplayManager
         if ( globalManager.IsComputer )
         {
             //globalManager.GameState = nextGameState;
-            calWhoDead();
+            calWhoDead(nextGameState);
         }
         else
         {
@@ -447,7 +447,7 @@ class DisplayManager
         }
     }
 
-    private void calWhoDead()
+    private void calWhoDead(GameState nextGameState)
     {
         GameState gameState = (globalManager.CurrentPlayer.Resource.civilian <= 0)? GameState.End : nextGameState;
 
