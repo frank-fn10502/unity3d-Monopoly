@@ -38,12 +38,12 @@ GameObject:
   - component: {fileID: 224730294135507478}
   - component: {fileID: 114495987715729850}
   m_Layer: 5
-  m_Name: EventCardDisplay
+  m_Name: EventCardDisplayAfter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1096338348477382
 GameObject:
   m_ObjectHideFlags: 0
