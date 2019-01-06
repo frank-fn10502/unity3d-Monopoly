@@ -17,7 +17,7 @@ using System.Text;
         public override void DoEvent(List<Group> droup_list, Group group)
         {
             Group defender = group;
-            for(int i = 0;i< droup_list.Count+1; i++)
+            for(int i = 0;i< droup_list.Count; i++)
             {
                 defender = droup_list[i];
                 if (defender.CurrentBlockIndex == group.CurrentBlockIndex && !defender.Equals(group))
