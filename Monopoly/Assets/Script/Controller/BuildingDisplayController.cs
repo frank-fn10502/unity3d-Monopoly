@@ -60,6 +60,7 @@ public class BuildingDisplayController : MonoBehaviour
         }
         else
         {
+            currentBuildingBlock.Building = null;
             currentBuildingEntity.SetActive(false);
             globalManager.DisplayManager.displayCantNotBuy(nextGameState);
             globalManager.DisplayManager.setWorldMsg(string.Format("\"{0}\"買不起任何建築\n" ,globalManager.CurrentPlayer.name));

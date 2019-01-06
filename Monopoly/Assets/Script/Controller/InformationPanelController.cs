@@ -37,7 +37,6 @@ public class InformationPanelController : MonoBehaviour
     {
         originalCameraPos = world.CurrentPlayer.Location + new Vector3(-1 ,19 ,-3);
 
-
         float x = originalCameraPos.x;
         float z = originalCameraPos.z;
         float y = Input.GetAxis("Mouse ScrollWheel") * -1 * mainCameraVelocity * 10;

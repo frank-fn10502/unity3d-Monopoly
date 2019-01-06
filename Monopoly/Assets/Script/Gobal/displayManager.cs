@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 class DisplayManager
@@ -42,9 +44,10 @@ class DisplayManager
         this.globalManager = globalManager;
 
         pathListEntity = new GameObject("pathListEntity");
+        
 
         nextPlayerText = Resources.Load<GameObject>("PreFab/Ui/NextPlayerText");
-        nextPlayerText = GameObject.Instantiate(nextPlayerText ,new Vector3(33 ,-66.25f ,0) ,Quaternion.identity);
+        nextPlayerText = GameObject.Instantiate(nextPlayerText);
         nextPlayerText.transform.SetParent(GameObject.Find("Canvas").transform ,false);
 
         eventCard = Resources.Load<GameObject>("PreFab/Ui/EventCardDisplay"); //GameObject.Find("EventCardDisplay");
@@ -225,6 +228,19 @@ class DisplayManager
     }
     public void displayNextPlayer()
     {
+        int winner = 0;
+        for(int i = 0 ; i < globalManager.GroupList.Length ; i++ )
+        {
+            if( globalManager.GroupList != null)
+            {
+                winner++;
+            }
+        }
+        if(winner == 1)
+        {
+            SceneManager.LoadScene("EndScene");
+        }
+
         if ( displayEndMsg )
         {
             displayWorldMsg();
@@ -238,11 +254,13 @@ class DisplayManager
         }
         timer = ( timer + 10 ) % 500;
 
-        if ( Input.anyKey )
-        {
-            nextPlayerText.SetActive(false);
-            globalManager.nextPlayer();
-        }
+        nextPlayerText.SetActive(false);
+        globalManager.nextPlayer();
+        //if ( Input.anyKey )
+        //{
+        //    nextPlayerText.SetActive(false);
+        //    globalManager.nextPlayer();
+        //}
     }
 
     public void displayPlayerInfo(List<Faction> factionList = null)
@@ -262,7 +280,10 @@ class DisplayManager
     }
     public void displayWorldMsg()
     {
-        worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Text>().text += worldMsg;
+        //worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Text>().text += worldMsg;
+        worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Control>().WriteText(worldMsg);
+        //Vector2 v =  worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<RectTransform>().sizeDelta;
+        //worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<RectTransform>().sizeDelta = new Vector2(v.x, v.y + 30);
     }
 
     public void displayBlockInfo(Block block)
