@@ -252,7 +252,7 @@ class DisplayManager
     public void displayBlockInfo(Block block)
     {
         block.setLyer("CurrentBlock");
-        blockCamera.transform.position = block.Location + new Vector3(-1 ,18 ,-11);//temp
+        blockCamera.transform.position = block.Location + new Vector3(0 ,10 ,0);//temp
 
         Text text =  blockInformation.transform.Find("BlockT1/BlockPlayer/BlockPlayerText").GetComponent<Text>();
         if(block is BuildingBlock)
