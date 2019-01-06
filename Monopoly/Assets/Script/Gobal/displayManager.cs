@@ -240,6 +240,7 @@ class DisplayManager
         if(winner == 1)
         {
             SceneManager.LoadScene("ShowEventScene");
+            globalManager.GameState = GameState.Wait;//?
         }
 
         if ( displayEndMsg )
