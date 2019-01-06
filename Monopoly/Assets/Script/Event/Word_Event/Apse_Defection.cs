@@ -23,7 +23,7 @@ class Apse_Defection : EventBase
             {
                 droup_list[i].Resource.army += addvar;
             }
-        this.Short_detail = "所有玩家增加軍隊" + addvar.ToString() + "/n" + droup_list[droup_list.Count - 1].name + "減少軍隊"+ addvar.ToString();
+        this.Short_detail = "所有玩家增加軍隊" + addvar.ToString() + "\n" + droup_list[droup_list.Count - 1].name + "減少軍隊"+ addvar.ToString();
         droup_list[droup_list.Count - 1].Resource.army -= addvar;
         }
     }
