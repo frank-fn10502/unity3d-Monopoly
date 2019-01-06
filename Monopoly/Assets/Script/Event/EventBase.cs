@@ -11,6 +11,7 @@ public abstract class EventBase
     private string detail;
     private string image;
     private Group winer;
+    private string short_detail;
     PlayerState state;
 
     public string Name
@@ -38,6 +39,11 @@ public abstract class EventBase
     {
         get { return image; }
         set { image = value; }
+    }
+    public string Short_detail
+    {
+        get { return short_detail; }
+        set { short_detail = value; }
     }
     public PlayerState State
     {

@@ -10,6 +10,6 @@ class Apes_Time_Out : EventBase
     {
         //由於猩猩被人類抓走成為俘虜，猩猩暫停一回合
         group.InJailTime += 1;
-        State = group.State;
+        group.State = PlayerState.InJail;
     }
 }

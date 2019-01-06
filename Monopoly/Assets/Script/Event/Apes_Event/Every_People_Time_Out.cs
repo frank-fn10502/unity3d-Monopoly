@@ -12,6 +12,7 @@ class Every_People_Time_Out : EventBase
         for(int i = 0;i<4;i++)
         {
             droup_list[i].InJailTime += 1;
+            droup_list[i].State = PlayerState.InJail;
         }
         State = group.State;
     }
