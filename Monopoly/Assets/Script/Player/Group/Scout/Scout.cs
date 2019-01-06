@@ -9,14 +9,12 @@ public class Scout
     public int totalStep;
     public List<List<Position>> pathList;
     public List<Position> choicePath;
-    private bool Isfirst;
 
 
     public Scout(Group group)
     {
         this.group = group;
         this.pathList = new List<List<Position>>();
-        Isfirst = true;
     }
 
     public void reconnoiter(Map map ,int totalStep)
@@ -36,8 +34,12 @@ public class Scout
                               ,group.Location)
                  ,0
                  ,totalStep + 1);
+        deleteNotComePoint();
+    }
 
-
+    /*==========private==========*/
+    private void deleteNotComePoint()
+    {
         foreach (List<Position> p in pathList)
         {
             /*
@@ -50,48 +52,35 @@ public class Scout
                 }
             }
             */
-            if (Isfirst)
+            if (p[0].block is BuildingBlock)
             {
-                if (p[0].block is BuildingBlock)
+                BuildingBlock buildingBlock = (BuildingBlock)p[0].block;
+                if (buildingBlock.PathLocations.Count > 1)
                 {
-                    BuildingBlock buildingBlock = (BuildingBlock)p[0].block;
-                    if (buildingBlock.PathLocations.Count > 1)
+                    Vector3 realSecondP = p[1].block.standPoint(p[2].location);
+                    if (p[1].location != realSecondP)
                     {
-                        Vector3 realSecondP = p[1].block.standPoint(p[2].location);
-                        if (p[1].location != realSecondP)
-                        {
-                            Vector3 v = p[0].location;
-                            p[0].location = p[1].location;
-                            p[1].location = v;
-                        }
+                        Vector3 v = p[0].location;
+                        p[0].location = p[1].location;
+                        p[1].location = v;
                     }
                 }
-                if (p[1].location == group.Location)
-                {
-                    p.RemoveAt(0);
-                }
-                Isfirst = false;
+            }
+            if (p[1].location == group.Location)
+            {
+                p.RemoveAt(0);
             }
         }
-        
     }
-
-    /*==========private==========*/
     private void dfsSearch(Direction enterDirection ,Map map ,List<Position> path ,Position position ,int next ,int step)
     {
-        //Position onePos = new Position(enterDirection
-        //                              ,position.blockIndex + next
-        //                              ,map.BlockList[position.blockIndex + next]
-        //                              ,map.BlockList[position.blockIndex + next].standPoint(position.location));
-        //path.Add(onePos);
-        //findNextBlock(map ,path ,path[path.Count - 1] ,--step);
-        //path.Remove(onePos);
-
-
+        //BuildingBlock b32 = (BuildingBlock)map.BlockList[32];
+        //Debug.Log(map.BlockList[62].standPoint(b32.PathLocations[0]));
         List<Position> positions = new List<Position>();
         Vector3 loc;
         for (int i = 0; i < 2; i++)
         {
+            if (step == 1 && i == 1) break;
             loc = (i == 0) ? position.location : positions[0].location;
 
             Position onePos = new Position(enterDirection
@@ -131,6 +120,7 @@ public class Scout
             positions.Add(onePos);
         }
         path.AddRange(positions);
+
         findNextBlock(map ,path ,path[path.Count - 1] ,--step);
 
         foreach ( Position p in positions )
@@ -195,7 +185,9 @@ public class Scout
     }
     public void checkOutPath(int pathNo)//確定這一條路
     {
+
         choicePath = new List<Position>(pathList[pathNo]);
+        
 
         for ( int i = 0 ; i < pathList.Count ; i++ )
         {
