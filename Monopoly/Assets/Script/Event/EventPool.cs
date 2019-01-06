@@ -39,6 +39,7 @@ public class EventPool
     public void SetWeight(int i,int w)
     {
         int temp = event_list[i].Weight + w;
+
         if(temp >= 0)
         {
             event_list[i].Weight += w;
@@ -69,7 +70,6 @@ public class EventPool
             {
                 break;
             }
-
         }
         return e;
     }
