@@ -13,11 +13,11 @@ using System.Text;
         public override void DoEvent(List<Group> droup_list, Group group)
         {
             Random rand = new Random();
-            int p1 = rand.Next(4);
-            int p2 = rand.Next(4);
+            int p1 = rand.Next(droup_list.Count);
+            int p2 = rand.Next(droup_list.Count);
             while(p1 == p2)
             {
-                p2 = rand.Next(4);
+                p2 = rand.Next(droup_list.Count);
             }
             int temp = droup_list[p1].CurrentBlockIndex;
             droup_list[p1].teleport(droup_list[p2].CurrentBlockIndex);

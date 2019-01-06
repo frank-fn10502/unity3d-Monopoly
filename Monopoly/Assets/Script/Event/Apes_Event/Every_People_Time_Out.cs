@@ -9,7 +9,7 @@ class Every_People_Time_Out : EventBase
     public override void DoEvent(List<Group> droup_list, Group group)
     {
         //由於軍營慘遭猩猩入侵，導致損失慘重，所有人類暫停一回合
-        for(int i = 0;i<4;i++)
+        for(int i = 0;i< droup_list.Count; i++)
         {
             droup_list[i].InJailTime += 1;
             droup_list[i].State = PlayerState.InJail;
