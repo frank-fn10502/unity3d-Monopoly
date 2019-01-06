@@ -168,18 +168,20 @@ public class Group
         scout.reconnoiter(map ,step);
         stepCount = 0;
     }
-    public void teleport(Block block)
+    public void teleport(int index)
     {
-        location = block.standPoint();
+        location = blockList[index].standPoint();
         enterDirection = Direction.unKnow;
-        for(int i = 0 ; i < blockList.Length ; i++ )
-        {
-            if(block.Equals(blockList[i]))
-            {
-                currentBlockIndex = i;
-            }
-        }
+        //for(int i = 0 ; i < blockList.Length ; i++ )
+        //{
+        //    if(block.Equals(blockList[i]))
+        //    {
+        //        currentBlockIndex = i;
+        //    }
+        //}
+        currentBlockIndex = index;
         CurrentActor.teleport(location);
+        
     }
     public void move()//按照scout的Path移動
     {

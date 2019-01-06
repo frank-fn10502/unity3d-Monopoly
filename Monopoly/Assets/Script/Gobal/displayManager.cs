@@ -229,9 +229,9 @@ class DisplayManager
         }
     }
 
-    public void displayPlayerInfo()
+    public void displayPlayerInfo(List<Faction> factionList = null)
     {
-        playerSideMsgPanel.GetComponent<PlayerSideMsgController>().displayPlayerList(globalManager.GroupList);
+        playerSideMsgPanel.GetComponent<PlayerSideMsgController>().displayPlayerList(globalManager.GroupList ,factionList);
     }
     public void displayBuildConstructor(BuildingBlock buildingBlock ,GameState nextGameState)
     {
@@ -278,16 +278,16 @@ class DisplayManager
     private void createScoutPathEntity(Map map)
     {
         int[] markMap  = new int[map.BlockList.Length];
-        int[] duplicateMap  = new int[map.BlockList.Length];
+        //int[] duplicateMap  = new int[map.BlockList.Length];
         for ( int i = 0 ; i < markMap.Length ; i++ ) { markMap[i] = 0; }//全部標記為 "未走過"
 
         Position onePos;
         for ( int i = 0 ; i < currentPlayer.Scout.pathList.Count ; i++ )
         {
-            for ( int k = 0 ; k < map.BlockList.Length ; k++ )
-            {
-                duplicateMap[k] = 0;
-            }
+            //for ( int k = 0 ; k < map.BlockList.Length ; k++ )
+            //{
+            //    duplicateMap[k] = 0;
+            //}
 
             for ( int j = 0 ; j < currentPlayer.Scout.pathList[i].Count ; j++ )
             {
@@ -305,16 +305,26 @@ class DisplayManager
                     {
                         try
                         {
-                            duplicateMap[onePos.blockIndex]++;
-                            onePos.entity = pathListEntity.transform.Find("dot" + onePos.blockIndex + "-" + duplicateMap[onePos.blockIndex]).gameObject;//如果有了就不要再建造一次 直接指定
-                            if ( onePos.block is BuildingBlock && ( (BuildingBlock)onePos.block ).PathLocations.Count > 1 )
+                            //duplicateMap[onePos.blockIndex]++;
+                            //onePos.entity = pathListEntity.transform.Find("dot" + onePos.blockIndex + "-" + duplicateMap[onePos.blockIndex]).gameObject;//如果有了就不要再建造一次 直接指定
+                            GameObject gameObject1 = pathListEntity.transform.Find("dot" + onePos.blockIndex + "-1").gameObject;
+                            //GameObject gameObject2 = pathListEntity.transform.Find("dot" + onePos.blockIndex + "-2").gameObject;
+                            if(gameObject1.transform.position.x == onePos.location.x && gameObject1.transform.position.z == onePos.location.z)
                             {
-                                duplicateMap[onePos.blockIndex] %= 2;
+                                onePos.entity = gameObject1;
                             }
                             else
                             {
-                                duplicateMap[onePos.blockIndex] = 0;
+                                onePos.entity = pathListEntity.transform.Find("dot" + onePos.blockIndex + "-2").gameObject;
                             }
+                            //if ( onePos.block is BuildingBlock && ( (BuildingBlock)onePos.block ).PathLocations.Count > 1 )
+                            //{
+                            //    duplicateMap[onePos.blockIndex] %= 2;
+                            //}
+                            //else
+                            //{
+                            //    duplicateMap[onePos.blockIndex] = 0;
+                            //}
                         }
                         catch
                         {
@@ -354,6 +364,10 @@ class DisplayManager
         onePos.entity.GetComponent<Renderer>().material = Resources.Load<Material>("Texture/Orange");
 
         onePos.entity.transform.position = ( onePos.location + new Vector3(0 ,0.2f ,0) );
+        if (mapIndex == 62)
+        {
+            Debug.Log(onePos.location);
+        }
     }
     private void createInteractiveDot()
     {

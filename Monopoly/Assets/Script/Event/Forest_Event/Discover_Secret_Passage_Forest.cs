@@ -19,7 +19,7 @@ class Discover_Secret_Passage_Forest : EventBase
             //由於途中發現祕密通道，可直達森林入口
             Random rand = new Random();
             int rands = rand.Next(point.Count);
-            group.teleport(Group.blockList[rands]);
+            group.teleport(rands);
             this.Short_detail = group.name + "直達森林入口";
             State = group.State;
         }
