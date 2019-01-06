@@ -83,7 +83,7 @@ public class GlobalManager
         displayManager = new DisplayManager(this);
         events = new Event();
 
-        displayManager.displayPlayerInfo();
+        displayManager.displayPlayerInfo(factionList);
     }
 
 
@@ -93,58 +93,64 @@ public class GlobalManager
         switch ( gameState )
         {
             case GameState.GlobalEvent:
-                if ( currentGroupIndex % groupList.Length == 0 )
+                if (currentGroupIndex % groupList.Length == 0)
                 {
                     //抽世界事件
-                    EventBase eventData = events.doEvent(Eventtype.Word ,new List<Group>(groupList) ,CurrentPlayer);
+                    EventBase eventData = events.doEvent(Eventtype.Word, new List<Group>(groupList), CurrentPlayer);
                     gameState = GameState.Wait;
 
-                    
-                    displayManager.day++;
-                    displayManager.timeMsgPanel.GetComponent<Text>().text = string.Format("Day:{0:0000}" ,displayManager.day);
-                    displayManager.setWorldMsg(string.Format("Day:{0:0000}\n" ,displayManager.day) ,true);
 
-                    displayManager.displayEvent(eventData ,GameState.PersonalEvent);
+                    displayManager.day++;
+                    displayManager.timeMsgPanel.GetComponent<Text>().text = string.Format("Day:{0:0000}", displayManager.day);
+                    displayManager.setWorldMsg(string.Format("Day:{0:0000}\n", displayManager.day), true);
+
+                    displayManager.displayEvent(eventData, GameState.PersonalEvent);
                     displayManager.displayWorldMsg();
                 }
                 else
                 {
                     gameState = GameState.PersonalEvent;
                 }
-                if ( CurrentPlayer.InJailTime == 0 )
+                if (CurrentPlayer.InJailTime == 0)
                 {
                     CurrentPlayer.State = PlayerState.RollingDice;
-                }                    
+                }
                 break;
             case GameState.PersonalEvent:
                 displayManager.displayBlockInfo(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
 
-                if ( CurrentPlayer.State != PlayerState.InJail )
+                if (CurrentPlayer.State != PlayerState.InJail)
                 {
                     //抽個人事件
-                    EventBase eventData = events.doEvent(Eventtype.Personal ,new List<Group>(groupList) ,CurrentPlayer);
+                    EventBase eventData = events.doEvent(Eventtype.Personal, new List<Group>(groupList), CurrentPlayer);
                     gameState = GameState.Wait;
-                    displayManager.displayEvent(eventData ,GameState.PlayerMovement);
+                    displayManager.displayEvent(eventData, GameState.PlayerMovement);
                 }
                 else
                 {
                     gameState = GameState.PlayerMovement;
                 }
                 displayManager.displayEndMsg = true;
-                displayManager.setWorldMsg("" ,true);
-
+                displayManager.setWorldMsg("", true);
+                //gameState = GameState.PlayerMovement;
                 break;
             case GameState.PlayerMovement:
                 {
                     switch ( groupList[currentGroupIndex].State )
                     {
                         case PlayerState.RollingDice:
-                            if ( Input.GetButtonDown("Jump") || isComputer )
+                            if(IsComputer)
                             {
-                                CurrentPlayer.State = PlayerState.Wait;
-                                
-
-                                displayManager.displayRollingDice();//轉換到下一個階段
+                                totalStep = new System.Random().Next(5 ,25);//temp
+                                CurrentPlayer.State = PlayerState.SearchPath;//temp
+                            }
+                            else
+                            {
+                                if ( Input.GetButtonDown("Jump") || isComputer )
+                                {
+                                    CurrentPlayer.State = PlayerState.Wait;
+                                    displayManager.displayRollingDice();//轉換到下一個階段
+                                }
                             }
                             break;
                         case PlayerState.SearchPath:
@@ -166,7 +172,7 @@ public class GlobalManager
                         case PlayerState.InJail:
                             CurrentPlayer.InJailTime--;
                             gameState = GameState.End;//直接結束
-                            displayManager.setWorldMsg(string.Format("無法移動 剩下:{0}回合\n" ,CurrentPlayer.InJailTime));
+                            displayManager.setWorldMsg(string.Format("{0}無法移動 剩下:{1}回合\n" , CurrentPlayer.name,CurrentPlayer.InJailTime));
 
                             break;
                         case PlayerState.Wait:
@@ -176,7 +182,6 @@ public class GlobalManager
                 }
                 break;
             case GameState.End:
-                CurrentPlayer.State = PlayerState.Wait;
                 displayManager.displayNextPlayer();
 
                 break;
@@ -190,7 +195,8 @@ public class GlobalManager
     {
         currentGroupIndex = ( currentGroupIndex + 1 ) % Constants.PLAYERNUMBER;
         isComputer = ( currentGroupIndex == Constants.PLAYERNUMBER - 1 );
-        //isComputer = false;
+        //isComputer = true;
+        ///isComputer = false;
         gameState = GameState.GlobalEvent;
     }
 
@@ -237,7 +243,7 @@ public class GlobalManager
         Group.blockList = map.BlockList;
         foreach ( Faction faction in factions )
         {
-            
+
             groupList[i] = new Group(null
                                     ,createActorList(faction.actorList)
                                     ,new Attributes(faction.attributes)
@@ -252,7 +258,7 @@ public class GlobalManager
             groupList[i].myBuildingList = new GameObject(groupList[i].name + "BuildingList");
             groupList[i].myBuildingList.transform.parent = Group.playerBuildingList.transform;
             //新增主堡
-            if ( map.BlockList[playerIndex[i]]  is BuildingBlock)
+            if ( map.BlockList[playerIndex[i]] is BuildingBlock )
             {
                 Building.path = "PreFab/Building/";
                 BuildingBlock buildingBlock =  (BuildingBlock)( map.BlockList[playerIndex[i]] ) ;

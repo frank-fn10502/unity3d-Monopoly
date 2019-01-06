@@ -17,6 +17,8 @@ class DisplayManager
     private GameObject worldMsgPanel;
     private GameObject blockInformation;
     private Camera     blockCamera;
+    private GameObject diceDisplayPanel;
+    private GameObject diceObj;
 
 
 
@@ -79,6 +81,16 @@ class DisplayManager
         timeMsgPanel = GameObject.Find("WorldTime");
         blockInformation = GameObject.Find("BlockInformation");
         blockCamera = GameObject.Find("BlockCamera").GetComponent<Camera>();
+
+
+        diceDisplayPanel = Resources.Load<GameObject>("PreFab/Ui/DiceDisplay"); //GameObject.Find("CanNotBuyCard");
+        diceDisplayPanel = GameObject.Instantiate(diceDisplayPanel);
+        diceDisplayPanel.transform.SetParent(GameObject.Find("Canvas").transform ,false);
+        diceDisplayPanel.SetActive(false);
+
+        diceObj = GameObject.Find("DiceCheckZone");
+        diceObj.GetComponent<DiceCheckZoneScript>().globalManager = globalManager;
+        diceObj.GetComponent<DiceCheckZoneScript>().diceDisplayPanel = diceDisplayPanel;
     }
 
 
@@ -90,10 +102,14 @@ class DisplayManager
     public void displayRollingDice()
     {
         //呼叫扔骰子
-        globalManager.TotalStep = 24;//temp
-        currentPlayer.State = PlayerState.SearchPath;//temp
+        //globalManager.TotalStep = 24;//temp
+        //currentPlayer.State = PlayerState.SearchPath;//temp
 
-        worldMsg += string.Format("\"{0}\"骰出了\"{1}\"\n" ,globalManager.CurrentPlayer.name ,globalManager.TotalStep);//temp
+        //worldMsg += string.Format("\"{0}\"骰出了\"{1}\"\n" ,globalManager.CurrentPlayer.name ,globalManager.TotalStep);//temp
+        diceObj.GetComponent<DiceCheckZoneScript>().canRolling = true;
+        diceObj.GetComponent<DiceCheckZoneScript>().number = 0;
+        diceObj.GetComponent<DiceCheckZoneScript>().rolling = false;
+        diceDisplayPanel.SetActive(true);
     }
     public void displaySearchPath(Map map)
     {
@@ -229,9 +245,9 @@ class DisplayManager
         }
     }
 
-    public void displayPlayerInfo()
+    public void displayPlayerInfo(List<Faction> factionList = null)
     {
-        playerSideMsgPanel.GetComponent<PlayerSideMsgController>().displayPlayerList(globalManager.GroupList);
+        playerSideMsgPanel.GetComponent<PlayerSideMsgController>().displayPlayerList(globalManager.GroupList ,factionList);
     }
     public void displayBuildConstructor(BuildingBlock buildingBlock ,GameState nextGameState)
     {
@@ -278,16 +294,16 @@ class DisplayManager
     private void createScoutPathEntity(Map map)
     {
         int[] markMap  = new int[map.BlockList.Length];
-        int[] duplicateMap  = new int[map.BlockList.Length];
+        //int[] duplicateMap  = new int[map.BlockList.Length];
         for ( int i = 0 ; i < markMap.Length ; i++ ) { markMap[i] = 0; }//全部標記為 "未走過"
 
         Position onePos;
         for ( int i = 0 ; i < currentPlayer.Scout.pathList.Count ; i++ )
         {
-            for ( int k = 0 ; k < map.BlockList.Length ; k++ )
-            {
-                duplicateMap[k] = 0;
-            }
+            //for ( int k = 0 ; k < map.BlockList.Length ; k++ )
+            //{
+            //    duplicateMap[k] = 0;
+            //}
 
             for ( int j = 0 ; j < currentPlayer.Scout.pathList[i].Count ; j++ )
             {
@@ -305,16 +321,26 @@ class DisplayManager
                     {
                         try
                         {
-                            duplicateMap[onePos.blockIndex]++;
-                            onePos.entity = pathListEntity.transform.Find("dot" + onePos.blockIndex + "-" + duplicateMap[onePos.blockIndex]).gameObject;//如果有了就不要再建造一次 直接指定
-                            if ( onePos.block is BuildingBlock && ( (BuildingBlock)onePos.block ).PathLocations.Count > 1 )
+                            //duplicateMap[onePos.blockIndex]++;
+                            //onePos.entity = pathListEntity.transform.Find("dot" + onePos.blockIndex + "-" + duplicateMap[onePos.blockIndex]).gameObject;//如果有了就不要再建造一次 直接指定
+                            GameObject gameObject1 = pathListEntity.transform.Find("dot" + onePos.blockIndex + "-1").gameObject;
+                            //GameObject gameObject2 = pathListEntity.transform.Find("dot" + onePos.blockIndex + "-2").gameObject;
+                            if(gameObject1.transform.position.x == onePos.location.x && gameObject1.transform.position.z == onePos.location.z)
                             {
-                                duplicateMap[onePos.blockIndex] %= 2;
+                                onePos.entity = gameObject1;
                             }
                             else
                             {
-                                duplicateMap[onePos.blockIndex] = 0;
+                                onePos.entity = pathListEntity.transform.Find("dot" + onePos.blockIndex + "-2").gameObject;
                             }
+                            //if ( onePos.block is BuildingBlock && ( (BuildingBlock)onePos.block ).PathLocations.Count > 1 )
+                            //{
+                            //    duplicateMap[onePos.blockIndex] %= 2;
+                            //}
+                            //else
+                            //{
+                            //    duplicateMap[onePos.blockIndex] = 0;
+                            //}
                         }
                         catch
                         {
@@ -354,6 +380,10 @@ class DisplayManager
         onePos.entity.GetComponent<Renderer>().material = Resources.Load<Material>("Texture/Orange");
 
         onePos.entity.transform.position = ( onePos.location + new Vector3(0 ,0.2f ,0) );
+        if (mapIndex == 62)
+        {
+            Debug.Log(onePos.location);
+        }
     }
     private void createInteractiveDot()
     {

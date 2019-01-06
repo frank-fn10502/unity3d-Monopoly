@@ -16,6 +16,22 @@ public class PlayerDataController : MonoBehaviour
     private GameObject startButton;
 
     private const int playerNum = 4;
+    public void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.F12))
+        {
+            System.Random random = new System.Random();
+            int r;
+            for (int i = 0; i < 4; i++)
+            {
+                r = random.Next(0 ,7);
+
+                onSelectCharacter(r);
+                onCheckoutClick();
+            }
+        }
+    }
 
     private void Awake()
     {
@@ -48,6 +64,11 @@ public class PlayerDataController : MonoBehaviour
             //}
             //buttonList[0].SetActive(true);
         }
+        //for(int i = 0; i < 4; i++)
+        //{
+        //    onSelectCharacter(i);
+        //    onCheckoutClick();
+        //}
     }
 
     public void onSelectCharacter(int no)

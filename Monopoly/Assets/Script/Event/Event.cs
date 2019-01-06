@@ -39,7 +39,7 @@ public class Event
         apes.AddEvent(new Orangutan_Reduction("猩猩看不慣凱薩", false, 8, "由於猩猩看不慣凱薩，發生內鬥，使猩猩和平指數下降20，猩猩人口減少4%", "EventImage/AllEvent"));
         //領導
         apes.AddEvent(new Everyone_People_Decrease("帶著猿流感的猩猩失控爆走", false, 5, "帶著猿流感的猩猩失控爆走，使得病毒擴散加快，人類死亡100", "EventImage/Virus", 100));
-        apes.AddEvent(new Every_People_Time_Out("人類軍營慘遭猩猩入侵", false, 100, "由於人類軍營慘遭猩猩入侵，導致損失慘重，所有人類暫停一回合", "EventImage/Time_Out"));
+        apes.AddEvent(new Every_People_Time_Out("人類軍營慘遭猩猩入侵", false, 5, "由於人類軍營慘遭猩猩入侵，導致損失慘重，所有人類暫停一回合", "EventImage/Time_Out"));
         apes.AddEvent(new Human_Diplomacy("紅毛猩猩教導猩猩族群學習語言", true, 5, "由於紅毛猩猩教導猩猩族群學習語言，使猩猩可以跟人類外交，且減少病毒擴散，使解藥研發進度提升，外交指數上升", "EventImage/Human_Diplomacy"));
 
         apes.AddEvent(new People_Increase("猩猩發現落單人類", true, 5, "由於猩猩發現落單人類，並將之規劃為人民，猩猩增加人口200", "EventImage/AllEvent",200));
@@ -104,18 +104,18 @@ public class Event
 
     private void Add_Word_Event()
     {
-        word.AddEvent(new EarthquakeEvent("發生地震", false, 6, "發生大地震，所有玩家損失10%人口", "EventImage/AllEvent"));
-        word.AddEvent(new Everyone_Virus_Increase("受到感染的人類失去控制", false, 6, "受到感染的人類失去控制，到處亂跑，使病毒增加快速 ，人類大量感染，所有人類死亡10%", "EventImage/AllEvent"));
-        word.AddEvent(new Everyone_Antibody_Increased("醫院科技技術進步", true, 6, "由於醫院科技技術進步，使得人類對抗病毒抗體增加，人類解藥研發程度上升5%", "EventImage/Virus", 5));
-        word.AddEvent(new Everyone_People_Increase("遇到沒受感染的人類", true, 6, "遇到沒受感染的人類，使得人口增加", "EventImage/Virus"));
-        word.AddEvent(new Population_Decline("醫院由於災情慘重", false, 6, "醫院由於災情慘重，使得解藥研究降低，且所有人口減少", "EventImage/AllEvent"));
-        word.AddEvent(new Lack_Of_Energy("城市人口增加", false, 6, "城市人口增加，使得能源不足，資源減半，人口增加200", "EventImage/AllEvent"));
-        word.AddEvent(new Everyone_People_Decrease("所有人類遭遇野生猩猩發動攻擊，失去人口數量", false, 6, "所有人類遭遇野生猩猩發動攻擊，失去人口數量", "EventImage/Person_attacked"));
-        word.AddEvent(new Everyone_Antibody_Increased("人類發現新型解藥", true, 6, "人類發現新型解藥，使得所有人解藥研發程度提升2%", "EventImage/Lab", 2));
-        word.AddEvent(new Apse_Defection("猩猩叛逃", true, 6, "猩猩叛逃，所有人類獲得100軍隊，猩猩減少100軍隊", "EventImage/Military_Increase"));
+        //word.AddEvent(new EarthquakeEvent("發生地震", false, 6, "發生大地震，所有玩家損失10%人口", "EventImage/AllEvent"));
+        //word.AddEvent(new Everyone_Virus_Increase("受到感染的人類失去控制", false, 6, "受到感染的人類失去控制，到處亂跑，使病毒增加快速 ，人類大量感染，所有人類死亡10%", "EventImage/AllEvent"));
+        //word.AddEvent(new Everyone_Antibody_Increased("醫院科技技術進步", true, 6, "由於醫院科技技術進步，使得人類對抗病毒抗體增加，人類解藥研發程度上升5%", "EventImage/Virus", 5));
+        //word.AddEvent(new Everyone_People_Increase("遇到沒受感染的人類", true, 6, "遇到沒受感染的人類，使得人口增加", "EventImage/Virus"));
+        //word.AddEvent(new Population_Decline("醫院由於災情慘重", false, 6, "醫院由於災情慘重，使得解藥研究降低，且所有人口減少", "EventImage/AllEvent"));
+        //word.AddEvent(new Lack_Of_Energy("城市人口增加", false, 6, "城市人口增加，使得能源不足，資源減半，人口增加200", "EventImage/AllEvent"));
+        //word.AddEvent(new Everyone_People_Decrease("所有人類遭遇野生猩猩發動攻擊，失去人口數量", false, 6, "所有人類遭遇野生猩猩發動攻擊，失去人口數量", "EventImage/Person_attacked"));
+        //word.AddEvent(new Everyone_Antibody_Increased("人類發現新型解藥", true, 6, "人類發現新型解藥，使得所有人解藥研發程度提升2%", "EventImage/Lab", 2));
+        //word.AddEvent(new Apse_Defection("猩猩叛逃", true, 6, "猩猩叛逃，所有人類獲得100軍隊，猩猩減少100軍隊", "EventImage/Military_Increase"));
         word.AddEvent(new Change_Plant("地殼移動", true, 6, "地殼移動，隨機兩位玩家位置交換", "EventImage/AllEvent"));
-        word.AddEvent(new EveryoneGetResourceEvent("發現遠古金礦", true, 10, "發現遠古金礦，每人獲得資源增加5%", "EventImage/AllEvent", 5));
-        word.AddEvent(new Everyone_eace_Increase("和平紀念日", true, 10, "和平紀念日，增加所有人的和平指數", "EventImage/AllEvent", 5));
+        //word.AddEvent(new EveryoneGetResourceEvent("發現遠古金礦", true, 10, "發現遠古金礦，每人獲得資源增加5%", "EventImage/AllEvent", 5));
+        //word.AddEvent(new Everyone_eace_Increase("和平紀念日", true, 10, "和平紀念日，增加所有人的和平指數", "EventImage/AllEvent", 5));
 
     }
     private void caculate_weight(Group group)
