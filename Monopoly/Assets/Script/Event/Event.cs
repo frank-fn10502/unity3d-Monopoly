@@ -97,8 +97,8 @@ public class Event
         personal.AddEvent(new People_Increase_percent("發現病毒對兒童無效", true, 10, "發現病毒對兒童無效，使人數增加20%", "EventImage/Virus", 20));
         personal.AddEvent(new Go_To_The_Designated_Location("途中意外發現軍用直升機", true, 7, "途中意外發現軍用直升機，可前隨機前往自己的其中一個領地", "EventImage/Helicopter"));
         personal.AddEvent(new Antibody_Increased("解藥研發突破", true, 10, "解藥研發突破，使解藥研發提升2%", "EventImage/Virus", 2));
-        personal.AddEvent(new Win_Event("遊戲結束", true, 0, "運氣真好，遊戲結束，", "EventImage/Win"));
-        personal.AddEvent(new Lose_Event("你輸了", true, 0, "運氣真背，竟然然抽到此事件，你的遊戲結束了", "EventImage/Lose"));
+        personal.AddEvent(new Win_Event("遊戲結束", true, 10000, "運氣真好，遊戲結束，", "EventImage/Win"));
+        personal.AddEvent(new Lose_Event("你輸了", true, 1, "運氣真背，竟然然抽到此事件，你的遊戲結束了", "EventImage/Lose"));
 
     }
 
