@@ -139,12 +139,18 @@ public class GlobalManager
                     switch ( groupList[currentGroupIndex].State )
                     {
                         case PlayerState.RollingDice:
-                            if ( Input.GetButtonDown("Jump") || isComputer )
+                            if(IsComputer)
                             {
-                                CurrentPlayer.State = PlayerState.Wait;
-
-
-                                displayManager.displayRollingDice();//轉換到下一個階段
+                                totalStep = new System.Random().Next(5 ,25);//temp
+                                CurrentPlayer.State = PlayerState.SearchPath;//temp
+                            }
+                            else
+                            {
+                                if ( Input.GetButtonDown("Jump") || isComputer )
+                                {
+                                    CurrentPlayer.State = PlayerState.Wait;
+                                    displayManager.displayRollingDice();//轉換到下一個階段
+                                }
                             }
                             break;
                         case PlayerState.SearchPath:
