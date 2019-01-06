@@ -19,6 +19,7 @@ public class ShowEventController : MonoBehaviour {
         obj = GameObject.Find("WorldMsgShow/TheWorldMsg");
         string str = obj.GetComponent<Control>().GetText();
         vs = str.Split('\n');
+        GameObject.Destroy(GameObject.Find("Canvas"));
     }
 	
 	// Update is called once per frame
@@ -30,6 +31,7 @@ public class ShowEventController : MonoBehaviour {
             if (vs.Length -1 == index)
             {
                 isEnd = true;
+                
             }
             timer = 0;
        }
