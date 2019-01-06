@@ -71,7 +71,7 @@ public class BuildingDisplayController : MonoBehaviour
         buildingList = new List<Building>();
         Building.path = "PreFab/Building/";
         string[] bName = {"城市" ,"醫院" ,"軍營" ,"礦場"};
-        string[] bFileName = {"A" ,"A" ,"A" ,"A"};
+        string[] bFileName = {"B" ,"C" ,"A" ,"D"};
 
         for ( int i = 0 ; i < 4 ; i++ )
         {
