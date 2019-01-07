@@ -116,7 +116,8 @@ public class GlobalManager
         switch ( gameState )
         {
             case GameState.GlobalEvent:
-                if ( round == 0 )
+                round = round >= groupList.Length ? 0  : round;
+                if ( round  == 0 )
                 {
                     //抽世界事件
                     EventBase eventData = events.doEvent(Eventtype.Word, createList(), CurrentPlayer);
@@ -129,6 +130,7 @@ public class GlobalManager
 
                     displayManager.displayEvent(eventData ,GameState.PersonalEvent);
                     displayManager.displayWorldMsg();
+                    gameState = GameState.PersonalEvent;
                 }
                 else
                 {
@@ -153,13 +155,13 @@ public class GlobalManager
                 {
                     displayManager.displayBlockInfo(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
                 }
-                displayManager.displayEndMsg = true;
                 if ( CurrentPlayer.State != PlayerState.InJail )
                 {
                     //抽個人事件
                     EventBase eventData = events.doEvent(Eventtype.Personal, createList(), CurrentPlayer);
                     gameState = GameState.Wait;
                     displayManager.displayEvent(eventData ,GameState.PlayerMovement);
+                    gameState = GameState.PlayerMovement;
                 }
                 else
                 {
@@ -227,7 +229,7 @@ public class GlobalManager
     {
         do
         {
-            round = ( round + 1 ) % groupList.Length;
+            round++;
             currentGroupIndex = ( currentGroupIndex + 1 ) % groupList.Length;
         }
         while ( groupList[currentGroupIndex] == null );
