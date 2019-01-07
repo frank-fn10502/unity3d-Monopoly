@@ -12,7 +12,7 @@ public class StrategyCardController : MonoBehaviour
     {
         gameObject.SetActive(false);
         EventBase eventData = globalManager.Events.doEvent(Eventtype.Attack_Plant
-                                                          ,new List<Group>( globalManager.GroupList)
+                                                          ,globalManager.createList()
                                                           ,globalManager.CurrentPlayer);
 
         globalManager.DisplayManager.displayEvent(eventData ,nextGameState);
