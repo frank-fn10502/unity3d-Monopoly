@@ -198,7 +198,7 @@ class DisplayManager
                 if ( buildingBlock.Landlord.Equals(globalManager.CurrentPlayer) )
                 {
                     EventBase eventData = new DiplomaticEvent();
-                    eventData.DoEvent(new List<Group>(globalManager.GroupList) ,globalManager.CurrentPlayer);
+                    eventData.DoEvent(globalManager.createList(), globalManager.CurrentPlayer);
 
                     displayEvent(eventData ,nextGameState);
                 }

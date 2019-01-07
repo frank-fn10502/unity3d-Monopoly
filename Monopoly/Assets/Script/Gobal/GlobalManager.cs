@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -126,9 +127,16 @@ public class GlobalManager
                 {
                     gameState = GameState.PersonalEvent;
                 }
-                if ( CurrentPlayer.InJailTime == 0 )
+                try
                 {
-                    CurrentPlayer.State = PlayerState.RollingDice;
+                    if (CurrentPlayer.InJailTime == 0)
+                    {
+                        CurrentPlayer.State = PlayerState.RollingDice;
+                    }
+                }
+                catch(Exception e)
+                {
+                    Debug.Log(e);
                 }
                 break;
             case GameState.PersonalEvent:
