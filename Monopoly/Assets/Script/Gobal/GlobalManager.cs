@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -133,15 +134,25 @@ public class GlobalManager
                 {
                     gameState = GameState.PersonalEvent;
                 }
-                if ( CurrentPlayer.State != PlayerState.InJail )
+                try
                 {
-                    CurrentPlayer.State = PlayerState.RollingDice;
+                    if (CurrentPlayer.InJailTime == 0)
+                    {
+                        CurrentPlayer.State = PlayerState.RollingDice;
+                    }
+                }
+                catch(Exception e)
+                {
+                    Debug.Log(e);
                 }
                 break;
             case GameState.PersonalEvent:
                 displayManager.displayEndMsg = true;
-                displayManager.setWorldMsg("" ,true);
-                displayManager.displayBlockInfo(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
+                displayManager.setWorldMsg("", true);
+                if(CurrentPlayer != null)
+                {
+                    displayManager.displayBlockInfo(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
+                }
                 displayManager.displayEndMsg = true;
                 if ( CurrentPlayer.State != PlayerState.InJail )
                 {
@@ -238,13 +249,20 @@ public class GlobalManager
     public List<Group> createList()
     {
         List<Group> groupL =  new List<Group>();
-        for ( int i = 0 ; i < groupList.Length ; i++ )
+        for(int i = 0; i < groupList.Length; i++)
         {
-            if ( groupList[i] != null )
-            {
+            if (groupList[i] != null)
                 groupL.Add(groupList[i]);
+        }
+        /*
+        foreach ( Group g in groupL )
+        {
+            if ( g == null )
+            {
+                groupL.Remove(g);
             }
         }
+        */
         return groupL;
     }
 
