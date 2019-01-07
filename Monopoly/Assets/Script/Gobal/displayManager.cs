@@ -101,7 +101,7 @@ class DisplayManager
 
     public void setWorldMsg(string str ,bool clear = false)
     {
-        worldMsg = clear ? str : "\n" + worldMsg + str;
+        worldMsg = clear ? str :  worldMsg + str + "\n";
     }
     public void displayRollingDice()
     {
@@ -141,7 +141,6 @@ class DisplayManager
         if ( globalManager.IsComputer )
         {
             //globalManager.GameState = nextGameState;
-
             calWhoDead(nextGameState);
         }
         else
@@ -163,13 +162,13 @@ class DisplayManager
             if ( globalManager.IsComputer )
             {
                 eventData = globalManager.Events.doEvent(Eventtype.Apes
-                                                        ,new List<Group>(globalManager.GroupList)
+                                                        ,globalManager.createList()
                                                         ,globalManager.CurrentPlayer);
             }
             else
             {
                 eventData = globalManager.Events.doEvent(Eventtype.Forest
-                                                        ,new List<Group>(globalManager.GroupList)
+                                                        ,globalManager.createList()
                                                         ,globalManager.CurrentPlayer);
             }
 
@@ -184,7 +183,7 @@ class DisplayManager
                 if ( globalManager.IsComputer )
                 {
                     EventBase eventData = globalManager.Events.doEvent(Eventtype.Apes
-                                                                      ,new List<Group>( globalManager.GroupList)
+                                                                      ,globalManager.createList()
                                                                       ,globalManager.CurrentPlayer);
                     displayEvent(eventData ,nextGameState);
                 }
@@ -247,9 +246,7 @@ class DisplayManager
         }
         if(winner == 1)
         {
-            displayWorldMsg();
             SceneManager.LoadScene("ShowEventScene");
-            globalManager.GameState = GameState.Wait;//?
         }
 
         if ( timer % 500 == 0 )
@@ -292,7 +289,7 @@ class DisplayManager
     public void displayWorldMsg()
     {
         //worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Text>().text += worldMsg;
-        worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Control>().WriteText(worldMsg);
+         worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Control>().WriteText(worldMsg);
         //Vector2 v =  worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<RectTransform>().sizeDelta;
         //worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<RectTransform>().sizeDelta = new Vector2(v.x, v.y + 30);
     }
@@ -445,7 +442,7 @@ class DisplayManager
             currentPlayer.Scout.checkOutPath(r);
         }
     }
-
+      
     private void calWhoDead(GameState nextGameState)
     {
         GameState gameState = (globalManager.CurrentPlayer.Resource.civilian <= 0)? GameState.End : nextGameState;
@@ -453,7 +450,7 @@ class DisplayManager
         List<Group> removeGroup = new List<Group>();
         foreach ( Group group in globalManager.GroupList )
         {
-            if ( group.Resource.civilian <= 0 )
+            if ( group != null && group.Resource.civilian <= 0 )
             {
                 removeGroup.Add(group);
             }

@@ -108,7 +108,7 @@ public class PlayerSideMsgController : MonoBehaviour
         obj.transform.Find("Block").gameObject.GetComponent<Text>().text = string.Format("{0:000}" ,group.Resource.blockList.Count);
         obj.transform.Find("Team/TeamShow").gameObject.GetComponent<Image>().color = group.materialBall.color;
 
-        if ( globalManager.CurrentPlayer.Equals(group) )
+        if ( globalManager.CurrentPlayer != null && globalManager.CurrentPlayer.Equals(group) )
         {
             nowPlayerInfo.transform.Find("NowPlayer").gameObject.GetComponent<Text>().text = group.name;
             nowPlayerInfo.transform.Find("Army").gameObject.GetComponent<Text>().text = group.Resource.army.ToString();
