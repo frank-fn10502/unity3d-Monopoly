@@ -78,7 +78,7 @@ public class GlobalManager
         }
         set
         {
-            isAuto     = value;
+            isAuto = value;
             isComputer = value;
         }
     }
@@ -108,7 +108,7 @@ public class GlobalManager
         switch ( gameState )
         {
             case GameState.GlobalEvent:
-                if (currentGroupIndex % groupList.Length == 0)
+                if ( currentGroupIndex % groupList.Length == 0 )
                 {
                     //抽世界事件
                     EventBase eventData = events.doEvent(Eventtype.Word, new List<Group>(groupList), CurrentPlayer);
@@ -116,32 +116,32 @@ public class GlobalManager
 
 
                     displayManager.day++;
-                    displayManager.timeMsgPanel.GetComponent<Text>().text = string.Format("Day:{0:0000}", displayManager.day);
-                    displayManager.setWorldMsg(string.Format("Day:{0:0000}\n", displayManager.day), true);
+                    displayManager.timeMsgPanel.GetComponent<Text>().text = string.Format("Day:{0:0000}" ,displayManager.day);
+                    displayManager.setWorldMsg(string.Format("Day:{0:0000}\n" ,displayManager.day) ,true);
 
-                    displayManager.displayEvent(eventData, GameState.PersonalEvent);
+                    displayManager.displayEvent(eventData ,GameState.PersonalEvent);
                     displayManager.displayWorldMsg();
                 }
                 else
                 {
                     gameState = GameState.PersonalEvent;
                 }
-                if (CurrentPlayer.InJailTime == 0)
+                if ( CurrentPlayer.InJailTime == 0 )
                 {
                     CurrentPlayer.State = PlayerState.RollingDice;
                 }
                 break;
             case GameState.PersonalEvent:
                 displayManager.displayEndMsg = true;
-                displayManager.setWorldMsg("", true);
+                displayManager.setWorldMsg("" ,true);
                 displayManager.displayBlockInfo(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
                 displayManager.displayEndMsg = true;
-                if (CurrentPlayer.State != PlayerState.InJail)
+                if ( CurrentPlayer.State != PlayerState.InJail )
                 {
                     //抽個人事件
                     EventBase eventData = events.doEvent(Eventtype.Personal, new List<Group>(groupList), CurrentPlayer);
                     gameState = GameState.Wait;
-                    displayManager.displayEvent(eventData, GameState.PlayerMovement);
+                    displayManager.displayEvent(eventData ,GameState.PlayerMovement);
                 }
                 else
                 {
@@ -154,7 +154,7 @@ public class GlobalManager
                     switch ( groupList[currentGroupIndex].State )
                     {
                         case PlayerState.RollingDice:
-                            if(IsComputer)
+                            if ( IsComputer )
                             {
                                 totalStep = new System.Random().Next(5 ,25);//temp
                                 CurrentPlayer.State = PlayerState.SearchPath;//temp
@@ -187,7 +187,7 @@ public class GlobalManager
                         case PlayerState.InJail:
                             CurrentPlayer.InJailTime--;
                             gameState = GameState.End;//直接結束
-                            displayManager.setWorldMsg(string.Format("{0}無法移動 剩下:{1}回合" , CurrentPlayer.name,CurrentPlayer.InJailTime));
+                            displayManager.setWorldMsg(string.Format("{0}無法移動 剩下:{1}回合" ,CurrentPlayer.name ,CurrentPlayer.InJailTime));
 
                             break;
                         case PlayerState.Wait:
@@ -207,7 +207,12 @@ public class GlobalManager
     }
     public void nextPlayer()
     {
-        currentGroupIndex = ( currentGroupIndex + 1 ) % groupList.Length;
+        do
+        {
+            currentGroupIndex = ( currentGroupIndex + 1 ) % groupList.Length;
+        }
+        while ( groupList[currentGroupIndex] != null );
+
         if ( IsAuto )
         {
             isComputer = true;
@@ -216,7 +221,7 @@ public class GlobalManager
         {
             isComputer = ( currentGroupIndex == groupList.Length - 1 );
         }
-            
+
         //isComputer = true;
         ///isComputer = false;
         gameState = GameState.GlobalEvent;
