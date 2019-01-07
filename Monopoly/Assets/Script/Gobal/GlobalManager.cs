@@ -229,12 +229,12 @@ public class GlobalManager
 
     public List<Group> createList()
     {
-        List<Group> groupL =  new List<Group>(groupList);
-        foreach ( Group g in groupL )
+        List<Group> groupL =  new List<Group>();
+        for ( int i = 0 ; i < groupList.Length ; i++ )
         {
-            if ( g == null )
+            if ( groupList[i] != null )
             {
-                groupL.Remove(g);
+                groupL.Add(groupList[i]);
             }
         }
         return groupL;

@@ -162,13 +162,13 @@ class DisplayManager
             if ( globalManager.IsComputer )
             {
                 eventData = globalManager.Events.doEvent(Eventtype.Apes
-                                                        ,new List<Group>(globalManager.GroupList)
+                                                        ,globalManager.createList()
                                                         ,globalManager.CurrentPlayer);
             }
             else
             {
                 eventData = globalManager.Events.doEvent(Eventtype.Forest
-                                                        ,new List<Group>(globalManager.GroupList)
+                                                        ,globalManager.createList()
                                                         ,globalManager.CurrentPlayer);
             }
 
@@ -183,7 +183,7 @@ class DisplayManager
                 if ( globalManager.IsComputer )
                 {
                     EventBase eventData = globalManager.Events.doEvent(Eventtype.Apes
-                                                                      ,new List<Group>( globalManager.GroupList)
+                                                                      ,globalManager.createList()
                                                                       ,globalManager.CurrentPlayer);
                     displayEvent(eventData ,nextGameState);
                 }
