@@ -70,6 +70,7 @@ public class BuildingDisplayController : MonoBehaviour
         {
             currentBuildingBlock.Building = null;
             currentBuildingEntity.SetActive(false);
+
             if(!globalManager.IsAuto)
             {
                 globalManager.DisplayManager.displayCantNotBuy(nextGameState);
