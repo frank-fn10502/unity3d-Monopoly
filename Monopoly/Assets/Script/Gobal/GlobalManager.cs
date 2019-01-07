@@ -134,7 +134,10 @@ public class GlobalManager
             case GameState.PersonalEvent:
                 displayManager.displayEndMsg = true;
                 displayManager.setWorldMsg("", true);
-                displayManager.displayBlockInfo(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
+                if(CurrentPlayer != null)
+                {
+                    displayManager.displayBlockInfo(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
+                }
                 displayManager.displayEndMsg = true;
                 if (CurrentPlayer.State != PlayerState.InJail)
                 {
