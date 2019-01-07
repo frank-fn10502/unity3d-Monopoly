@@ -20,8 +20,15 @@ public class BuildingDisplayController : MonoBehaviour
     {
         createBuildingList();
         createBuildingEntityList();
+
         checkoutButton = gameObject.transform.Find("checkoutButton").gameObject;
         checkoutButton.SetActive(false);
+    }
+    public void autoCreateBuild()
+    {
+        int r = new System.Random().Next(buildingList.Count);
+        selectBuilding(r);
+        checkoutButtonClick();
     }
     public void selectBuilding(int no)
     {
@@ -29,6 +36,7 @@ public class BuildingDisplayController : MonoBehaviour
 
         currentBuildingEntity.SetActive(false);
         currentBuildingEntity = buildingEntityList[no];
+
         currentBuildingEntity.transform.position = currentBuildingBlock.BuildingLocation;
         currentBuildingEntity.SetActive(true);
 
@@ -62,7 +70,10 @@ public class BuildingDisplayController : MonoBehaviour
         {
             currentBuildingBlock.Building = null;
             currentBuildingEntity.SetActive(false);
-            globalManager.DisplayManager.displayCantNotBuy(nextGameState);
+            if(!globalManager.IsAuto)
+            {
+                globalManager.DisplayManager.displayCantNotBuy(nextGameState);
+            }         
             globalManager.DisplayManager.setWorldMsg(string.Format("\"{0}\"買不起任何建築\n" ,globalManager.CurrentPlayer.name));
         }
     }

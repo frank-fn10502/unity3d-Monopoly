@@ -180,7 +180,7 @@ class DisplayManager
             BuildingBlock buildingBlock = (BuildingBlock)block;
             if ( buildingBlock.Building == null )
             {
-                if ( globalManager.IsComputer )
+                if ( globalManager.CurrentGroupIndex == globalManager.GroupList.Length - 1 && globalManager.IsComputer )
                 {
                     EventBase eventData = globalManager.Events.doEvent(Eventtype.Apes
                                                                       ,globalManager.createList()
@@ -189,6 +189,11 @@ class DisplayManager
                 }
                 else
                 {
+                    if( globalManager.IsComputer )
+                    {
+                        buildingArea.GetComponent<BuildingDisplayController>().currentBuildingBlock = buildingBlock;
+                        buildingArea.GetComponent<BuildingDisplayController>().autoCreateBuild();
+                    }
                     //建造建築物
                     displayBuildConstructor(buildingBlock ,nextGameState);
                 }
