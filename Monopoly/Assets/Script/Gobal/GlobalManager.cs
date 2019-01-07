@@ -214,7 +214,7 @@ public class GlobalManager
         {
             currentGroupIndex = ( currentGroupIndex + 1 ) % groupList.Length;
         }
-        while ( groupList[currentGroupIndex] != null );
+        while ( groupList[currentGroupIndex] == null );
 
         if ( IsAuto )
         {
