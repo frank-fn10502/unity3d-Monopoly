@@ -101,7 +101,7 @@ class DisplayManager
 
     public void setWorldMsg(string str ,bool clear = false)
     {
-        worldMsg = clear ? str : "\n" + worldMsg + str;
+        worldMsg = clear ? str :  worldMsg + str + "\n";
     }
     public void displayRollingDice()
     {
@@ -137,6 +137,7 @@ class DisplayManager
     }
     public void displayEvent(EventBase eventData ,GameState nextGameState)
     {
+        setWorldMsg(eventData.Short_detail);
         if ( globalManager.IsComputer )
         {
             //globalManager.GameState = nextGameState;
@@ -150,8 +151,7 @@ class DisplayManager
             eventCard.transform.Find("EventDes/EventDesText").GetComponent<Text>().text = eventData.Detail;
             eventCard.GetComponent<EventCardController>().nextGameState = nextGameState;
             eventCard.SetActive(true);
-        }
-        setWorldMsg(eventData.Short_detail);
+        }      
         displayPlayerInfo();///
     }
     public void displayStopAction(Block block ,GameState nextGameState)
@@ -230,6 +230,12 @@ class DisplayManager
     }
     public void displayNextPlayer()
     {
+        if (displayEndMsg)
+        {
+            displayWorldMsg();
+            displayEndMsg = false;
+        }
+
         int winner = 0;
         for(int i = 0 ; i < globalManager.GroupList.Length ; i++ )
         {
@@ -241,13 +247,6 @@ class DisplayManager
         if(winner == 1)
         {
             SceneManager.LoadScene("ShowEventScene");
-            globalManager.GameState = GameState.Wait;//?
-        }
-
-        if ( displayEndMsg )
-        {
-            displayWorldMsg();
-            displayEndMsg = false;
         }
 
         if ( timer % 500 == 0 )
@@ -290,7 +289,7 @@ class DisplayManager
     public void displayWorldMsg()
     {
         //worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Text>().text += worldMsg;
-        worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Control>().WriteText(worldMsg);
+         worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<Control>().WriteText(worldMsg);
         //Vector2 v =  worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<RectTransform>().sizeDelta;
         //worldMsgPanel.transform.Find("WorldMsgShow/TheWorldMsg").GetComponent<RectTransform>().sizeDelta = new Vector2(v.x, v.y + 30);
     }
@@ -410,10 +409,7 @@ class DisplayManager
         onePos.entity.GetComponent<Renderer>().material = Resources.Load<Material>("Texture/Orange");
 
         onePos.entity.transform.position = ( onePos.location + new Vector3(0 ,0.2f ,0) );
-        if (mapIndex == 62)
-        {
-            Debug.Log(onePos.location);
-        }
+
     }
     private void createInteractiveDot()
     {
@@ -454,7 +450,7 @@ class DisplayManager
         List<Group> removeGroup = new List<Group>();
         foreach ( Group group in globalManager.GroupList )
         {
-            if ( group.Resource.civilian <= 0 )
+            if ( group != null && group.Resource.civilian <= 0 )
             {
                 removeGroup.Add(group);
             }

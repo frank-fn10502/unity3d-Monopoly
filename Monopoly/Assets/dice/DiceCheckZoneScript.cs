@@ -63,9 +63,6 @@ public class DiceCheckZoneScript : MonoBehaviour
                         number = 6;
                         break;
                 }
-
-                Text text =   diceDisplayPanel.transform.Find("DicePoint").GetComponent<Text>();
-                text.text = number.ToString();
                 rolling = false;
                 diceDisplayPanel.SetActive(false);
                 globalManager.TotalStep = number;
