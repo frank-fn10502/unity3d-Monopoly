@@ -450,7 +450,7 @@ class DisplayManager
         List<Group> removeGroup = new List<Group>();
         foreach ( Group group in globalManager.GroupList )
         {
-            if ( group.Resource.civilian <= 0 )
+            if ( group != null && group.Resource.civilian <= 0 )
             {
                 removeGroup.Add(group);
             }
