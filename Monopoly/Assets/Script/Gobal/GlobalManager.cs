@@ -111,7 +111,7 @@ public class GlobalManager
                 if ( currentGroupIndex % groupList.Length == 0 )
                 {
                     //抽世界事件
-                    EventBase eventData = events.doEvent(Eventtype.Word, new List<Group>(groupList), CurrentPlayer);
+                    EventBase eventData = events.doEvent(Eventtype.Word, createList(), CurrentPlayer);
                     gameState = GameState.Wait;
 
 
@@ -139,7 +139,7 @@ public class GlobalManager
                 if ( CurrentPlayer.State != PlayerState.InJail )
                 {
                     //抽個人事件
-                    EventBase eventData = events.doEvent(Eventtype.Personal, new List<Group>(groupList), CurrentPlayer);
+                    EventBase eventData = events.doEvent(Eventtype.Personal, createList(), CurrentPlayer);
                     gameState = GameState.Wait;
                     displayManager.displayEvent(eventData ,GameState.PlayerMovement);
                 }
@@ -211,7 +211,7 @@ public class GlobalManager
         {
             currentGroupIndex = ( currentGroupIndex + 1 ) % groupList.Length;
         }
-        while ( groupList[currentGroupIndex] != null );
+        while ( groupList[currentGroupIndex] == null );
 
         if ( IsAuto )
         {
@@ -227,7 +227,18 @@ public class GlobalManager
         gameState = GameState.GlobalEvent;
     }
 
-
+    public List<Group> createList()
+    {
+        List<Group> groupL =  new List<Group>(groupList);
+        foreach ( Group g in groupL )
+        {
+            if ( g == null )
+            {
+                groupL.Remove(g);
+            }
+        }
+        return groupL;
+    }
 
     /*==========設定遊戲物件==========*/
     private void createMap()
