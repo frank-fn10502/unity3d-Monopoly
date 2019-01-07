@@ -442,7 +442,7 @@ class DisplayManager
             currentPlayer.Scout.checkOutPath(r);
         }
     }
-
+     
     private void calWhoDead(GameState nextGameState)
     {
         GameState gameState = (globalManager.CurrentPlayer.Resource.civilian <= 0)? GameState.End : nextGameState;
