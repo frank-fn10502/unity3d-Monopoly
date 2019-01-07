@@ -8,6 +8,7 @@ public class GlobalManager
 {
     public Map map;
     private bool isAuto;
+    private int round;
 
     private bool isComputer;
     private Group[] groupList;
@@ -82,8 +83,13 @@ public class GlobalManager
             isComputer = value;
         }
     }
-
-
+    public int CurrentGroupIndex
+    {
+        get
+        {
+            return currentGroupIndex;
+        }
+    }
 
     public GlobalManager(List<Faction> factionList = null)
     {
@@ -99,6 +105,7 @@ public class GlobalManager
         events = new Event();
 
         displayManager.displayPlayerInfo(factionList);
+        round = 0;
     }
 
 
@@ -108,7 +115,7 @@ public class GlobalManager
         switch ( gameState )
         {
             case GameState.GlobalEvent:
-                if ( currentGroupIndex % groupList.Length == 0 )
+                if ( round == 0 )
                 {
                     //抽世界事件
                     EventBase eventData = events.doEvent(Eventtype.Word, createList(), CurrentPlayer);
@@ -126,7 +133,7 @@ public class GlobalManager
                 {
                     gameState = GameState.PersonalEvent;
                 }
-                if ( CurrentPlayer.InJailTime == 0 )
+                if ( CurrentPlayer.State != PlayerState.InJail )
                 {
                     CurrentPlayer.State = PlayerState.RollingDice;
                 }
@@ -209,6 +216,7 @@ public class GlobalManager
     {
         do
         {
+            round = ( round + 1 ) % groupList.Length;
             currentGroupIndex = ( currentGroupIndex + 1 ) % groupList.Length;
         }
         while ( groupList[currentGroupIndex] == null );
