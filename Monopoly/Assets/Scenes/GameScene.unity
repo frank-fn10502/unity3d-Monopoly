@@ -13570,7 +13570,7 @@ GameObject:
   - component: {fileID: 1746500697}
   - component: {fileID: 1746500696}
   m_Layer: 5
-  m_Name: KingMsgBG
+  m_Name: PlayerMsgBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
