@@ -8,6 +8,7 @@ public class BuildingDisplayController : MonoBehaviour
     public GlobalManager globalManager;
     public BuildingBlock currentBuildingBlock;
     public GameState nextGameState;
+    public bool detection;
 
     private List<Building> buildingList;
     private List<GameObject> buildingEntityList;
@@ -23,13 +24,17 @@ public class BuildingDisplayController : MonoBehaviour
 
         checkoutButton = gameObject.transform.Find("checkoutButton").gameObject;
         checkoutButton.SetActive(false);
+        detection = false;
     }
-    public void autoCreateBuild()
+    private void Update()
     {
-        int r = new System.Random().Next(4);
-        selectBuilding(r);
-        checkoutButtonClick();
+        if ( detection && globalManager.IsAuto )
+        {
+            autoCreateBuild();
+            detection = false;
+        }
     }
+
     public void selectBuilding(int no)
     {
         currentBuilding = buildingList[no];
@@ -62,9 +67,7 @@ public class BuildingDisplayController : MonoBehaviour
             currentBuildingEntity.SetActive(false);
             globalManager.GameState = nextGameState;
 
-            globalManager.DisplayManager.setWorldMsg(string.Format("\"{0}\"建造了\"{1}\"\n" ,globalManager.CurrentPlayer.name ,currentBuildingBlock.Building.Name));
-
-            globalManager.DisplayManager.displayBlockInfo( globalManager.map.BlockList[globalManager.CurrentPlayer.CurrentBlockIndex]);//?
+            globalManager.DisplayManager.displayWorldMsg(string.Format("{0}建造了{1}\n" ,globalManager.CurrentPlayer.name ,currentBuildingBlock.Building.Name));
         }
         else
         {
@@ -79,7 +82,8 @@ public class BuildingDisplayController : MonoBehaviour
             {
                 globalManager.GameState = nextGameState;
             }
-            globalManager.DisplayManager.setWorldMsg(string.Format("\"{0}\"買不起任何建築\n" ,globalManager.CurrentPlayer.name));
+
+            globalManager.DisplayManager.displayWorldMsg(string.Format("{0}買不起任何建築\n" ,globalManager.CurrentPlayer.name));
         }
     }
     public void cencelButtonClick()
@@ -91,6 +95,12 @@ public class BuildingDisplayController : MonoBehaviour
         globalManager.GameState = nextGameState;
     }
 
+    private void autoCreateBuild()
+    {
+        int r = new System.Random().Next(4);
+        selectBuilding(r);
+        checkoutButtonClick();
+    }
     /*==========create==========*/
     private void createBuildingList()
     {

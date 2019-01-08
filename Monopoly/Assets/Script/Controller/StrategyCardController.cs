@@ -6,7 +6,31 @@ public class StrategyCardController : MonoBehaviour
 {
     public GlobalManager globalManager;
     public GameState nextGameState;
+    public bool detection;
 
+    private void Awake()
+    {
+        detection = false;
+    }
+    private void Update()
+    {
+        if ( detection && ( globalManager.IsAuto || globalManager.CurrentGroupIndex == globalManager.GroupList.Length - 1 ))
+        {
+            System.Random random = new System.Random();
+            int choise = (random.Next(100) + globalManager.GroupList[globalManager.GroupList.Length - 1].Attributes.diplomatic / 10);
+            choise /= 50;
+
+            if ( choise == 0 )
+            {
+                attackButtonClick();
+            }
+            else
+            {
+                diplomaticButtonClick();
+            }
+            detection = false;
+        }
+    }
 
     public void attackButtonClick()
     {

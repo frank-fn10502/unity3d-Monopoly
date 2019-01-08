@@ -115,49 +115,34 @@ public class GlobalManager
     {
         switch ( gameState )
         {
-            case GameState.GlobalEvent:
-                round = round >= groupList.Length ? 0  : round;
+            case GameState.GlobalEvent://抽世界事件
+                round = round >= groupList.Length ? 0 : round;
                 if ( round  == 0 )
                 {
-                    //抽世界事件
+                    displayManager.day++;
+                    displayManager.timeMsgPanel.GetComponent<Text>().text = string.Format("Day:{0:0000}" ,displayManager.day);
+                    displayManager.displayWorldMsg(string.Format("Day:{0:0000}\n" ,displayManager.day) ,true);
+
                     EventBase eventData = events.doEvent(Eventtype.Word, createList(), CurrentPlayer);
                     gameState = GameState.Wait;
 
-
-                    displayManager.day++;
-                    displayManager.timeMsgPanel.GetComponent<Text>().text = string.Format("Day:{0:0000}" ,displayManager.day);
-                    displayManager.setWorldMsg(string.Format("Day:{0:0000}\n" ,displayManager.day) ,true);
-
                     displayManager.displayEvent(eventData ,GameState.PersonalEvent);
-                    displayManager.displayWorldMsg();
-                    gameState = GameState.PersonalEvent;
                 }
                 else
                 {
                     gameState = GameState.PersonalEvent;
                 }
-                try
+                if (CurrentPlayer.InJailTime == 0)
                 {
-                    if (CurrentPlayer.InJailTime == 0)
-                    {
-                        CurrentPlayer.State = PlayerState.RollingDice;
-                    }
+                    CurrentPlayer.State = PlayerState.RollingDice;
                 }
-                catch(Exception e)
-                {
-                    Debug.Log(e);
-                }
+
                 break;
-            case GameState.PersonalEvent:
-                displayManager.displayEndMsg = true;
-                displayManager.setWorldMsg("", true);
-                if(CurrentPlayer != null)
-                {
-                    displayManager.displayBlockInfo(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
-                }
+
+            case GameState.PersonalEvent://抽個人事件
+                displayManager.displayWorldMsg("", true);                
                 if ( CurrentPlayer.State != PlayerState.InJail )
-                {
-                    //抽個人事件
+                {                   
                     EventBase eventData = events.doEvent(Eventtype.Personal, createList(), CurrentPlayer);
                     gameState = GameState.Wait;
                     displayManager.displayEvent(eventData ,GameState.PlayerMovement);
@@ -174,18 +159,10 @@ public class GlobalManager
                     switch ( groupList[currentGroupIndex].State )
                     {
                         case PlayerState.RollingDice:
-                            if ( IsComputer )
+                            if ( Input.GetButtonDown("Jump") || IsComputer )
                             {
-                                totalStep = new System.Random().Next(5 ,25);//temp
-                                CurrentPlayer.State = PlayerState.SearchPath;//temp
-                            }
-                            else
-                            {
-                                if ( Input.GetButtonDown("Jump") || isComputer )
-                                {
-                                    CurrentPlayer.State = PlayerState.Wait;
-                                    displayManager.displayRollingDice();//轉換到下一個階段
-                                }
+                                CurrentPlayer.State = PlayerState.Wait;
+                                displayManager.displayRollingDice();
                             }
                             break;
                         case PlayerState.SearchPath:
@@ -195,6 +172,7 @@ public class GlobalManager
 
                             break;
                         case PlayerState.Walking:
+                            
                             groupList[currentGroupIndex].move();
                             displayManager.displayPlayerMovement();
 
@@ -207,7 +185,7 @@ public class GlobalManager
                         case PlayerState.InJail:
                             CurrentPlayer.InJailTime--;
                             gameState = GameState.End;//直接結束
-                            displayManager.setWorldMsg(string.Format("{0}無法移動 剩下:{1}回合" ,CurrentPlayer.name ,CurrentPlayer.InJailTime));
+                            displayManager.displayWorldMsg(string.Format("{0}無法移動 剩下:{1}回合" ,CurrentPlayer.name ,CurrentPlayer.InJailTime));
 
                             break;
                         case PlayerState.Wait:
@@ -223,7 +201,7 @@ public class GlobalManager
                 //等待
                 break;
         }
-        //Debug.Log("GameState: " + gameState + " PlayerState: " + CurrentPlayer.State);
+        displayManager.displayBlockInfo(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
     }
     public void nextPlayer()
     {
