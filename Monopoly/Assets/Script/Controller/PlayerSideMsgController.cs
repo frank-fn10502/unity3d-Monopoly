@@ -70,7 +70,7 @@ public class PlayerSideMsgController : MonoBehaviour
                 }            
                 else
                 {
-
+                    playerMsg[i].transform.Find("PlayerMsgBG/Out").gameObject.SetActive(true);
                 }
             }
             if( groups[groups.Length - 1] != null)
@@ -100,7 +100,7 @@ public class PlayerSideMsgController : MonoBehaviour
     {
         Texture charImage = characters.transform.Find(string.Format("c{0}/Camera{1}",no ,no == 8 ? "Boss" : no.ToString())).GetComponent<Camera>().targetTexture;
         obj.transform.Find("Avatar").gameObject.GetComponent<RawImage>().texture = charImage;
-        obj.transform.Find("Avatar").gameObject
+        obj.transform.Find("PlayerMsgBG/Out").gameObject.SetActive(true);
     }
     private void setPlayerInfo(GameObject obj ,Group group)
     {
