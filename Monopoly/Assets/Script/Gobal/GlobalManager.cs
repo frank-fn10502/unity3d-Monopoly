@@ -158,7 +158,7 @@ public class GlobalManager
                     switch ( groupList[currentGroupIndex].State )
                     {
                         case PlayerState.RollingDice:
-                            if ( Input.GetButtonDown("Jump") || IsComputer )
+                            if (  isAuto || Input.GetButtonDown("Jump") )
                             {
                                 CurrentPlayer.State = PlayerState.Wait;
                                 displayManager.displayRollingDice();

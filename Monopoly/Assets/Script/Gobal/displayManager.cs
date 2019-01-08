@@ -18,7 +18,7 @@ class DisplayManager
     private GameObject playerSideMsgPanel;
     private GameObject worldMsgPanel;
     private GameObject blockInformation;
-    private Camera     blockCamera;
+    private Camera blockCamera;
     private GameObject diceDisplayPanel;
     private GameObject diceObj;
 
@@ -49,17 +49,17 @@ class DisplayManager
         nextPlayerText = Resources.Load<GameObject>("PreFab/Ui/NextPlayerText");
         nextPlayerText = GameObject.Instantiate(nextPlayerText);
         nextPlayerText.SetActive(false);
-        nextPlayerText.transform.SetParent(GameObject.Find("Canvas").transform ,false);
+        nextPlayerText.transform.SetParent(GameObject.Find("Canvas").transform, false);
 
         eventCard = Resources.Load<GameObject>("PreFab/Ui/EventCardDisplay"); //GameObject.Find("EventCardDisplay");
         eventCard = GameObject.Instantiate(eventCard);
-        eventCard.transform.SetParent(GameObject.Find("Canvas").transform ,false);
+        eventCard.transform.SetParent(GameObject.Find("Canvas").transform, false);
         eventCard.SetActive(false);
         eventCard.GetComponent<EventCardController>().globalManager = globalManager;
 
         strategyCard = Resources.Load<GameObject>("PreFab/Ui/strategyCardDisplay"); //GameObject.Find("strategyCardDisplay");
         strategyCard = GameObject.Instantiate(strategyCard);
-        strategyCard.transform.SetParent(GameObject.Find("Canvas").transform ,false);
+        strategyCard.transform.SetParent(GameObject.Find("Canvas").transform, false);
         strategyCard.SetActive(false);
         strategyCard.GetComponent<StrategyCardController>().globalManager = globalManager;
 
@@ -70,7 +70,7 @@ class DisplayManager
 
         canNotBuyCard = Resources.Load<GameObject>("PreFab/Ui/CanNotBuyCard"); //GameObject.Find("CanNotBuyCard");
         canNotBuyCard = GameObject.Instantiate(canNotBuyCard);
-        canNotBuyCard.transform.SetParent(GameObject.Find("Canvas").transform ,false);
+        canNotBuyCard.transform.SetParent(GameObject.Find("Canvas").transform, false);
         canNotBuyCard.SetActive(false);
         canNotBuyCard.GetComponent<CanNotBuyCardController>().globalManager = globalManager;
         canNotBuyCard.GetComponent<CanNotBuyCardController>().buildingArea = buildingArea;
@@ -89,7 +89,7 @@ class DisplayManager
 
         diceDisplayPanel = Resources.Load<GameObject>("PreFab/Ui/DiceDisplay"); //GameObject.Find("CanNotBuyCard");
         diceDisplayPanel = GameObject.Instantiate(diceDisplayPanel);
-        diceDisplayPanel.transform.SetParent(GameObject.Find("Canvas").transform ,false);
+        diceDisplayPanel.transform.SetParent(GameObject.Find("Canvas").transform, false);
         diceDisplayPanel.SetActive(false);
 
         diceObj = GameObject.Find("DiceCheckZone");
@@ -99,10 +99,10 @@ class DisplayManager
 
 
 
-    public void displayWorldMsg(string str ,bool clear = false)
+    public void displayWorldMsg(string str, bool clear = false)
     {
         worldMsg = clear ? str : worldMsg + str + "\n";
-        if ( worldMsg != "" )
+        if (worldMsg != "")
         {
             displayWorldMsg();
             worldMsg = "";
@@ -110,22 +110,28 @@ class DisplayManager
     }
     public void displayRollingDice()
     {
-        if ( globalManager.IsComputer )
+         if (globalManager.CurrentGroupIndex == globalManager.GroupList.Length - 1)
         {
-            globalManager.TotalStep = new System.Random().Next(5 ,25);
+            globalManager.TotalStep = new System.Random().Next(1, 13);
+            CurrentPlayer.State = PlayerState.SearchPath;
+        }          
+        else if (globalManager.IsAuto)
+        {
+            globalManager.TotalStep = new System.Random().Next(1, 7);
+
             CurrentPlayer.State = PlayerState.SearchPath;
         }
         else
         {
+            diceDisplayPanel.SetActive(true);
             diceObj.GetComponent<DiceCheckZoneScript>().canRolling = true;
             diceObj.GetComponent<DiceCheckZoneScript>().number = 0;
             diceObj.GetComponent<DiceCheckZoneScript>().rolling = false;
-            diceDisplayPanel.SetActive(true);
         }
     }
     public void displaySearchPath(Map map)
     {
-        displayWorldMsg(string.Format("{0}移動{1}" ,CurrentPlayer.name ,globalManager.TotalStep));
+        displayWorldMsg(string.Format("{0}移動{1}", CurrentPlayer.name, globalManager.TotalStep));
 
         createScoutPathEntity(map);
         createInteractiveDot();
@@ -134,16 +140,16 @@ class DisplayManager
     {
         CurrentPlayer.CurrentActor.run(CurrentPlayer.Location);
 
-        if ( CurrentPlayer.Scout.totalStep == 0 )
+        if (CurrentPlayer.Scout.totalStep == 0)
         {
             CurrentPlayer.Scout.deleteDot(CurrentPlayer.Scout.choicePath[0]);//刪除走過的點
-            if ( CurrentPlayer.Scout.choicePath.Count != 0 )
+            if (CurrentPlayer.Scout.choicePath.Count != 0)
                 CurrentPlayer.Scout.deleteDot(CurrentPlayer.Scout.choicePath[0]);//刪除走過的點
 
             CurrentPlayer.State = PlayerState.End;
         }
     }
-    public void displayEvent(EventBase eventData ,GameState nextGameState)
+    public void displayEvent(EventBase eventData, GameState nextGameState)
     {
         displayWorldMsg(eventData.Short_detail);
         eventCard.transform.Find("EventTitle/EventTitleText").GetComponent<Text>().text = eventData.Name;
@@ -152,50 +158,50 @@ class DisplayManager
         eventCard.GetComponent<EventCardController>().nextGameState = nextGameState;
         eventCard.GetComponent<EventCardController>().detection = true;
         eventCard.SetActive(true);
-        
+
         displayPlayerInfo();
     }
-    public void displayStopAction(Block block ,GameState nextGameState)
+    public void displayStopAction(Block block, GameState nextGameState)
     {
-        if ( block is EventBlock )
+        if (block is EventBlock)
         {
-            Eventtype eventtype = ( globalManager.CurrentGroupIndex == globalManager.GroupList.Length - 1 ) ? Eventtype.Apes :Eventtype.Forest;
-            EventBase eventData = globalManager.Events.doEvent(eventtype ,globalManager.createList() ,globalManager.CurrentPlayer);
+            Eventtype eventtype = (globalManager.CurrentGroupIndex == globalManager.GroupList.Length - 1) ? Eventtype.Apes : Eventtype.Forest;
+            EventBase eventData = globalManager.Events.doEvent(eventtype, globalManager.createList(), globalManager.CurrentPlayer);
 
-            displayEvent(eventData ,nextGameState);
+            displayEvent(eventData, nextGameState);
         }
-        else if ( block is BuildingBlock )
+        else if (block is BuildingBlock)
         {
             BuildingBlock buildingBlock = (BuildingBlock)block;
-            if ( buildingBlock.Building == null )
+            if (buildingBlock.Building == null)
             {
-                if ( globalManager.CurrentGroupIndex == globalManager.GroupList.Length - 1 && globalManager.IsComputer )
+                if (globalManager.CurrentGroupIndex == globalManager.GroupList.Length - 1)
                 {
-                    EventBase eventData = globalManager.Events.doEvent(Eventtype.Apes,globalManager.createList(),globalManager.CurrentPlayer);
-                    displayEvent(eventData ,nextGameState);
+                    EventBase eventData = globalManager.Events.doEvent(Eventtype.Apes, globalManager.createList(), globalManager.CurrentPlayer);
+                    displayEvent(eventData, nextGameState);
                 }
                 else
                 {
                     buildingArea.GetComponent<BuildingDisplayController>().currentBuildingBlock = buildingBlock;
                     buildingArea.GetComponent<BuildingDisplayController>().nextGameState = nextGameState;
                     buildingArea.GetComponent<BuildingDisplayController>().detection = true;
-                    buildingArea.SetActive(true);                 
+                    buildingArea.SetActive(true);
                 }
             }
             else
             {
-                if ( buildingBlock.Landlord.Equals(globalManager.CurrentPlayer) )
+                if (buildingBlock.Landlord.Equals(globalManager.CurrentPlayer))
                 {
                     EventBase eventData = new DiplomaticEvent();
-                    eventData.DoEvent(globalManager.createList() ,globalManager.CurrentPlayer);
+                    eventData.DoEvent(globalManager.createList(), globalManager.CurrentPlayer);
 
-                    displayEvent(eventData ,nextGameState);
+                    displayEvent(eventData, nextGameState);
                 }
                 else
-                {                 
+                {
                     strategyCard.GetComponent<StrategyCardController>().nextGameState = nextGameState;
                     strategyCard.GetComponent<StrategyCardController>().detection = true;
-                    strategyCard.SetActive(true);                    
+                    strategyCard.SetActive(true);
                 }
             }
         }
@@ -205,26 +211,26 @@ class DisplayManager
     public void displayNextPlayer()
     {
         int winner = 0;
-        for ( int i = 0 ; i < globalManager.GroupList.Length ; i++ )
+        for (int i = 0; i < globalManager.GroupList.Length; i++)
         {
-            if ( globalManager.GroupList[i] != null )
+            if (globalManager.GroupList[i] != null)
             {
                 winner++;
             }
         }
-        if ( winner == 1 )
+        if (winner == 1)
         {
             SceneManager.LoadScene("ShowEventScene");
         }
 
-        if ( timer % 500 == 0 )
+        if (timer % 500 == 0)
         {
             bool now = nextPlayerText.activeSelf;
             nextPlayerText.SetActive(!now);
         }
-        timer = ( timer + 10 ) % 500;
+        timer = (timer + 10) % 500;
 
-        if ( globalManager.IsAuto || Input.anyKey )
+        if (globalManager.IsAuto || Input.anyKey)
         {
             nextPlayerText.SetActive(false);
             globalManager.nextPlayer();
@@ -233,7 +239,7 @@ class DisplayManager
 
     public void displayPlayerInfo(List<Faction> factionList = null)
     {
-        playerSideMsgPanel.GetComponent<PlayerSideMsgController>().displayPlayerList(globalManager.GroupList ,factionList);
+        playerSideMsgPanel.GetComponent<PlayerSideMsgController>().displayPlayerList(globalManager.GroupList, factionList);
     }
     public void displayCantNotBuy(GameState nextGameState)
     {
@@ -243,13 +249,13 @@ class DisplayManager
     public void displayBlockInfo(Block block)
     {
         block.setLyer("CurrentBlock");
-        blockCamera.transform.position = block.Location + new Vector3(0 ,10 ,0);//temp
+        blockCamera.transform.position = block.Location + new Vector3(0, 10, 0);//temp
 
-        Text text =  blockInformation.transform.Find("BlockT1/BlockPlayer/BlockPlayerText").GetComponent<Text>();
-        if ( block is BuildingBlock )
+        Text text = blockInformation.transform.Find("BlockT1/BlockPlayer/BlockPlayerText").GetComponent<Text>();
+        if (block is BuildingBlock)
         {
             BuildingBlock buildingBlock = (BuildingBlock)block;
-            if ( buildingBlock.Landlord == null )
+            if (buildingBlock.Landlord == null)
             {
                 text.text = "noMan";
             }
@@ -277,28 +283,28 @@ class DisplayManager
     /*==========ScoutPathEntity==========*/
     private void createScoutPathEntity(Map map)
     {
-        int[] markMap  = new int[map.BlockList.Length];
+        int[] markMap = new int[map.BlockList.Length];
         //int[] duplicateMap  = new int[map.BlockList.Length];
-        for ( int i = 0 ; i < markMap.Length ; i++ ) { markMap[i] = 0; }//全部標記為 "未走過"
+        for (int i = 0; i < markMap.Length; i++) { markMap[i] = 0; }//全部標記為 "未走過"
 
         Position onePos;
-        for ( int i = 0 ; i < CurrentPlayer.Scout.pathList.Count ; i++ )
+        for (int i = 0; i < CurrentPlayer.Scout.pathList.Count; i++)
         {
             //for ( int k = 0 ; k < map.BlockList.Length ; k++ )
             //{
             //    duplicateMap[k] = 0;
             //}
 
-            for ( int j = 0 ; j < CurrentPlayer.Scout.pathList[i].Count ; j++ )
+            for (int j = 0; j < CurrentPlayer.Scout.pathList[i].Count; j++)
             {
                 onePos = CurrentPlayer.Scout.pathList[i][j];
-                if ( onePos.entity == null )
+                if (onePos.entity == null)
                 {
-                    if ( markMap[onePos.blockIndex] == 0 || ( markMap[onePos.blockIndex] == 1 && onePos.block is BuildingBlock &&
-                        ( (BuildingBlock)onePos.block ).PathLocations.Count > 1 ) )
+                    if (markMap[onePos.blockIndex] == 0 || (markMap[onePos.blockIndex] == 1 && onePos.block is BuildingBlock &&
+                        ((BuildingBlock)onePos.block).PathLocations.Count > 1))
                     {
                         markMap[onePos.blockIndex]++;
-                        buildEntity(onePos ,onePos.blockIndex ,markMap[onePos.blockIndex]);
+                        buildEntity(onePos, onePos.blockIndex, markMap[onePos.blockIndex]);
                         onePos.entity.transform.parent = pathListEntity.transform;//統一放到一個Empty的GameObject下面
                     }
                     else
@@ -309,7 +315,7 @@ class DisplayManager
                             //onePos.entity = pathListEntity.transform.Find("dot" + onePos.blockIndex + "-" + duplicateMap[onePos.blockIndex]).gameObject;//如果有了就不要再建造一次 直接指定
                             GameObject gameObject1 = pathListEntity.transform.Find("dot" + onePos.blockIndex + "-1").gameObject;
                             //GameObject gameObject2 = pathListEntity.transform.Find("dot" + onePos.blockIndex + "-2").gameObject;
-                            if ( gameObject1.transform.position.x == onePos.location.x && gameObject1.transform.position.z == onePos.location.z )
+                            if (gameObject1.transform.position.x == onePos.location.x && gameObject1.transform.position.z == onePos.location.z)
                             {
                                 onePos.entity = gameObject1;
                             }
@@ -355,36 +361,36 @@ class DisplayManager
             }
         }
     }
-    private void buildEntity(Position onePos ,int mapIndex ,int offset)
+    private void buildEntity(Position onePos, int mapIndex, int offset)
     {
         onePos.entity = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
         onePos.entity.transform.name = "dot" + mapIndex + "-" + offset;
-        onePos.entity.transform.localScale = new Vector3(0.8f ,0.1f ,0.8f);
+        onePos.entity.transform.localScale = new Vector3(0.8f, 0.1f, 0.8f);
 
         onePos.entity.GetComponent<Renderer>().material = Resources.Load<Material>("Texture/Orange");
 
-        onePos.entity.transform.position = ( onePos.location + new Vector3(0 ,0.2f ,0) );
+        onePos.entity.transform.position = (onePos.location + new Vector3(0, 0.2f, 0));
 
     }
     private void createInteractiveDot()
     {
         int count = 0;
-        foreach ( List<Position> onePath in CurrentPlayer.Scout.pathList )
+        foreach (List<Position> onePath in CurrentPlayer.Scout.pathList)
         {
             GameObject entity = onePath[onePath.Count - 1].entity;
 
-            if ( entity.GetComponent<PositionController>() == null )
+            if (entity.GetComponent<PositionController>() == null)
             {
                 entity.AddComponent<PositionController>();
                 entity.GetComponent<PositionController>().pathNo = count;
                 entity.GetComponent<PositionController>().CheckOut = CurrentPlayer.Scout.checkOutPath;
                 entity.GetComponent<PositionController>().Select = CurrentPlayer.Scout.selectPath;
                 entity.GetComponent<PositionController>().Leave = CurrentPlayer.Scout.leavePath;
-                entity.transform.localScale = new Vector3(2f ,0.1f ,2f);
+                entity.transform.localScale = new Vector3(2f, 0.1f, 2f);
             }
             count++;
         }
-        if ( globalManager.IsComputer )
+        if (globalManager.IsAuto)
         {
             System.Random random = new System.Random();
             int r = random.Next(CurrentPlayer.Scout.pathList.Count);

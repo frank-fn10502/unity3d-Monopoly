@@ -17,6 +17,11 @@ public class DiceCheckZoneScript : MonoBehaviour
     Vector3 dice1Velocity;
     //Vector3 dice2Velocity;
     //Vector3 dice3Velocity;
+    private void Awake()
+    {
+        canRolling = false;
+        rolling = false;
+    }
 
     // Update is called once per frame
     void FixedUpdate()

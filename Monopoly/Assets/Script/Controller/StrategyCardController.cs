@@ -17,7 +17,7 @@ public class StrategyCardController : MonoBehaviour
         if ( detection && globalManager.IsAuto )
         {
             System.Random random = new System.Random();
-            int choise = (random.Next(100) + globalManager.GroupList[globalManager.GroupList.Length - 1].Attributes.diplomatic / 10);
+            int choise = (random.Next(100) + globalManager.GroupList[globalManager.CurrentGroupIndex].Attributes.diplomatic / 10);
             choise /= 50;
 
             if ( choise == 0 )
