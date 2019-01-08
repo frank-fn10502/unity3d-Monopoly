@@ -24,6 +24,6 @@ public class EndMovie : MonoBehaviour {
     IEnumerator LoadScene()
     {
         yield return new WaitForSeconds(60f);//括號內填入影片時間
-        UnityEngine.SceneManagement.SceneManager.LoadScene("OpScene");//載入場景
+        UnityEngine.SceneManagement.SceneManager.LoadScene("StartScene");//載入場景
     }
 }
