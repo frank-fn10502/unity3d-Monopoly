@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -115,7 +116,8 @@ public class GlobalManager
         switch ( gameState )
         {
             case GameState.GlobalEvent:
-                if ( round == 0 )
+                round = round >= groupList.Length ? 0  : round;
+                if ( round  == 0 )
                 {
                     //抽世界事件
                     EventBase eventData = events.doEvent(Eventtype.Word, createList(), CurrentPlayer);
@@ -128,27 +130,38 @@ public class GlobalManager
 
                     displayManager.displayEvent(eventData ,GameState.PersonalEvent);
                     displayManager.displayWorldMsg();
+                    gameState = GameState.PersonalEvent;
                 }
                 else
                 {
                     gameState = GameState.PersonalEvent;
                 }
-                if ( CurrentPlayer.State != PlayerState.InJail )
+                try
                 {
-                    CurrentPlayer.State = PlayerState.RollingDice;
+                    if (CurrentPlayer.InJailTime == 0)
+                    {
+                        CurrentPlayer.State = PlayerState.RollingDice;
+                    }
+                }
+                catch(Exception e)
+                {
+                    Debug.Log(e);
                 }
                 break;
             case GameState.PersonalEvent:
                 displayManager.displayEndMsg = true;
-                displayManager.setWorldMsg("" ,true);
-                displayManager.displayBlockInfo(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
-                displayManager.displayEndMsg = true;
+                displayManager.setWorldMsg("", true);
+                if(CurrentPlayer != null)
+                {
+                    displayManager.displayBlockInfo(map.BlockList[CurrentPlayer.CurrentBlockIndex]);
+                }
                 if ( CurrentPlayer.State != PlayerState.InJail )
                 {
                     //抽個人事件
                     EventBase eventData = events.doEvent(Eventtype.Personal, createList(), CurrentPlayer);
                     gameState = GameState.Wait;
                     displayManager.displayEvent(eventData ,GameState.PlayerMovement);
+                    gameState = GameState.PlayerMovement;
                 }
                 else
                 {
@@ -216,7 +229,7 @@ public class GlobalManager
     {
         do
         {
-            round = ( round + 1 ) % groupList.Length;
+            round++;
             currentGroupIndex = ( currentGroupIndex + 1 ) % groupList.Length;
         }
         while ( groupList[currentGroupIndex] == null );
@@ -238,13 +251,20 @@ public class GlobalManager
     public List<Group> createList()
     {
         List<Group> groupL =  new List<Group>();
-        for ( int i = 0 ; i < groupList.Length ; i++ )
+        for(int i = 0; i < groupList.Length; i++)
         {
-            if ( groupList[i] != null )
-            {
+            if (groupList[i] != null)
                 groupL.Add(groupList[i]);
+        }
+        /*
+        foreach ( Group g in groupL )
+        {
+            if ( g == null )
+            {
+                groupL.Remove(g);
             }
         }
+        */
         return groupL;
     }
 

@@ -26,7 +26,7 @@ public class BuildingDisplayController : MonoBehaviour
     }
     public void autoCreateBuild()
     {
-        int r = new System.Random().Next(buildingList.Count);
+        int r = new System.Random().Next(4);
         selectBuilding(r);
         checkoutButtonClick();
     }
@@ -70,10 +70,15 @@ public class BuildingDisplayController : MonoBehaviour
         {
             currentBuildingBlock.Building = null;
             currentBuildingEntity.SetActive(false);
+
             if(!globalManager.IsAuto)
             {
                 globalManager.DisplayManager.displayCantNotBuy(nextGameState);
-            }         
+            }      
+            else
+            {
+                globalManager.GameState = nextGameState;
+            }
             globalManager.DisplayManager.setWorldMsg(string.Format("\"{0}\"買不起任何建築\n" ,globalManager.CurrentPlayer.name));
         }
     }

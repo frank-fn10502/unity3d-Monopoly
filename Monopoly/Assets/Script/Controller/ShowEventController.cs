@@ -25,7 +25,7 @@ public class ShowEventController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (timer % 20 == 0 && !isEnd)
+        if (timer % 3 == 0 && !isEnd)
         {
             GameObject.Find("EndMsgShow/TheEndMsg").GetComponent<Control>().WriteText(vs[index++]+ "\n");
             if (vs.Length -1 == index)

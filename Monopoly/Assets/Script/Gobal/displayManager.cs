@@ -49,6 +49,7 @@ class DisplayManager
 
         nextPlayerText = Resources.Load<GameObject>("PreFab/Ui/NextPlayerText");
         nextPlayerText = GameObject.Instantiate(nextPlayerText);
+        nextPlayerText.SetActive(false);
         nextPlayerText.transform.SetParent(GameObject.Find("Canvas").transform ,false);
 
         eventCard = Resources.Load<GameObject>("PreFab/Ui/EventCardDisplay"); //GameObject.Find("EventCardDisplay");
@@ -203,15 +204,12 @@ class DisplayManager
                 if ( buildingBlock.Landlord.Equals(globalManager.CurrentPlayer) )
                 {
                     EventBase eventData = new DiplomaticEvent();
-                    eventData.DoEvent(new List<Group>(globalManager.GroupList) ,globalManager.CurrentPlayer);
+                    eventData.DoEvent(globalManager.createList() ,globalManager.CurrentPlayer);
 
                     displayEvent(eventData ,nextGameState);
                 }
                 else
                 {
-                    strategyCard.GetComponent<StrategyCardController>().nextGameState = nextGameState;
-                    strategyCard.SetActive(true);
-
                     if ( globalManager.IsComputer )
                     {
                         System.Random random = new System.Random();
@@ -226,6 +224,11 @@ class DisplayManager
                         {
                             strategyCard.GetComponent<StrategyCardController>().diplomaticButtonClick();
                         }
+                    }
+                    else
+                    {
+                        strategyCard.GetComponent<StrategyCardController>().nextGameState = nextGameState;
+                        strategyCard.SetActive(true);
                     }
                 }
             }

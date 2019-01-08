@@ -60,7 +60,7 @@ public class Event
         forest.AddEvent(new Military_Increase_percent("截獲猩猩軍營" ,false ,5 ,"截獲猩猩軍營，獲得大量兵力，軍隊增加100%" ,"EventImage/AllEvent" ,100));
 
         forest.AddEvent(new Military_Decrease("遭受猩猩偷襲" ,false ,5 ,"闖入森林，遭受群居猩猩偷襲，軍隊減少20%" ,"EventImage/Person_attacked2" ,20));
-        //forest.AddEvent(new Dice_Again("從俘虜中逃出", true, 6, "從俘虜中逃出，再次擲骰子", "EventImage/AllEvent"));
+        forest.AddEvent(new Dice_Again("從俘虜中逃出", true, 6, "從俘虜中逃出，再次擲骰子", "EventImage/AllEvent"));
         forest.AddEvent(new Every_People_Time_Out("猩猩入侵軍營" ,false ,5 ,"由於軍營慘遭猩猩入侵，導致損失慘重，所有人類暫停一回合 " ,"EventImage/Person_attacked"));
         forest.AddEvent(new People_Time_Out("被猩猩抓走成為俘虜" ,false ,5 ,"由於被猩猩抓走成為俘虜，暫停一回合" ,"EventImage/Time_Out"));
         forest.AddEvent(new People_Time_Out("遭遇猩猩攻擊" ,false ,8 ,"遭遇猩猩攻擊，暫停一回合" ,"EventImage/Apse_attack"));
@@ -97,7 +97,7 @@ public class Event
         personal.AddEvent(new People_Increase_percent("發現病毒對兒童無效" ,true ,10 ,"發現病毒對兒童無效，使人數增加20%" ,"EventImage/Virus" ,20));
         personal.AddEvent(new Go_To_The_Designated_Location("途中意外發現軍用直升機" ,true ,7 ,"途中意外發現軍用直升機，可前隨機前往自己的其中一個領地" ,"EventImage/Helicopter"));
         personal.AddEvent(new Antibody_Increased("解藥研發突破" ,true ,10 ,"解藥研發突破，使解藥研發提升2%" ,"EventImage/Virus" ,2));
-        personal.AddEvent(new Win_Event("遊戲結束" ,true ,1 ,"運氣真好，遊戲結束，" ,"EventImage/Win"));
+        personal.AddEvent(new Win_Event("遊戲結束" ,true ,0 ,"運氣真好，遊戲結束，" ,"EventImage/Win"));
         personal.AddEvent(new Lose_Event("你輸了" ,true ,1 ,"運氣真背，竟然然抽到此事件，你的遊戲結束了" ,"EventImage/Lose"));
 
     }
