@@ -55,7 +55,7 @@ public class Scout
             if (p[0].block is BuildingBlock)
             {
                 BuildingBlock buildingBlock = (BuildingBlock)p[0].block;
-                if (buildingBlock.PathLocations.Count > 1)
+                if (buildingBlock.PathLocations.Count > 1 && p.Count > 2)
                 {
                     Vector3 realSecondP = p[1].block.standPoint(p[2].location);
                     if (p[1].location != realSecondP)
