@@ -145,6 +145,7 @@ class DisplayManager
     }
     public void displayEvent(EventBase eventData ,GameState nextGameState)
     {
+        displayWorldMsg(eventData.Short_detail);
         eventCard.transform.Find("EventTitle/EventTitleText").GetComponent<Text>().text = eventData.Name;
         eventCard.transform.Find("EventImage/EventImageShow").GetComponent<Image>().sprite = Resources.Load<Sprite>(eventData.Image);
         eventCard.transform.Find("EventDes/EventDesText").GetComponent<Text>().text = eventData.Detail;
@@ -152,8 +153,6 @@ class DisplayManager
         eventCard.GetComponent<EventCardController>().detection = true;
         eventCard.SetActive(true);
         
-
-        displayWorldMsg(eventData.Short_detail);
         displayPlayerInfo();
     }
     public void displayStopAction(Block block ,GameState nextGameState)

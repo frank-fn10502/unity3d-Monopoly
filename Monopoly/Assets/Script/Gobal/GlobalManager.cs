@@ -132,11 +132,11 @@ public class GlobalManager
                 {
                     gameState = GameState.PersonalEvent;
                 }
+
                 if (CurrentPlayer.InJailTime == 0)
                 {
                     CurrentPlayer.State = PlayerState.RollingDice;
                 }
-
                 break;
 
             case GameState.PersonalEvent://抽個人事件
@@ -146,7 +146,6 @@ public class GlobalManager
                     EventBase eventData = events.doEvent(Eventtype.Personal, createList(), CurrentPlayer);
                     gameState = GameState.Wait;
                     displayManager.displayEvent(eventData ,GameState.PlayerMovement);
-                    gameState = GameState.PlayerMovement;
                 }
                 else
                 {

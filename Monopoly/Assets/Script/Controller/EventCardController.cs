@@ -8,6 +8,10 @@ public class EventCardController : MonoBehaviour
     public GameState nextGameState;
     public bool detection;
 
+    private void Awake()
+    {
+        detection = false;
+    }
     private void Update()
     {
         if(detection && globalManager.IsAuto)

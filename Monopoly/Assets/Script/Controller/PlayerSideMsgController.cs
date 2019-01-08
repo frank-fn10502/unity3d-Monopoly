@@ -71,12 +71,18 @@ public class PlayerSideMsgController : MonoBehaviour
                 else
                 {
                     playerMsg[i].transform.Find("PlayerMsgBG/Out").gameObject.SetActive(true);
+                    playerMsg[i].transform.Find("Round").gameObject.SetActive(false);
                 }
             }
             if( groups[groups.Length - 1] != null)
             {
                 setPlayerInfo(kingMsg ,groups[groups.Length - 1]);
-            }            
+            }      
+            else
+            {
+                kingMsg.transform.Find("PlayerMsgBG/Out").gameObject.SetActive(true);
+                kingMsg.transform.Find("Round").gameObject.SetActive(false);
+            }
         }
     }
     public void onAutoButtonClick()
@@ -100,7 +106,6 @@ public class PlayerSideMsgController : MonoBehaviour
     {
         Texture charImage = characters.transform.Find(string.Format("c{0}/Camera{1}",no ,no == 8 ? "Boss" : no.ToString())).GetComponent<Camera>().targetTexture;
         obj.transform.Find("Avatar").gameObject.GetComponent<RawImage>().texture = charImage;
-        obj.transform.Find("PlayerMsgBG/Out").gameObject.SetActive(true);
     }
     private void setPlayerInfo(GameObject obj ,Group group)
     {
@@ -115,6 +120,7 @@ public class PlayerSideMsgController : MonoBehaviour
 
         obj.transform.Find("Block").gameObject.GetComponent<Text>().text = string.Format("{0:000}" ,group.Resource.blockList.Count);
         obj.transform.Find("Team/TeamShow").gameObject.GetComponent<Image>().color = group.materialBall.color;
+        obj.transform.Find("PlayerMsgBG/Out").gameObject.SetActive(false);
 
         if ( globalManager.CurrentPlayer != null && globalManager.CurrentPlayer.Equals(group) )
         {
