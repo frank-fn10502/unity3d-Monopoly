@@ -866,8 +866,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -77.28, y: -104.83}
-  m_SizeDelta: {x: 168.23, y: 194.2}
+  m_AnchoredPosition: {x: -100.5, y: -149.21}
+  m_SizeDelta: {x: 270.7, y: 303.5}
   m_Pivot: {x: 0, y: 0.01}
 --- !u!114 &102658807
 MonoBehaviour:
@@ -1875,8 +1875,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000050068, y: 3.3}
-  m_SizeDelta: {x: 220.3, y: 295.9}
+  m_AnchoredPosition: {x: 41.49993, y: 18.000002}
+  m_SizeDelta: {x: 397, y: 462.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &199945618
 MonoBehaviour:
@@ -2669,7 +2669,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &354320535
 Transform:
   m_ObjectHideFlags: 0
@@ -2698,7 +2698,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b36fb1ca601b9a14a966b8aa32caa41c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.7
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -7037,7 +7037,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 8.7, y: 20.99995}
+  m_AnchoredPosition: {x: 8.7, y: 20.999804}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0.01}
 --- !u!114 &994815510
@@ -7482,8 +7482,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -112.2}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 41.5, y: -166}
+  m_SizeDelta: {x: 257.4, y: 46.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1037950417
 MonoBehaviour:
@@ -14071,7 +14071,7 @@ RectTransform:
   m_GameObject: {fileID: 1792935756}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 1.7, z: 1.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 199945617}
   - {fileID: 102658806}
