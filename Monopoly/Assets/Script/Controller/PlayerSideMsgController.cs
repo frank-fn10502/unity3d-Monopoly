@@ -19,6 +19,8 @@ public class PlayerSideMsgController : MonoBehaviour
 
         characters = GameObject.Find("Character");
     }
+
+
     public void showButtonClick()
     {
         gameObject.SetActive(true);
@@ -27,6 +29,7 @@ public class PlayerSideMsgController : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
     public void displayPlayerList(Group[] groups ,List<Faction> factionList)
     {
         if ( factionList != null )
@@ -64,7 +67,11 @@ public class PlayerSideMsgController : MonoBehaviour
                 if(groups[i] != null)
                 {
                     setPlayerInfo(playerMsg[i] ,groups[i]);
-                }              
+                }            
+                else
+                {
+
+                }
             }
             if( groups[groups.Length - 1] != null)
             {
@@ -93,6 +100,7 @@ public class PlayerSideMsgController : MonoBehaviour
     {
         Texture charImage = characters.transform.Find(string.Format("c{0}/Camera{1}",no ,no == 8 ? "Boss" : no.ToString())).GetComponent<Camera>().targetTexture;
         obj.transform.Find("Avatar").gameObject.GetComponent<RawImage>().texture = charImage;
+        obj.transform.Find("Avatar").gameObject
     }
     private void setPlayerInfo(GameObject obj ,Group group)
     {
