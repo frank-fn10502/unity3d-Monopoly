@@ -19,11 +19,11 @@ public class PlayerDataController : MonoBehaviour
     public void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.F12))
+        if ( Input.GetKeyDown(KeyCode.F12) )
         {
             System.Random random = new System.Random();
             int r;
-            for (int i = 0; i < 4; i++)
+            for ( int i = 0 ; i < 4 ; i++ )
             {
                 r = random.Next(0 ,7);
 
@@ -38,9 +38,11 @@ public class PlayerDataController : MonoBehaviour
         DontDestroyOnLoad(this);
         if ( factionList == null )
         {
-            string path = Directory.GetCurrentDirectory();
-            string target = @"\Assets\Resources\Faction\MonopolyFaction.json";
-            string json = File.ReadAllText(path + target);
+            //string path = Directory.GetCurrentDirectory();
+            //string target = @"\Assets\Resources\Faction\MonopolyFaction.json";
+            string path = Application.streamingAssetsPath;
+            string target = "MonopolyFaction.json";
+            string json = File.ReadAllText(Path.Combine(path ,target));
             factionList = JsonConvert.DeserializeObject<List<Faction>>(json);
 
             setCurrentCharacter(0);

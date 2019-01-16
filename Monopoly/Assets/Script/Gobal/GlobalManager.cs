@@ -248,9 +248,12 @@ public class GlobalManager
     /*==========設定遊戲物件==========*/
     private void createMap()
     {
-        string path = Directory.GetCurrentDirectory();
-        string target = @"\Assets\Resources\Map\MonopolyMap.json";
-        string json = File.ReadAllText(path + target);
+        //string path = Directory.GetCurrentDirectory();
+        //string target = @"\Assets\Resources\Map\MonopolyMap.json";
+        //string json = File.ReadAllText(path + target);
+        string path = Application.streamingAssetsPath;
+        string target = "MonopolyMap.json";
+        string json = File.ReadAllText(Path.Combine(path ,target));
 
         map = JsonConvert.DeserializeObject<Map>(json);
         map.build();
