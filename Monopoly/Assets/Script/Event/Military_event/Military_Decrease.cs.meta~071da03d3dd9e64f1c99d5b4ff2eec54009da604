@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Monopoly/Assets/Script/Event/Military_event/Military_Decrease.cs.meta
+guid: 015d7cab0629d0141bae92b35adf6b02
+=======
+guid: f2af506b815c683458b096630039213d
+>>>>>>> f1cb263201a9ad677947e3d8b56c1190d1b071d1:Monopoly/Assets/Script/Event/Military_event/Military_Decrease.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

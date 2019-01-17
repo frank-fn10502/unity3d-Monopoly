@@ -1,0 +1,186 @@
+﻿[
+  {
+    "actorList": [
+      {
+        "Name": "工程師",
+        "Skill": null,
+        "Dice": null,
+        "Entity": null,
+        "FileName": "Engineer"
+      }
+    ],
+    "attributes": {
+      "leadership": 70,
+      "diplomatic": 20,
+      "peace": 70
+    },
+    "resource": {
+      "army": 7000,
+      "civilian": 7000,
+      "mineral": 7000,
+      "antidote": 30,
+      "blockList": []
+    }
+  },
+  {
+    "actorList": [
+      {
+        "Name": "政治家",
+        "Skill": null,
+        "Dice": null,
+        "Entity": null,
+        "FileName": "Politician"
+      }
+    ],
+    "attributes": {
+      "leadership": 90,
+      "diplomatic": 80,
+      "peace": 50
+    },
+    "resource": {
+      "army": 4000,
+      "civilian": 6000,
+      "mineral": 4000,
+      "antidote": 10,
+      "blockList": []
+    }
+  },
+  {
+    "actorList": [
+      {
+        "Name": "醫生",
+        "Skill": null,
+        "Dice": null,
+        "Entity": null,
+        "FileName": "Doctor"
+      }
+    ],
+    "attributes": {
+      "leadership": 50,
+      "diplomatic": 50,
+      "peace": 50
+    },
+    "resource": {
+      "army": 500,
+      "civilian": 8000,
+      "mineral": 3000,
+      "antidote": 60,
+      "blockList": []
+    }
+  },
+  {
+    "actorList": [
+      {
+        "Name": "軍人",
+        "Skill": null,
+        "Dice": null,
+        "Entity": null,
+        "FileName": "Soldier"
+      }
+    ],
+    "attributes": {
+      "leadership": 80,
+      "diplomatic": 50,
+      "peace": 5
+    },
+    "resource": {
+      "army": 6000,
+      "civilian": 4000,
+      "mineral": 1000,
+      "antidote": 10,
+      "blockList": []
+    }
+  },
+  {
+    "actorList": [
+      {
+        "Name": "主教",
+        "Skill": null,
+        "Dice": null,
+        "Entity": null,
+        "FileName": "Bishop"
+      }
+    ],
+    "attributes": {
+      "leadership": 40,
+      "diplomatic": 60,
+      "peace": 70
+    },
+    "resource": {
+      "army": 1000,
+      "civilian": 4000,
+      "mineral": 6000,
+      "antidote": 10,
+      "blockList": []
+    }
+  },
+  {
+    "actorList": [
+      {
+        "Name": "平民",
+        "Skill": null,
+        "Dice": null,
+        "Entity": null,
+        "FileName": "Civilian"
+      }
+    ],
+    "attributes": {
+      "leadership": 50,
+      "diplomatic": 50,
+      "peace": 50
+    },
+    "resource": {
+      "army": 5000,
+      "civilian": 5000,
+      "mineral": 5000,
+      "antidote": 50,
+      "blockList": []
+    }
+  },
+  {
+    "actorList": [
+      {
+        "Name": "乞丐",
+        "Skill": null,
+        "Dice": null,
+        "Entity": null,
+        "FileName": "Beggar"
+      }
+    ],
+    "attributes": {
+      "leadership": 100,
+      "diplomatic": 10,
+      "peace": 100
+    },
+    "resource": {
+      "army": 100,
+      "civilian": 10000,
+      "mineral": 100,
+      "antidote": 20,
+      "blockList": []
+    }
+  },
+  {
+    "actorList": [
+      {
+        "Name": "人猿",
+        "Skill": null,
+        "Dice": null,
+        "Entity": null,
+        "FileName": "Ape"
+      }
+    ],
+    "attributes": {
+      "leadership": 100,
+      "diplomatic": 20,
+      "peace": 100
+    },
+    "resource": {
+      "army": 10000,
+      "civilian": 10000,
+      "mineral": 10000,
+      "antidote": 100,
+      "blockList": []
+    }
+  }
+]
